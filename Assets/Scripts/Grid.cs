@@ -4,6 +4,15 @@ using System.Collections;
 public class Grid : MonoBehaviour {
 
 	Square[][] grid;
+	int width;
+	int height;
+
+	// Constructor
+	public Grid(int width, int height) {
+		this.width = width;
+		this.height = height;
+		grid = new Square[width][height];
+	}
 
 	void Start() {
 
@@ -42,5 +51,20 @@ public class Grid : MonoBehaviour {
 			}
 		}
 		return null;
+	}
+
+	// Move a given GameObject from one Square to another (does not handle animation)
+	void Move(Vector2 start, Vector2 end, GameObject mover) {
+		Square sq1 = grid[start.x][start.y];
+		Square sq2 = grid[end.x][end.y];
+		if(sq1.objects.Count == 0)
+			return;
+		foreach(GameObject g in sq1.objects) {
+			if(g == mover) {
+				sq2.objects.Add(g);
+				sq1.objects.Remove(g);
+				break;
+			}
+		}
 	}
 }
