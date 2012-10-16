@@ -12,6 +12,12 @@ public class Grid : MonoBehaviour {
 		this.width = width;
 		this.height = height;
 		grid = new Square[width][height];
+		for(int i = 0; i < width; i++) {
+			for(int j = 0; j < height; j++) {
+				Vector2 coordinates = new Vector2(i, j);
+				//grid[i][j] = new Square(grid, coordinates, whatgoeshere?);
+			}
+		}
 	}
 
 	void Start() {
