@@ -37,7 +37,7 @@ public class Grid : MonoBehaviour {
 	}
 	
 	// Check to see if the Square at the given coordinates is occupied by a Wall
-	/*bool CheckWall(Vector2 coord) {
+	bool CheckWall(Vector2 coord) {
 		Square sq = grid[(int)coord.x, (int)coord.y];
 		if(sq.objects.Count > 0) {
 			foreach(GameObject g in sq.objects) {
@@ -46,7 +46,7 @@ public class Grid : MonoBehaviour {
 			}
 		}
 		return false;
-	}*/
+	}
 
 	// Get a GameObject of a particular type at a particular (x,y) if there is one
 	GameObject Get(Vector2 coord, string type) {
