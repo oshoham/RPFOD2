@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Grid : MonoBehaviour {
 
-	Square[][] grid;
-	int width;
-	int height;
+	Square[][] grid; // 2D array of Squares that underlies the Grid class
+	int width; // self-explanatory
+	int height; // self-explanatory
 
 	// Constructor
 	public Grid(int width, int height) {
