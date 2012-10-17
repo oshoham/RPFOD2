@@ -15,8 +15,8 @@ public class Grid : MonoBehaviour {
 
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
-				//Vector2 coordinates = new Vector2(i, j);
-				//grid[i][j] = new Square(grid, coordinates, whatgoeshere?);
+				Vector2 coordinates = new Vector2(i, j);
+				grid[i, j] = new Square(this, coordinates, new Vector3(i, j, 0.0f));
 			}
 		}
 	}
