@@ -25,8 +25,6 @@ public class Square : MonoBehaviour {
 				}
 			}
 		}
-		//plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-		//plane.transform.position = worldCoordinates;
 	}
 
 	void Start() {
