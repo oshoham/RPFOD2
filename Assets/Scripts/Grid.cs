@@ -36,6 +36,14 @@ public class Grid : MonoBehaviour {
 		return false;
 	}
 	
+	/*
+	 * Checks all grid coordinates between origin and coord and returns a list of
+	 * the objects TODO
+	 */
+	public List<GameObject> CheckLine(Vector2 origin, Vector2 coord) {
+		
+	}
+	
 	// Check to see if the Square at the given coordinates is occupied by a Wall
 	bool CheckWall(Vector2 coord) {
 		Square sq = grid[(int)coord.x, (int)coord.y];
@@ -70,6 +78,7 @@ public class Grid : MonoBehaviour {
 			if(g == mover) {
 				sq2.objects.Add(g);
 				sq1.objects.Remove(g);
+				g.transform.position = new Vector3(end.x, end.y, 0.0f);
 				break;
 			}
 		}
