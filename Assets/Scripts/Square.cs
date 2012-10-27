@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Square : MonoBehaviour {
+public class Square {
 
 	public Vector2 loc;	// (x,y) location coordinates within the Grid
 	public List<GameObject> obj;	// list of GameObjects occupying this Square

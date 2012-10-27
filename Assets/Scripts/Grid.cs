@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Grid : MonoBehaviour {
+public class Grid {
 
 	public Square[,] grid; // 2D array of Squares that underlies the Grid class
 	public int width;
@@ -12,7 +12,9 @@ public class Grid : MonoBehaviour {
 		this.width = width;
 		this.height = height;
 		grid = new Square[(int)width, (int)height];
-
+		GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		plane.transform.localScale = new Vector3(width/10.0f, 1.0f, height/10.0f);
+		plane.transform.Rotate(-90.0f, 0.0f, 0.0f);
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
 				Vector2 loc = new Vector2(i, j);
