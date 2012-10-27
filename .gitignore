@@ -3,6 +3,7 @@ Temp/
 .DS_Store
 *.pidb
 *.swp
+*.swo
 Assembly-UnityScript.pidb
 *.sln
 *.cs~

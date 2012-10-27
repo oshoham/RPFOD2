@@ -15,8 +15,8 @@ public class Grid : MonoBehaviour {
 
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
-				Vector2 coordinates = new Vector2(i, j);
-				grid[i, j] = new Square(this, coordinates, new Vector3(i, j, 0.0f));
+				Vector2 loc = new Vector2(i, j);
+				grid[i, j] = new Square(this, loc, new Vector3(i, j, 0.0f));
 			}
 		}
 	}
@@ -29,9 +29,9 @@ public class Grid : MonoBehaviour {
 
 	}
 
-	// Check to see if the Sqaure at the given coordinates is occupied by anything
-	bool Check(Vector2 coord) {
-		if(grid[(int)coord.x, (int)coord.y].objects.Count > 0)
+	// Check to see if the Sqaure at the given loc is occupied by anything
+	bool Check(Vector2 loc) {
+		if(grid[(int)loc.x, (int)loc.y].obj.Count > 0)
 			return true;
 		return false;
 	}
@@ -44,11 +44,11 @@ public class Grid : MonoBehaviour {
 		
 	}
 	
-	// Check to see if the Square at the given coordinates is occupied by a Wall
-	bool CheckWall(Vector2 coord) {
-		Square sq = grid[(int)coord.x, (int)coord.y];
-		if(sq.objects.Count > 0) {
-			foreach(GameObject g in sq.objects) {
+	// Check to see if the Square at the given loc is occupied by a Wall
+	bool CheckWall(Vector2 loc) {
+		Square sq = grid[(int)loc.x, (int)loc.y];
+		if(sq.obj.Count > 0) {
+			foreach(GameObject g in sq.obj) {
 				if(g.GetComponent<Wall>() != null)
 					return true;
 			}
@@ -57,10 +57,10 @@ public class Grid : MonoBehaviour {
 	}
 
 	// Get a GameObject of a particular type at a particular (x,y) if there is one
-	GameObject Get(Vector2 coord, string type) {
-		Square sq = grid[(int)coord.x, (int)coord.y];
-		if(sq.objects.Count > 0) {
-			foreach(GameObject g in sq.objects) {
+	GameObject Get(Vector2 loc, string type) {
+		Square sq = grid[(int)loc.x, (int)loc.y];
+		if(sq.obj.Count > 0) {
+			foreach(GameObject g in sq.obj) {
 				if(g.GetComponent(type) != null)
 					return g;
 			}
@@ -69,9 +69,10 @@ public class Grid : MonoBehaviour {
 	}
 
 	// Move a given GameObject from one Square to another (does not handle animation)
-	void Move(Vector2 start, Vector2 end, GameObject mover) {
+	bool Move(Vector2 start, Vector2 end, GameObject mover) {
 		Square sq1 = grid[(int)start.x, (int)start.y];
 		Square sq2 = grid[(int)end.x, (int)end.y];
+<<<<<<< HEAD
 		if(sq1.objects.Count == 0)
 			return;
 		foreach(GameObject g in sq1.objects) {
@@ -82,5 +83,8 @@ public class Grid : MonoBehaviour {
 				break;
 			}
 		}
+=======
+		return sq1.Move(sq2, mover);
+>>>>>>> 16bb620198fb3f733e34036e8d9ab2bf20b6ee19
 	}
 }
