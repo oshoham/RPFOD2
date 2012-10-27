@@ -19,7 +19,7 @@ public class Player : MonoBehaviour {
 		GetKeypresses();
 	}
 
-	void GetKeypresses() {
+	public void GetKeypresses() {
 		if(Input.GetKeyDown("w")) {
 			Move(new Vector2(0, 1));
 		}
@@ -27,7 +27,7 @@ public class Player : MonoBehaviour {
 			Move(new Vector2(-1, 0));
 		}
 		if(Input.GetKeyDown("s")) {
-			Move(new Vector2(0, -1);
+			Move(new Vector2(0, -1));
 		}
 		if(Input.GetKeyDown("d")) {
 			Move(new Vector2(1, 0));
@@ -38,7 +38,7 @@ public class Player : MonoBehaviour {
 	 * Move by x and y in the game grid. The coordinates should probably be in the
 	 * range (-1, 1).
 	 */
-	void Move(Vector2 coords) {
+	public void Move(Vector2 coords) {
 		if(GameManager.Move(gridCoords, gridCoords + coords, gameObject)) {
 			gridCoords += coords;
 		}
@@ -50,5 +50,6 @@ public class Player : MonoBehaviour {
 		Player script = player.AddComponent<Player>();
 		script.gridCoords = new Vector2(x, y);
 		script.health = health;
+		return player;
 	}
 }
