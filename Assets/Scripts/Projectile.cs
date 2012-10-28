@@ -14,12 +14,7 @@ public class Projectile : MonoBehaviour, IColor {
 	}
 	
 	void Update() {
-		if( floor.Check(gridCoords))
-		{
-			if(
-		}
 	}
-
 	
 
 	public void Move(Vector2 coords) {
