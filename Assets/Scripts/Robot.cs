@@ -32,4 +32,20 @@ public class Robot : MonoBehaviour {
 			gridCoords += coords;
 		}
 	}
+
+	public static GameObject MakeRobot(int x, int y, float speed, int damage, int health,
+				    Vector2 movementDirection, Vector2 fireDirection,
+				    Color colorVisible) {
+		GameObject robot = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		robot.transform.position = new Vector3(x, y, 0.0f);
+		Robot script = robot.AddComponent<Robot>();
+		script.gridCoords = new Vector2(x, y);
+		script.speed = speed;
+		script.damageDealt = damage;
+		script.movementDirection = movementDirection;
+		script.fireDirection = fireDirection;
+		script.colorVisible = colorVisible;
+		GameManager.floor.Add(robot, x, y);
+		return robot;
+	}
 }
