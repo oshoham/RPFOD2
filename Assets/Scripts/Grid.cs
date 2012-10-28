@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class Grid {
 
@@ -70,6 +71,23 @@ public class Grid {
 			}
 		}
 		return null;
+	}
+
+	/*
+	 * Returns a List of all GameObjects in a Square that are of the types passed
+	 * in as classList.
+	 */
+	public List<GameObject> GetObjectsOfTypes(Vector2 location, List<Type> classList) {
+		List<GameObject> objects = grid[(int)location.x, (int)location.y].objects;
+		return objects.FindAll(
+				       delegate (GameObject obj) {
+					       foreach(Type towels in classList) {
+						       // if(obj.GetComponent<typeof(towels)>() != null) {
+						       // 	       return true;
+						       // }
+					       }
+					       return false;
+				       });
 	}
 
 	// Move a given GameObject from one Square to another (does not handle animation)
