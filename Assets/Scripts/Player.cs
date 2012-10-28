@@ -84,7 +84,7 @@ public class Player : MonoBehaviour {
 			startedMoving = Time.time;
 			endMoving = startedMoving + moveSpeed;
 			oldPosition = transform.position;
-			newPosition = new Vector3(coords.x, coords.y, 0);
+			newPosition = new Vector3(gridCoords.x, gridCoords.y, 0);
 			// transform.Translate(new Vector3(coords.x, coords.y, 0));
 			// Camera.main.transform.Translate(new Vector3(coords.x, coords.y, 0));
 		}
