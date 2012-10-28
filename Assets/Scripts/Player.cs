@@ -41,15 +41,23 @@ public class Player : MonoBehaviour {
 	public void Move(Vector2 coords) {
 		if(GameManager.Move(gridCoords, gridCoords + coords, gameObject)) {
 			gridCoords += coords;
+			transform.Translate(new Vector3(coords.x, coords.y, 0));
+			Camera.main.transform.Translate(new Vector3(coords.x, coords.y, 0));
 		}
 	}
 
+	public void SetColorPainted(Color color) {
+		colorPainted = color;
+		gameObject.renderer.material.color = color;
+	}
+	
 	public static GameObject MakePlayer(int x, int y, int health, Vector3 position) {
 		GameObject player = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		player.transform.position = position;
 		Player script = player.AddComponent<Player>();
 		script.gridCoords = new Vector2(x, y);
 		script.health = health;
+		GameManager.floor.Add(script.gameObject, x, y);
 		return player;
 	}
 }

@@ -15,6 +15,7 @@ public class Grid {
 		GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		plane.transform.localScale = new Vector3(width/10.0f, 1.0f, height/10.0f);
 		plane.transform.Rotate(-90.0f, 0.0f, 0.0f);
+		plane.transform.Translate(width/2.0f - 0.5f, 0.0f, height/2.0f - 0.5f);
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
 				Vector2 loc = new Vector2(i, j);
@@ -22,18 +23,13 @@ public class Grid {
 			}
 		}
 	}
-
-	void Start() {
-
-	}
-
-	void Update() {
-
-	}
-
+	
 	// Check to see if the Sqaure at the given loc is occupied by anything
 	public bool Check(Vector2 loc) {
-		if(grid[(int)loc.x, (int)loc.y].obj.Count > 0)
+		if(!CheckCoords(loc)) {
+			return true;
+		}
+		if(grid[(int)loc.x, (int)loc.y].objects.Count > 0)
 			return true;
 		return false;
 	}
@@ -49,8 +45,8 @@ public class Grid {
 	// Check to see if the Square at the given loc is occupied by a Wall
 	public bool CheckWall(Vector2 loc) {
 		Square sq = grid[(int)loc.x, (int)loc.y];
-		if(sq.obj.Count > 0) {
-			foreach(GameObject g in sq.obj) {
+		if(sq.objects.Count > 0) {
+			foreach(GameObject g in sq.objects) {
 				if(g.GetComponent<Wall>() != null)
 					return true;
 			}
@@ -61,8 +57,8 @@ public class Grid {
 	// Get a GameObject of a particular type at a particular (x,y) if there is one
 	public GameObject Get(Vector2 loc, string type) {
 		Square sq = grid[(int)loc.x, (int)loc.y];
-		if(sq.obj.Count > 0) {
-			foreach(GameObject g in sq.obj) {
+		if(sq.objects.Count > 0) {
+			foreach(GameObject g in sq.objects) {
 				if(g.GetComponent(type) != null)
 					return g;
 			}
@@ -75,5 +71,21 @@ public class Grid {
 		Square sq1 = grid[(int)start.x, (int)start.y];
 		Square sq2 = grid[(int)end.x, (int)end.y];
 		return sq1.Move(sq2, mover);
+	}
+
+	/*
+	 * Checks if a given Vector2 is outside of the range of the board. Returns
+	 * true if the coordinates are OK.
+	 */
+	public bool CheckCoords(Vector2 coords) {
+		return (coords.x >= 0 && coords.x < grid.GetLength(0) &&
+			coords.y >= 0 && coords.y < grid.GetLength(1));
+	}
+	
+	/*
+	 * Adds the given GameObject to the grid at (x, y).
+	 */
+	public void Add(GameObject obj, int x, int y) {
+		grid[x, y].objects.Add(obj);
 	}
 }

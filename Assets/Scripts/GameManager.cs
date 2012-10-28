@@ -3,13 +3,15 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-	public static readonly int WIDTH = 400;
-	public static readonly int HEIGHT = 400;
+	public static readonly int WIDTH = 40;
+	public static readonly int HEIGHT = 40;
 
 	public static Grid floor;
 
 	void Start() {
 		floor = new Grid(WIDTH, HEIGHT);
+		// this bit is kinda silly, don't set the color later
+		Player.MakePlayer(0, 0, 15, new Vector3(0.0f, 0.0f, 0.0f)).GetComponent<Player>().SetColorPainted(Color.green);
 	}
 
 	void Update() {
