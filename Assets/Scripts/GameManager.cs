@@ -3,13 +3,22 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-	public static readonly int WIDTH = 400;
-	public static readonly int HEIGHT = 400;
+	public static readonly int WIDTH = 40;
+	public static readonly int HEIGHT = 40;
 
 	public static Grid floor;
 
 	void Start() {
 		floor = new Grid(WIDTH, HEIGHT);
+		Player.MakePlayer(0, 0, 15);
+		Paint.MakePaint(5, 5, Color.red);
+		Paint.MakePaint(7, 5, Color.green);
+		Paint.MakePaint(14, 2, Color.blue);
+		GameObject light = new GameObject("Light");
+		Light l = light.AddComponent<Light>();
+		light.transform.position = Camera.main.transform.position;
+		l.type = LightType.Directional;
+		l.intensity = 0.2f;
 	}
 
 	void Update() {
