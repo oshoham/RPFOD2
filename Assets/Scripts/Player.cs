@@ -9,10 +9,21 @@ public class Player : MonoBehaviour {
 	public Color colorShooting;
 	public List<Color> colors;
 	public int colorIndex;
+
+	public float moveSpeed;
+	public float startedMoving;
+	public float endMoving;
+	public Vector3 oldPosition;
+	public Vector3 newPosition;
+	
+	private Color defaultColor;
 	
 	void Start() {
-		colors = new List<Color>(4);
-		colors.Add(renderer.material.color);
+		startedMoving = Time.time;
+		moveSpeed = 0.2f;
+		colors = new List<Color>(3);
+		//colors.Add(renderer.material.color);
+		defaultColor = renderer.material.color;
 	}
 
 	void Update() {
@@ -35,9 +46,22 @@ public class Player : MonoBehaviour {
 		if(Input.GetKeyDown("d")) {
 			Move(new Vector2(1, 0));
 		}
-		if(Input.GetKeyDown("q")) {
+		/*if(Input.GetKeyDown("q")) {
 			CycleColorPainted();
+		}*/
+		if(Input.GetKeyDown("1")) {
+			SetColorPainted(defaultColor);
 		}
+		if(Input.GetKeyDown("2") && colors.Contains(Color.red)) {
+			SetColorPainted(Color.red);
+		}
+		if(Input.GetKeyDown("3") && colors.Contains(Color.green)) {
+			SetColorPainted(Color.green);
+		}
+		if(Input.GetKeyDown("4") && colors.Contains(Color.blue)) {
+			SetColorPainted(Color.blue);
+		}
+		AnimateMotion();
 	}
 
 	/*
@@ -57,9 +81,26 @@ public class Player : MonoBehaviour {
 	public void Move(Vector2 coords) {
 		if(GameManager.Move(gridCoords, gridCoords + coords, gameObject)) {
 			gridCoords += coords;
-			transform.Translate(new Vector3(coords.x, coords.y, 0));
-			Camera.main.transform.Translate(new Vector3(coords.x, coords.y, 0));
+			startedMoving = Time.time;
+			endMoving = startedMoving + moveSpeed;
+			oldPosition = transform.position;
+			newPosition = new Vector3(gridCoords.x, gridCoords.y, 0);
+			// transform.Translate(new Vector3(coords.x, coords.y, 0));
+			// Camera.main.transform.Translate(new Vector3(coords.x, coords.y, 0));
 		}
+	}
+	
+	/*
+	 * For smooth motion animation.
+	 */
+	public void AnimateMotion() {
+		if(Time.time >= endMoving) {
+			return;
+		}
+		float time = (Time.time - startedMoving)/moveSpeed;
+		transform.position = Vector3.Lerp(oldPosition, newPosition, time);
+		Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y,
+							     Camera.main.transform.position.z);
 	}
 
 	/*
@@ -71,22 +112,23 @@ public class Player : MonoBehaviour {
 		if(colors.Contains(color)) {
 			return;
 		}
-		if(color == Color.blue) {
+		/*if(color == Color.blue) {
 			colors.Add(color);
 		}
 		else if(color == Color.red) {
-			FixColorIndex(1);
 			colors.Insert(1, color);
+			FixColorIndex(1);
 		}
 		// Green logic. Middle children are ill-behaved.
 		else if(colors.Contains(Color.red)){
-			FixColorIndex(2);
 			colors.Insert(2, color);
+			FixColorIndex(2);
 		}
 		else {
-			FixColorIndex(1);
 			colors.Insert(1, color);
-		}
+			FixColorIndex(1);
+			}*/
+		colors.Add(color);
 	}
 	
 	/*
