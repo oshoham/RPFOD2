@@ -9,10 +9,12 @@ public class Player : MonoBehaviour {
 	public Color colorShooting;
 	public List<Color> colors;
 	public int colorIndex;
+	private Color defaultColor;
 	
 	void Start() {
-		colors = new List<Color>(4);
-		colors.Add(renderer.material.color);
+		colors = new List<Color>(3);
+		//colors.Add(renderer.material.color);
+		defaultColor = renderer.material.color;
 	}
 
 	void Update() {
@@ -35,8 +37,20 @@ public class Player : MonoBehaviour {
 		if(Input.GetKeyDown("d")) {
 			Move(new Vector2(1, 0));
 		}
-		if(Input.GetKeyDown("q")) {
+		/*if(Input.GetKeyDown("q")) {
 			CycleColorPainted();
+		}*/
+		if(Input.GetKeyDown("1")) {
+			SetColorPainted(defaultColor);
+		}
+		if(Input.GetKeyDown("2") && colors.Contains(Color.red)) {
+			SetColorPainted(Color.red);
+		}
+		if(Input.GetKeyDown("3") && colors.Contains(Color.green)) {
+			SetColorPainted(Color.green);
+		}
+		if(Input.GetKeyDown("4") && colors.Contains(Color.blue)) {
+			SetColorPainted(Color.blue);
 		}
 	}
 
@@ -71,7 +85,7 @@ public class Player : MonoBehaviour {
 		if(colors.Contains(color)) {
 			return;
 		}
-		if(color == Color.blue) {
+		/*if(color == Color.blue) {
 			colors.Add(color);
 		}
 		else if(color == Color.red) {
@@ -86,7 +100,8 @@ public class Player : MonoBehaviour {
 		else {
 			FixColorIndex(1);
 			colors.Insert(1, color);
-		}
+		}*/
+		colors.Add(color);
 	}
 	
 	/*
