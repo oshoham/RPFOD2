@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour {
 
 	void Start() {
 		floor = new Grid(WIDTH, HEIGHT);
-		// this bit is kinda silly, don't set the color later
 		Player.MakePlayer(0, 0, 15);
 		Paint.MakePaint(5, 5, Color.red);
 		Paint.MakePaint(7, 5, Color.green);

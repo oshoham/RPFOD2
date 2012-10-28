@@ -64,7 +64,8 @@ public class Player : MonoBehaviour {
 
 	/*
 	 * Checks if we've already got the given color, and adds it in the order
-	 * red -> green -> blue if we don't.
+	 * red -> green -> blue if we don't. Also changes the colorIndex if
+	 * necessary.
 	 */
 	public void PickupColor(Color color) {
 		if(colors.Contains(color)) {
@@ -74,14 +75,27 @@ public class Player : MonoBehaviour {
 			colors.Add(color);
 		}
 		else if(color == Color.red) {
+			FixColorIndex(1);
 			colors.Insert(1, color);
 		}
 		// Green logic. Middle children are ill-behaved.
 		else if(colors.Contains(Color.red)){
+			FixColorIndex(2);
 			colors.Insert(2, color);
 		}
 		else {
+			FixColorIndex(1);
 			colors.Insert(1, color);
+		}
+	}
+	
+	/*
+	 * Reset the color index so that the player always gets the
+	 * color they expect when pressing 'q'.
+	 */
+	public void FixColorIndex(int pos) {
+		if(colorIndex % colors.Count >= pos) {
+			colorIndex++;
 		}
 	}
 	
