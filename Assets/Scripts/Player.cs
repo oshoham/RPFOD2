@@ -16,11 +16,14 @@ public class Player : MonoBehaviour {
 	public Vector3 oldPosition;
 	public Vector3 newPosition;
 	
+	private Color defaultColor;
+	
 	void Start() {
-		colors = new List<Color>(4);
-		colors.Add(renderer.material.color);
 		startedMoving = Time.time;
 		moveSpeed = 0.2f;
+		colors = new List<Color>(3);
+		//colors.Add(renderer.material.color);
+		defaultColor = renderer.material.color;
 	}
 
 	void Update() {
@@ -43,8 +46,20 @@ public class Player : MonoBehaviour {
 		if(Input.GetKeyDown("d")) {
 			Move(new Vector2(1, 0));
 		}
-		if(Input.GetKeyDown("q")) {
+		/*if(Input.GetKeyDown("q")) {
 			CycleColorPainted();
+		}*/
+		if(Input.GetKeyDown("1")) {
+			SetColorPainted(defaultColor);
+		}
+		if(Input.GetKeyDown("2") && colors.Contains(Color.red)) {
+			SetColorPainted(Color.red);
+		}
+		if(Input.GetKeyDown("3") && colors.Contains(Color.green)) {
+			SetColorPainted(Color.green);
+		}
+		if(Input.GetKeyDown("4") && colors.Contains(Color.blue)) {
+			SetColorPainted(Color.blue);
 		}
 		AnimateMotion();
 	}
@@ -97,7 +112,7 @@ public class Player : MonoBehaviour {
 		if(colors.Contains(color)) {
 			return;
 		}
-		if(color == Color.blue) {
+		/*if(color == Color.blue) {
 			colors.Add(color);
 		}
 		else if(color == Color.red) {
@@ -112,7 +127,8 @@ public class Player : MonoBehaviour {
 		else {
 			colors.Insert(1, color);
 			FixColorIndex(1);
-		}
+			}*/
+		colors.Add(color);
 	}
 	
 	/*

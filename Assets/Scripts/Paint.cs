@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class Paint : MonoBehaviour {
+public class Paint : MonoBehaviour, IColor {
 
 	public Vector2 gridCoords;
-	public Color color;
+	public Color colorPainted{ get; set;}
 	
 	void Start() {
 
@@ -22,7 +22,7 @@ public class Paint : MonoBehaviour {
 		GameManager.floor.Add(paint, x, y);
 		Paint script = paint.AddComponent<Paint>();
 		script.gridCoords = new Vector2(x, y);
-		script.color = color;
+		script.colorPainted = color;
 		return paint;
 	}
 }
