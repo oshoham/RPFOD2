@@ -14,14 +14,20 @@ public class Projectile : MonoBehaviour, IColor {
 	}
 	
 	void Update() {
-		//what should what type of object should I look for?
+		if( floor.Check(gridCoords))
+		{
+			if(
+		}
 	}
 
 	
 
 	public void Move(Vector2 coords) {
 		if(GameManager.Move(gridCoords, gridCoords + coords, gameObject))
+		{
 			gridCoords += coords;
+			transform.Translate(new Vector3(coords.x, coords.y, 0));
+		}
 	}
 
 	public static GameObject MakeProj(int x, int y, Vector3 pos, Vector2 dir, Color col, GameObject cameFrom) {
@@ -33,13 +39,8 @@ public class Projectile : MonoBehaviour, IColor {
 		script.gridCoords = new Vector2(x, y);
 		script.dir = dir;
 		script.colorPainted = col;
-		proj.AddComponent<Rigidbody>();
-		proj.rigidbody.isKinematic = false;
-		proj.rigidbody.useGravity = false;
-		proj.rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-		proj.rigidbody.collider.isTrigger = true;
-		proj.rigidbody.collider.enabled = true;
 		script.cameFrom = cameFrom;
 		return proj;
 	}
+
 }
