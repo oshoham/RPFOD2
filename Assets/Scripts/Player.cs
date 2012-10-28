@@ -15,11 +15,18 @@ public class Player : MonoBehaviour {
 	public float endMoving;
 	public Vector3 oldPosition;
 	public Vector3 newPosition;
+
+	public float lastMovedHorizontal;
+	public float lastMovedVertical;
+	public float moveRate;
 	
 	private Color defaultColor;
 	
 	void Start() {
 		startedMoving = Time.time;
+		lastMovedHorizontal = Time.time;
+		lastMovedVertical = Time.time;
+		moveRate = 0.1f;
 		moveSpeed = 0.2f;
 		colors = new List<Color>(3);
 		//colors.Add(renderer.material.color);
@@ -34,17 +41,29 @@ public class Player : MonoBehaviour {
 	}
 
 	public void GetKeypresses() {
-		if(Input.GetKeyDown("w")) {
-			Move(new Vector2(0, 1));
+		if(Input.GetKey("w")) {
+			if(Time.time - lastMovedVertical > moveRate) {
+				Move(new Vector2(0, 1));
+				lastMovedVertical = Time.time;
+			}
 		}
-		if(Input.GetKeyDown("a")) {
-			Move(new Vector2(-1, 0));
+		if(Input.GetKey("a")) {
+			if(Time.time - lastMovedHorizontal > moveRate) {
+				Move(new Vector2(-1, 0));
+				lastMovedHorizontal = Time.time;
+			}
 		}
-		if(Input.GetKeyDown("s")) {
-			Move(new Vector2(0, -1));
+		if(Input.GetKey("s")) {
+			if(Time.time - lastMovedVertical > moveRate) {
+				Move(new Vector2(0, -1));
+				lastMovedVertical = Time.time;
+			}
 		}
-		if(Input.GetKeyDown("d")) {
-			Move(new Vector2(1, 0));
+		if(Input.GetKey("d")) {
+			if(Time.time - lastMovedHorizontal > moveRate) {
+				Move(new Vector2(1, 0));
+				lastMovedHorizontal = Time.time;
+			}
 		}
 		/*if(Input.GetKeyDown("q")) {
 			CycleColorPainted();
