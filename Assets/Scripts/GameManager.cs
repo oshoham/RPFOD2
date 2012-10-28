@@ -11,7 +11,15 @@ public class GameManager : MonoBehaviour {
 	void Start() {
 		floor = new Grid(WIDTH, HEIGHT);
 		// this bit is kinda silly, don't set the color later
-		Player.MakePlayer(0, 0, 15, new Vector3(0.0f, 0.0f, 0.0f)).GetComponent<Player>().SetColorPainted(Color.green);
+		Player.MakePlayer(0, 0, 15);
+		Paint.MakePaint(5, 5, Color.red);
+		Paint.MakePaint(7, 5, Color.green);
+		Paint.MakePaint(14, 2, Color.blue);
+		GameObject light = new GameObject("Light");
+		Light l = light.AddComponent<Light>();
+		light.transform.position = Camera.main.transform.position;
+		l.type = LightType.Directional;
+		l.intensity = 0.2f;
 	}
 
 	void Update() {

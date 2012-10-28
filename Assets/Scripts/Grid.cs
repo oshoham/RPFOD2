@@ -13,6 +13,7 @@ public class Grid {
 		this.height = height;
 		grid = new Square[(int)width, (int)height];
 		GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		plane.renderer.material.color = Color.black;
 		plane.transform.localScale = new Vector3(width/10.0f, 1.0f, height/10.0f);
 		plane.transform.Rotate(-90.0f, 0.0f, 0.0f);
 		plane.transform.Translate(width/2.0f - 0.5f, 0.0f, height/2.0f - 0.5f);
@@ -24,12 +25,17 @@ public class Grid {
 		}
 	}
 	
-	// Check to see if the Sqaure at the given loc is occupied by anything
+	// Check to see if the Sqaure at the given loc is occupied by anything other than Paint.
 	public bool Check(Vector2 loc) {
 		if(!CheckCoords(loc)) {
 			return true;
 		}
-		if(grid[(int)loc.x, (int)loc.y].objects.Count > 0)
+		// Checks if there are any non-paint objects in the square.
+		if(grid[(int)loc.x, (int)loc.y].objects.Find(
+							     delegate (GameObject obj) {
+								     return obj.GetComponent<Paint>() == null;
+							     })
+		   != null)
 			return true;
 		return false;
 	}
@@ -87,5 +93,12 @@ public class Grid {
 	 */
 	public void Add(GameObject obj, int x, int y) {
 		grid[x, y].objects.Add(obj);
+	}
+
+	/*
+	 * Removes the given GameObject from the grid at (x, y).
+	 */
+	public void Remove(GameObject obj, int x, int y) {
+		grid[x, y].objects.Remove(obj);
 	}
 }
