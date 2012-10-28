@@ -77,14 +77,14 @@ public class Grid {
 	 * Returns a List of all GameObjects in a Square that are of the types passed
 	 * in as classList.
 	 */
-	public List<GameObject> GetObjectsOfTypes(Vector2 location, List<Type> classList) {
+	public List<GameObject> GetObjectsOfTypes(Vector2 location, List<string> classList) {
 		List<GameObject> objects = grid[(int)location.x, (int)location.y].objects;
 		return objects.FindAll(
 				       delegate (GameObject obj) {
-					       foreach(Type towels in classList) {
-						       // if(obj.GetComponent<typeof(towels)>() != null) {
-						       // 	       return true;
-						       // }
+					       foreach(String t in classList) {
+						       if(obj.GetComponent(t) != null) {
+						       	       return true;
+						       }
 					       }
 					       return false;
 				       });
