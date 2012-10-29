@@ -53,17 +53,19 @@ public class Grid {
 		FixVector(ref coord);
 		if(diff.x == 0) { // we're checking in the y direction
 			int sign = diff.y < 0 ? -1 : 1; // which way are we going?
-			do { // we want the last position as well so it's a do-while loop
-				origin.y += sign;
+			origin.y += sign;
+			while(origin.y <= coord.y) { // we want the last position as well so it's a do-while loop
 				objects.AddRange(grid[(int)origin.x, (int)origin.y].objects);
-			} while(origin.y != coord.y);
+				origin.y += sign;
+			}
 		}
 		else { // checking y, otherwise the same
 			int sign = diff.x < 0 ? -1 : 1;
-			do {
-				origin.x += sign;
+			origin.x += sign;
+			while(origin.x <= coord.x) {
 				objects.AddRange(grid[(int)origin.x, (int)origin.y].objects);
-			} while(origin.x != coord.x);
+				origin.x += sign;
+			}
 		}
 		return objects;
 	}
