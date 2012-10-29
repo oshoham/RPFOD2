@@ -1,11 +1,20 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour, IColor {
 	
 	public int health;
 	public Vector2 gridCoords;
-	public Color colorPainted;
+
+	private Color _colorPainted;
+	public Color colorPainted
+	{
+		get { return _colorPainted; }
+		set {
+			_colorPainted = value;
+			gameObject.renderer.material.color = value;
+		}
+	}
 	public Color colorShooting;
 	public List<Color> colors;
 	public int colorIndex;
@@ -20,7 +29,7 @@ public class Player : MonoBehaviour {
 	public float lastMovedVertical;
 	public float moveRate;
 	
-	private Color defaultColor;
+	public Color defaultColor;
 	
 	void Start() {
 		startedMoving = Time.time;
@@ -69,16 +78,16 @@ public class Player : MonoBehaviour {
 			CycleColorPainted();
 		}*/
 		if(Input.GetKeyDown("1")) {
-			SetColorPainted(defaultColor);
+			setColorPainted(defaultColor);
 		}
 		if(Input.GetKeyDown("2") && colors.Contains(Color.red)) {
-			SetColorPainted(Color.red);
+			setColorPainted(Color.red);
 		}
 		if(Input.GetKeyDown("3") && colors.Contains(Color.green)) {
-			SetColorPainted(Color.green);
+			setColorPainted(Color.green);
 		}
 		if(Input.GetKeyDown("4") && colors.Contains(Color.blue)) {
-			SetColorPainted(Color.blue);
+			setColorPainted(Color.blue);
 		}
 		AnimateMotion();
 	}
@@ -89,7 +98,7 @@ public class Player : MonoBehaviour {
 	 */
 	public void CycleColorPainted() {
 		if(colors.Count > 0) {
-			SetColorPainted(colors[++colorIndex % colors.Count]);
+			setColorPainted(colors[++colorIndex % colors.Count]);
 		}
 	}
 	
@@ -104,8 +113,6 @@ public class Player : MonoBehaviour {
 			endMoving = startedMoving + moveSpeed;
 			oldPosition = transform.position;
 			newPosition = new Vector3(gridCoords.x, gridCoords.y, 0);
-			// transform.Translate(new Vector3(coords.x, coords.y, 0));
-			// Camera.main.transform.Translate(new Vector3(coords.x, coords.y, 0));
 		}
 	}
 	
@@ -113,7 +120,7 @@ public class Player : MonoBehaviour {
 	 * For smooth motion animation.
 	 */
 	public void AnimateMotion() {
-		if(Time.time >= endMoving) {
+		if(Time.time > endMoving) {
 			return;
 		}
 		float time = (Time.time - startedMoving)/moveSpeed;
@@ -160,13 +167,14 @@ public class Player : MonoBehaviour {
 		}
 	}
 	
-	public void SetColorPainted(Color color) {
+	public void setColorPainted(Color color) {
 		colorPainted = color;
 		gameObject.renderer.material.color = color;
 	}
 	
 	public static GameObject MakePlayer(int x, int y, int health) {
 		GameObject player = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		player.name = "Player";
 		player.transform.position = new Vector3(x, y, 0.0f);
 		Player script = player.AddComponent<Player>();
 		script.gridCoords = new Vector2(x, y);

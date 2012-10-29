@@ -43,10 +43,48 @@ public class Grid {
 	
 	/*
 	 * Checks all grid coordinates between origin and coord and returns a list of
-	 * the objects TODO
+	 * the objects. It'll be empty if there's nothing. TODO: make this less hacky.
+	 *
+	 * ... actually it's not that terrible
 	 */
 	public List<GameObject> CheckLine(Vector2 origin, Vector2 coord) {
-		return null;
+		Vector2 diff = coord - origin;
+		List<GameObject> objects = new List<GameObject>();
+		FixVector(ref coord);
+		if(diff.x == 0) { // we're checking in the y direction
+			int sign = diff.y < 0 ? -1 : 1; // which way are we going?
+			do { // we want the last position as well so it's a do-while loop
+				origin.y += sign;
+				objects.AddRange(grid[(int)origin.x, (int)origin.y].objects);
+			} while(origin.y != coord.y);
+		}
+		else { // checking y, otherwise the same
+			int sign = diff.x < 0 ? -1 : 1;
+			do {
+				origin.x += sign;
+				objects.AddRange(grid[(int)origin.x, (int)origin.y].objects);
+			} while(origin.x != coord.x);
+		}
+		return objects;
+	}
+
+	/*
+	 * Makes sure a Vector2's coordinates are in the right range and
+	 * puts them in the right range if they aren't.
+	 */
+	public void FixVector(ref Vector2 v) {
+		if(v.x < 0) {
+			v.x = 0;
+		}
+		if(v.y < 0) {
+			v.y = 0;
+		}
+		if(v.x >= grid.GetLength(0)) {
+			v.x = grid.GetLength(0) - 1;
+		}
+		if(v.y >= grid.GetLength(1)) {
+			v.y = grid.GetLength(1) - 1;
+		}
 	}
 	
 	// Check to see if the Square at the given loc is occupied by a Wall

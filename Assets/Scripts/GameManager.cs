@@ -7,13 +7,15 @@ public class GameManager : MonoBehaviour {
 	public static readonly int HEIGHT = 40;
 
 	public static Grid floor;
+	public static Player player;
 
 	void Start() {
 		floor = new Grid(WIDTH, HEIGHT);
-		Player.MakePlayer(0, 0, 15);
+		player = Player.MakePlayer(0, 0, 15).GetComponent<Player>();
 		Paint.MakePaint(5, 5, Color.red);
 		Paint.MakePaint(7, 5, Color.green);
-		Paint.MakePaint(14, 2, Color.blue);
+		Paint.MakePaint(7, 1, Color.blue);
+		Robot.MakeRobot(5, 1, 1.0f, 2, 10, 10, new Vector2(1, 0), Color.green);
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
@@ -23,6 +25,24 @@ public class GameManager : MonoBehaviour {
 
 	void Update() {
 
+	}
+	
+	void OnGUI() {
+		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health);
+		string colorString;
+		if(player.colorShooting == Color.green) {
+			colorString = "Green";
+		}
+		else if(player.colorShooting == Color.red) {
+			colorString = "Red";
+		}
+		else if(player.colorShooting == Color.blue) {
+			colorString = "Blue";
+		}
+		else {
+			colorString = "None";
+		}
+		GUI.Label(new Rect(10, 30, 100, 50), "Shooting: " + colorString);
 	}
 	
 	/*
