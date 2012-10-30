@@ -30,6 +30,7 @@ public class Player : MonoBehaviour, IColor {
 	public float moveRate;
 	
 	public Color defaultColor;
+	public Vector2 dir = new Vector2(1, 0);
 	
 	void Start() {
 		startedMoving = Time.time;
@@ -54,24 +55,28 @@ public class Player : MonoBehaviour, IColor {
 			if(Time.time - lastMovedVertical > moveRate) {
 				Move(new Vector2(0, 1));
 				lastMovedVertical = Time.time;
+				dir = new Vector2(0, 1);
 			}
 		}
 		if(Input.GetKey("a")) {
 			if(Time.time - lastMovedHorizontal > moveRate) {
 				Move(new Vector2(-1, 0));
 				lastMovedHorizontal = Time.time;
+				dir = new Vector2(-1, 0);
 			}
 		}
 		if(Input.GetKey("s")) {
 			if(Time.time - lastMovedVertical > moveRate) {
 				Move(new Vector2(0, -1));
 				lastMovedVertical = Time.time;
+				dir = new Vector2(0, -1);
 			}
 		}
 		if(Input.GetKey("d")) {
 			if(Time.time - lastMovedHorizontal > moveRate) {
 				Move(new Vector2(1, 0));
 				lastMovedHorizontal = Time.time;
+				dir = new Vector2(1, 0);
 			}
 		}
 		/*if(Input.GetKeyDown("q")) {
@@ -88,6 +93,10 @@ public class Player : MonoBehaviour, IColor {
 		}
 		if(Input.GetKeyDown("4") && colors.Contains(Color.blue)) {
 			setColorPainted(Color.blue);
+		}
+		if(Input.GetKeyDown("space"))
+		{
+			Projectile.MakeProj(gridCoords, oldPosition, dir, colorPainted, gameObject); 
 		}
 		AnimateMotion();
 	}
