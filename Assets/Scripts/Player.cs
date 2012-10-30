@@ -39,8 +39,8 @@ public class Player : MonoBehaviour, IColor {
 		moveRate = 0.1f;
 		moveSpeed = 0.2f;
 		colors = new List<Color>(3);
-		//colors.Add(renderer.material.color);
 		defaultColor = renderer.material.color;
+		collider.enabled = true;
 	}
 
 	void Update() {
@@ -53,35 +53,32 @@ public class Player : MonoBehaviour, IColor {
 	public void GetKeypresses() {
 		if(Input.GetKey("w")) {
 			if(Time.time - lastMovedVertical > moveRate) {
-				Move(new Vector2(0, 1));
-				lastMovedVertical = Time.time;
 				dir = new Vector2(0, 1);
+				Move(dir);
+				lastMovedVertical = Time.time;
 			}
 		}
 		if(Input.GetKey("a")) {
 			if(Time.time - lastMovedHorizontal > moveRate) {
-				Move(new Vector2(-1, 0));
-				lastMovedHorizontal = Time.time;
 				dir = new Vector2(-1, 0);
+				Move(dir);
+				lastMovedHorizontal = Time.time;
 			}
 		}
 		if(Input.GetKey("s")) {
 			if(Time.time - lastMovedVertical > moveRate) {
-				Move(new Vector2(0, -1));
-				lastMovedVertical = Time.time;
 				dir = new Vector2(0, -1);
+				Move(dir);
+				lastMovedVertical = Time.time;
 			}
 		}
 		if(Input.GetKey("d")) {
 			if(Time.time - lastMovedHorizontal > moveRate) {
-				Move(new Vector2(1, 0));
-				lastMovedHorizontal = Time.time;
 				dir = new Vector2(1, 0);
+				Move(dir);
+				lastMovedHorizontal = Time.time;
 			}
 		}
-		/*if(Input.GetKeyDown("q")) {
-			CycleColorPainted();
-		}*/
 		if(Input.GetKeyDown("1")) {
 			setColorPainted(defaultColor);
 		}
@@ -94,9 +91,9 @@ public class Player : MonoBehaviour, IColor {
 		if(Input.GetKeyDown("4") && colors.Contains(Color.blue)) {
 			setColorPainted(Color.blue);
 		}
-		if(Input.GetKeyDown("space"))
+		if(Input.GetKeyDown("space") && colors.Count > 0)
 		{
-			Projectile.MakeProj(gridCoords, oldPosition, dir, colorPainted, gameObject); 
+			Paintball.MakePaintball(transform.position, dir, colorShooting, gameObject); 
 		}
 		AnimateMotion();
 	}
@@ -147,22 +144,9 @@ public class Player : MonoBehaviour, IColor {
 		if(colors.Contains(color)) {
 			return;
 		}
-		/*if(color == Color.blue) {
-			colors.Add(color);
+		if(colors.Count == 0) {
+			colorShooting = color;
 		}
-		else if(color == Color.red) {
-			colors.Insert(1, color);
-			FixColorIndex(1);
-		}
-		// Green logic. Middle children are ill-behaved.
-		else if(colors.Contains(Color.red)){
-			colors.Insert(2, color);
-			FixColorIndex(2);
-		}
-		else {
-			colors.Insert(1, color);
-			FixColorIndex(1);
-			}*/
 		colors.Add(color);
 	}
 	

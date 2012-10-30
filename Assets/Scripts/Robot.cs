@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Robot : MonoBehaviour {
+public class Robot : MonoBehaviour, IColor {
 
 	public int health;
 	public float moveSpeed;
@@ -11,7 +11,15 @@ public class Robot : MonoBehaviour {
 	public int range;
 	public Vector2 movementDirection;
 	public Vector2 fireDirection;
-	public Color colorPainted;
+	private Color _colorPainted;
+	public Color colorPainted
+	{
+		get { return _colorPainted; }
+		set {
+			renderer.material.color = value;
+			_colorPainted = value;
+		}
+	}
 	public Color colorVisible;
 
 	public float startedMoving;
@@ -25,6 +33,7 @@ public class Robot : MonoBehaviour {
 	void Start() {
 		lastFired = Time.time;
 		fireRate = 2.0f;
+		collider.enabled = true;
 	}
 
 	void Update() {
@@ -69,18 +78,19 @@ public class Robot : MonoBehaviour {
 
 	public void Fire() {
 		List<GameObject> objects = GameManager.floor.CheckLine(gridCoords, gridCoords + fireDirection*range);
-		List<GameObject> visibles = objects.FindAll(
-							    delegate (GameObject obj) {
-								    Player p = obj.GetComponent<Player>();
-								    if(p != null && p.colorPainted == colorVisible ||
-								       p.colorPainted == p.defaultColor) {
-									    return true;
-								    }
-								    return false;
-							    });
+		List<GameObject> visibles = objects.FindAll((GameObject obj) => {
+				Player p = obj.GetComponent<Player>();
+				// watch this if statement -- without parens around the || part,
+				// we get a null pointer and unity is sad
+				if(p != null && (p.colorPainted == colorVisible ||
+						 p.colorPainted == p.defaultColor)) {
+					return true;
+				}
+				return false;
+			});
 		// Obviously this should fire, but we've not worked out projectiles yet.
 		if(visibles.Count > 0) {
-			print("Bang! You're dead!");
+			Bullet.MakeBullet(damageDealt, transform.position, fireDirection, gameObject);
 		}
 		lastFired = Time.time;
 	}

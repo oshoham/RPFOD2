@@ -54,7 +54,7 @@ public class Grid {
 		if(diff.x == 0) { // we're checking in the y direction
 			int sign = diff.y < 0 ? -1 : 1; // which way are we going?
 			origin.y += sign;
-			while(origin.y <= coord.y) { // we want the last position as well so it's a do-while loop
+			while(sign == 1 ? origin.y <= coord.y : origin.y >= coord.y) { // we want the last position as well so it's a do-while loop
 				objects.AddRange(grid[(int)origin.x, (int)origin.y].objects);
 				origin.y += sign;
 			}
@@ -62,7 +62,7 @@ public class Grid {
 		else { // checking y, otherwise the same
 			int sign = diff.x < 0 ? -1 : 1;
 			origin.x += sign;
-			while(origin.x <= coord.x) {
+			while(sign == 1 ? origin.x <= coord.x : origin.x >= coord.x) {
 				objects.AddRange(grid[(int)origin.x, (int)origin.y].objects);
 				origin.x += sign;
 			}
