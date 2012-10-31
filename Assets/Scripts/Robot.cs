@@ -86,6 +86,10 @@ public class Robot : MonoBehaviour, IColor {
 						 p.colorPainted == p.defaultColor)) {
 					return true;
 				}
+				Wall w = obj.GetComponent<Wall>();
+				if(w != null && w.colorPainted == colorVisible) {
+					return true;
+				}
 				return false;
 			});
 		// Obviously this should fire, but we've not worked out projectiles yet.

@@ -22,6 +22,10 @@ public class Paintball : Projectile, IColor {
 			obj.GetComponent<Player>().colorPainted = colorPainted;
 			Destroy(gameObject);
 		}
+		else if(obj.GetComponent<Wall>() != null) {
+			obj.GetComponent<Wall>().colorPainted = colorPainted;
+			Destroy(gameObject);
+		}
 	}
 
 	public static GameObject MakePaintball(Vector3 pos, Vector2 dir, Color col, GameObject cameFrom) {
@@ -33,7 +37,7 @@ public class Paintball : Projectile, IColor {
 		script.dir = dir;
 		script.colorPainted = col;
 		script.moveSpeed = 10.0f;
-		script.lifeTime = 2.0f;
+		Destroy(paintball, 2.0f); // life time
 		script.cameFrom = cameFrom;
 		return paintball;
 	}

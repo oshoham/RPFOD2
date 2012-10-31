@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
 		Paint.MakePaint(7, 5, Color.green);
 		Paint.MakePaint(7, 1, Color.blue);
 		Robot.MakeRobot(5, 1, 1.0f, 2, 10, 10, new Vector2(1, 0), Color.green);
+		Wall.MakeWall(9, 1, 5, true, color: Color.green);
 		PlayerGui.MakePlayerGui(Color.red, new Vector3(20.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f));
 		PlayerGui.MakePlayerGui(Color.green, new Vector3(50.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f));
 		PlayerGui.MakePlayerGui(Color.blue, new Vector3(80.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f));

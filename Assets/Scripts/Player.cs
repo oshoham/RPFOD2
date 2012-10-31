@@ -51,32 +51,38 @@ public class Player : MonoBehaviour, IColor {
 	}
 
 	public void GetKeypresses() {
-		if(Input.GetKey("w")) {
-			if(Time.time - lastMovedVertical > moveRate) {
-				dir = new Vector2(0, 1);
-				Move(dir);
-				lastMovedVertical = Time.time;
+		// This if statement makes motion a bit less smooth but also a bit more predictable
+		// and avoid situations where the player is located on top of paint in world coords
+		// but not in the grid, and thus doesn't pick it up.
+		// Maybe we shouldn't keep it?
+		if(Time.time > endMoving) {
+			if(Input.GetKey("w")) {
+				if(Time.time - lastMovedVertical > moveRate) {
+					dir = new Vector2(0, 1);
+					Move(dir);
+					lastMovedVertical = Time.time;
+				}
 			}
-		}
-		if(Input.GetKey("a")) {
-			if(Time.time - lastMovedHorizontal > moveRate) {
-				dir = new Vector2(-1, 0);
-				Move(dir);
-				lastMovedHorizontal = Time.time;
+			if(Input.GetKey("a")) {
+				if(Time.time - lastMovedHorizontal > moveRate) {
+					dir = new Vector2(-1, 0);
+					Move(dir);
+					lastMovedHorizontal = Time.time;
+				}
 			}
-		}
-		if(Input.GetKey("s")) {
-			if(Time.time - lastMovedVertical > moveRate) {
-				dir = new Vector2(0, -1);
-				Move(dir);
-				lastMovedVertical = Time.time;
+			if(Input.GetKey("s")) {
+				if(Time.time - lastMovedVertical > moveRate) {
+					dir = new Vector2(0, -1);
+					Move(dir);
+					lastMovedVertical = Time.time;
+				}
 			}
-		}
-		if(Input.GetKey("d")) {
-			if(Time.time - lastMovedHorizontal > moveRate) {
-				dir = new Vector2(1, 0);
-				Move(dir);
-				lastMovedHorizontal = Time.time;
+			if(Input.GetKey("d")) {
+				if(Time.time - lastMovedHorizontal > moveRate) {
+					dir = new Vector2(1, 0);
+					Move(dir);
+					lastMovedHorizontal = Time.time;
+				}
 			}
 		}
 		if(Input.GetKeyDown("1")) {
