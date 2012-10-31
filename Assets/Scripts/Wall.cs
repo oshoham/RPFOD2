@@ -21,16 +21,23 @@ public class Wall : MonoBehaviour, IColor {
 	}
 
 	void Update() {
+		CheckHealth();
+	}
+
+	public void CheckHealth() {
 		if(health <= 0) {
-			GameManager.floor.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 			Destroy(gameObject);
 		}
 	}
-
+	
+	void OnDisable() {
+		GameManager.floor.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+	}
+	
 	public static GameObject MakeWall(int x, int y, int health, bool destructible,
 					  Color color = default(Color)) {
 		if(color == default(Color)) {
-			color = Color.gray;
+			color = Color.white;
 		}
 		GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		wall.transform.position = new Vector3(x, y, 0.0f);

@@ -13,7 +13,11 @@ public class Paint : MonoBehaviour, IColor {
 	void Update() {
 		
 	}
-
+	
+	void OnDisable() {
+		GameManager.floor.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+	}
+	
 	public static GameObject MakePaint(int x, int y, Color color) {
 		GameObject paint = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		paint.name = "Paint";

@@ -170,6 +170,10 @@ public class Player : MonoBehaviour, IColor {
 		colorPainted = color;
 		gameObject.renderer.material.color = color;
 	}
+
+	void OnDisable() {
+		GameManager.floor.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+	}
 	
 	public static GameObject MakePlayer(int x, int y, int health) {
 		GameObject player = GameObject.CreatePrimitive(PrimitiveType.Cube);

@@ -61,7 +61,6 @@ public class Square {
 							});
 			if(paint) {
 				player.PickupColor(paint.GetComponent<Paint>().colorPainted);
-				GameManager.floor.Remove(paint, (int)loc.x, (int)loc.y);
 				Object.Destroy(paint);
 			}
 		}

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
@@ -15,8 +16,10 @@ public class GameManager : MonoBehaviour {
 		Paint.MakePaint(5, 5, Color.red);
 		Paint.MakePaint(7, 5, Color.green);
 		Paint.MakePaint(7, 1, Color.blue);
-		Robot.MakeRobot(5, 1, 1.0f, 2, 10, 10, new Vector2(1, 0), Color.green);
-		Wall.MakeWall(9, 1, 5, true, color: Color.green);
+		Robot.MakeRobot(x: 5, y: 1, speed: 0.5f, damage: 2, health: 10,
+				range: 10, movementDirection: new Vector2(1, 0), colorVisible: Color.green);
+		SpikeWall.MakeSpikeWall(x: 9, y: 1, health: 5, destructible: true, directions: new List<Vector2> {new Vector2(1, 0)}, color: Color.green);
+		SpikeFloor.MakeSpikeFloor(11, 1);
 		PlayerGui.MakePlayerGui(Color.red, new Vector3(20.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f));
 		PlayerGui.MakePlayerGui(Color.green, new Vector3(50.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f));
 		PlayerGui.MakePlayerGui(Color.blue, new Vector3(80.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f));
