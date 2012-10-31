@@ -13,15 +13,23 @@ public class Grid {
 		this.width = width;
 		this.height = height;
 		grid = new Square[(int)width, (int)height];
-		GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-		plane.renderer.material.color = Color.black;
-		plane.transform.localScale = new Vector3(width/10.0f, 1.0f, height/10.0f);
-		plane.transform.Rotate(-90.0f, 0.0f, 0.0f);
-		plane.transform.Translate(width/2.0f - 0.5f, 0.0f, height/2.0f - 0.5f);
+		// GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		// plane.renderer.material.color = Color.black;
+		// plane.transform.localScale = new Vector3(width/10.0f, 1.0f, height/10.0f);
+		// plane.transform.Rotate(-90.0f, 0.0f, 0.0f);
+		// plane.transform.Translate(width/2.0f - 0.5f, 0.0f, height/2.0f - 0.5f);
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
 				Vector2 loc = new Vector2(i, j);
-				grid[i, j] = new Square(this, loc, new Vector3(i, j, 0.0f));
+				Square sq = new Square(this, loc, new Vector3(i, j, 0.0f));
+				GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+				plane.name = "Grid plane";
+				plane.transform.position = sq.wloc;
+				plane.transform.localScale = new Vector3(0.1f, 1.0f, 0.1f);
+				plane.transform.Rotate(-90.0f, 0.0f, 0.0f);
+				plane.renderer.material.color = Color.black;
+				sq.plane = plane;
+				grid[i, j] = sq;
 			}
 		}
 	}
@@ -32,11 +40,10 @@ public class Grid {
 			return true;
 		}
 		// Checks if there are any non-paint objects in the square.
-		if(grid[(int)loc.x, (int)loc.y].objects.Find(
-							     delegate (GameObject obj) {
-								     return obj.GetComponent<Paint>() == null;
-							     })
-		   != null)
+		if(grid[(int)loc.x, (int)loc.y].objects.Find((GameObject obj) => {
+					return obj.GetComponent<Paint>() == null;
+				})
+			!= null)
 			return true;
 		return false;
 	}

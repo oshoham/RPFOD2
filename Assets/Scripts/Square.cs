@@ -8,7 +8,7 @@ public class Square {
 	public Square[] board;	// array of boarder Squares within the Grid
 					// 0 = the Square to the bottom left, 7 = top right
 	public Vector3 wloc;	// 3D location coordinates in Unity's world units
-	public Plane plane;	// the actual plane or part of a plane that this Square represents
+	public GameObject plane;	// the actual plane or part of a plane that this Square represents
 	public bool empt = true;
 
 

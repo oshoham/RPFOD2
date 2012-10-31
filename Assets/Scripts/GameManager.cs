@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour {
 		Paint.MakePaint(7, 5, Color.green);
 		Paint.MakePaint(7, 1, Color.blue);
 		Robot.MakeRobot(5, 1, 1.0f, 2, 10, 10, new Vector2(1, 0), Color.green);
+		PlayerGui.MakePlayerGui(Color.red, new Vector3(20.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f));
+		PlayerGui.MakePlayerGui(Color.green, new Vector3(50.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f));
+		PlayerGui.MakePlayerGui(Color.blue, new Vector3(80.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f));
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
@@ -29,20 +32,6 @@ public class GameManager : MonoBehaviour {
 	
 	void OnGUI() {
 		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health);
-		string colorString;
-		if(player.colorShooting == Color.green) {
-			colorString = "Green";
-		}
-		else if(player.colorShooting == Color.red) {
-			colorString = "Red";
-		}
-		else if(player.colorShooting == Color.blue) {
-			colorString = "Blue";
-		}
-		else {
-			colorString = "None";
-		}
-		GUI.Label(new Rect(10, 30, 100, 50), "Shooting: " + colorString);
 	}
 	
 	/*
