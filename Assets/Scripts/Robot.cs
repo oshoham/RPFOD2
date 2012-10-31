@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Robot : MonoBehaviour, IColor {
 
@@ -8,7 +9,8 @@ public class Robot : MonoBehaviour, IColor {
 	public float moveSpeed;
 	public Vector2 gridCoords;
 	public int damageDealt;
-	public int range;
+	public int forwardRange;
+	public int sideRange;
 	public Vector2 movementDirection;
 	public Vector2 fireDirection;
 	private Color _colorPainted;
@@ -75,13 +77,21 @@ public class Robot : MonoBehaviour, IColor {
 		float time = (Time.time - startedMoving)/moveSpeed;
 		transform.position = Vector3.Lerp(oldPosition, newPosition, time);
 	}
-
+	
 	public void Fire() {
-		List<GameObject> objects = GameManager.floor.CheckLine(gridCoords, gridCoords + fireDirection*range);
+		List<GameObject> objects = GameManager.floor.CheckLine(gridCoords, gridCoords + fireDirection*forwardRange);
+		List<Vector2> directions = new List<Vector2> {new Vector2(1, 0),
+							      new Vector2(0, 1),
+							      new Vector2(-1, 0),
+							      new Vector2(0, -1)};
+		foreach(Vector2 direction in directions.Where(v => v != fireDirection)) {
+			objects.AddRange(GameManager.floor.CheckLine(gridCoords, (gridCoords + (direction*sideRange))));
+		}
 		List<GameObject> visibles = objects.FindAll((GameObject obj) => {
 				Player p = obj.GetComponent<Player>();
 				// watch this if statement -- without parens around the || part,
 				// we get a null pointer and unity is sad
+				print(p.colorPainted + "  " + p.defaultColor);
 				if(p != null && (p.colorPainted == colorVisible ||
 						 p.colorPainted == p.defaultColor)) {
 					return true;
@@ -104,8 +114,8 @@ public class Robot : MonoBehaviour, IColor {
 	}
 	
 	public static GameObject MakeRobot(int x, int y, float speed, int damage, int health,
-					   int range, Vector2 movementDirection, Color colorVisible,
-					   Vector2 fireDirection = default(Vector3)) {
+					   int forwardRange, int sideRange, Vector2 movementDirection,
+					   Color colorVisible, Vector2 fireDirection = default(Vector3)) {
 		if(fireDirection == default(Vector2)) {
 			fireDirection = movementDirection;
 		}
@@ -120,7 +130,8 @@ public class Robot : MonoBehaviour, IColor {
 		Robot script = robot.AddComponent<Robot>();
 		robot.transform.position = new Vector3(x, y, 0.0f);
 		script.oldPosition = robot.transform.position;
-		script.range = range;
+		script.forwardRange = forwardRange;
+		script.sideRange = sideRange;
 		script.gridCoords = new Vector2(x, y);
 		script.moveSpeed = speed;
 		script.damageDealt = damage;

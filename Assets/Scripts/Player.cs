@@ -40,6 +40,7 @@ public class Player : MonoBehaviour, IColor {
 		moveSpeed = 0.2f;
 		colors = new List<Color>(3);
 		defaultColor = renderer.material.color;
+		colorPainted = defaultColor;
 		collider.enabled = true;
 	}
 
