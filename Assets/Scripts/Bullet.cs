@@ -10,6 +10,12 @@ public class Bullet : Projectile {
 			obj.GetComponent<Player>().health -= damageDealt;
 			Destroy(gameObject);
 		}
+		else if(obj.GetComponent<Wall>() != null) {
+			if(obj.GetComponent<Wall>().destructible) {
+				obj.GetComponent<Wall>().health -= damageDealt;
+			}
+			Destroy(gameObject);
+		}
 	}
 	
 	public static GameObject MakeBullet(int damage, Vector3 pos, Vector2 dir, GameObject cameFrom) {
@@ -20,7 +26,7 @@ public class Bullet : Projectile {
 		Bullet script = bullet.AddComponent<Bullet>();
 		script.dir = dir;
 		script.moveSpeed = 10.0f;
-		script.lifeTime = 2.0f;
+		Destroy(bullet, 2.0f); // life time
 		script.cameFrom = cameFrom;
 		script.damageDealt = damage;
 		return bullet;

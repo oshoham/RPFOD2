@@ -5,7 +5,6 @@ public class PlayerGui : MonoBehaviour {
 	
 	Color color;
 	Vector3 position;
-	Light indicatorLight;
 
 	void Update () {
 		transform.position = Camera.main.ScreenToWorldPoint(position);
@@ -16,10 +15,10 @@ public class PlayerGui : MonoBehaviour {
 			renderer.material.color = Color.black;
 		}
 		if(GameManager.player.colorShooting == color) {
-			light.range = 10;
+			transform.localScale = new Vector3(0.03f, 1.0f, 0.03f);
 		}
 		else {
-			light.range = 0;
+			transform.localScale = new Vector3(0.02f, 1.0f, 0.02f);
 		}
 	}
 	
@@ -41,12 +40,6 @@ public class PlayerGui : MonoBehaviour {
 		PlayerGui script = gui.AddComponent<PlayerGui>();
 		script.color = color;
 		script.position = position;
-		script.indicatorLight = gui.AddComponent<Light>();
-		script.indicatorLight.type = LightType.Spot;
-		script.indicatorLight.spotAngle = 10.0f;
-		script.indicatorLight.transform.Translate(0.0f, 0.0f, -1.0f);
-		// fuck!
-		//script.light.transform.localEulerAngles = new Vector3(180.0f, 0.0f, 0.0f);
 		return gui;
 	}
 }

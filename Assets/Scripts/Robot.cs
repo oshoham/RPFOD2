@@ -86,6 +86,10 @@ public class Robot : MonoBehaviour, IColor {
 						 p.colorPainted == p.defaultColor)) {
 					return true;
 				}
+				Wall w = obj.GetComponent<Wall>();
+				if(w != null && w.colorPainted == colorVisible) {
+					return true;
+				}
 				return false;
 			});
 		// Obviously this should fire, but we've not worked out projectiles yet.
@@ -95,6 +99,10 @@ public class Robot : MonoBehaviour, IColor {
 		lastFired = Time.time;
 	}
 
+	void OnDisable() {
+		GameManager.floor.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+	}
+	
 	public static GameObject MakeRobot(int x, int y, float speed, int damage, int health,
 					   int range, Vector2 movementDirection, Color colorVisible,
 					   Vector2 fireDirection = default(Vector3)) {

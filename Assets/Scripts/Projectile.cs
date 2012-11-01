@@ -9,22 +9,21 @@ public abstract class Projectile : MonoBehaviour {
 	//public Color colorPainted{ get; set; }
 	public GameObject cameFrom;
 	//	public static List<string> attack = new List<string>(new string[] {"Robot", "Player"});
-	public Vector3 oldPosition;
-	public Vector3 newPosition;
-	public float startedMoving;
-	public float endMoving;
+	// public Vector3 oldPosition;
+	// public Vector3 newPosition;
+	// public float startedMoving;
+	// public float endMoving;
 	public float moveSpeed;
 	public float lifeTime;
 
 	void Start() {
-		startedMoving = Time.time;
+		//		startedMoving = Time.time;
 	}
 	
 	void Update() {
-		if(Time.time > startedMoving + lifeTime) {
-			print("goodbye!");
-			Destroy(gameObject);
-		}
+		// if(Time.time > startedMoving + lifeTime) {
+		// 	Destroy(gameObject);
+		// }
 		// List<GameObject> canvas = GameManager.floor.GetObjectsOfTypes(gridCoords, attack);
 		// if(canvas.Count > 0)
 		// {
@@ -48,7 +47,7 @@ public abstract class Projectile : MonoBehaviour {
 	/*
 	 * Move by x and y in the game grid. 
 	 */
-	public void Move(Vector2 coords) {
+	// public void Move(Vector2 coords) {
 		//		if(GameManager.Move(gridCoords, gridCoords + coords, gameObject)) {
 		//	gridCoords += coords;
 		//	startedMoving = Time.time;
@@ -56,7 +55,7 @@ public abstract class Projectile : MonoBehaviour {
 		//	oldPosition = transform.position;
 		//	newPosition = new Vector3(gridCoords.x, gridCoords.y, 0);
 			//		}
-	}
+		//}
 	
 	public abstract void Hit(GameObject obj);
 	
@@ -76,13 +75,13 @@ public abstract class Projectile : MonoBehaviour {
 	/*
 	 * For smooth motion animation
 	 */
-	public void AnimateMotion() {
-		if(Time.time > endMoving) {
-			return;
-		}
-		float time = (Time.time - startedMoving)/moveSpeed;
-		transform.position = Vector3.Lerp(oldPosition, newPosition, time);
-	}
+	// public void AnimateMotion() {
+	// 	if(Time.time > endMoving) {
+	// 		return;
+	// 	}
+	// 	float time = (Time.time - startedMoving)/moveSpeed;
+	// 	transform.position = Vector3.Lerp(oldPosition, newPosition, time);
+	// }
 
 	// public static GameObject MakeProj(Vector2 gridCoords, Vector3 pos, Vector2 dir, Color col, GameObject cameFrom) {
 	// 	GameObject proj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
