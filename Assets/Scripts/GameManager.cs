@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
 		Paint.MakePaint(7, 1, Color.blue, 2.0f);
 		Robot.MakeRobot(x: 5, y: 1, speed: 0.5f, damage: 2, health: 10,
 				forwardRange: 10, sideRange: 3, movementDirection: new Vector2(1, 0),
-				colorVisible: Color.green);
+				colorVisible: Color.green, turnsLeft: true);
 		//		SpikeWall.MakeSpikeWall(x: 9, y: 1, health: 5, destructible: true, directions: new List<Vector2> {new Vector2(1, 0)}, color: Color.green);
 		//SpikeFloor.MakeSpikeFloor(11, 1);
 		//Wall.MakeWall(x: 15, y: 1, health: 5, destructible: true, color: Color.green);

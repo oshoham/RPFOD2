@@ -7,6 +7,7 @@ public class Robot : MonoBehaviour, IColor {
 
 	public int health;
 	public float moveSpeed;
+	public bool turnsLeft;
 	public Vector2 gridCoords;
 	public int damageDealt;
 	public int forwardRange;
@@ -59,11 +60,16 @@ public class Robot : MonoBehaviour, IColor {
 			oldPosition = transform.position;
 			newPosition = new Vector3(gridCoords.x, gridCoords.y, 0);
 		}
-		else { // Face the other direction if we hit something
-			if(movementDirection == fireDirection) {
-				fireDirection *= -1.0f;
+		else { // Turn if we hit something
+			if(turnsLeft) {
+				movementDirection = new Vector2(-movementDirection.y, movementDirection.x);
 			}
-			movementDirection *= -1.0f;
+			else {
+				if(movementDirection == fireDirection) {
+					fireDirection *= -1.0f;
+				}
+				movementDirection *= -1.0f;
+			}
 		}
 	}
 
@@ -114,7 +120,8 @@ public class Robot : MonoBehaviour, IColor {
 	
 	public static GameObject MakeRobot(int x, int y, float speed, int damage, int health,
 					   int forwardRange, int sideRange, Vector2 movementDirection,
-					   Color colorVisible, Vector2 fireDirection = default(Vector3)) {
+					   Color colorVisible, Vector2 fireDirection = default(Vector3),
+					   bool turnsLeft = false) {
 		if(fireDirection == default(Vector2)) {
 			fireDirection = movementDirection;
 		}
@@ -138,6 +145,7 @@ public class Robot : MonoBehaviour, IColor {
 		script.fireDirection = fireDirection;
 		script.colorVisible = colorVisible;
 		script.health = health;
+		script.turnsLeft = turnsLeft;
 		GameManager.floor.Add(robot, x, y);
 		return robot;
 	}
