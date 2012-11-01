@@ -9,7 +9,7 @@ public class Conveyor : MonoBehaviour {
 	public float speed; // the speed at which the conveyor belt moves things
 	public Vector2[] cells; // the cells in the Grid that the conveyor occupies
 	public Vector3 wloc; // the world coordinates of the conveyor
-	private List<string> moveableObjects;
+	private List<string> moveableObjects; // the types of objects that the conveyor can move
 
 	void Start () {
 		moveableObjects = new List<string>();
@@ -21,6 +21,7 @@ public class Conveyor : MonoBehaviour {
 		for(int i = 0; i < cells.Length; i++) {
 			List<GameObject> objects = GameManager.floor.GetObjectsOfTypes(cells[i], moveableObjects);
 			foreach(GameObject obj in objects) {
+				Debug.Log(i+": " + obj);
 				if(GameManager.Move(cells[i], cells[i] + direction, obj)) {
 					float startedMoving = Time.time;
 					float endMoving = startedMoving + speed;
@@ -30,6 +31,7 @@ public class Conveyor : MonoBehaviour {
 						Player p = obj.GetComponent<Player>();
 						p.gridCoords += direction;
 						newPosition = new Vector3(p.gridCoords.x, p.gridCoords.y, 0);
+						Debug.Log(newPosition);
 					}
 					else {
 						Robot r = obj.GetComponent<Robot>();
@@ -48,6 +50,7 @@ public class Conveyor : MonoBehaviour {
 		}
 		float time = (Time.time - startedMoving)/speed;
 		obj.transform.position = Vector3.Lerp(oldPosition, newPosition, time);
+		Debug.Log("animating...");
 	}
 
 	public static GameObject MakeConveyor(Vector2 startCoords, Vector2 direction, float length, float speed) {

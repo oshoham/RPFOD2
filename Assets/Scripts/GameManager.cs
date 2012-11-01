@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour {
 		light.transform.position = Camera.main.transform.position;
 		l.type = LightType.Directional;
 		l.intensity = 0.2f;
-		Conveyor.MakeConveyor(new Vector2(0, 0), new Vector2(1, 0), 6, 4);
+		Conveyor.MakeConveyor(new Vector2(0, 0), new Vector2(1, 0), 6, 2);
 		Conveyor.MakeConveyor(new Vector2(7, 0), new Vector2(0, 1), 5, 4);
 	}
 
