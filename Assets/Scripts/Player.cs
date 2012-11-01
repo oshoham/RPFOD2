@@ -158,10 +158,10 @@ public class Player : MonoBehaviour, IColor {
 			colors[color]++;
 		}
 		else {
-			if(colorShooting == default(Color)) {
-				colorShooting = color;
-			}
 			colors.Add(color, 1);
+		}
+		if(colorShooting == default(Color)) {
+			colorShooting = color;
 		}
 	}
 	
