@@ -55,13 +55,11 @@ public class Square {
 		// Paint
 		Player player = obj.GetComponent<Player>();
 		if(player) {
-			GameObject paint = objects.Find(
-							delegate (GameObject o) {
-								return o.GetComponent<Paint>() != null;
-							});
-			if(paint) {
-				player.PickupColor(paint.GetComponent<Paint>().colorPainted);
-				Object.Destroy(paint);
+			GameObject paintObj = objects.Find((GameObject o) => o.GetComponent<Paint>() != null);
+			Paint paint = paintObj != null ? paintObj.GetComponent<Paint>() : null;
+			if(paint && paint.isEnabled) {
+				player.PickupColor(paint.colorPainted);
+				paint.isEnabled = false;
 			}
 		}
 	}
