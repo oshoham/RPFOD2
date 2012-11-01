@@ -13,9 +13,9 @@ public class GameManager : MonoBehaviour {
 	void Start() {
 		floor = new Grid(WIDTH, HEIGHT);
 		player = Player.MakePlayer(0, 0, 15).GetComponent<Player>();
-		Paint.MakePaint(5, 5, Color.red);
-		Paint.MakePaint(7, 5, Color.green);
-		Paint.MakePaint(7, 1, Color.blue);
+		Paint.MakePaint(5, 5, Color.red, 5.0f);
+		Paint.MakePaint(7, 5, Color.green, 1.0f);
+		Paint.MakePaint(7, 1, Color.blue, 2.0f);
 		Robot.MakeRobot(x: 5, y: 1, speed: 0.5f, damage: 2, health: 10,
 				forwardRange: 10, sideRange: 3, movementDirection: new Vector2(1, 0),
 				colorVisible: Color.green);

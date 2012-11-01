@@ -53,7 +53,6 @@ public class Conveyor : MonoBehaviour {
 						oldPosition = new Vector3(p.gridCoords.x, p.gridCoords.y, 0);
 						p.gridCoords += direction;
 						newPosition = new Vector3(p.gridCoords.x, p.gridCoords.y, 0);
-						print("Old: " + oldPosition + " New: " + newPosition);
 					}
 					else {
 						Robot r = obj.GetComponent<Robot>();
