@@ -50,6 +50,8 @@ public class Player : MonoBehaviour, IColor {
 			Destroy(gameObject);
 		}
 		GetKeypresses();
+		Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y,
+							     Camera.main.transform.position.z);
 	}
 
 	public void GetKeypresses() {
@@ -144,8 +146,6 @@ public class Player : MonoBehaviour, IColor {
 		}
 		float time = (Time.time - startedMoving)/moveSpeed;
 		transform.position = Vector3.Lerp(oldPosition, newPosition, time);
-		Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y,
-							     Camera.main.transform.position.z);
 	}
 
 	/*

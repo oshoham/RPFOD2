@@ -10,44 +10,86 @@ public class Conveyor : MonoBehaviour {
 	public Vector2[] cells; // the cells in the Grid that the conveyor occupies
 	public Vector3 wloc; // the world coordinates of the conveyor
 	private List<string> moveableObjects;
+	
+	public Dictionary<GameObject, GameObjectAnimation> currentObjects;
+	
+	public struct GameObjectAnimation {
+		public float startedMoving;
+		public float endMoving;
+		public Vector3 oldPosition;
+		public Vector3 newPosition;
+
+		/*
+		 * For storing all the relevant info to animate the motion for this object.
+		 * The floats are the start and end times, the Vector2s are the positions.
+		 */
+		public GameObjectAnimation(float start, float end, Vector3 old, Vector3 current) {
+			startedMoving = start;
+			endMoving = end;
+			oldPosition = old;
+			newPosition = current;
+		}
+	}
 
 	void Start () {
 		moveableObjects = new List<string>();
 		moveableObjects.Add("Player");
 		moveableObjects.Add("Robot");
+		currentObjects = new Dictionary<GameObject, GameObjectAnimation>();
 	}
 	
 	void Update () {
 		for(int i = 0; i < cells.Length; i++) {
 			List<GameObject> objects = GameManager.floor.GetObjectsOfTypes(cells[i], moveableObjects);
 			foreach(GameObject obj in objects) {
+				if(currentObjects.ContainsKey(obj)) {
+					continue;
+				}
 				if(GameManager.Move(cells[i], cells[i] + direction, obj)) {
-					float startedMoving = Time.time;
-					float endMoving = startedMoving + speed;
-					Vector3 oldPosition = obj.transform.position;
 					Vector3 newPosition;
+					Vector3 oldPosition;
 					if(obj.GetComponent<Player>() != null) {
 						Player p = obj.GetComponent<Player>();
+						oldPosition = new Vector3(p.gridCoords.x, p.gridCoords.y, 0);
 						p.gridCoords += direction;
 						newPosition = new Vector3(p.gridCoords.x, p.gridCoords.y, 0);
+						print("Old: " + oldPosition + " New: " + newPosition);
 					}
 					else {
 						Robot r = obj.GetComponent<Robot>();
+						oldPosition = new Vector3(r.gridCoords.x, r.gridCoords.y, 0);
 						r.gridCoords += direction;
 						newPosition = new Vector3(r.gridCoords.x, r.gridCoords.y, 0);
 					}
-					AnimateMotion(obj, startedMoving, endMoving, oldPosition, newPosition);
+					currentObjects.Add(obj, new GameObjectAnimation(Time.time, Time.time + speed, oldPosition, newPosition));
 				}
 			}
+			// Slight jank solution to get around not being able to modify stuff while
+			// iterating over it goes HERE.
+			List<GameObject> toRemove = new List<GameObject>();
+			foreach(KeyValuePair<GameObject, GameObjectAnimation> kvp in currentObjects) {
+				if(AnimateMotion(kvp.Key, kvp.Value)) {
+					toRemove.Add(kvp.Key);
+				}
+			}
+			foreach(GameObject obj in toRemove) {
+				currentObjects.Remove(obj);
+			}
+			// end jank
 		}
 	}
 
-	public void AnimateMotion(GameObject obj, float startedMoving, float endMoving, Vector2 oldPosition, Vector2 newPosition) {
-		if(Time.time > endMoving) {
-			return;
+	/*
+	 * This returns true if the animation for this GameObjectAnimation is done, false
+	 * otherwise. Slightly jank!
+	 */
+public bool AnimateMotion(GameObject obj, GameObjectAnimation goa) {
+	if(Time.time > goa.endMoving) {
+		return true;
 		}
-		float time = (Time.time - startedMoving)/speed;
-		obj.transform.position = Vector3.Lerp(oldPosition, newPosition, time);
+		float time = (Time.time - goa.startedMoving)/speed;
+		obj.transform.position = Vector3.Lerp(goa.oldPosition, goa.newPosition, time);
+		return false;
 	}
 
 	public static GameObject MakeConveyor(Vector2 startCoords, Vector2 direction, float length, float speed) {
