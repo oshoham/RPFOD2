@@ -1,5 +1,7 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Player : MonoBehaviour, IColor {
 	
@@ -16,8 +18,7 @@ public class Player : MonoBehaviour, IColor {
 		}
 	}
 	public Color colorShooting;
-	public List<Color> colors;
-	public int colorIndex;
+	public Dictionary<Color, int> colors;
 
 	public float moveSpeed;
 	public float startedMoving;
@@ -38,7 +39,7 @@ public class Player : MonoBehaviour, IColor {
 		lastMovedVertical = Time.time;
 		moveRate = 0.1f;
 		moveSpeed = 0.2f;
-		colors = new List<Color>(3);
+		colors = new Dictionary<Color, int>();
 		defaultColor = renderer.material.color;
 		colorPainted = defaultColor;
 		collider.enabled = true;
@@ -87,31 +88,36 @@ public class Player : MonoBehaviour, IColor {
 			}
 		}
 		if(Input.GetKeyDown("1")) {
-			setColorPainted(defaultColor);
+			colorPainted = defaultColor;
 		}
-		if(Input.GetKeyDown("2") && colors.Contains(Color.red)) {
-			setColorPainted(Color.red);
+		if(Input.GetKeyDown("2") && colors.ContainsKey(Color.red) && colors[Color.red] > 0) {
+			ReassignColor(Color.red);
 		}
-		if(Input.GetKeyDown("3") && colors.Contains(Color.green)) {
-			setColorPainted(Color.green);
+		if(Input.GetKeyDown("3") && colors.ContainsKey(Color.green) && colors[Color.green] > 0) {
+			ReassignColor(Color.green);
 		}
-		if(Input.GetKeyDown("4") && colors.Contains(Color.blue)) {
-			setColorPainted(Color.blue);
+		if(Input.GetKeyDown("4") && colors.ContainsKey(Color.blue) && colors[Color.blue] > 0) {
+			ReassignColor(Color.blue);
 		}
-		if(Input.GetKeyDown("space") && colors.Count > 0)
-		{
-			Paintball.MakePaintball(transform.position, dir, colorShooting, gameObject); 
+		if(Input.GetKeyDown("space") && colors.ContainsKey(colorShooting) && colors[colorShooting] > 0) {
+			Paintball.MakePaintball(transform.position, dir, colorShooting, gameObject);
+			colors[colorShooting]--;
+			if(colors[colorShooting] == 0) {
+				colorShooting = colors.FirstOrDefault((KeyValuePair<Color, int> kvp) => kvp.Value > 0).Key;
+			}
 		}
 		AnimateMotion();
 	}
-
+	
 	/*
-	 * Increments the index which we're at in the colors list, and sets the
-	 * current color painted to that color.
+	 * If we've just run out of one color, reset our colorShooting to
+	 * something we do have.
 	 */
-	public void CycleColorPainted() {
-		if(colors.Count > 0) {
-			setColorPainted(colors[++colorIndex % colors.Count]);
+	public void ReassignColor(Color color) {
+		colorPainted = color;
+		colors[color]--;
+		if(colors[color] == 0) {
+			colorShooting = colors.FirstOrDefault((KeyValuePair<Color, int> kvp) => kvp.Value > 0).Key;
 		}
 	}
 	
@@ -148,30 +154,17 @@ public class Player : MonoBehaviour, IColor {
 	 * necessary.
 	 */
 	public void PickupColor(Color color) {
-		if(colors.Contains(color)) {
-			return;
+		if(colors.ContainsKey(color)) {
+			colors[color]++;
 		}
-		if(colors.Count == 0) {
-			colorShooting = color;
-		}
-		colors.Add(color);
-	}
-	
-	/*
-	 * Reset the color index so that the player always gets the
-	 * color they expect when pressing 'q'.
-	 */
-	public void FixColorIndex(int pos) {
-		if(colorIndex % colors.Count >= pos) {
-			colorIndex++;
+		else {
+			if(colorShooting == default(Color)) {
+				colorShooting = color;
+			}
+			colors.Add(color, 1);
 		}
 	}
 	
-	public void setColorPainted(Color color) {
-		colorPainted = color;
-		gameObject.renderer.material.color = color;
-	}
-
 	void OnDisable() {
 		GameManager.floor.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 	}

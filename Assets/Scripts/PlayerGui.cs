@@ -8,13 +8,15 @@ public class PlayerGui : MonoBehaviour {
 
 	void Update () {
 		transform.position = Camera.main.ScreenToWorldPoint(position);
-		if(GameManager.player.colors.Contains(color)) {
+		if(GameManager.player.colors.ContainsKey(color) &&
+		   GameManager.player.colors[color] > 0) {
 			renderer.material.color = color;
 		}
 		else {
 			renderer.material.color = Color.black;
 		}
-		if(GameManager.player.colorShooting == color) {
+		if(GameManager.player.colorShooting == color &&
+		   GameManager.player.colors[color] > 0) {
 			transform.localScale = new Vector3(0.03f, 1.0f, 0.03f);
 		}
 		else {
@@ -23,7 +25,8 @@ public class PlayerGui : MonoBehaviour {
 	}
 	
 	void OnMouseDown() {
-		if(GameManager.player.colors.Contains(color)) {
+		if(GameManager.player.colors.ContainsKey(color) &&
+		   GameManager.player.colors[color] > 0) {
 			GameManager.player.colorShooting = color;
 		}
 	}

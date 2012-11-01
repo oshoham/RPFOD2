@@ -91,7 +91,6 @@ public class Robot : MonoBehaviour, IColor {
 				Player p = obj.GetComponent<Player>();
 				// watch this if statement -- without parens around the || part,
 				// we get a null pointer and unity is sad
-				print(p.colorPainted + "  " + p.defaultColor);
 				if(p != null && (p.colorPainted == colorVisible ||
 						 p.colorPainted == p.defaultColor)) {
 					return true;
