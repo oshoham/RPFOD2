@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Square : IColor {
+public class Square {
 
 	public Vector2 loc;	// (x,y) location coordinates within the Grid
 	public List<GameObject> objects;	// list of GameObjects occupying this Square
@@ -10,17 +10,22 @@ public class Square : IColor {
 	public Vector3 wloc;	// 3D location coordinates in Unity's world units
 	public GameObject plane;	// the actual plane or part of a plane that this Square represents
 	public bool empt = true;
-	private Color _colorPainted;
-	public Color colorPainted{ get{return _colorPainted;}
-				   set {
-					   plane.renderer.material.color = value;
-					   _colorPainted = value;
-				   }
-				 }
+	public Dictionary<Color, int> colors;
+	// private Color _colorPainted;
+	// public Color colorPainted{ get{return _colorPainted;}
+	// 			   set {
+	// 				   plane.renderer.material.color = value;
+	// 				   _colorPainted = value;
+	// 			   }
+	// 			 }
 
 
 	// Constructor
 	public Square(Grid gr, Vector2 loc, Vector3 wloc) {
+		colors = new Dictionary<Color, int>();
+		colors[Color.red] = 0;
+		colors[Color.green] = 0;
+		colors[Color.blue] = 0;
 		this.loc = loc;
 		this.wloc = wloc;
 		objects = new List<GameObject>();
@@ -37,6 +42,25 @@ public class Square : IColor {
 				}
 			}
 		}
+	}
+
+	/*
+	 * holy fuck this is hacky
+	 *
+	 * also doesn't work for levels other than the current one
+	 */
+	public void SetColor() {
+		if(colors[Color.red] > 0 && colors[Color.blue] > 0) {
+			plane.renderer.material.color = new Color(1, 0, 1, 1);
+		}
+		else if(colors[Color.red] > 0) {
+			plane.renderer.material.color = Color.red;
+		}
+		else if(colors[Color.blue] > 0) {
+			plane.renderer.material.color = Color.blue;
+		}
+		else
+			plane.renderer.material.color = Color.white;
 	}
 	
 	/*

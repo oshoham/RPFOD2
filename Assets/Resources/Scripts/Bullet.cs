@@ -10,6 +10,10 @@ public class Bullet : Projectile {
 			obj.GetComponent<Player>().health -= damageDealt;
 			Destroy(gameObject);
 		}
+		else if(obj.GetComponent<Robot>() != null) {
+			obj.GetComponent<Robot>().health -= damageDealt;
+			Destroy(gameObject);
+		}
 		else if(obj.GetComponent<Wall>() != null) {
 			if(obj.GetComponent<Wall>().destructible) {
 				obj.GetComponent<Wall>().health -= damageDealt;

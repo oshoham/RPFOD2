@@ -20,12 +20,12 @@ public class GameManager : MonoBehaviour {
 		player = Player.MakePlayer(0, 8, 15).GetComponent<Player>();
 		makeLev(level);
 
-		/*Paint.MakePaint(5, 5, Color.red, 5.0f);
-		Paint.MakePaint(7, 5, Color.green, 1.0f);
-		Paint.MakePaint(7, 1, Color.blue, 2.0f);
-		Robot.MakeRobot(x: 5, y: 1, speed: 0.5f, damage: 2, health: 10,
-				forwardRange: 10, sideRange: 3, movementDirection: new Vector2(1, 0),
-				colorVisible: Color.green, turnsLeft: true);
+		// Paint.MakePaint(5, 5, Color.red, 5.0f);
+		// Paint.MakePaint(7, 5, Color.green, 1.0f);
+		// Paint.MakePaint(7, 1, Color.blue, 2.0f);
+		// Robot.MakeRobot(x: 5, y: 1, speed: 0.5f, damage: 2, health: 10,
+		// 		forwardRange: 10, sideRange: 3, movementDirection: new Vector2(1, 0),
+		// 		colorVisible: Color.green, turnsLeft: true);
 		//		SpikeWall.MakeSpikeWall(x: 9, y: 1, health: 5, destructible: true, directions: new List<Vector2> {new Vector2(1, 0)}, color: Color.green);
 		//SpikeFloor.MakeSpikeFloor(11, 1);
 		//Wall.MakeWall(x: 15, y: 1, health: 5, destructible: true, color: Color.green);
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour {
 		PlayerGui.MakePlayerGui(player.defaultColor, new Vector3(110.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);
 		PlayerGui.MakePlayerGui(Color.red, new Vector3(140.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);
 		PlayerGui.MakePlayerGui(Color.green, new Vector3(170.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);
-		PlayerGui.MakePlayerGui(Color.blue, new Vector3(200.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);*/
+		PlayerGui.MakePlayerGui(Color.blue, new Vector3(200.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
