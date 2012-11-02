@@ -63,6 +63,7 @@ public class Robot : MonoBehaviour, IColor {
 		else { // Turn if we hit something
 			if(turnsLeft) {
 				movementDirection = new Vector2(-movementDirection.y, movementDirection.x);
+				fireDirection = new Vector2(-fireDirection.y, fireDirection.x);
 			}
 			else {
 				if(movementDirection == fireDirection) {
