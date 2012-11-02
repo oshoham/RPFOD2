@@ -132,7 +132,7 @@ public class Player : MonoBehaviour, IColor {
 			startedMoving = Time.time;
 			endMoving = startedMoving + moveSpeed;
 			oldPosition = transform.position;
-			newPosition = new Vector3(gridCoords.x, gridCoords.y, 0);
+			newPosition = new Vector3(gridCoords.x, gridCoords.y, -1.0f);
 		}
 	}
 	
@@ -178,7 +178,7 @@ public class Player : MonoBehaviour, IColor {
 		player.renderer.material.mainTexture = Resources.Load("Textures/PlayerPacMan") as Texture;
 		player.renderer.material.color = Color.white;
 		player.renderer.material.shader =Shader.Find("Transparent/Diffuse");
-		player.transform.position = new Vector3(x, y, 0.0f);
+		player.transform.position = new Vector3(x, y, -1.0f);
 		Player script = player.AddComponent<Player>();
 		script.gridCoords = new Vector2(x, y);
 		script.health = health;
