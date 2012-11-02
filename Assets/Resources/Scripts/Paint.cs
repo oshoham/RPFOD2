@@ -25,6 +25,14 @@ public class Paint : MonoBehaviour, IColor {
 		if(isEnabled == false && Time.time > lastPickedUp + respawnTime) {
 			isEnabled = true;
 		}
+		if(isEnabled) {
+			GameObject player = GameManager.floor.grid[(int)gridCoords.x, (int)gridCoords.y].objects.Find((GameObject obj) =>
+														 obj.GetComponent<Player>() != null);
+			if(player) {
+				player.GetComponent<Player>().PickupColor(colorPainted);
+				isEnabled = false;
+			}
+		}
 	}
 	
 	void OnDisable() {

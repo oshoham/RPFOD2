@@ -47,27 +47,9 @@ public class Square : IColor {
 			objects.Remove(obj);
 			sq.objects.Add(obj);
 			sq.empt = false;
-			sq.Pickup(obj);
 			empt = ((objects.Count == 0) ? true : false);
 			return true;
 		}
 		return false;
-	}
-
-	/*
-	 * Checks if this square contains any items of a pick-up-able type,
-	 * and if so, gives them to the GameObject obj.
-	 */
-	public void Pickup(GameObject obj) {
-		// Paint
-		Player player = obj.GetComponent<Player>();
-		if(player) {
-			GameObject paintObj = objects.Find((GameObject o) => o.GetComponent<Paint>() != null);
-			Paint paint = paintObj != null ? paintObj.GetComponent<Paint>() : null;
-			if(paint && paint.isEnabled) {
-				player.PickupColor(paint.colorPainted);
-				paint.isEnabled = false;
-			}
-		}
 	}
 }

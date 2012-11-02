@@ -141,10 +141,14 @@ public class Player : MonoBehaviour, IColor {
 	 * For smooth motion animation.
 	 */
 	public void AnimateMotion() {
+		// if(transform.position == newPosition) {
+		// 	return;
+		// }
+		// transform.Translate((newPosition - oldPosition) * 1.0f/moveSpeed * Time.deltaTime);
 		if(Time.time > endMoving) {
 			return;
 		}
-		float time = (Time.time - startedMoving)/moveSpeed;
+		float time = (Time.time - startedMoving)/moveSpeed + .1f;
 		transform.position = Vector3.Lerp(oldPosition, newPosition, time);
 	}
 
