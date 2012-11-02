@@ -9,8 +9,8 @@ public class PlayerGui : MonoBehaviour {
 
 	void Update () {
 		transform.position = Camera.main.ScreenToWorldPoint(position);
-		if(GameManager.player.colors.ContainsKey(color) &&
-		   GameManager.player.colors[color] > 0) {
+		if((GameManager.player.colors.ContainsKey(color) &&
+		    GameManager.player.colors[color] > 0) || color == GameManager.player.defaultColor) {
 			renderer.material.color = color;
 		}
 		else {
@@ -19,26 +19,28 @@ public class PlayerGui : MonoBehaviour {
 		if(forShooting) {
 			if(GameManager.player.colorShooting == color &&
 			   GameManager.player.colors[color] > 0) {
-				transform.localScale = new Vector3(0.06f, 1.0f, 0.06f);
+				transform.localScale = new Vector3(0.03f, 1.0f, 0.03f);
 			}
 			else {
-				transform.localScale = new Vector3(0.04f, 1.0f, 0.04f);
+				transform.localScale = new Vector3(0.02f, 1.0f, 0.02f);
 			}
 		}
 		else if (!forShooting && color != GameManager.player.defaultColor) {
-			if(GameManager.player.colorPainted == color && GameManager.player.colors[color] > 0) {
-				transform.localScale = new Vector3(0.06f, 1.0f, 0.06f);
+			if(GameManager.player.colorPainted == color) {
+				transform.localScale = new Vector3(0.03f, 1.0f, 0.03f);
+				renderer.material.color = color;
 			}
 			else {
-				transform.localScale = new Vector3(0.04f, 1.0f, 0.04f);
+				transform.localScale = new Vector3(0.02f, 1.0f, 0.02f);
 			}
 		}
 		else {
+			renderer.material.color = color;
 			if(GameManager.player.colorPainted == color) {
-				transform.localScale = new Vector3(0.06f, 1.0f, 0.06f);
+				transform.localScale = new Vector3(0.03f, 1.0f, 0.03f);
 			}
 			else {
-				transform.localScale = new Vector3(0.04f, 1.0f, 0.04f);
+				transform.localScale = new Vector3(0.02f, 1.0f, 0.02f);
 			}
 		}
 	}
@@ -55,8 +57,10 @@ public class PlayerGui : MonoBehaviour {
 				}
 			}
 		}
-		else
+		else {
+			print("hi");
 			GameManager.player.colorPainted = color;
+		}
 	}
 	
 	/*

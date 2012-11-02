@@ -24,9 +24,14 @@ public class GameManager : MonoBehaviour {
 		//		SpikeWall.MakeSpikeWall(x: 9, y: 1, health: 5, destructible: true, directions: new List<Vector2> {new Vector2(1, 0)}, color: Color.green);
 		//SpikeFloor.MakeSpikeFloor(11, 1);
 		//Wall.MakeWall(x: 15, y: 1, health: 5, destructible: true, color: Color.green);
-		PlayerGui.MakePlayerGui(Color.red, new Vector3(20.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
-		PlayerGui.MakePlayerGui(Color.green, new Vector3(50.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
-		PlayerGui.MakePlayerGui(Color.blue, new Vector3(80.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
+		PlayerGui.MakePlayerGui(Color.red, new Vector3(140.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
+		PlayerGui.MakePlayerGui(Color.green, new Vector3(170.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
+		PlayerGui.MakePlayerGui(Color.blue, new Vector3(200.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
+		
+		PlayerGui.MakePlayerGui(player.defaultColor, new Vector3(110.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.red, new Vector3(140.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.green, new Vector3(170.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.blue, new Vector3(200.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
@@ -42,9 +47,11 @@ public class GameManager : MonoBehaviour {
 	
 	void OnGUI() {
 		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health);
-		GUI.Label(new Rect(15.0f, 60.0f, 20.0f, 20.0f), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0));
-		GUI.Label(new Rect(45.0f, 60.0f, 20.0f, 20.0f), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0));
-		GUI.Label(new Rect(75.0f, 60.0f, 20.0f, 20.0f), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0));
+		GUI.Label(new Rect(5, 40, 100, 50), "Color shooting:");
+		GUI.Label(new Rect(5, 80, 100, 50), "Color painted:");
+		GUI.Label(new Rect(137, 60, 20, 20), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0));
+		GUI.Label(new Rect(167, 60, 20, 20), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0));
+		GUI.Label(new Rect(197, 60, 20, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0));
 	}
 	
 	/*
