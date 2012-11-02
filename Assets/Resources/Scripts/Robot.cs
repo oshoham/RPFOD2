@@ -179,6 +179,23 @@ public class Robot : MonoBehaviour, IColor {
 			});
 		if(visibles.Count > 0) {
 			isMoving = false;
+			GameObject target = visibles[0];
+			Vector2 lookdir = new Vector2(0, 0);
+			if(target.GetComponent<Player>() != null)
+				lookdir = target.GetComponent<Player>().gridCoords - gridCoords;
+			else if(target.GetComponent<Robot>() != null)
+				lookdir = target.GetComponent<Robot>().gridCoords - gridCoords;
+			else if(target.GetComponent<Wall>() != null)
+				lookdir = target.GetComponent<Wall>().gridCoords - gridCoords;
+			lookdir.Normalize();
+			if(lookdir == new Vector2(1, 0))
+				transform.localEulerAngles = new Vector3(0, 0, 90f);
+			else if(lookdir == new Vector2(0, 1))
+				transform.localEulerAngles = new Vector3(0, 0, 180f);
+			else if(lookdir == new Vector2(-1, 0))
+				transform.localEulerAngles = new Vector3(0, 0, 270f);
+			else if(lookdir == new Vector2(0, -1))
+				transform.localEulerAngles = new Vector3(0, 0, 360f);
 			if(Time.time > lastFired + fireRate) {
 				Bullet.MakeBullet(damageDealt, transform.position, visibles[0].transform.position - transform.position, gameObject);
 				lastFired = Time.time;
