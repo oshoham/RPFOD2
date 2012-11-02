@@ -72,6 +72,7 @@ public class PlayerGui : MonoBehaviour {
 		gui.name = "GUI plane";
 		gui.transform.Rotate(-90.0f, 0.0f, 0.0f);
 		gui.transform.localScale = new Vector3(.02f, 1.0f, .02f);
+		gui.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
 		PlayerGui script = gui.AddComponent<PlayerGui>();
 		script.color = color;
 		script.position = position;
