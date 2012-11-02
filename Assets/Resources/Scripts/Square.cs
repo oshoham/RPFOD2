@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Square {
+public class Square : IColor {
 
 	public Vector2 loc;	// (x,y) location coordinates within the Grid
 	public List<GameObject> objects;	// list of GameObjects occupying this Square
@@ -10,6 +10,13 @@ public class Square {
 	public Vector3 wloc;	// 3D location coordinates in Unity's world units
 	public GameObject plane;	// the actual plane or part of a plane that this Square represents
 	public bool empt = true;
+	private Color _colorPainted;
+	public Color colorPainted{ get{return _colorPainted;}
+				   set {
+					   plane.renderer.material.color = value;
+					   _colorPainted = value;
+				   }
+				 }
 
 
 	// Constructor
