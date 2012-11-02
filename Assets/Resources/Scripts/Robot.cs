@@ -36,6 +36,8 @@ public class Robot : MonoBehaviour, IColor {
 	public float fireRate;
 	public bool isMoving;
 	
+	System.Threading.Timer timer;
+	
 	void Start() {
 		lastFired = Time.time;
 		fireRate = 2.0f;
@@ -68,17 +70,26 @@ public class Robot : MonoBehaviour, IColor {
 		{
 			sq.colors[colorVisible]--;
 			sq.SetColor();
+			// timer = new System.Threading.Timer(obj => {sq.ChangeColor(colorVisible, -1); },
+			// 				   null,
+			// 				   (int)moveSpeed*1000,
+			// 				   System.Threading.Timeout.Infinite);
+			
 		}
 		foreach(Square sq in nVision) {
 			sq.colors[colorVisible]++;
 			sq.SetColor();
-			foreach(GameObject obj in sq.objects) {
-				if(obj.GetComponent<Wall>() != null)
-				{
-					blind = true;
-					break;
-				}
-			}	
+			// timer = new System.Threading.Timer(obj => {sq.ChangeColor(colorVisible, 1); },
+			// 				   null,
+			// 				   (int)moveSpeed*1000,
+			// 				   System.Threading.Timeout.Infinite);
+			// foreach(GameObject obj in sq.objects) {
+			// 	if(obj.GetComponent<Wall>() != null)
+			// 	{
+			// 		blind = true;
+			// 		break;
+			// 	}
+			// }
 			// if(blind == true)
 			// 	break;
 		}
@@ -206,8 +217,9 @@ public class Robot : MonoBehaviour, IColor {
 		script.health = health;
 		script.turnsLeft = turnsLeft;
 		GameManager.floor.Add(robot, x, y);
-		script.nVision = GameManager.floor.SCheckLine(script.gridCoords, script.gridCoords + fireDirection*forwardRange);
-		script.oVision = script.nVision;
+		//script.nVision = GameManager.floor.SCheckLine(script.gridCoords, script.gridCoords + fireDirection*forwardRange);
+		//script.oVision = script.nVision;
+		script.oVision = new List<Square>();
 		return robot;
 	}
 }

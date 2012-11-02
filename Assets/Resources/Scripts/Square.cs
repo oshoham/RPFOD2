@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class Square {
@@ -43,7 +44,12 @@ public class Square {
 			}
 		}
 	}
-
+	
+	// public void ChangeColor(Color col, int n) {
+	// 	colors[col] += n;
+	// 	SetColor();
+	// }
+	
 	/*
 	 * holy fuck this is hacky
 	 *
