@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
 	void Start() {
 	     	Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 8;
-		Camera.main.backgroundColor = Color.black;
+		Camera.main.backgroundColor = Color.white;
 		floor = new Grid(WIDTH, HEIGHT);
 		player = Player.MakePlayer(0, 8, 15).GetComponent<Player>();
 		makeLev(level);
@@ -51,12 +51,14 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health);
-		GUI.Label(new Rect(5, 40, 100, 50), "Color shooting:");
-		GUI.Label(new Rect(5, 80, 100, 50), "Color painted:");
-		GUI.Label(new Rect(137, 60, 20, 20), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0));
-		GUI.Label(new Rect(167, 60, 20, 20), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0));
-		GUI.Label(new Rect(197, 60, 20, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0));
+		GUIStyle guiStyle = new GUIStyle();
+		guiStyle.font = Resources.Load("Fonts/Chalkduster") as Font;
+		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health, guiStyle);
+		GUI.Label(new Rect(10, 40, 100, 50), "Shooting:", guiStyle);
+		GUI.Label(new Rect(10, 80, 100, 50), "Painted:", guiStyle);
+		GUI.Label(new Rect(137, 60, 20, 20), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0), guiStyle);
+		GUI.Label(new Rect(167, 60, 20, 20), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0), guiStyle);
+		GUI.Label(new Rect(197, 60, 20, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0), guiStyle);
 	}
 	
 	/*

@@ -26,6 +26,9 @@ public class SpikeWall : Wall {
 		GameObject spikeWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		spikeWall.transform.position = new Vector3(x, y, 0.0f);
 		SpikeWall script = spikeWall.AddComponent<SpikeWall>();
+		spikeWall.renderer.material.mainTexture = Resources.Load("Textures/Spike") as Texture;
+		spikeWall.renderer.material.shader = Shader.Find("Transparent/Diffuse");
+		spikeWall.renderer.material.color = Color.white;
 		script.health = health;
 		script.destructible = destructible;
 		script.colorPainted = color;
