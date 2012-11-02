@@ -98,7 +98,7 @@ public class Robot : MonoBehaviour, IColor {
 			startedMoving = Time.time;
 			endMoving = startedMoving + moveSpeed;
 			oldPosition = transform.position;
-			newPosition = new Vector3(gridCoords.x, gridCoords.y, 0);
+			newPosition = new Vector3(gridCoords.x, gridCoords.y, -1.0f);
 		}
 		else { // Turn if we hit something
 			if(turnsLeft) {
@@ -172,14 +172,18 @@ public class Robot : MonoBehaviour, IColor {
 		}
 		GameObject robot = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		robot.name = "Robot";
+		robot.renderer.material.mainTexture = Resources.Load("Textures/BlankBot") as Texture;
+		robot.renderer.material.shader = Shader.Find("Transparent/Diffuse");
+		robot.renderer.material.color = Color.white;
 		GameObject indicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		indicator.name = "indicator";
+		indicator.renderer.material.mainTexture = Resources.Load("Textures/Indicator") as Texture;
 		indicator.transform.parent = robot.transform;
 		indicator.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-		indicator.transform.localPosition = new Vector3(0.0f, 0.0f, -0.5f);
+		indicator.transform.localPosition = new Vector3(0.0f, 0.0f, -1.5f);
 		indicator.renderer.material.color = colorVisible;
 		Robot script = robot.AddComponent<Robot>();
-		robot.transform.position = new Vector3(x, y, 0.0f);
+		robot.transform.position = new Vector3(x, y, -1.0f);
 		script.oldPosition = robot.transform.position;
 		script.forwardRange = forwardRange;
 		script.sideRange = sideRange;

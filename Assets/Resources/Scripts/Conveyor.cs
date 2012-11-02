@@ -117,10 +117,14 @@ public bool AnimateMotion(GameObject obj, GameObjectAnimation goa) {
 		while(count < length) {
 			script.cells[count] = startCoords + (count * direction);
 			GameObject conveyorPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-			conveyorPlane.transform.position = GameManager.floor.grid[(int)script.cells[count].x, (int)script.cells[count].y].plane.transform.position + new Vector3(0f, 0f, -0.1f);
-			conveyorPlane.transform.localScale = GameManager.floor.grid[(int)script.cells[count].x, (int)script.cells[count].y].plane.transform.localScale;
+			//I changed the following line (121) from ... + new Vector3(0f, 0f, -0.1f) to what it is now. It was making the plane go over everything else
+			conveyorPlane.transform.position = GameManager.floor.grid[(int)script.cells[count].x, (int)script.cells[count].y].plane.transform.position + new Vector3(0f, 0f, 0f);
+			//I kind of fixed the following line by adding new Vector3 to it to make shit slightly bigger... but it's still a little janky looking
+			conveyorPlane.transform.localScale = new Vector3(0f, 0f, 0.01f) + GameManager.floor.grid[(int)script.cells[count].x, (int)script.cells[count].y].plane.transform.localScale;
 			conveyorPlane.transform.Rotate(-90.0f, 0.0f, 0.0f);
-			conveyorPlane.renderer.material.color = Color.grey;
+			conveyorPlane.renderer.material.mainTexture = Resources.Load("Textures/Conveyor") as Texture;
+	                conveyorPlane.renderer.material.shader = Shader.Find("Transparent/Diffuse");
+        	        conveyorPlane.renderer.material.color = Color.white;
 			conveyorPlane.name = "conveyor plane";
 			count++;
 		}
@@ -133,9 +137,9 @@ public bool AnimateMotion(GameObject obj, GameObjectAnimation goa) {
 		//Debug.Log(GameManager.floor.grid[(int)middleCoords.x, (int)middleCoords.y].wloc);
 	//	conveyor.transform.position = GameManager.floor.grid[(int)middleCoords.x, (int)middleCoords.y].wloc + new Vector3(0f, 0f, -0.1f);
 		conveyor.transform.position = new Vector3(-5000, -5000, -5000);
+		conveyor.renderer.material.color = Color.white;
 		script.wloc = conveyor.transform.position;
 		conveyor.transform.Rotate(-90.0f, 0.0f, 0.0f);
-		conveyor.renderer.material.color = Color.grey; 
 		return conveyor;
 	}
 
