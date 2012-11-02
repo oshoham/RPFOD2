@@ -116,7 +116,12 @@ public bool AnimateMotion(GameObject obj, GameObjectAnimation goa) {
 		int count = 0;
 		while(count < length) {
 			script.cells[count] = startCoords + (count * direction);
-			GameManager.floor.grid[(int)script.cells[count].x, (int)script.cells[count].y].plane.renderer.material.color = Color.grey;
+			GameObject conveyorPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+			conveyorPlane.transform.position = GameManager.floor.grid[(int)script.cells[count].x, (int)script.cells[count].y].plane.transform.position + new Vector3(0f, 0f, -0.1f);
+			conveyorPlane.transform.localScale = GameManager.floor.grid[(int)script.cells[count].x, (int)script.cells[count].y].plane.transform.localScale;
+			conveyorPlane.transform.Rotate(-90.0f, 0.0f, 0.0f);
+			conveyorPlane.renderer.material.color = Color.grey;
+			conveyorPlane.name = "conveyor plane";
 			count++;
 		}
 		script.endCoords = script.cells[(int)length-1];
