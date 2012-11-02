@@ -42,8 +42,10 @@ public class Paint : MonoBehaviour, IColor {
 	public static GameObject MakePaint(int x, int y, Color color, float respawnTime) {
 		GameObject paint = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		paint.name = "Paint";
-		paint.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+		paint.transform.localScale = new Vector3(0.65f, 0.65f, 0.65f);
 		paint.transform.position = new Vector3(x, y, -0.25f);
+		paint.renderer.material.mainTexture = Resources.Load("Textures/Paint") as Texture;
+		paint.renderer.material.shader = Shader.Find("Transparent/Diffuse");					 
 		paint.renderer.material.color = color;
 		GameManager.floor.Add(paint, x, y);
 		Paint script = paint.AddComponent<Paint>();
