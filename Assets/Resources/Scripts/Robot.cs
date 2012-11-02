@@ -139,7 +139,7 @@ public class Robot : MonoBehaviour, IColor {
 			});
 		// Obviously this should fire, but we've not worked out projectiles yet.
 		if(visibles.Count > 0) {
-			Bullet.MakeBullet(damageDealt, transform.position, fireDirection, gameObject);
+			Bullet.MakeBullet(damageDealt, transform.position, visibles[0].transform.position - transform.position, gameObject);
 		}
 		lastFired = Time.time;
 	}
