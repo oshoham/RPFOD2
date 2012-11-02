@@ -98,7 +98,7 @@ public class Conveyor : MonoBehaviour {
 		if(Time.time > goa.endMoving) {
 			return true;
 		}
-		float time = (Time.time - goa.startedMoving)/speed + .1f;
+		float time = (Time.time - goa.startedMoving)/speed + .15f;
 		obj.transform.position = Vector3.Lerp(goa.oldPosition, goa.newPosition, time);
 		return false;
 	}

@@ -58,8 +58,9 @@ public class L1 : Level {
 		WLoops(19, 1, 28, 0);
 	
 		// Inserts	
-		SpikeWall.MakeSpikeWall(7, 1, 1, false, new List<Vector2>() { new Vector2(1, 0) }, col);	
-		Wall.MakeWall(19, 1, 1, false, col);	
+		Wall.MakeWall(7, 1, 1, false, col);
+		Wall.MakeWall(19, 1, 1, false, col);
+		SpikeFloor.MakeSpikeFloor(8, 1);
 		
 	
 		/* 
@@ -115,33 +116,33 @@ public class L1 : Level {
 	
 	}
 	public void MakeBelts() {
-		Conveyor.MakeConveyor(new Vector2(0, 8), new Vector2(1, 0), 5, 0.005f);
-		Conveyor.MakeConveyor(new Vector2(7, 8), new Vector2(1, 0), 2, 0.005f);
+		Conveyor.MakeConveyor(new Vector2(0, 8), new Vector2(1, 0), 5, 0.1f);
+		Conveyor.MakeConveyor(new Vector2(7, 8), new Vector2(1, 0), 2, 0.1f);
 		for(int i = 0; i < 8; i+=2)
-			Conveyor.MakeConveyor(new Vector2(10+i, 8), new Vector2(1, 0), 1, 0.005f);
-		Conveyor.MakeConveyor(new Vector2(18, 8), new Vector2(1, 0), 2, 0.005f);
-		Conveyor.MakeConveyor(new Vector2(21, 8), new Vector2(1, 0), 5, 0.005f);
-		Conveyor.MakeConveyor(new Vector2(26, 8), new Vector2(1, 0), 1, 0.005f, true, 3);
+			Conveyor.MakeConveyor(new Vector2(10+i, 8), new Vector2(1, 0), 1, 0.1f);
+		Conveyor.MakeConveyor(new Vector2(18, 8), new Vector2(1, 0), 2, 0.1f);
+		Conveyor.MakeConveyor(new Vector2(21, 8), new Vector2(1, 0), 5, 0.1f);
+		Conveyor.MakeConveyor(new Vector2(26, 8), new Vector2(1, 0), 1, 0.01f);
 
 	
-		Conveyor.MakeConveyor(new Vector2(4, 10), new Vector2(-1, 0), 1, 0.005f);
-		Conveyor.MakeConveyor(new Vector2(8, 10), new Vector2(-1, 0), 2, 0.005f);
+		Conveyor.MakeConveyor(new Vector2(4, 10), new Vector2(-1, 0), 1, 0.1f);
+		Conveyor.MakeConveyor(new Vector2(8, 10), new Vector2(-1, 0), 2, 0.1f);
 		for(int i = 0; i < 8; i+=2)
-			Conveyor.MakeConveyor(new Vector2(10+i, 10), new Vector2(-1, 0), 1, 0.005f);
-		Conveyor.MakeConveyor(new Vector2(19, 10), new Vector2(-1, 0), 2, 0.005f);
-		Conveyor.MakeConveyor(new Vector2(26, 10), new Vector2(-1, 0), 6, 0.005f);
+			Conveyor.MakeConveyor(new Vector2(10+i, 10), new Vector2(-1, 0), 1, 0.1f);
+		Conveyor.MakeConveyor(new Vector2(19, 10), new Vector2(-1, 0), 2, 0.1f);
+		Conveyor.MakeConveyor(new Vector2(26, 10), new Vector2(-1, 0), 6, 0.1f);
 		
 		
-		Conveyor.MakeConveyor(new Vector2(4, 6), new Vector2(-1, 0), 1, 0.005f);
-		Conveyor.MakeConveyor(new Vector2(8, 6), new Vector2(-1, 0), 2, 0.005f);
+		Conveyor.MakeConveyor(new Vector2(4, 6), new Vector2(-1, 0), 1, 0.1f);
+		Conveyor.MakeConveyor(new Vector2(8, 6), new Vector2(-1, 0), 2, 0.1f);
 		for(int i = 0; i < 8; i+=2)
-			Conveyor.MakeConveyor(new Vector2(10+i, 6), new Vector2(-1, 0), 1, 0.005f);
-		Conveyor.MakeConveyor(new Vector2(19, 6), new Vector2(-1, 0), 2, 0.005f);
-		Conveyor.MakeConveyor(new Vector2(26, 6), new Vector2(-1, 0), 6, 0.005f);
+			Conveyor.MakeConveyor(new Vector2(10+i, 6), new Vector2(-1, 0), 1, 0.1f);
+		Conveyor.MakeConveyor(new Vector2(19, 6), new Vector2(-1, 0), 2, 0.1f);
+		Conveyor.MakeConveyor(new Vector2(26, 6), new Vector2(-1, 0), 6, 0.1f);
 
 		
-		Conveyor.MakeConveyor(new Vector2(3, 10), new Vector2(0, -1), 2, 0.005f);
-		Conveyor.MakeConveyor(new Vector2(3, 6), new Vector2(0, 1), 2, 0.005f);
+		Conveyor.MakeConveyor(new Vector2(3, 10), new Vector2(0, -1), 2, 0.1f);
+		Conveyor.MakeConveyor(new Vector2(3, 6), new Vector2(0, 1), 2, 0.1f);
 	}
 
 
