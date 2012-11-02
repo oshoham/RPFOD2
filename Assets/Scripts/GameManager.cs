@@ -40,6 +40,9 @@ public class GameManager : MonoBehaviour {
 	
 	void OnGUI() {
 		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health);
+		GUI.Label(new Rect(15.0f, 60.0f, 20.0f, 20.0f), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0));
+		GUI.Label(new Rect(45.0f, 60.0f, 20.0f, 20.0f), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0));
+		GUI.Label(new Rect(75.0f, 60.0f, 20.0f, 20.0f), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0));
 	}
 	
 	/*
