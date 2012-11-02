@@ -47,7 +47,7 @@ public class SpikeWall : Wall {
 	 */
 	void OnDisable() {
 		foreach(Vector2 direction in directions) {
-			GameManager.floor.grid[(int)(direction.x + gridCoords.x), (int)(direction.y + gridCoords.y)].plane.renderer.material.color = Color.black;
+			GameManager.floor.grid[(int)(direction.x + gridCoords.x), (int)(direction.y + gridCoords.y)].plane.renderer.material.color = Color.white;
 		}
 		GameManager.floor.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 	}
