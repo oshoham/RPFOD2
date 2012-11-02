@@ -180,7 +180,7 @@ public class Robot : MonoBehaviour, IColor {
 		if(visibles.Count > 0) {
 			isMoving = false;
 			if(Time.time > lastFired + fireRate) {
-				Bullet.MakeBullet(damageDealt, transform.position, visibles[0].transform.position - transform.position, gameObject);
+				Bullet.MakeBullet(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, gameObject);
 				lastFired = Time.time;
 			}
 		}
@@ -190,6 +190,10 @@ public class Robot : MonoBehaviour, IColor {
 	}
 
 	void OnDisable() {
+		foreach(Square sq in oVision) {
+			sq.colors[colorVisible]--;
+			sq.SetColor();
+		}
 		GameManager.floor.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 	}
 	

@@ -83,8 +83,10 @@ public class Conveyor : MonoBehaviour {
 		}
 
 		if(switchable) {
-			if(Time.time - lastSwitched > switchRate)
+			if(Time.time - lastSwitched > switchRate) {
 				direction = direction * -1.0f;
+				lastSwitched = Time.time;
+			}
 		}
 	}
 
@@ -92,9 +94,9 @@ public class Conveyor : MonoBehaviour {
 	 * This returns true if the animation for this GameObjectAnimation is done, false
 	 * otherwise. Slightly jank!
 	 */
-public bool AnimateMotion(GameObject obj, GameObjectAnimation goa) {
-	if(Time.time > goa.endMoving) {
-		return true;
+	public bool AnimateMotion(GameObject obj, GameObjectAnimation goa) {
+		if(Time.time > goa.endMoving) {
+			return true;
 		}
 		float time = (Time.time - goa.startedMoving)/speed + .1f;
 		obj.transform.position = Vector3.Lerp(goa.oldPosition, goa.newPosition, time);
