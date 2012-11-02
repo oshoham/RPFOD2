@@ -41,10 +41,11 @@ public class Wall : MonoBehaviour, IColor {
 		}
 		GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		wall.transform.position = new Vector3(x, y, 0.0f);
+		wall.renderer.material.mainTexture = Resources.Load("Textures/Wall") as Texture;
 		Wall script = wall.AddComponent<Wall>();
 		script.health = health;
 		script.destructible = destructible;
-		script.colorPainted = color;
+		script.colorPainted = Color.white;
 		script.gridCoords = new Vector2(x, y);
 		GameManager.floor.Add(wall, x, y);
 		return wall;
