@@ -128,6 +128,14 @@ public class Conveyor : MonoBehaviour {
 	                conveyorPlane.renderer.material.shader = Shader.Find("Transparent/Diffuse");
         	        conveyorPlane.renderer.material.color = Color.white;
 			conveyorPlane.name = "conveyor plane";
+			if(direction == new Vector2(1, 0))
+				conveyorPlane.transform.Rotate(new Vector3(0, 90f, 0));
+			else if(direction == new Vector2(0, 1))
+				conveyorPlane.transform.Rotate(new Vector3(0, 180f, 0));
+			else if(direction == new Vector2(-1, 0))
+				conveyorPlane.transform.Rotate(new Vector3(0, 270f, 0));
+			else if(direction == new Vector2(0, -1))
+				conveyorPlane.transform.Rotate(new Vector3(0, 360f, 0));
 			count++;
 		}
 		script.endCoords = script.cells[(int)length-1];
