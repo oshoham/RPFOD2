@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 
 	void Start() {
 	     	Camera.main.orthographic = true;
-		Camera.main.orthographicSize = 5;
+		Camera.main.orthographicSize = 8;
 		floor = new Grid(WIDTH, HEIGHT);
 		player = Player.MakePlayer(0, 8, 15).GetComponent<Player>();
 		makeLev(level);
