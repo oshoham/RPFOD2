@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
 	public static Player player;
 
 	void Start() {
+	     	Camera.main.orthographic = true;
+		Camera.main.orthographicSize = 5;
 		floor = new Grid(WIDTH, HEIGHT);
 		player = Player.MakePlayer(0, 0, 15).GetComponent<Player>();
 		Paint.MakePaint(5, 5, Color.red, 5.0f);
@@ -29,7 +31,7 @@ public class GameManager : MonoBehaviour {
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
 		l.type = LightType.Directional;
-		l.intensity = 0.2f;
+		l.intensity = 0.4f;
 		Conveyor.MakeConveyor(new Vector2(0, 0), new Vector2(1, 0), 6, 0.1f);
 		Conveyor.MakeConveyor(new Vector2(7, 0), new Vector2(0, 1), 5, 0.1f);
 	}

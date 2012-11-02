@@ -27,7 +27,8 @@ public class Grid {
 				plane.transform.position = sq.wloc;
 				plane.transform.localScale = new Vector3(0.1f, 1.0f, 0.1f);
 				plane.transform.Rotate(-90.0f, 0.0f, 0.0f);
-				plane.renderer.material.color = Color.black;
+				plane.renderer.material.mainTexture = Resources.Load("Textures/TileBigStrongEdge") as Texture;
+				plane.renderer.material.color = Color.white;
 				sq.plane = plane;
 				grid[i, j] = sq;
 			}
