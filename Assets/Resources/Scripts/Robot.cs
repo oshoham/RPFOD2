@@ -71,9 +71,7 @@ public class Robot : MonoBehaviour, IColor {
 		if(health <= 0) {
 			Destroy(gameObject);
 		}
-		if(Time.time  > lastFired + fireRate) {
-			Fire();
-		}
+		Fire();
 		if(Time.time > endMoving) {
 			Move(movementDirection);
 		}
@@ -118,7 +116,6 @@ public class Robot : MonoBehaviour, IColor {
 	
 	public void Fire() {
 		List<GameObject> objects = GameManager.floor.CheckLine(gridCoords, gridCoords + fireDirection*forwardRange);
-			
 		List<Vector2> directions = new List<Vector2> {new Vector2(1, 0),
 							      new Vector2(0, 1),
 							      new Vector2(-1, 0),
@@ -129,8 +126,6 @@ public class Robot : MonoBehaviour, IColor {
 		
 		List<GameObject> visibles = objects.FindAll((GameObject obj) => {
 				Player p = obj.GetComponent<Player>();
-				// watch this if statement -- without parens around the || part,
-				// we get a null pointer and unity is sad
 				if(p != null && (p.colorPainted == colorVisible ||
 						 p.colorPainted == p.defaultColor)) {
 					return true;
@@ -141,11 +136,12 @@ public class Robot : MonoBehaviour, IColor {
 				}
 				return false;
 			});
-		// Obviously this should fire, but we've not worked out projectiles yet.
 		if(visibles.Count > 0) {
 			isMoving = false;
-			Bullet.MakeBullet(damageDealt, transform.position, visibles[0].transform.position - transform.position, gameObject);
-			lastFired = Time.time;
+			if(Time.time > lastFired + fireRate) {
+				Bullet.MakeBullet(damageDealt, transform.position, visibles[0].transform.position - transform.position, gameObject);
+				lastFired = Time.time;
+			}
 		}
 		else {
 			isMoving = true;
