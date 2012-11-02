@@ -96,7 +96,7 @@ public bool AnimateMotion(GameObject obj, GameObjectAnimation goa) {
 	if(Time.time > goa.endMoving) {
 		return true;
 		}
-		float time = (Time.time - goa.startedMoving)/speed;
+		float time = (Time.time - goa.startedMoving)/speed + .1f;
 		obj.transform.position = Vector3.Lerp(goa.oldPosition, goa.newPosition, time);
 		return false;
 	}

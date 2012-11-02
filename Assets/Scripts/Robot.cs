@@ -81,7 +81,7 @@ public class Robot : MonoBehaviour, IColor {
 		if(Time.time > endMoving) {
 			return;
 		}
-		float time = (Time.time - startedMoving)/moveSpeed;
+		float time = (Time.time - startedMoving)/moveSpeed + .1f;
 		transform.position = Vector3.Lerp(oldPosition, newPosition, time);
 	}
 	
