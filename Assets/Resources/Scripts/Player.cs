@@ -42,6 +42,7 @@ public class Player : MonoBehaviour, IColor {
 		colors = new Dictionary<Color, int>();
 		colorPainted = defaultColor;
 		collider.enabled = true;
+		Debug.Log(transform.rotation);
 	}
 
 	void Update() {
@@ -64,6 +65,7 @@ public class Player : MonoBehaviour, IColor {
 					dir = new Vector2(0, 1);
 					Move(dir);
 					lastMovedVertical = Time.time;
+					transform.localEulerAngles = new Vector3(0, 0, 270f);
 				}
 			}
 			if(Input.GetKey("a")) {
@@ -71,6 +73,7 @@ public class Player : MonoBehaviour, IColor {
 					dir = new Vector2(-1, 0);
 					Move(dir);
 					lastMovedHorizontal = Time.time;
+					transform.localEulerAngles = new Vector3(0, 0, 360f);
 				}
 			}
 			if(Input.GetKey("s")) {
@@ -78,6 +81,7 @@ public class Player : MonoBehaviour, IColor {
 					dir = new Vector2(0, -1);
 					Move(dir);
 					lastMovedVertical = Time.time;
+					transform.localEulerAngles = new Vector3(0, 0, 90f);
 				}
 			}
 			if(Input.GetKey("d")) {
@@ -85,6 +89,7 @@ public class Player : MonoBehaviour, IColor {
 					dir = new Vector2(1, 0);
 					Move(dir);
 					lastMovedHorizontal = Time.time;
+					transform.localEulerAngles = new Vector3(0, 0, 180f);
 				}
 			}
 		}
