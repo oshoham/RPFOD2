@@ -197,7 +197,7 @@ public class Robot : MonoBehaviour, IColor {
 			else if(lookdir == new Vector2(0, -1))
 				transform.localEulerAngles = new Vector3(0, 0, 360f);
 			if(Time.time > lastFired + fireRate) {
-				Bullet.MakeBullet(damageDealt, transform.position, visibles[0].transform.position - transform.position, gameObject);
+				Bullet.MakeBullet(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, gameObject);
 				lastFired = Time.time;
 			}
 		}
@@ -207,6 +207,10 @@ public class Robot : MonoBehaviour, IColor {
 	}
 
 	void OnDisable() {
+		foreach(Square sq in oVision) {
+			sq.colors[colorVisible]--;
+			sq.SetColor();
+		}
 		GameManager.floor.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 	}
 	
