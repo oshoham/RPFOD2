@@ -145,6 +145,10 @@ public class Robot : MonoBehaviour, IColor {
 				if(w != null && w.colorPainted == colorVisible) {
 					return true;
 				}
+				Robot r = obj.GetComponent<Robot>();
+				if(r != null && (r.colorPainted == colorVisible)) {
+					return true;
+				}
 				return false;
 			});
 		if(visibles.Count > 0) {
