@@ -58,8 +58,9 @@ public class L1 : Level {
 		WLoops(19, 1, 28, 0);
 	
 		// Inserts	
-		SpikeWall.MakeSpikeWall(7, 1, 1, false, new List<Vector2>() { new Vector2(1, 0) }, col);	
-		Wall.MakeWall(19, 1, 1, false, col);	
+		Wall.MakeWall(7, 1, 1, false, col);
+		Wall.MakeWall(19, 1, 1, false, col);
+		SpikeFloor.MakeSpikeFloor(8, 1);
 		
 	
 		/* 
