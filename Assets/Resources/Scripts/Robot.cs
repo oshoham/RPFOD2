@@ -190,6 +190,10 @@ public class Robot : MonoBehaviour, IColor {
 	}
 
 	void OnDisable() {
+		foreach(Square sq in oVision) {
+			sq.colors[colorVisible]--;
+			sq.SetColor();
+		}
 		GameManager.floor.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 	}
 	
