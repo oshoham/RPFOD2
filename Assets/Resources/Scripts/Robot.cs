@@ -44,6 +44,8 @@ public class Robot : MonoBehaviour, IColor {
 
 	void Update() {
 		
+		bool blind = false;
+
 		/*
 		 * Colors panels to represent vision
 		 */
@@ -57,13 +59,22 @@ public class Robot : MonoBehaviour, IColor {
 		foreach(Vector2 direction in directions.Where(v => v != fireDirection)) {
 			nVision.AddRange(GameManager.floor.SCheckLine(gridCoords, (gridCoords + (direction*sideRange))));
 		}
-		
+		GameManager.floor.grid[(int)gridCoords.x, (int)gridCoords.y].colorPainted = colorVisible;	
 		foreach(Square sq in oVision)
 		{
 			sq.colorPainted = Color.white;
 		}
 		foreach(Square sq in nVision) {
+			foreach(GameObject obj in sq.objects) {
+				if(obj.GetComponent<Wall>() != null)
+				{
+					blind = true;
+					break;
+				}
+			}	
 			sq.colorPainted = colorVisible;
+			if(blind == true)
+				break;
 		}
 		oVision = new List<Square>();
 		oVision.AddRange(nVision);

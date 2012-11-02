@@ -10,12 +10,16 @@ public class GameManager : MonoBehaviour {
 	public static Grid floor;
 	public static Player player;
 
+	public static int level = 1;
+
 	void Start() {
 	     	Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 5;
 		floor = new Grid(WIDTH, HEIGHT);
-		player = Player.MakePlayer(0, 0, 15).GetComponent<Player>();
-		Paint.MakePaint(5, 5, Color.red, 5.0f);
+		player = Player.MakePlayer(0, 8, 15).GetComponent<Player>();
+		makeLev(level);
+
+		/*Paint.MakePaint(5, 5, Color.red, 5.0f);
 		Paint.MakePaint(7, 5, Color.green, 1.0f);
 		Paint.MakePaint(7, 1, Color.blue, 2.0f);
 		Robot.MakeRobot(x: 5, y: 1, speed: 0.5f, damage: 2, health: 10,
@@ -31,14 +35,14 @@ public class GameManager : MonoBehaviour {
 		PlayerGui.MakePlayerGui(player.defaultColor, new Vector3(110.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);
 		PlayerGui.MakePlayerGui(Color.red, new Vector3(140.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);
 		PlayerGui.MakePlayerGui(Color.green, new Vector3(170.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);
-		PlayerGui.MakePlayerGui(Color.blue, new Vector3(200.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.blue, new Vector3(200.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);*/
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
 		l.type = LightType.Directional;
 		l.intensity = 0.4f;
-		Conveyor.MakeConveyor(new Vector2(0, 0), new Vector2(1, 0), 6, 0.1f);
-		Conveyor.MakeConveyor(new Vector2(7, 0), new Vector2(0, 1), 5, 0.1f);
+//		Conveyor.MakeConveyor(new Vector2(0, 0), new Vector2(1, 0), 6, 0.1f);
+//		Conveyor.MakeConveyor(new Vector2(7, 0), new Vector2(0, 1), 5, 0.1f);
 	}
 
 	void Update() {
@@ -65,4 +69,14 @@ public class GameManager : MonoBehaviour {
 		}
 		return false;
 	}
+
+	public static void makeLev(int lev)
+	{
+		Level level = new Level();
+
+		switch(lev){
+		case 1: level.L1(); break;
+		default: break;
+		}
+	}	
 }
