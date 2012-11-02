@@ -42,7 +42,6 @@ public class Player : MonoBehaviour, IColor {
 		colors = new Dictionary<Color, int>();
 		colorPainted = defaultColor;
 		collider.enabled = true;
-		Debug.Log(transform.rotation);
 	}
 
 	void Update() {
