@@ -25,6 +25,8 @@ public class Robot : MonoBehaviour, IColor {
 	}
 	public Color colorVisible;
 
+	public List<Square> oVision;
+	public List<Square> nVision;
 	public float startedMoving;
 	public float endMoving;
 	public Vector3 oldPosition;
@@ -40,6 +42,31 @@ public class Robot : MonoBehaviour, IColor {
 	}
 
 	void Update() {
+		
+		/*
+		 * Colors panels to represent vision
+		 */
+	
+		nVision = GameManager.floor.SCheckLine(gridCoords, gridCoords + fireDirection*forwardRange);
+			
+		List<Vector2> directions = new List<Vector2> {new Vector2(1, 0),
+							      new Vector2(0, 1),
+							      new Vector2(-1, 0),
+							      new Vector2(0, -1)};
+		foreach(Vector2 direction in directions.Where(v => v != fireDirection)) {
+			nVision.AddRange(GameManager.floor.SCheckLine(gridCoords, (gridCoords + (direction*sideRange))));
+		}
+		
+		foreach(Square sq in oVision)
+		{
+			sq.colorPainted = Color.white;
+		}
+		foreach(Square sq in nVision) {
+			sq.colorPainted = colorVisible;
+		}
+		oVision = new List<Square>();
+		oVision.AddRange(nVision);
+
 		if(health <= 0) {
 			Destroy(gameObject);
 		}
@@ -86,6 +113,7 @@ public class Robot : MonoBehaviour, IColor {
 	
 	public void Fire() {
 		List<GameObject> objects = GameManager.floor.CheckLine(gridCoords, gridCoords + fireDirection*forwardRange);
+			
 		List<Vector2> directions = new List<Vector2> {new Vector2(1, 0),
 							      new Vector2(0, 1),
 							      new Vector2(-1, 0),
@@ -93,6 +121,7 @@ public class Robot : MonoBehaviour, IColor {
 		foreach(Vector2 direction in directions.Where(v => v != fireDirection)) {
 			objects.AddRange(GameManager.floor.CheckLine(gridCoords, (gridCoords + (direction*sideRange))));
 		}
+		
 		List<GameObject> visibles = objects.FindAll((GameObject obj) => {
 				Player p = obj.GetComponent<Player>();
 				// watch this if statement -- without parens around the || part,
@@ -147,6 +176,8 @@ public class Robot : MonoBehaviour, IColor {
 		script.health = health;
 		script.turnsLeft = turnsLeft;
 		GameManager.floor.Add(robot, x, y);
+		script.nVision = GameManager.floor.SCheckLine(script.gridCoords, script.gridCoords + fireDirection*forwardRange);
+		script.oVision = script.nVision;
 		return robot;
 	}
 }
