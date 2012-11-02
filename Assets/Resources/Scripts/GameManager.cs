@@ -11,8 +11,12 @@ public class GameManager : MonoBehaviour {
 	public static Player player;
 
 	public static int level = 1;
+	public GameObject plane; // take this out!
 
 	void Start() {
+		plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		plane.transform.localScale = new Vector3(1.4f, 1.0f, .4f);
+		plane.transform.Rotate(-90, 0, 0);
 	     	Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 8;
 		Camera.main.backgroundColor = Color.white;
@@ -47,7 +51,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update() {
-
+		plane.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(50, Camera.main.pixelHeight - 40, Camera.main.nearClipPlane+6));
+		plane.renderer.material.color = Color.white;
 	}
 	
 	void OnGUI() {
