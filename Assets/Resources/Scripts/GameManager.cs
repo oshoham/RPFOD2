@@ -30,13 +30,13 @@ public class GameManager : MonoBehaviour {
 		//SpikeFloor.MakeSpikeFloor(11, 1);
 		//Wall.MakeWall(x: 15, y: 1, health: 5, destructible: true, color: Color.green);
 		PlayerGui.MakePlayerGui(Color.red, new Vector3(140.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
-		PlayerGui.MakePlayerGui(Color.green, new Vector3(170.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
-		PlayerGui.MakePlayerGui(Color.blue, new Vector3(200.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
+		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
+		PlayerGui.MakePlayerGui(Color.blue, new Vector3(240.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
 		
 		PlayerGui.MakePlayerGui(player.defaultColor, new Vector3(110.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);
-		PlayerGui.MakePlayerGui(Color.red, new Vector3(140.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);
-		PlayerGui.MakePlayerGui(Color.green, new Vector3(170.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);
-		PlayerGui.MakePlayerGui(Color.blue, new Vector3(200.0f, Camera.main.pixelHeight - 90.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.red, new Vector3(140.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.blue, new Vector3(240.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
@@ -55,10 +55,10 @@ public class GameManager : MonoBehaviour {
 		guiStyle.font = Resources.Load("Fonts/Chalkduster") as Font;
 		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health, guiStyle);
 		GUI.Label(new Rect(10, 40, 100, 50), "Shooting:", guiStyle);
-		GUI.Label(new Rect(10, 80, 100, 50), "Painted:", guiStyle);
-		GUI.Label(new Rect(137, 60, 20, 20), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0), guiStyle);
-		GUI.Label(new Rect(167, 60, 20, 20), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0), guiStyle);
-		GUI.Label(new Rect(197, 60, 20, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0), guiStyle);
+		GUI.Label(new Rect(10, 100, 100, 50), "Painted:", guiStyle);
+		GUI.Label(new Rect(135, 70, 20, 20), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0), guiStyle);
+		GUI.Label(new Rect(185, 70, 20, 20), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0), guiStyle);
+		GUI.Label(new Rect(235, 70, 20, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0), guiStyle);
 	}
 	
 	/*

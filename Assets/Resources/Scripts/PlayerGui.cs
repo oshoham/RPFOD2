@@ -19,28 +19,28 @@ public class PlayerGui : MonoBehaviour {
 		if(forShooting) {
 			if(GameManager.player.colorShooting == color &&
 			   GameManager.player.colors[color] > 0) {
-				transform.localScale = new Vector3(0.03f, 1.0f, 0.03f);
+				transform.localScale = new Vector3(0.07f, 1.0f, 0.07f);
 			}
 			else {
-				transform.localScale = new Vector3(0.02f, 1.0f, 0.02f);
+				transform.localScale = new Vector3(0.04f, 1.0f, 0.04f);
 			}
 		}
 		else if (!forShooting && color != GameManager.player.defaultColor) {
 			if(GameManager.player.colorPainted == color) {
-				transform.localScale = new Vector3(0.03f, 1.0f, 0.03f);
+				transform.localScale = new Vector3(0.06f, 1.0f, 0.06f);
 				renderer.material.color = color;
 			}
 			else {
-				transform.localScale = new Vector3(0.02f, 1.0f, 0.02f);
+				transform.localScale = new Vector3(0.04f, 1.0f, 0.04f);
 			}
 		}
 		else {
 			renderer.material.color = color;
 			if(GameManager.player.colorPainted == color) {
-				transform.localScale = new Vector3(0.03f, 1.0f, 0.03f);
+				transform.localScale = new Vector3(0.06f, 1.0f, 0.06f);
 			}
 			else {
-				transform.localScale = new Vector3(0.02f, 1.0f, 0.02f);
+				transform.localScale = new Vector3(0.04f, 1.0f, 0.04f);
 			}
 		}
 	}
