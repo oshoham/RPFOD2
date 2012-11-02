@@ -176,6 +176,9 @@ public class Player : MonoBehaviour, IColor {
 	public static GameObject MakePlayer(int x, int y, int health) {
 		GameObject player = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		player.name = "Player";
+		player.renderer.material.mainTexture = Resources.Load("Textures/PlayerPacMan") as Texture;
+		player.renderer.material.color = Color.white;
+		player.renderer.material.shader =Shader.Find("Transparent/Diffuse");
 		player.transform.position = new Vector3(x, y, 0.0f);
 		Player script = player.AddComponent<Player>();
 		script.gridCoords = new Vector2(x, y);
