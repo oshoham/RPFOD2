@@ -20,7 +20,6 @@ public class L1 : Level {
 
 	public void MakeWalls() {
 		Color col = Color.black;
-		int x, y;
 		/*
 		 * West Wall
 		 */

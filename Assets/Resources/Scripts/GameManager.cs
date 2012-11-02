@@ -72,11 +72,12 @@ public class GameManager : MonoBehaviour {
 
 	public static void makeLev(int lev)
 	{
-		Level level = new Level();
-
 		switch(lev){
-		case 1: level.L1(); break;
-		default: break;
+			case 1:
+				new L1();
+				break;
+			default:
+				break;
 		}
 	}	
 }

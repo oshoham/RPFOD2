@@ -2,19 +2,18 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Level {
+interface Level {
 
-	public Level(){}
+	// public Level(){}
 
-	public void L1()
-	{
-		L1 lev = new L1();
-	}
+	// public void L1()
+	// {
+	// 	L1 lev = new L1();
+	// }
 
-	public void MakeWalls() {}
-	public void MakeBots() {}
-	public void MakeBelts() {}
-	public void MakeTraps() {}
-	public void MakePaint() {}
-
+	void MakeWalls();
+	void MakeBots();
+	void MakeBelts();
+	void MakeTraps();
+	void MakePaint();
 }
