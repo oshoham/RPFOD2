@@ -59,12 +59,19 @@ public class Robot : MonoBehaviour, IColor {
 		foreach(Vector2 direction in directions.Where(v => v != fireDirection)) {
 			nVision.AddRange(GameManager.floor.SCheckLine(gridCoords, (gridCoords + (direction*sideRange))));
 		}
-		GameManager.floor.grid[(int)gridCoords.x, (int)gridCoords.y].colorPainted = colorVisible;	
+		// GameManager.floor.grid[(int)gridCoords.x, (int)gridCoords.y].colors[colorVisible]++;
+		// GameManager.floor.grid[(int)gridCoords.x, (int)gridCoords.y].SetColor();
+		// Vector2 oldPosition = gridCoords - movementDirection;
+		// GameManager.floor.grid[(int)oldPosition.x, (int)oldPosition.y].colors[colorVisible]--;
+		// GameManager.floor.grid[(int)oldPosition.x, (int)oldPosition.y].SetColor();
 		foreach(Square sq in oVision)
 		{
-			sq.colorPainted = Color.white;
+			sq.colors[colorVisible]--;
+			sq.SetColor();
 		}
 		foreach(Square sq in nVision) {
+			sq.colors[colorVisible]++;
+			sq.SetColor();
 			foreach(GameObject obj in sq.objects) {
 				if(obj.GetComponent<Wall>() != null)
 				{
@@ -72,9 +79,8 @@ public class Robot : MonoBehaviour, IColor {
 					break;
 				}
 			}	
-			sq.colorPainted = colorVisible;
-			if(blind == true)
-				break;
+			// if(blind == true)
+			// 	break;
 		}
 		oVision = new List<Square>();
 		oVision.AddRange(nVision);
