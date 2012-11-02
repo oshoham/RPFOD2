@@ -34,6 +34,7 @@ public class Robot : MonoBehaviour, IColor {
 
 	public float lastFired;
 	public float fireRate;
+	public bool isMoving;
 	
 	void Start() {
 		lastFired = Time.time;
@@ -80,6 +81,9 @@ public class Robot : MonoBehaviour, IColor {
 	}
 
 	void Move(Vector2 coords) {
+		if(!isMoving) {
+			return;
+		}
 		if(GameManager.Move(gridCoords, gridCoords + coords, gameObject)) {
 			gridCoords += coords;
 			startedMoving = Time.time;
@@ -139,9 +143,13 @@ public class Robot : MonoBehaviour, IColor {
 			});
 		// Obviously this should fire, but we've not worked out projectiles yet.
 		if(visibles.Count > 0) {
+			isMoving = false;
 			Bullet.MakeBullet(damageDealt, transform.position, visibles[0].transform.position - transform.position, gameObject);
+			lastFired = Time.time;
 		}
-		lastFired = Time.time;
+		else {
+			isMoving = true;
+		}
 	}
 
 	void OnDisable() {
