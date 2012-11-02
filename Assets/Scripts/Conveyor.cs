@@ -9,9 +9,13 @@ public class Conveyor : MonoBehaviour {
 	public float speed; // the speed at which the conveyor belt moves things
 	public Vector2[] cells; // the cells in the Grid that the conveyor occupies
 	public Vector3 wloc; // the world coordinates of the conveyor
-	private List<string> moveableObjects; // the types of objects that the conveyor can move
+	public List<string> moveableObjects; // the types of objects that the conveyor can move
 	
 	public Dictionary<GameObject, GameObjectAnimation> currentObjects;
+
+	public bool switchable;
+	public float switchRate;
+	public float lastSwitched;
 	
 	public struct GameObjectAnimation {
 		public float startedMoving;
@@ -36,6 +40,7 @@ public class Conveyor : MonoBehaviour {
 		moveableObjects.Add("Player");
 		moveableObjects.Add("Robot");
 		currentObjects = new Dictionary<GameObject, GameObjectAnimation>();
+		lastSwitched = Time.time;
 	}
 	
 	void Update () {
@@ -76,6 +81,11 @@ public class Conveyor : MonoBehaviour {
 			}
 			// end jank
 		}
+
+		if(switchable) {
+			if(Time.time - lastSwitched > switchRate)
+				direction = direction * -1.0f;
+		}
 	}
 
 	/*
@@ -91,7 +101,7 @@ public bool AnimateMotion(GameObject obj, GameObjectAnimation goa) {
 		return false;
 	}
 
-	public static GameObject MakeConveyor(Vector2 startCoords, Vector2 direction, float length, float speed) {
+	public static GameObject MakeConveyor(Vector2 startCoords, Vector2 direction, float length, float speed, bool switchable = false, float switchRate = 0) {
 		if(direction.x != 0 && direction.y != 0) // no diagonal conveyors
 			return null;
 		GameObject conveyor = GameObject.CreatePrimitive(PrimitiveType.Plane);
@@ -100,6 +110,8 @@ public bool AnimateMotion(GameObject obj, GameObjectAnimation goa) {
 		script.startCoords = startCoords;
 		script.direction = direction;
 		script.speed = speed;
+		script.switchable = switchable;
+		script.switchRate = switchRate;
 		script.cells = new Vector2[(int)length];
 		int count = 0;
 		while(count < length) {
