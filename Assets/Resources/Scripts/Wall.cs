@@ -47,7 +47,7 @@ public class Wall : MonoBehaviour, IColor {
 		script.destructible = destructible;
 		script.colorPainted = Color.white;
 		script.gridCoords = new Vector2(x, y);
-		GameManager.floor.Add(wall, x, y);
+		//GameManager.floor.Add(wall, x, y);
 		return wall;
 	}
 }

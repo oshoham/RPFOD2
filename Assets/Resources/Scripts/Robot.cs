@@ -46,8 +46,6 @@ public class Robot : MonoBehaviour, IColor {
 
 	void Update() {
 		
-		bool blind = false;
-
 		/*
 		 * Colors panels to represent vision
 		 */
@@ -246,7 +244,7 @@ public class Robot : MonoBehaviour, IColor {
 		script.colorVisible = colorVisible;
 		script.health = health;
 		script.turnsLeft = turnsLeft;
-		GameManager.floor.Add(robot, x, y);
+		//GameManager.floor.Add(robot, x, y);
 		//script.nVision = GameManager.floor.SCheckLine(script.gridCoords, script.gridCoords + fireDirection*forwardRange);
 		//script.oVision = script.nVision;
 		script.oVision = new List<Square>();

@@ -187,7 +187,7 @@ public class Player : MonoBehaviour, IColor {
 		script.gridCoords = new Vector2(x, y);
 		script.health = health;
 		script.defaultColor = player.renderer.material.color;
-		GameManager.floor.Add(player, x, y);
+		//GameManager.floor.Add(player, x, y);
 		return player;
 	}
 }
