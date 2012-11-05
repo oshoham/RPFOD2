@@ -34,8 +34,8 @@ public static class LevelLoader {
 						i += 5;
 						break;
 					case 2: // SpikeFloor
-						SpikeFloor.MakeSpikeFloor(x, y);
-						i++;
+						grid.Add(SpikeFloor.MakeSpikeFloor(x, y), x, y);
+						i += 2;
 						break;
 					case 3: // Paint
 						grid.Add(ParsePaint(x, y, CopyRange(parts, i, 3)), x, y);
