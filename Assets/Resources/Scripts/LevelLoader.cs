@@ -11,7 +11,7 @@ public static class LevelLoader {
 			reader = new StreamReader(filename);
 		}
 		catch(Exception) {
-			Debug.Log("Shit! This file didn't work. Filename was: " + filename);
+			Debug.Log("Shit, bro! This file didn't work. Filename was: " + filename);
 			return;
 		}
 		int width = Int32.Parse(reader.ReadLine());
