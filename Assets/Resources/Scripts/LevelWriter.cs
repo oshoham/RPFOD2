@@ -81,9 +81,10 @@ public static class LevelWriter {
 						SpikeFloor spikefloor = obj.GetComponent<SpikeFloor>();
 						if(spikefloor != null)
 							sb.Append(2 + " ");
-						
-						// if the Square contains a Paint, encode the relevant information
-						obj = sq.objects.Find((GameObject g) => g.GetComponent<Paint>() != null);
+					}
+					// if the Square contains a Paint, encode the relevant information
+					obj = sq.objects.Find((GameObject g) => g.GetComponent<Paint>() != null);
+					if(obj != null) {
 						Paint paint = obj.GetComponent<Paint>();
 						if(paint != null) {
 							sb.Append(3 + " ");
@@ -134,13 +135,14 @@ public static class LevelWriter {
 						Player player = obj.GetComponent<Player>();
 						if(player != null)
 							sb.Append(5 + " " + player.health + " ");
-
-						// if the Square contains a Robot, encode the relevant information
-						obj = sq.objects.Find((GameObject g) => g.GetComponent<Player>() != null);
+					}
+					// if the Square contains a Robot, encode the relevant information
+					obj = sq.objects.Find((GameObject g) => g.GetComponent<Robot>() != null);
+					if(obj != null) {
 						Robot robot = obj.GetComponent<Robot>();
 						if(robot != null) {
 							sb.Append(6 + " " + robot.moveSpeed + " " + robot.damageDealt + " " + robot.health + " " + robot.forwardRange + " " + robot.sideRange + " ");
-
+							
 							if(robot.movementDirection == new Vector2(0, 1))
 								sb.Append(0 + " ");
 							else if(robot.movementDirection == new Vector2(1, 0))
@@ -149,7 +151,7 @@ public static class LevelWriter {
 								sb.Append(2 + " ");
 							else if(robot.movementDirection == new Vector2(-1, 0))
 								sb.Append(3 + " ");
-
+							
 							if(robot.colorVisible == Color.red)
 								sb.Append(0 + " ");
 							else if(robot.colorVisible == Color.green)
@@ -158,7 +160,7 @@ public static class LevelWriter {
 								sb.Append(2 + " ");
 							else
 								sb.Append(3 + " ");
-
+							
 							if(robot.fireDirection == new Vector2(0, 1))
 								sb.Append(0 + " ");
 							else if(robot.fireDirection == new Vector2(1, 0))
@@ -167,14 +169,18 @@ public static class LevelWriter {
 								sb.Append(2 + " ");
 							else if(robot.fireDirection == new Vector2(-1, 0))
 								sb.Append(3 + " ");
-
+							
 							if(robot.turnsLeft == false)
 								sb.Append(0 + " ");
 							else
 								sb.Append(1 + " ");
 						}
 					}
-					writer.WriteLine(sb.ToString()); // write all this crap to a line in the text file
+					string line = sb.ToString().Trim();
+					// Don't just write x and y coords if we don't need them
+					if(line.Split(new char[] {' '}).Length > 2) {
+						writer.WriteLine(line); // write all this crap to a line in the text file
+					}
 				}
 			}
 		}
