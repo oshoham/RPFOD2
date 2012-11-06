@@ -33,6 +33,10 @@ public class GameManager : MonoBehaviour {
 	void Update() {
 		plane.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(50, Camera.main.pixelHeight - 40, Camera.main.nearClipPlane+6));
 		plane.renderer.material.color = Color.white;
+		if(Input.GetKeyDown("p")) {
+			print("Woo!");
+			LevelWriter.WriteLevel("fizz.txt");
+		}
 	}
 
 	// Uncomment this stuff later, ya dig?
