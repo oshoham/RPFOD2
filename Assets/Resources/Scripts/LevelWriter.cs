@@ -11,11 +11,14 @@ public static class LevelWriter {
 
 		if(!File.Exists(path)) { //take this line out if we want to overwrite files
 			using (StreamWriter writer = File.CreateText(path)) {
+				sb.WriteLine(GameManager.floor.width);
+				sb.WriteLine(GameManager.floor.height);
 				for(int i = 0; i < GameManager.floor.width; i++) {
 					for(int j = 0; j < GameManager.floor.height; j++) {
 						StringBuilder sb = new StringBuilder();
-						sb.Append(i + " " + j + " ");
+						sb.Append(i + " " + j + " "); // append the x and y coordinates of the grid Square in question
 						Square sq = GameManager.floor.grid[i, j];
+
 						// if the Square contains a Wall, encode the relevant information
 						Wall wall = sq.objects.Find((GameObject g) => g.GetComponent<Wall>() != null).GetComponent<Wall>();
 						if(wall != null) {
@@ -35,6 +38,7 @@ public static class LevelWriter {
 							else
 								sb.Append(3 + " ");
 						}
+
 						// if the Square contains a SpikeWall, encode the relevant information
 						SpikeWall spike = sq.objects.Find((GameObject g) => g.GetComponent<SpikeWall>() != null).GetComponent<SpikeWall>();
 						if(spike != null) {
@@ -67,11 +71,13 @@ public static class LevelWriter {
 							else
 								sb.Append(3 + " ");
 						}
+
 						// if the Square contains a SpikeFloor, encode the relevant information
 						SpikeFloor spikefloor = sq.objects.Find((GameObject g) => g.GetComponent<SpikeFloor>() != null).GetComponent<SpikeFloor>();
 						if(spikefloor != null)
 							sb.Append(2 + " ");
 
+						// if the Square contains a Paint, encode the relevant information
 						Paint paint = sq.objects.Find((GameObject g) => g.GetComponent<Paint>() != null).GetComponent<Paint>();
 						if(paint != null) {
 							sb.Append(3 + " ");
@@ -88,6 +94,7 @@ public static class LevelWriter {
 							sb.Append(paint.respawnTime + " ");
 						}
 
+						// if the Square contains a Conveyor, encode the relevant information
 						Conveyor conveyor = sq.objects.Find((GameObject g) => g.GetComponent<Conveyor>() != null).GetComponent<Conveyor>();
 						if(conveyor != null) {
 							sb.Append(4 + " ");
@@ -113,10 +120,12 @@ public static class LevelWriter {
 							}
 						}
 
+						// if the Square contains a Player, encode the relevant information
 						Player player = sq.objects.Find((GameObject g) => g.GetComponent<Player>() != null).GetComponent<Player>();
 						if(player != null)
 							sb.Append(5 + " " + player.health + " ");
 
+						// if the Square contains a Robot, encode the relevant information
 						Robot robot = sq.objects.Find((GameObject g) => g.GetComponent<Player>() != null).GetComponent<Robot>();
 						if(robot != null) {
 							sb.Append(6 + " " + robot.moveSpeed + " " + robot.damageDealt + " " + robot.health + " " + robot.forwardRange + " " + robot.sideRange + " ");
@@ -154,7 +163,7 @@ public static class LevelWriter {
 								sb.Append(1 + " ");
 						}
 
-						writer.WriteLine(sb.ToString());
+						writer.WriteLine(sb.ToString()); // write all this crap to a line in the text file
 					}
 				}
 			}
