@@ -12,16 +12,7 @@ public class Square {
 	public GameObject plane;	// the actual plane or part of a plane that this Square represents
 	public bool empt = true;
 	public Dictionary<Color, int> colors;
-	// private Color _colorPainted;
-	// public Color colorPainted{ get{return _colorPainted;}
-	// 			   set {
-	// 				   plane.renderer.material.color = value;
-	// 				   _colorPainted = value;
-	// 			   }
-	// 			 }
-
-
-	// Constructor
+	
 	public Square(Grid gr, Vector2 loc, Vector3 wloc) {
 		colors = new Dictionary<Color, int>();
 		colors[Color.red] = 0;
@@ -45,16 +36,7 @@ public class Square {
 		}
 	}
 	
-	// public void ChangeColor(Color col, int n) {
-	// 	colors[col] += n;
-	// 	SetColor();
-	// }
-	
-	/*
-	 * holy fuck this is hacky
-	 *
-	 * also doesn't work for levels other than the current one
-	 */
+	// Add green!
 	public void SetColor() {
 		if(colors[Color.red] > 0 && colors[Color.blue] > 0) {
 			plane.renderer.material.color = new Color(1, 0, 1, 1);

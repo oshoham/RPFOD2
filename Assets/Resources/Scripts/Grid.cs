@@ -13,11 +13,6 @@ public class Grid {
 		this.width = width;
 		this.height = height;
 		grid = new Square[(int)width, (int)height];
-		// GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-		// plane.renderer.material.color = Color.black;
-		// plane.transform.localScale = new Vector3(width/10.0f, 1.0f, height/10.0f);
-		// plane.transform.Rotate(-90.0f, 0.0f, 0.0f);
-		// plane.transform.Translate(width/2.0f - 0.5f, 0.0f, height/2.0f - 0.5f);
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
 				Vector2 loc = new Vector2(i, j);
