@@ -6,6 +6,7 @@ public class Conveyor : MonoBehaviour {
 	public Vector2 startCoords; // the start of the conveyor belt (unneccessary?)
 	public Vector2 endCoords; // the end of the conveyor belt
 	public Vector2 direction; // the direction in which the conveyor belt moves things
+	public float length; // the length of the conveyor belt
 	public float speed; // the speed at which the conveyor belt moves things
 	public Vector2[] cells; // the cells in the Grid that the conveyor occupies
 	public Vector3 wloc; // the world coordinates of the conveyor
@@ -111,6 +112,7 @@ public class Conveyor : MonoBehaviour {
 		Conveyor script = conveyor.AddComponent<Conveyor>();
 		script.startCoords = startCoords;
 		script.direction = direction;
+		script.length = length;
 		script.speed = speed;
 		script.switchable = switchable;
 		script.switchRate = switchRate;
@@ -150,6 +152,7 @@ public class Conveyor : MonoBehaviour {
 		conveyor.renderer.material.color = Color.white;
 		script.wloc = conveyor.transform.position;
 		conveyor.transform.Rotate(-90.0f, 0.0f, 0.0f);
+		GameManager.floor.grid[(int)startCoords.x, (int)startCoords.y].objects.Add(conveyor);
 		return conveyor;
 	}
 
