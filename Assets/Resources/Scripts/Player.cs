@@ -55,10 +55,6 @@ public class Player : MonoBehaviour, IColor {
 	}
 
 	public void GetKeypresses() {
-		// This if statement makes motion a bit less smooth but also a bit more predictable
-		// and avoid situations where the player is located on top of paint in world coords
-		// but not in the grid, and thus doesn't pick it up.
-		// Maybe we shouldn't keep it?
 		if(Time.time > endMoving) {
 			if(Input.GetKey("w")) {
 				if(Time.time - lastMovedVertical > moveRate) {
@@ -145,10 +141,6 @@ public class Player : MonoBehaviour, IColor {
 	 * For smooth motion animation.
 	 */
 	public void AnimateMotion() {
-		// if(transform.position == newPosition) {
-		// 	return;
-		// }
-		// transform.Translate((newPosition - oldPosition) * 1.0f/moveSpeed * Time.deltaTime);
 		if(Time.time > endMoving) {
 			return;
 		}
@@ -188,7 +180,7 @@ public class Player : MonoBehaviour, IColor {
 		script.gridCoords = new Vector2(x, y);
 		script.health = health;
 		script.defaultColor = player.renderer.material.color;
-		GameManager.floor.Add(player, x, y);
+		script.oldPosition = player.transform.position;
 		return player;
 	}
 }

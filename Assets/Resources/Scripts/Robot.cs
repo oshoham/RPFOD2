@@ -46,8 +46,6 @@ public class Robot : MonoBehaviour, IColor {
 
 	void Update() {
 		
-		bool blind = false;
-
 		/*
 		 * Colors panels to represent vision
 		 */
@@ -61,37 +59,14 @@ public class Robot : MonoBehaviour, IColor {
 		foreach(Vector2 direction in directions.Where(v => v != fireDirection)) {
 			nVision.AddRange(GameManager.floor.SCheckLine(gridCoords, (gridCoords + (direction*sideRange))));
 		}
-		// GameManager.floor.grid[(int)gridCoords.x, (int)gridCoords.y].colors[colorVisible]++;
-		// GameManager.floor.grid[(int)gridCoords.x, (int)gridCoords.y].SetColor();
-		// Vector2 oldPosition = gridCoords - movementDirection;
-		// GameManager.floor.grid[(int)oldPosition.x, (int)oldPosition.y].colors[colorVisible]--;
-		// GameManager.floor.grid[(int)oldPosition.x, (int)oldPosition.y].SetColor();
 		foreach(Square sq in oVision)
 		{
 			sq.colors[colorVisible]--;
 			sq.SetColor();
-			// timer = new System.Threading.Timer(obj => {sq.ChangeColor(colorVisible, -1); },
-			// 				   null,
-			// 				   (int)moveSpeed*1000,
-			// 				   System.Threading.Timeout.Infinite);
-			
 		}
 		foreach(Square sq in nVision) {
 			sq.colors[colorVisible]++;
 			sq.SetColor();
-			// timer = new System.Threading.Timer(obj => {sq.ChangeColor(colorVisible, 1); },
-			// 				   null,
-			// 				   (int)moveSpeed*1000,
-			// 				   System.Threading.Timeout.Infinite);
-			// foreach(GameObject obj in sq.objects) {
-			// 	if(obj.GetComponent<Wall>() != null)
-			// 	{
-			// 		blind = true;
-			// 		break;
-			// 	}
-			// }
-			// if(blind == true)
-			// 	break;
 		}
 		oVision = new List<Square>();
 		oVision.AddRange(nVision);
@@ -246,9 +221,6 @@ public class Robot : MonoBehaviour, IColor {
 		script.colorVisible = colorVisible;
 		script.health = health;
 		script.turnsLeft = turnsLeft;
-		GameManager.floor.Add(robot, x, y);
-		//script.nVision = GameManager.floor.SCheckLine(script.gridCoords, script.gridCoords + fireDirection*forwardRange);
-		//script.oVision = script.nVision;
 		script.oVision = new List<Square>();
 		return robot;
 	}

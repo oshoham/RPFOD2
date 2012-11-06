@@ -47,7 +47,6 @@ public class Paint : MonoBehaviour, IColor {
 		paint.renderer.material.mainTexture = Resources.Load("Textures/Paint") as Texture;
 		paint.renderer.material.shader = Shader.Find("Transparent/Diffuse");					 
 		paint.renderer.material.color = color;
-		GameManager.floor.Add(paint, x, y);
 		Paint script = paint.AddComponent<Paint>();
 		script.gridCoords = new Vector2(x, y);
 		script.colorPainted = color;
