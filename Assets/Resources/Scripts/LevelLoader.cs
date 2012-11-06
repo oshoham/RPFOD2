@@ -19,10 +19,17 @@ public static class LevelLoader {
 		Grid grid = new Grid(width, height);
 		string line;
 		while((line = reader.ReadLine()) != null) {
+			if(line.StartsWith("#"))
+				continue;
 			String[] parts = line.Split(new char[] {' '});
 			int x = Int32.Parse(parts[0]);
 			int y = Int32.Parse(parts[1]);
 			for(int i = 2; i < parts.Length;) {
+				string foo = "";
+				for(int j = i; j < parts.Length; j++) {
+					foo += parts[j] + " ";
+				}
+				Debug.Log(foo);
 				int type = Int32.Parse(parts[i++]);
 				switch(type) {
 					case 0: // Wall
@@ -38,8 +45,8 @@ public static class LevelLoader {
 						i += 2;
 						break;
 					case 3: // Paint
-						grid.Add(ParsePaint(x, y, CopyRange(parts, i, 3)), x, y);
-						i += 4;
+						grid.Add(ParsePaint(x, y, CopyRange(parts, i, 2)), x, y);
+						i += 2;
 						break;
 					case 4: // Conveyor
 						ParseConveyor(x, y, CopyRange(parts, i, 5));

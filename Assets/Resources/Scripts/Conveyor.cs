@@ -147,7 +147,7 @@ public class Conveyor : MonoBehaviour {
 		conveyor.renderer.material.color = Color.white;
 		script.wloc = conveyor.transform.position;
 		conveyor.transform.Rotate(-90.0f, 0.0f, 0.0f);
-		GameManager.floor.grid[(int)startCoords.x, (int)startCoords.y].objects.Add(conveyor);
+		// GameManager.floor.grid[(int)startCoords.x, (int)startCoords.y].objects.Add(conveyor);
 		return conveyor;
 	}
 
