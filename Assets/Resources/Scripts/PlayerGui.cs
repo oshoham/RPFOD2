@@ -9,6 +9,8 @@ public class PlayerGui : MonoBehaviour {
 
 	void Update () {
 		transform.position = Camera.main.ScreenToWorldPoint(position);
+		if(GameManager.player == null)
+			return;
 		if((GameManager.player.colors.ContainsKey(color) &&
 		    GameManager.player.colors[color] > 0) || color == GameManager.player.defaultColor) {
 			renderer.material.color = color;
@@ -46,6 +48,8 @@ public class PlayerGui : MonoBehaviour {
 	}
 	
 	void OnMouseDown() {
+		if(GameManager.player == null)
+			return;
 		if(color != GameManager.player.defaultColor) {
 			if(GameManager.player.colors.ContainsKey(color) &&
 			   GameManager.player.colors[color] > 0) {
@@ -58,7 +62,6 @@ public class PlayerGui : MonoBehaviour {
 			}
 		}
 		else {
-			print("hi");
 			GameManager.player.colorPainted = color;
 		}
 	}

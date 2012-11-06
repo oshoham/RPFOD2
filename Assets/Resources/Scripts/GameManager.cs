@@ -28,6 +28,13 @@ public class GameManager : MonoBehaviour {
 		light.transform.position = Camera.main.transform.position;
 		l.type = LightType.Directional;
 		l.intensity = 0.4f;
+		PlayerGui.MakePlayerGui(Color.red, new Vector3(140.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
+		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
+		PlayerGui.MakePlayerGui(Color.blue, new Vector3(240.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
+		PlayerGui.MakePlayerGui(player.defaultColor, new Vector3(290.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.red, new Vector3(140.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.blue, new Vector3(240.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
 	}
 
 	void Update() {
@@ -39,8 +46,9 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	// Uncomment this stuff later, ya dig?
-	/*void OnGUI() {
+	void OnGUI() {
+		if(player == null)
+			return;
 		GUIStyle guiStyle = new GUIStyle();
 		guiStyle.font = Resources.Load("Fonts/Chalkduster") as Font;
 		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health, guiStyle);
@@ -49,7 +57,7 @@ public class GameManager : MonoBehaviour {
 		GUI.Label(new Rect(135, 70, 20, 20), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0), guiStyle);
 		GUI.Label(new Rect(185, 70, 20, 20), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0), guiStyle);
 		GUI.Label(new Rect(235, 70, 20, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0), guiStyle);
-		}*/
+	}
 	
 	/*
 	 * Move a GameObject mover from start to end. Returns true if the object
