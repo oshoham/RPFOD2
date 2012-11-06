@@ -114,10 +114,47 @@ public static class LevelWriter {
 						}
 
 						Player player = sq.objects.Find((GameObject g) => g.GetComponent<Player>() != null).GetComponent<Player>();
-						if(player != null) {
-							sb.Append(5 + " ");
+						if(player != null)
+							sb.Append(5 + " " + player.health + " ");
 
+						Robot robot = sq.objects.Find((GameObject g) => g.GetComponent<Player>() != null).GetComponent<Robot>();
+						if(robot != null) {
+							sb.Append(6 + " " + robot.moveSpeed + " " + robot.damageDealt + " " + robot.health + " " + robot.forwardRange + " " + robot.sideRange + " ");
+
+							if(robot.movementDirection == new Vector2(0, 1))
+								sb.Append(0 + " ");
+							else if(robot.movementDirection == new Vector2(1, 0))
+								sb.Append(1 + " ");
+							else if(robot.movementDirection == new Vector2(0, -1))
+								sb.Append(2 + " ");
+							else if(robot.movementDirection == new Vector2(-1, 0))
+								sb.Append(3 + " ");
+
+							if(robot.colorVisible == Color.red)
+								sb.Append(0 + " ");
+							else if(robot.colorVisible == Color.green)
+								sb.Append(1 + " ");
+							else if(robot.colorVisible == Color.blue)
+								sb.Append(2 + " ");
+							else
+								sb.Append(3 + " ");
+
+							if(robot.fireDirection == new Vector2(0, 1))
+								sb.Append(0 + " ");
+							else if(robot.fireDirection == new Vector2(1, 0))
+								sb.Append(1 + " ");
+							else if(robot.fireDirection == new Vector2(0, -1))
+								sb.Append(2 + " ");
+							else if(robot.fireDirection == new Vector2(-1, 0))
+								sb.Append(3 + " ");
+
+							if(robot.turnsLeft == false)
+								sb.Append(0 + " ");
+							else
+								sb.Append(1 + " ");
 						}
+
+						writer.WriteLine(sb.ToString());
 					}
 				}
 			}
@@ -125,5 +162,4 @@ public static class LevelWriter {
 		else
 			Debug.Log("Dude, what are you trying to do here? Filename: " + filename + " already exists. Just stop already.");
 	}
-
 }
