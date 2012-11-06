@@ -6,10 +6,10 @@ using System.Text;
 
 public static class LevelWriter {
 	
-	public static void WriteLevel() {
-		string path = EditorUtility.SaveFilePanel("Save level as .txt", "", "Untitled Level.txt", "txt");
+	public static void WriteLevel(string filename) {
+		string path = Path.Combine(Application.persistentDataPath, filename);
 
-		if(path.Length != 0) {
+		if(!File.Exists(path)) { //take this line out if we want to overwrite files
 			using (StreamWriter writer = File.CreateText(path)) {
 				for(int i = 0; i < GameManager.floor.width; i++) {
 					for(int j = 0; j < GameManager.floor.height; j++) {
@@ -17,7 +17,7 @@ public static class LevelWriter {
 						sb.Append(i + " " + j + " ");
 						Square sq = GameManager.floor.grid[i, j];
 						// if the Square contains a Wall, encode the relevant information
-						Wall wall = sq.objects.Find((GameObject g) => g.GetComponent<Wall>() != null);
+						Wall wall = sq.objects.Find((GameObject g) => g.GetComponent<Wall>() != null).GetComponent<Wall>();
 						if(wall != null) {
 							sb.Append(0 + " " + wall.health + " ");
 
@@ -36,7 +36,7 @@ public static class LevelWriter {
 								sb.Append(3 + " ");
 						}
 						// if the Square contains a SpikeWall, encode the relevant information
-						SpikeWall spike = sq.objects.Find((GameObject g) => g.GetComponent<SpikeWall>() != null);
+						SpikeWall spike = sq.objects.Find((GameObject g) => g.GetComponent<SpikeWall>() != null).GetComponent<SpikeWall>();
 						if(spike != null) {
 							sb.Append(1 + " " + spike.health + " ");
 
@@ -68,11 +68,11 @@ public static class LevelWriter {
 								sb.Append(3 + " ");
 						}
 						// if the Square contains a SpikeFloor, encode the relevant information
-						SpikeFloor spikefloor = sq.objects.Find((GameObject g) => g.GetComponent<SpikeFloor>() != null);
+						SpikeFloor spikefloor = sq.objects.Find((GameObject g) => g.GetComponent<SpikeFloor>() != null).GetComponent<SpikeFloor>();
 						if(spikefloor != null)
 							sb.Append(2 + " ");
 
-						Paint paint = sq.objects.Find((GameObject g) => g.GetComponent<Paint>() != null);
+						Paint paint = sq.objects.Find((GameObject g) => g.GetComponent<Paint>() != null).GetComponent<Paint>();
 						if(paint != null) {
 							sb.Append(3 + " ");
 
@@ -88,7 +88,7 @@ public static class LevelWriter {
 							sb.Append(paint.respawnTime + " ");
 						}
 
-						Conveyor conveyor = sq.objects.Find((GameObject g) => g.GetComponent<Conveyor>() != null);
+						Conveyor conveyor = sq.objects.Find((GameObject g) => g.GetComponent<Conveyor>() != null).GetComponent<Conveyor>();
 						if(conveyor != null) {
 							sb.Append(4 + " ");
 
@@ -109,14 +109,14 @@ public static class LevelWriter {
 							}
 							else {
 								sb.Append(1 + " ");
-								sb.Append(switchRate + " ");
+								sb.Append(conveyor.switchRate + " ");
 							}
 						}
 
-						Player player = sq.objects.Find((GameObject g) => g.GetComponent<Player>() != null);
+						Player player = sq.objects.Find((GameObject g) => g.GetComponent<Player>() != null).GetComponent<Player>();
 						if(player != null) {
 							sb.Append(5 + " ");
-								
+
 						}
 					}
 				}
