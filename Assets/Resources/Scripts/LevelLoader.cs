@@ -46,7 +46,9 @@ public static class LevelLoader {
 						i += 6;
 						break;
 					case 5: // Player
-						grid.Add(ParsePlayer(x, y, CopyRange(parts, i, 1)), x, y);
+						GameObject player = ParsePlayer(x, y, CopyRange(parts, i, 1));
+						grid.Add(player, x, y);
+						GameManager.player = player.GetComponent<Player>();
 						i += 2;
 						break;
 					case 6: // Robot
