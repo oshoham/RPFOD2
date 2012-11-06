@@ -11,8 +11,8 @@ public static class LevelWriter {
 
 		if(!File.Exists(path)) { //take this line out if we want to overwrite files
 			using (StreamWriter writer = File.CreateText(path)) {
-				sb.WriteLine(GameManager.floor.width);
-				sb.WriteLine(GameManager.floor.height);
+				writer.WriteLine(GameManager.floor.width);
+				writer.WriteLine(GameManager.floor.height);
 				for(int i = 0; i < GameManager.floor.width; i++) {
 					for(int j = 0; j < GameManager.floor.height; j++) {
 						StringBuilder sb = new StringBuilder();

@@ -17,6 +17,7 @@ public static class LevelLoader {
 		int width = Int32.Parse(reader.ReadLine());
 		int height = Int32.Parse(reader.ReadLine());
 		Grid grid = new Grid(width, height);
+		GameManager.floor = grid;
 		string line;
 		while((line = reader.ReadLine()) != null) {
 			if(line.StartsWith("#"))
@@ -25,24 +26,19 @@ public static class LevelLoader {
 			int x = Int32.Parse(parts[0]);
 			int y = Int32.Parse(parts[1]);
 			for(int i = 2; i < parts.Length;) {
-				string foo = "";
-				for(int j = i; j < parts.Length; j++) {
-					foo += parts[j] + " ";
-				}
-				Debug.Log(foo);
 				int type = Int32.Parse(parts[i++]);
 				switch(type) {
 					case 0: // Wall
 						grid.Add(ParseWall(x, y, CopyRange(parts, i, 3)), x, y);
-						i += 4;
+						i += 3;
 						break;
 					case 1: // SpikeWall
-						grid.Add(ParseSpikeWall(x, y, CopyRange(parts, i, 4)), x, y);
-						i += 5;
+						grid.Add(ParseSpikeWall(x, y, CopyRange(parts, i, 7)), x, y);
+						i += 7;
 						break;
 					case 2: // SpikeFloor
 						grid.Add(SpikeFloor.MakeSpikeFloor(x, y), x, y);
-						i += 2;
+						i += 1;
 						break;
 					case 3: // Paint
 						grid.Add(ParsePaint(x, y, CopyRange(parts, i, 2)), x, y);
@@ -50,22 +46,21 @@ public static class LevelLoader {
 						break;
 					case 4: // Conveyor
 						ParseConveyor(x, y, CopyRange(parts, i, 5));
-						i += 6;
+						i += 5;
 						break;
 					case 5: // Player
 						GameObject player = ParsePlayer(x, y, CopyRange(parts, i, 1));
 						grid.Add(player, x, y);
 						GameManager.player = player.GetComponent<Player>();
-						i += 2;
+						i += 1;
 						break;
 					case 6: // Robot
 						grid.Add(ParseRobot(x, y, CopyRange(parts, i, 9)), x, y);
-						i += 10;
+						i += 9;
 						break;
 				}
 			}
 		}
-		GameManager.floor = grid;
 	}
 	
 	/*
