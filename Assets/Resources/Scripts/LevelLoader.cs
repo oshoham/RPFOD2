@@ -30,44 +30,36 @@ public static class LevelLoader {
 			int x = Int32.Parse(parts[0]);
 			int y = Int32.Parse(parts[1]);
 			for(int i = 2; i < parts.Length;) {
-				Debug.Log("Line: " + lineCount);
 				int type = Int32.Parse(parts[i++]);
 				switch(type) {
 					case 0: // Wall
 						grid.Add(ParseWall(x, y, CopyRange(parts, i, 3)), x, y);
-						Debug.Log("Parsing Wall");
 						i += 3;
 						break;
 					case 1: // SpikeWall
 						grid.Add(ParseSpikeWall(x, y, CopyRange(parts, i, 7)), x, y);
-						Debug.Log("Parsing SpikeWall");
 						i += 7;
 						break;
 					case 2: // SpikeFloor
 						grid.Add(SpikeFloor.MakeSpikeFloor(x, y), x, y);
-						Debug.Log("Parsing SpikeFloor");
 						i += 1;
 						break;
 					case 3: // Paint
 						grid.Add(ParsePaint(x, y, CopyRange(parts, i, 2)), x, y);
-						Debug.Log("Parsing Paint");
 						i += 2;
 						break;
 					case 4: // Conveyor
 						ParseConveyor(x, y, CopyRange(parts, i, 5));
-						Debug.Log("Parsing Conveyor");
 						i += 5;
 						break;
 					case 5: // Player
 						GameObject player = ParsePlayer(x, y, CopyRange(parts, i, 1));
-						Debug.Log("Parsing Player");
 						grid.Add(player, x, y);
 						GameManager.player = player.GetComponent<Player>();
 						i += 1;
 						break;
 					case 6: // Robot
 						grid.Add(ParseRobot(x, y, CopyRange(parts, i, 9)), x, y);
-						Debug.Log("Parsing Roobitt");
 						i += 9;
 						break;
 				}
