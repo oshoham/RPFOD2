@@ -17,6 +17,9 @@ public static class LevelLoader {
 		int width = Int32.Parse(reader.ReadLine());
 		int height = Int32.Parse(reader.ReadLine());
 		Grid grid = new Grid(width, height);
+		if(GameManager.floor != null) {
+			GameManager.floor.Clear();
+		}
 		GameManager.floor = grid;
 		string line;
 		int lineCount = 3;

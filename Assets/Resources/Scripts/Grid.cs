@@ -185,4 +185,13 @@ public class Grid {
 	public void Remove(GameObject obj, int x, int y) {
 		grid[x, y].objects.Remove(obj);
 	}
+	
+	/*
+	 * Clears the whole grid by removing all game objects from each square.
+	 */
+	public void Clear() {
+		foreach(Square sq in grid) {
+			sq.Clear();
+		}
+	}
 }
