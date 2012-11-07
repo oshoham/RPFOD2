@@ -7,8 +7,8 @@ using System.Text;
 public static class LevelWriter {
 
 	public static void WriteLevel(string filename) {
-		string path = Path.Combine(Application.persistentDataPath, filename);
-
+		//string path = Path.Combine(Application.persistentDataPath, filename);
+		string path = filename;
 		using (StreamWriter writer = File.CreateText(path)) {
 			writer.WriteLine(GameManager.floor.width);
 			writer.WriteLine(GameManager.floor.height);
@@ -183,6 +183,7 @@ public static class LevelWriter {
 					}
 				}
 			}
+			writer.Close();
 		}
 	/*	else
 			Debug.Log("Dude, what are you trying to do here? Filename: " + filename + " already exists. Just stop already.");*/
