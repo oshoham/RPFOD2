@@ -15,10 +15,9 @@ public class LevelEditor : MonoBehaviour {
 	void Start() {
 		plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		plane.transform.localScale = new Vector3(1.25f, 1.0f, .4f);
-		plane.transform.Rotate(-90, 0, );
-		plane.rendere.material.mainTexture = Resources.Load("Textures
+		plane.transform.Rotate(-90f, 0, 0);
+		//plane.renderer.material.mainTexture = Resources.Load("Textures");
 		
 	}
-
 
 }
