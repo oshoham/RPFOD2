@@ -36,13 +36,7 @@ public class Robot : MonoBehaviour, IColor {
 	public float fireRate;
 	public bool isMoving;
 	
-	System.Threading.Timer timer;
-	
-	void Start() {
-		lastFired = Time.time;
-		fireRate = 2.0f;
-		collider.enabled = true;
-	}
+
 
 	void Update() {
 		
@@ -211,6 +205,7 @@ public class Robot : MonoBehaviour, IColor {
 		Robot script = robot.AddComponent<Robot>();
 		robot.transform.position = new Vector3(x, y, -1.0f);
 		script.oldPosition = robot.transform.position;
+		script.newPosition = robot.transform.position;
 		script.forwardRange = forwardRange;
 		script.sideRange = sideRange;
 		script.gridCoords = new Vector2(x, y);
@@ -222,6 +217,9 @@ public class Robot : MonoBehaviour, IColor {
 		script.health = health;
 		script.turnsLeft = turnsLeft;
 		script.oVision = new List<Square>();
+		script.lastFired = Time.time;
+		script.fireRate = 2.0f;
+		script.collider.enabled = true;
 		return robot;
 	}
 }

@@ -17,14 +17,6 @@ public class Grid {
 			for(int j = 0; j < height; j++) {
 				Vector2 loc = new Vector2(i, j);
 				Square sq = new Square(this, loc, new Vector3(i, j, 0.0f));
-				GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-				plane.name = "Grid plane";
-				plane.transform.position = sq.wloc;
-				plane.transform.localScale = new Vector3(0.1f, 1.0f, 0.1f);
-				plane.transform.Rotate(-90.0f, 0.0f, 0.0f);
-				plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
-				plane.renderer.material.color = Color.white;
-				sq.plane = plane;
 				grid[i, j] = sq;
 			}
 		}

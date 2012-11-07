@@ -33,17 +33,6 @@ public class Player : MonoBehaviour, IColor {
 	public Color defaultColor;
 	public Vector2 dir = new Vector2(1, 0);
 	
-	void Start() {
-		startedMoving = Time.time;
-		lastMovedHorizontal = Time.time;
-		lastMovedVertical = Time.time;
-		moveRate = 0.1f;
-		moveSpeed = 0.2f;
-		colors = new Dictionary<Color, int>();
-		colorPainted = defaultColor;
-		collider.enabled = true;
-	}
-
 	void Update() {
 		if(health <= 0) {
 			Destroy(gameObject);
@@ -181,6 +170,15 @@ public class Player : MonoBehaviour, IColor {
 		script.health = health;
 		script.defaultColor = player.renderer.material.color;
 		script.oldPosition = player.transform.position;
+		script.newPosition = player.transform.position;
+		script.startedMoving = Time.time;
+		script.lastMovedHorizontal = Time.time;
+		script.lastMovedVertical = Time.time;
+		script.moveRate = 0.1f;
+		script.moveSpeed = 0.2f;
+		script.colors = new Dictionary<Color, int>();
+		script.colorPainted = script.defaultColor;
+		script.collider.enabled = true;
 		return player;
 	}
 }

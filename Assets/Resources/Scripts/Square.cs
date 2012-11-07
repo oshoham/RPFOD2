@@ -14,6 +14,13 @@ public class Square {
 	public Dictionary<Color, int> colors;
 	
 	public Square(Grid gr, Vector2 loc, Vector3 wloc) {
+		this.plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		plane.name = "Grid plane";
+		plane.transform.position = wloc;
+		plane.transform.localScale = new Vector3(0.1f, 1.0f, 0.1f);
+		plane.transform.Rotate(-90.0f, 0.0f, 0.0f);
+		plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
+		plane.renderer.material.color = Color.white;
 		colors = new Dictionary<Color, int>();
 		colors[Color.red] = 0;
 		colors[Color.green] = 0;
