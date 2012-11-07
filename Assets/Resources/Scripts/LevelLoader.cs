@@ -71,6 +71,7 @@ public static class LevelLoader {
 			}
 			lineCount++;
 		}
+		reader.Close();
 	}
 	
 	/*
