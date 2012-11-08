@@ -56,7 +56,7 @@ public class LevelEditor : MonoBehaviour {
 	public static float conveyorSwitchRate = 1.0f;
 
 	// Player
-	public static float playerHealth = 15;
+	public static int playerHealth = 15;
 
 	// Robot
 	public static float robotSpeed = 0.5f;
@@ -88,6 +88,12 @@ public class LevelEditor : MonoBehaviour {
 		light.transform.position = Camera.main.transform.position;
 		l.type = LightType.Directional;
 		l.intensity = 0.4f;
+		// Set up object placers
+		for(int i = 0; i < floor.grid.GetLength(0); i++) {
+			for(int j = 0; j < floor.grid.GetLength(1); j++) {
+				ObjectPlacer.MakeObjectPlacer(i, j, floor);
+			}
+		}
 		// Set up object selectors
 		float z = Camera.main.nearClipPlane + 5;
 		ObjectSelector.MakeObjectSelector(new Vector3(140.0f, Camera.main.pixelHeight - 50.0f, z), 1, 1,
