@@ -24,9 +24,9 @@ public class GameManager : MonoBehaviour {
 		Camera.main.backgroundColor = Color.white;
 		string filename = EditorUtility.OpenFilePanel("Level file", "", "txt");
 		LevelLoader.LoadLevel(filename);
-		LevelWriter.WriteLevel(filename);
+		//LevelWriter.WriteLevel(filename);
 		Debug.Log("Level Written.");
-		LevelLoader.LoadLevel(filename);
+		floor = LevelLoader.LoadLevel(filename);
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour {
 		plane.renderer.material.color = Color.white;
 		if(Input.GetKeyDown("p")) {
 			print("Woo!");
-			LevelWriter.WriteLevel("fizz.txt");
+			LevelWriter.WriteLevel("fizz.txt", floor);
 		}
 	}
 

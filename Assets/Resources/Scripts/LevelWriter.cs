@@ -6,17 +6,17 @@ using System.Text;
 
 public static class LevelWriter {
 
-	public static void WriteLevel(string filename) {
+	public static void WriteLevel(string filename, Grid grid) {
 		//string path = Path.Combine(Application.persistentDataPath, filename);
 		string path = filename;
 		using (StreamWriter writer = File.CreateText(path)) {
-			writer.WriteLine(GameManager.floor.width);
-			writer.WriteLine(GameManager.floor.height);
-			for(int i = 0; i < GameManager.floor.width; i++) {
-				for(int j = 0; j < GameManager.floor.height; j++) {
+			writer.WriteLine(grid.width);
+			writer.WriteLine(grid.height);
+			for(int i = 0; i < grid.width; i++) {
+				for(int j = 0; j < grid.height; j++) {
 					StringBuilder sb = new StringBuilder();
 					sb.Append(i + " " + j + " "); // append the x and y coordinates of the grid Square in question
-					Square sq = GameManager.floor.grid[i, j];
+					Square sq = grid.grid[i, j];
 
 					// if the Square contains a Wall, encode the relevant information
 					GameObject obj = sq.objects.Find((GameObject g) => g.GetComponent<Wall>() != null);

@@ -5,22 +5,18 @@ using System.IO;
 
 public static class LevelLoader {
 
-	public static void LoadLevel(string filename) {
+	public static Grid LoadLevel(string filename) {
 		StreamReader reader;
 		try {
 			reader = new StreamReader(filename);
 		}
 		catch(Exception) {
 			Debug.Log("Shit, bro! This file didn't work. Filename was: " + filename);
-			return;
+			return null;
 		}
 		int width = Int32.Parse(reader.ReadLine());
 		int height = Int32.Parse(reader.ReadLine());
 		Grid grid = new Grid(width, height);
-		if(GameManager.floor != null) {
-			GameManager.floor.Clear();
-		}
-		GameManager.floor = grid;
 		string line;
 		int lineCount = 3;
 		while((line = reader.ReadLine()) != null) {
@@ -67,6 +63,7 @@ public static class LevelLoader {
 			lineCount++;
 		}
 		reader.Close();
+		return grid;
 	}
 	
 	/*
