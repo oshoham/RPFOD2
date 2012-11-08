@@ -1,14 +1,33 @@
 using UnityEngine;
 using UnityEditor;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public abstract class ObjectSelector : MonoBehaviour {
+public class ObjectSelector : MonoBehaviour {
 
-	public ObjectType objectType;
-
+	public Action onClick;
+	public Vector3 position;
+	
+	void Update() {
+		transform.position = Camera.main.ScreenToWorldPoint(position);
+	}
+	
 	void OnMouseDown() {
 		// transform.localScale = new Vector3(0.3f, 1.0f, 0.3f);
-		LevelEditor.objectToBeCreated = objectType;
+		onClick();
+	}
+	
+	public static GameObject MakeObjectSelector(Vector3 position, float width, float height, Texture texture,
+						    Action onClick, string name = "Object Selector") {
+		GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		plane.name = name;
+		plane.transform.Rotate(-90, 0, 0);
+		plane.transform.localScale = new Vector3(width/10, 1, height/10);
+		plane.renderer.material.mainTexture = texture;
+		ObjectSelector script = plane.AddComponent<ObjectSelector>();
+		script.onClick = onClick;
+		script.position = position;
+		return plane;
 	}
 }

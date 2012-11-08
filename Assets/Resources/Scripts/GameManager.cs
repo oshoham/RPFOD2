@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour {
 			floor.Move(start, end, mover);
 			return true;
 		}
-	return false;
+		return false;
 	}
 
 	public static void makeLev(int lev)
@@ -84,5 +84,5 @@ public class GameManager : MonoBehaviour {
 			default:
 				break;
 		}
-	}	
+	}
 }

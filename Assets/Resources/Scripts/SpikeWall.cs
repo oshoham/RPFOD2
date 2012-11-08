@@ -34,9 +34,9 @@ public class SpikeWall : Wall {
 		script.colorPainted = color;
 		script.gridCoords = new Vector2(x, y);
 		script.directions = directions;
-		foreach(Vector2 direction in directions) {
-			GameManager.floor.grid[(int)(direction.x + x), (int)(direction.y + y)].plane.renderer.material.color = Color.yellow;
-		}
+		//foreach(Vector2 direction in directions) {
+			//			GameManager.floor.grid[(int)(direction.x + x), (int)(direction.y + y)].plane.renderer.material.color = Color.yellow;
+		//}
 		//GameManager.floor.Add(spikeWall, x, y);
 		return spikeWall;
 	}

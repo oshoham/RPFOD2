@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -75,6 +76,7 @@ public class LevelEditor : MonoBehaviour {
 		plane.transform.Rotate(-90f, 0, 0);
 		plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
 		Camera.main.orthographic = true;
+		Camera.main.orthographicSize = 5;
 		Camera.main.backgroundColor = Color.white;
 		string filename = EditorUtility.OpenFilePanel("Level file", "", "txt");
 		floor = LevelLoader.LoadLevel(filename);
@@ -86,8 +88,95 @@ public class LevelEditor : MonoBehaviour {
 		light.transform.position = Camera.main.transform.position;
 		l.type = LightType.Directional;
 		l.intensity = 0.4f;
-		
+		// Set up object selectors
+		float z = Camera.main.nearClipPlane + 5;
+		ObjectSelector.MakeObjectSelector(new Vector3(140.0f, Camera.main.pixelHeight - 50.0f, z), 1, 1,
+						  Resources.Load("Textures/Tile2") as Texture,
+						  () => LevelEditor.objectToBeCreated = ObjectType.Wall, name: "Wall Selector");
 	}
 
-	void Update() {}
+	void Update() {
+		// if(Input.GetKeyDown("w")) {
+		// 	Camera.main.transform.Translate(0, 1, 0);
+		// }
+	}
+	
+	void OnGUI() {
+		switch(objectToBeCreated) {
+			case ObjectType.Wall:
+				// health
+				try {
+					wallHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 10)),
+									       "" + wallHealth));
+				}
+				catch {
+					Debug.Log("Wrong number format!");
+				}
+				// destructible
+				wallDestructible = GUI.Toggle(FromBottomRight(new Rect(300, 70, 50, 10)),
+							      wallDestructible,
+							      "Destructible?");
+				// color
+				int colorInt;
+				if(wallColor == Color.red) {
+					colorInt = 0;
+				}
+				else if(wallColor == Color.green) {
+					colorInt = 1;
+				}
+				else if(wallColor == Color.blue) {
+					colorInt = 2;
+				}
+				else {
+					colorInt = 3;
+				}
+				colorInt = GUI.Toolbar(FromBottomRight(new Rect(300, 90, 250, 30)),
+						       colorInt,
+						       new string[] {"Red", "Green", "Blue", "None"});
+				switch(colorInt) {
+					case 0:
+						wallColor = Color.red;
+						break;
+					case 1:
+						wallColor = Color.green;
+						break;
+					case 2:
+						wallColor = Color.blue;
+						break;
+					case 3:
+						wallColor = Color.white;
+						break;
+				}
+				break;
+			case ObjectType.SpikeWall:
+
+				break;
+			case ObjectType.SpikeFloor:
+
+				break;
+			case ObjectType.Paint:
+
+				break;
+			case ObjectType.Conveyor:
+
+				break;
+			case ObjectType.Player:
+				
+				break;	
+			case ObjectType.Robot:
+
+				break;
+		}
+	}
+	
+	/*
+	 * Returns the same Rect but offset from the bottom right instead
+	 * of the top left. Useful for GUI stuff.
+	 */
+	public static Rect FromBottomRight(Rect r) {
+		return new Rect(Camera.main.pixelWidth - r.x,
+				Camera.main.pixelHeight - r.y,
+				r.width,
+				r.height);
+	}
 }
