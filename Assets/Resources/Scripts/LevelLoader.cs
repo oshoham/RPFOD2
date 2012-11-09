@@ -9,13 +9,15 @@ public static class LevelLoader {
 	
 	public static Grid LoadLevel(string filename) {
 		StreamReader reader;
+		string path = Path.Combine(Application.persistentDataPath, filename);
 		try {
-			reader = new StreamReader(filename);
+			reader = new StreamReader(path);
 		}
 		catch(Exception) {
 			Debug.Log("Shit, bro! This file didn't work. Filename was: " + filename);
 			return null;
 		}
+		Debug.Log("Loaded from " + path);
 		int width = Int32.Parse(reader.ReadLine());
 		int height = Int32.Parse(reader.ReadLine());
 		grid = new Grid(width, height);

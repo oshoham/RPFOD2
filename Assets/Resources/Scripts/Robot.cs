@@ -66,6 +66,9 @@ public class Robot : MonoBehaviour, IColor {
 		oVision = new List<Square>();
 		oVision.AddRange(nVision);
 
+		if(Time.timeScale == 0)
+			return;
+
 		if(health <= 0) {
 			Destroy(gameObject);
 		}
@@ -224,6 +227,14 @@ public class Robot : MonoBehaviour, IColor {
 		script.fireRate = 2.0f;
 		script.collider.enabled = true;
 		script.grid = grid;
+		if(script.movementDirection == new Vector2(1, 0))
+			script.transform.localEulerAngles = new Vector3(0, 0, 90f);
+		else if(script.movementDirection == new Vector2(0, 1))
+			script.transform.localEulerAngles = new Vector3(0, 0, 180f);
+		else if(script.movementDirection == new Vector2(-1, 0))
+			script.transform.localEulerAngles = new Vector3(0, 0, 270f);
+		else if(script.movementDirection == new Vector2(0, -1))
+			script.transform.localEulerAngles = new Vector3(0, 0, 360f);
 		return robot;
 	}
 }

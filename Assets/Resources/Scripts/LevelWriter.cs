@@ -7,8 +7,7 @@ using System.Text;
 public static class LevelWriter {
 
 	public static void WriteLevel(string filename, Grid grid) {
-		//string path = Path.Combine(Application.persistentDataPath, filename);
-		string path = filename;
+		string path = Path.Combine(Application.persistentDataPath, filename);
 		using (StreamWriter writer = File.CreateText(path)) {
 			writer.WriteLine(grid.width);
 			writer.WriteLine(grid.height);
