@@ -190,4 +190,28 @@ public class Grid {
 			sq.Clear();
 		}
 	}
+	
+	/*
+	 * Makes a copy of this grid. It does NOT clear out the old grid, because
+	 * we don't want to destroy the game objects contained within that grid.
+	 */
+	public Grid Copy(int width, int height) {
+		Grid copy = new Grid(width, height);
+		int maxWidth = width > grid.GetLength(0) ? width : grid.GetLength(0);
+		int maxHeight = height > grid.GetLength(1) ? height : grid.GetLength(1);
+		for(int i = 0; i < maxWidth; i++) {
+			for(int j = 0; j < maxHeight; j++) {
+				// We're within both grids
+				if(i < grid.GetLength(0) && j < grid.GetLength(1) &&
+				   i < width && i < height) {
+					copy.grid[i, j] = grid[i, j];
+				}
+				// we're in old but not new
+				else if(i >= width || i >= height) {
+					grid[i, j].Clear();
+				}
+			}
+		}
+		return copy;
+	}
 }

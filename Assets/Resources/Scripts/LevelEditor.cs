@@ -26,6 +26,11 @@ public class LevelEditor : MonoBehaviour {
 	public static ObjectType objectToBeCreated;
 	public static String saveFileName = "";
 	public static String loadFileName = "";
+	public static string widthCommaHeight = "";
+	public static int newWidth;
+	public static int newHeight;
+
+	public static List<GameObject> objectPlacers = new List<GameObject>();
 	
 	/*
 	 * Information for each type of object that we might create. Most of
@@ -136,6 +141,19 @@ public class LevelEditor : MonoBehaviour {
 			}
 			floor = LevelLoader.LoadLevel(loadFileName);
 			SetupObjectPlacers();
+			newWidth = floor.grid.GetLength(0);
+			newHeight = floor.grid.GetLength(1);
+		}
+		widthCommaHeight = GUI.TextField(new Rect(200, 150, 100, 20), widthCommaHeight);
+		if(GUI.Button(new Rect(350, 150, 100, 20), "Resize")) {
+			try {
+				string[] bits = widthCommaHeight.Split(new char[] {','});
+				floor = floor.Copy(Int32.Parse(bits[0]), Int32.Parse(bits[1]));
+				SetupObjectPlacers();
+			}
+			catch {
+				print("shit!");
+			}
 		}
 		// Object-specific stuffs
 		switch(objectToBeCreated) {
@@ -288,13 +306,13 @@ public class LevelEditor : MonoBehaviour {
 		if(floor == null)
 			return;
 		// Clear out any old ObjectPlacers
-		GameObject obj;
-		while((obj = GameObject.Find("Object Placer")) != null) {
-			Destroy(obj);
+		for(int i = 0; i < objectPlacers.Count; i++) {
+			Destroy(objectPlacers[i]);
 		}
+		objectPlacers.Clear();
 		for(int i = 0; i < floor.grid.GetLength(0); i++) {
 			for(int j = 0; j < floor.grid.GetLength(1); j++) {
-				ObjectPlacer.MakeObjectPlacer(i, j, floor);
+				objectPlacers.Add(ObjectPlacer.MakeObjectPlacer(i, j, floor));
 			}
 		}
 	}
