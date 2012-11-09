@@ -304,7 +304,37 @@ public class LevelEditor : MonoBehaviour {
 				}
 				break;
 			case ObjectType.Conveyor:
-				
+				// direction
+				int direct;
+				if(conveyorDirection.y > 0) {
+					direct = 0;
+				}
+				else if(conveyorDirection.x > 0) {
+					direct = 1;
+				}
+				else if(conveyorDirection.y < 0) {
+					direct = 2;
+				}
+				else {
+					direct = 3;
+				}
+				direct = GUI.Toolbar(FromBottomRight(new Rect(500, 90, 175, 30)),
+						       direct,
+						       new string[] {"North", "East", "South", "West"});
+				switch(direct) {
+					case 0:
+						conveyorDirection = new Vector2(0, 1);
+						break;
+					case 1:
+						conveyorDirection = new Vector2(1, 0);
+						break;
+					case 2:
+						conveyorDirection = new Vector2(0, -1);
+						break;
+					case 3:
+						conveyorDirection = new Vector2(-1, 0);
+						break;
+				}
 				break;
 			case ObjectType.Player:	
 				try {
