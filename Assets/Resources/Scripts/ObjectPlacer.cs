@@ -6,21 +6,22 @@ public class ObjectPlacer : MonoBehaviour {
 
 	public int x, y;
 	public Grid grid;
-
+	
 	void OnMouseDown() {
+		print("fuck yeah! " + Time.time);
 		switch(LevelEditor.objectToBeCreated) {
 			case ObjectType.Wall:
 				grid.Add(Wall.MakeWall(x, y, LevelEditor.wallHealth, LevelEditor.wallDestructible, LevelEditor.wallColor), x, y);
 				break;
 			case ObjectType.SpikeWall:
-				grid.Add(SpikeWall.MakeSpikeWall(x, y, LevelEditor.spikeWallHealth, LevelEditor.spikeWallDestructible,
+				grid.Add(SpikeWall.MakeSpikeWall(grid, x, y, LevelEditor.spikeWallHealth, LevelEditor.spikeWallDestructible,
 								 LevelEditor.spikeWallDirections, LevelEditor.spikeWallColor), x, y);
 				break;
 			case ObjectType.SpikeFloor:
 				grid.Add(SpikeFloor.MakeSpikeFloor(x, y), x, y);
 				break;
 			case ObjectType.Paint:
-				grid.Add(Paint.MakePaint(x, y, LevelEditor.paintColor, LevelEditor.paintRespawnTime), x, y);
+				grid.Add(Paint.MakePaint(grid, x, y, LevelEditor.paintColor, LevelEditor.paintRespawnTime), x, y);
 				break;
 			case ObjectType.Conveyor:
 				Conveyor.MakeConveyor(new Vector2(x, y), LevelEditor.conveyorDirection, LevelEditor.conveyorLength,
@@ -28,10 +29,10 @@ public class ObjectPlacer : MonoBehaviour {
 						      LevelEditor.conveyorSwitchRate);
 				break;
 			case ObjectType.Player:
-				grid.Add(Player.MakePlayer(x, y, LevelEditor.playerHealth), x, y);
+				grid.Add(Player.MakePlayer(grid, x, y, LevelEditor.playerHealth), x, y);
 				break;	
 			case ObjectType.Robot:
-				grid.Add(Robot.MakeRobot(x, y, LevelEditor.robotSpeed, LevelEditor.robotDamageDealt, LevelEditor.robotHealth,
+				grid.Add(Robot.MakeRobot(grid, x, y, LevelEditor.robotSpeed, LevelEditor.robotDamageDealt, LevelEditor.robotHealth,
 							 LevelEditor.robotForwardRange, LevelEditor.robotSideRange, LevelEditor.robotMovementDirection,
 							 LevelEditor.robotColorVisible, LevelEditor.robotFireDirection, LevelEditor.robotTurnsLeft),
 					 x, y);
@@ -47,6 +48,7 @@ public class ObjectPlacer : MonoBehaviour {
 		script.x = x;
 		script.y = y;
 		script.grid = grid;
+		script.collider.enabled = true;
 		return plane;
 	}
 }

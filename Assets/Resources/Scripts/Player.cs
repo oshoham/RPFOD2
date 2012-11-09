@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class Player : MonoBehaviour, IColor {
+
+	public Grid grid;
 	
 	public int health;
 	public Vector2 gridCoords;
@@ -40,7 +42,9 @@ public class Player : MonoBehaviour, IColor {
 		GetKeypresses();
 		Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y,
 							     Camera.main.transform.position.z);
-		GameManager.plane.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(50, Camera.main.pixelHeight - 40, Camera.main.nearClipPlane+6));
+		if(GameManager.plane != null) {
+			GameManager.plane.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(50, Camera.main.pixelHeight - 40, Camera.main.nearClipPlane+6));
+		}
 	}
 
 	public void GetKeypresses() {
@@ -155,10 +159,10 @@ public class Player : MonoBehaviour, IColor {
 	}
 	
 	void OnDisable() {
-		GameManager.floor.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 	}
 	
-	public static GameObject MakePlayer(int x, int y, int health) {
+	public static GameObject MakePlayer(Grid grid, int x, int y, int health) {
 		GameObject player = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		player.name = "Player";
 		player.renderer.material.mainTexture = Resources.Load("Textures/PlayerPacMan") as Texture;
@@ -179,6 +183,7 @@ public class Player : MonoBehaviour, IColor {
 		script.colors = new Dictionary<Color, int>();
 		script.colorPainted = script.defaultColor;
 		script.collider.enabled = true;
+		script.grid = grid;
 		return player;
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class SpikeWall : Wall {
+	public Grid grid;
 
 	public List<Vector2> directions;
 
@@ -11,14 +12,14 @@ public class SpikeWall : Wall {
 		List<string> classList = new List<string> {"Robot", "Player"};
 		foreach(Vector2 direction in directions) {
 			Vector2 coord = gridCoords + direction;
-			List<GameObject> objects = GameManager.floor.GetObjectsOfTypes(coord, classList);
+			List<GameObject> objects = grid.GetObjectsOfTypes(coord, classList);
 			foreach(GameObject obj in objects) {
 				Destroy(obj);
 			}
 		}
 	}
 
-	public static GameObject MakeSpikeWall(int x, int y, int health, bool destructible,
+	public static GameObject MakeSpikeWall(Grid grid, int x, int y, int health, bool destructible,
 					       List<Vector2> directions, Color color = default(Color)) {
 		if(color == default(Color)) {
 			color = Color.white;
@@ -34,10 +35,10 @@ public class SpikeWall : Wall {
 		script.colorPainted = color;
 		script.gridCoords = new Vector2(x, y);
 		script.directions = directions;
-		//foreach(Vector2 direction in directions) {
-			//			GameManager.floor.grid[(int)(direction.x + x), (int)(direction.y + y)].plane.renderer.material.color = Color.yellow;
-		//}
-		//GameManager.floor.Add(spikeWall, x, y);
+		script.grid = grid;
+		foreach(Vector2 direction in directions) {
+			grid.grid[(int)(direction.x + x), (int)(direction.y + y)].plane.renderer.material.color = Color.yellow;
+		}
 		return spikeWall;
 	}
 	
@@ -47,8 +48,8 @@ public class SpikeWall : Wall {
 	 */
 	void OnDisable() {
 		foreach(Vector2 direction in directions) {
-			GameManager.floor.grid[(int)(direction.x + gridCoords.x), (int)(direction.y + gridCoords.y)].plane.renderer.material.color = Color.white;
+			grid.grid[(int)(direction.x + gridCoords.x), (int)(direction.y + gridCoords.y)].plane.renderer.material.color = Color.white;
 		}
-		GameManager.floor.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 	}
 }

@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 
 public static class LevelLoader {
-
+	
+	public static Grid grid;
+	
 	public static Grid LoadLevel(string filename) {
 		StreamReader reader;
 		try {
@@ -16,7 +18,7 @@ public static class LevelLoader {
 		}
 		int width = Int32.Parse(reader.ReadLine());
 		int height = Int32.Parse(reader.ReadLine());
-		Grid grid = new Grid(width, height);
+		grid = new Grid(width, height);
 		string line;
 		int lineCount = 3;
 		while((line = reader.ReadLine()) != null) {
@@ -116,13 +118,13 @@ public static class LevelLoader {
 			directions.Add(ParseVector2(info[i]));
 		}
 		Color color = ParseColor(info[++i]);
-		return SpikeWall.MakeSpikeWall(x, y, health, destructible, directions, color);
+		return SpikeWall.MakeSpikeWall(grid, x, y, health, destructible, directions, color);
 	}
 	
 	public static GameObject ParsePaint(int x, int y, string[] info) {
 		Color color = ParseColor(info[0]);
 		float respawnTime = Single.Parse(info[1]);
-		return Paint.MakePaint(x, y, color, respawnTime);
+		return Paint.MakePaint(grid, x, y, color, respawnTime);
 	}
 
 	public static void ParseConveyor(int x, int y, string[] info) {
@@ -136,7 +138,7 @@ public static class LevelLoader {
 	
 	public static GameObject ParsePlayer(int x, int y, string[] info) {
 		int health = Int32.Parse(info[0]);
-		return Player.MakePlayer(x, y, health);
+		return Player.MakePlayer(grid, x, y, health);
 	}
 
 	public static GameObject ParseRobot(int x, int y, string[] info) {
@@ -149,7 +151,7 @@ public static class LevelLoader {
 		Color colorVisible = ParseColor(info[6]);
 		Vector2 fireDirection = ParseVector2(info[7]);
 		bool turnsLeft = Int32.Parse(info[8]) == 1 ? true : false;
-		return Robot.MakeRobot(x, y, speed, damageDealt, health, forwardRange, sideRange,
+		return Robot.MakeRobot(grid, x, y, speed, damageDealt, health, forwardRange, sideRange,
 				       movementDirection, colorVisible, fireDirection, turnsLeft);
 	}
 	

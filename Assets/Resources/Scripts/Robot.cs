@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class Robot : MonoBehaviour, IColor {
+	public Grid grid;
 
 	public int health;
 	public float moveSpeed;
@@ -44,14 +45,14 @@ public class Robot : MonoBehaviour, IColor {
 		 * Colors panels to represent vision
 		 */
 	
-		nVision = GameManager.floor.SCheckLine(gridCoords, gridCoords + fireDirection*forwardRange);
+		nVision = grid.SCheckLine(gridCoords, gridCoords + fireDirection*forwardRange);
 			
 		List<Vector2> directions = new List<Vector2> {new Vector2(1, 0),
 							      new Vector2(0, 1),
 							      new Vector2(-1, 0),
 							      new Vector2(0, -1)};
 		foreach(Vector2 direction in directions.Where(v => v != fireDirection)) {
-			nVision.AddRange(GameManager.floor.SCheckLine(gridCoords, (gridCoords + (direction*sideRange))));
+			nVision.AddRange(grid.SCheckLine(gridCoords, (gridCoords + (direction*sideRange))));
 		}
 		foreach(Square sq in oVision)
 		{
@@ -121,13 +122,13 @@ public class Robot : MonoBehaviour, IColor {
 	}
 	
 	public void Fire() {
-		List<GameObject> objects = GameManager.floor.CheckLine(gridCoords, gridCoords + fireDirection*forwardRange);
+		List<GameObject> objects = grid.CheckLine(gridCoords, gridCoords + fireDirection*forwardRange);
 		List<Vector2> directions = new List<Vector2> {new Vector2(1, 0),
 							      new Vector2(0, 1),
 							      new Vector2(-1, 0),
 							      new Vector2(0, -1)};
 		foreach(Vector2 direction in directions.Where(v => v != fireDirection)) {
-			objects.AddRange(GameManager.floor.CheckLine(gridCoords, (gridCoords + (direction*sideRange))));
+			objects.AddRange(grid.CheckLine(gridCoords, (gridCoords + (direction*sideRange))));
 		}
 		
 		List<GameObject> visibles = objects.FindAll((GameObject obj) => {
@@ -180,10 +181,10 @@ public class Robot : MonoBehaviour, IColor {
 			sq.colors[colorVisible]--;
 			sq.SetColor();
 		}
-		GameManager.floor.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 	}
 	
-	public static GameObject MakeRobot(int x, int y, float speed, int damage, int health,
+	public static GameObject MakeRobot(Grid grid, int x, int y, float speed, int damage, int health,
 					   int forwardRange, int sideRange, Vector2 movementDirection,
 					   Color colorVisible, Vector2 fireDirection = default(Vector3),
 					   bool turnsLeft = false) {
@@ -220,6 +221,7 @@ public class Robot : MonoBehaviour, IColor {
 		script.lastFired = Time.time;
 		script.fireRate = 2.0f;
 		script.collider.enabled = true;
+		script.grid = grid;
 		return robot;
 	}
 }

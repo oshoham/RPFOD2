@@ -82,7 +82,6 @@ public class LevelEditor : MonoBehaviour {
 		floor = LevelLoader.LoadLevel(filename);
 		//LevelWriter.WriteLevel(filename);
 		//Debug.Log("Level Written.");
-		LevelLoader.LoadLevel(filename);
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;

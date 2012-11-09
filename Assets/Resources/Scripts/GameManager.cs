@@ -75,14 +75,14 @@ public class GameManager : MonoBehaviour {
 		return false;
 	}
 
-	public static void makeLev(int lev)
-	{
-		switch(lev){
-			case 1:
-				new L1();
-				break;
-			default:
-				break;
-		}
-	}
+	// public static void makeLev(int lev)
+	// {
+	// 	switch(lev){
+	// 		case 1:
+	// 			new L1();
+	// 			break;
+	// 		default:
+	// 			break;
+	// 	}
+	// }
 }
