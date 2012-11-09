@@ -37,7 +37,9 @@ public class Player : MonoBehaviour, IColor {
 	
 	void Update() {
 		if(health <= 0) {
-			Destroy(gameObject);
+			  if(GUI.Button(new Rect(200, 450, 150, 40), "Death comes swiftest to those who die. -JFK")) {
+			  		    Application.LoadLevel("StartScreen");
+			  }		    
 		}
 		GetKeypresses();
 //		if(GameManager.plane != null) {
