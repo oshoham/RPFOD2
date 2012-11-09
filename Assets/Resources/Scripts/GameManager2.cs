@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameManager : MonoBehaviour {
+public class GameManager2 : MonoBehaviour {
 
 	public static readonly int WIDTH = 40;
 	public static readonly int HEIGHT = 40;
@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour {
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 8;
 		Camera.main.backgroundColor = Color.white;
-		string filename = "fizz.txt";//EditorUtility.OpenFilePanel("Level file", "", "txt");
+		string filename = "L2.txt";//EditorUtility.OpenFilePanel("Level file", "", "txt");
 		floor = LevelLoader.LoadLevel(filename);
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
