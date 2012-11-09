@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour {
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 8;
 		Camera.main.backgroundColor = Color.white;
-		string filename = "L2.txt";//EditorUtility.OpenFilePanel("Level file", "", "txt");
+		string filename = "L1.txt";//EditorUtility.OpenFilePanel("Level file", "", "txt");
 
 		floor = LevelLoader.LoadLevel(filename);
 		GameObject light = new GameObject("Light");

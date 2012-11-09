@@ -16,7 +16,7 @@ public class StartScreenManager : MonoBehaviour {
 	     	level1 = GameObject.Find("Level 1");
 		level2 = GameObject.Find("Level 2");
 		editor = GameObject.Find("Level Editor");
-		level2.AddComponent("Level2y");
+		level2.AddComponent("Level2");
 		level1.AddComponent("MainGame");
 		editor.AddComponent("StartScreenEditorButton");
 	}
