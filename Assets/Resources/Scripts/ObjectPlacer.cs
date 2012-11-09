@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 // worst class name ever? maybe?
 public class ObjectPlacer : MonoBehaviour {
@@ -7,17 +8,26 @@ public class ObjectPlacer : MonoBehaviour {
 	public int x, y;
 	public Grid grid;
 	
+	/*
+	 * If we get a right click, clear this square.
+	 */
+	void OnMouseOver() {
+		if(Input.GetMouseButtonDown(1)) {
+			grid.grid[x, y].ClearObjects();
+		}
+	}
+	
 	void OnMouseDown() {
 		switch(LevelEditor.objectToBeCreated) {
 			case ObjectType.Wall:
-				grid.Add(Wall.MakeWall(x, y, LevelEditor.wallHealth, LevelEditor.wallDestructible, LevelEditor.wallColor), x, y);
+				grid.Add(Wall.MakeWall(grid, x, y, LevelEditor.wallHealth, LevelEditor.wallDestructible, LevelEditor.wallColor), x, y);
 				break;
 			case ObjectType.SpikeWall:
 				grid.Add(SpikeWall.MakeSpikeWall(grid, x, y, LevelEditor.spikeWallHealth, LevelEditor.spikeWallDestructible,
 								 LevelEditor.spikeWallDirections, LevelEditor.spikeWallColor), x, y);
 				break;
 			case ObjectType.SpikeFloor:
-				grid.Add(SpikeFloor.MakeSpikeFloor(x, y), x, y);
+				grid.Add(SpikeFloor.MakeSpikeFloor(grid, x, y), x, y);
 				break;
 			case ObjectType.Paint:
 				grid.Add(Paint.MakePaint(grid, x, y, LevelEditor.paintColor, LevelEditor.paintRespawnTime), x, y);
@@ -28,7 +38,12 @@ public class ObjectPlacer : MonoBehaviour {
 						      LevelEditor.conveyorSwitchRate);
 				break;
 			case ObjectType.Player:
+				print("Placing player: " + x + " " + y);
 				grid.Add(Player.MakePlayer(grid, x, y, LevelEditor.playerHealth), x, y);
+				print("placed player");
+				foreach(GameObject obj in grid.GetObjectsOfTypes(new Vector2(x, y), new List<string>() {"Player"})) {
+					print(obj.GetComponent<Player>());
+				}
 				break;	
 			case ObjectType.Robot:
 				grid.Add(Robot.MakeRobot(grid, x, y, LevelEditor.robotSpeed, LevelEditor.robotDamageDealt, LevelEditor.robotHealth,

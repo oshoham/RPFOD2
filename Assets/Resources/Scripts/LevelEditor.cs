@@ -24,6 +24,13 @@ public class LevelEditor : MonoBehaviour {
 	public static GameObject plane;
 
 	public static ObjectType objectToBeCreated;
+	public static String saveFileName = "";
+	public static String loadFileName = "";
+	public static string widthCommaHeight = "";
+	public static int newWidth;
+	public static int newHeight;
+
+	public static List<GameObject> objectPlacers = new List<GameObject>();
 	
 	/*
 	 * Information for each type of object that we might create. Most of
@@ -71,50 +78,39 @@ public class LevelEditor : MonoBehaviour {
 	
 	void Start() {
 		Time.timeScale = 0;
-		plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-		plane.transform.localScale = new Vector3(1.0f, 1.0f, .4f);
-		plane.transform.Rotate(-90f, 0, 0);
-		plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 5;
 		Camera.main.backgroundColor = Color.white;
-		string filename = EditorUtility.OpenFilePanel("Level file", "", "txt");
-		floor = LevelLoader.LoadLevel(filename);
-		//LevelWriter.WriteLevel(filename);
-		//Debug.Log("Level Written.");
+		//string filename = EditorUtility.OpenFilePanel("Level file", "", "txt");
+		//floor = LevelLoader.LoadLevel(filename);
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
 		l.type = LightType.Directional;
 		l.intensity = 0.4f;
-		// Set up object placers
-		for(int i = 0; i < floor.grid.GetLength(0); i++) {
-			for(int j = 0; j < floor.grid.GetLength(1); j++) {
-				ObjectPlacer.MakeObjectPlacer(i, j, floor);
-			}
-		}
 		// Set up object selectors
 		float z = Camera.main.nearClipPlane + 5;
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 50.0f, z), 0.5f, 0.5f,
-						  Resources.Load("Textures/Tile2") as Texture,
+		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 200.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/WallIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Wall, name: "Wall Selector");
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 90.0f, z), 0.5f, 0.5f,
-						  Resources.Load("Textures/Tile2") as Texture,
-						  () => LevelEditor.objectToBeCreated = ObjectType.SpikeWall, name: "SpikeWall Selector");
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 130.0f, z), 0.5f, 0.5f,
-						  Resources.Load("Textures/Tile2") as Texture,
+//Commented out SpikeWall because there's no difference between Spike Wall and Spike Floor, effectively. Check the Design Doc for more info
+//		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 140.0f, z), 0.5f, 0.5f,
+//						  Resources.Load("Textures/Spike") as Texture,
+//						  () => LevelEditor.objectToBeCreated = ObjectType.SpikeWall, name: "SpikeWall Selector");
+		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 250.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/ElectrocuteIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.SpikeFloor, name: "SpikeFloor Selector");
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 170.0f, z), 0.5f, 0.5f,
-						  Resources.Load("Textures/Tile2") as Texture,
+		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 300.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/PaintIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Paint, name: "Paint Selector");
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 210.0f, z), 0.5f, 0.5f,
-						  Resources.Load("Textures/Tile2") as Texture,
+		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 350.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/ConveyorIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Conveyor, name: "Conveyor Selector");
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 250.0f, z), 0.5f, 0.5f,
-						  Resources.Load("Textures/Tile2") as Texture,
+		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 400.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/PlayerIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Player, name: "Player Selector");
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 290.0f, z), 0.5f, 0.5f,
-						  Resources.Load("Textures/Tile2") as Texture,
+		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 450.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/BotIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Robot, name: "Robot Selector");
 	}
 
@@ -134,18 +130,47 @@ public class LevelEditor : MonoBehaviour {
 	}
 	
 	void OnGUI() {
+		saveFileName = GUI.TextField(new Rect(10, 10, 100, 20), saveFileName);
+		if(GUI.Button(new Rect(120, 10, 50, 20), "Save")) {
+			LevelWriter.WriteLevel(saveFileName, floor);
+		}
+		loadFileName = GUI.TextField(new Rect(10, 50, 100, 20), loadFileName);
+		if(GUI.Button(new Rect(120, 50, 50, 20), "Load")) {
+			if(floor != null) {
+				floor.Clear();
+			}
+			floor = LevelLoader.LoadLevel(loadFileName);
+			SetupObjectPlacers();
+			newWidth = floor.grid.GetLength(0);
+			newHeight = floor.grid.GetLength(1);
+		}
+		widthCommaHeight = GUI.TextField(new Rect(10, 90, 100, 20), widthCommaHeight);
+		if(GUI.Button(new Rect(120, 90, 100, 20), "Resize")) {
+			try {
+				string[] bits = widthCommaHeight.Split(new char[] {','});
+				floor = floor.Copy(Int32.Parse(bits[0]), Int32.Parse(bits[1]));
+				SetupObjectPlacers();
+			}
+			catch {
+				print("shit!");
+			}
+		}
+		if(GUI.Button(new Rect(10, 860, 150, 40), "Main Menu")) {
+			 Application.LoadLevel("StartScreen");	  
+		}		  
+		// Object-specific stuffs
 		switch(objectToBeCreated) {
 			case ObjectType.Wall:
 				// health
 				try {
-					wallHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 10)),
+					wallHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(250, 50, 100, 20)),
 									       "" + wallHealth));
 				}
 				catch {
 					Debug.Log("Wrong number format!");
 				}
 				// destructible
-				wallDestructible = GUI.Toggle(FromBottomRight(new Rect(300, 70, 50, 10)),
+				wallDestructible = GUI.Toggle(FromBottomRight(new Rect(300, 70, 100, 50)),
 							      wallDestructible,
 							      "Destructible?");
 				// color
@@ -162,7 +187,7 @@ public class LevelEditor : MonoBehaviour {
 				else {
 					colorInt = 3;
 				}
-				colorInt = GUI.Toolbar(FromBottomRight(new Rect(300, 90, 250, 30)),
+				colorInt = GUI.Toolbar(FromBottomRight(new Rect(300, 120, 250, 30)),
 						       colorInt,
 						       new string[] {"Red", "Green", "Blue", "None"});
 				switch(colorInt) {
@@ -181,25 +206,120 @@ public class LevelEditor : MonoBehaviour {
 				}
 				break;
 			case ObjectType.SpikeWall:
-
-				break;
-			case ObjectType.SpikeFloor:
-
+				// health 
+				try {
+					GUI.Label(FromBottomRight(new Rect(300, 50, 50, 10)), "Health");
+					spikeWallHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 10)),
+										 "" + spikeWallHealth));
+				}
+				catch {
+					Debug.Log("Wrong number format!");
+				}
+				// destructible
+				spikeWallDestructible = GUI.Toggle(FromBottomRight(new Rect(300, 70, 50, 10)),
+								spikeWallDestructible, "Destructible?");	
+				// color
+				if(spikeWallColor == Color.red) {
+					colorInt = 0;
+				}
+				else if(spikeWallColor == Color.green) {
+					colorInt = 1;
+				}
+				else if(spikeWallColor == Color.blue) {
+					colorInt = 2;
+				}
+				else {
+					colorInt = 3;
+				}
+				colorInt = GUI.Toolbar(FromBottomRight(new Rect(300, 90, 250, 30)),
+						       colorInt,
+						       new string[] {"Red", "Green", "Blue", "None"});
+				switch(colorInt) {
+					case 0:
+						spikeWallColor = Color.red;
+						break;
+					case 1:
+						spikeWallColor = Color.green;
+						break;
+					case 2:
+						spikeWallColor = Color.blue;
+						break;
+					case 3:
+						spikeWallColor = Color.white;
+						break;
+				}
 				break;
 			case ObjectType.Paint:
-
+				// spawn
+				try {
+					GUI.Label(FromBottomRight(new Rect(250, 50, 50, 20)), "Respawn Rate");
+					paintRespawnTime = Single.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 20)), "" + paintRespawnTime)); 
+				}	
+				catch {
+					Debug.Log("Wrong number format!");
+				}
+				// color
+				if(paintColor == Color.red) {
+					colorInt = 0;
+				}
+				else if(paintColor == Color.green) {
+					colorInt = 1;
+				}
+				else {
+					colorInt = 2;
+				}
+				colorInt = GUI.Toolbar(FromBottomRight(new Rect(300, 90, 250, 30)),
+						       colorInt,
+						       new string[] {"Red", "Green", "Blue"});
+				switch(colorInt) {
+					case 0:
+						paintColor = Color.red;
+						break;
+					case 1:
+						paintColor = Color.green;
+						break;
+					case 2:
+						paintColor = Color.blue;
+						break;
+				}
 				break;
 			case ObjectType.Conveyor:
-
-				break;
-			case ObjectType.Player:
 				
+				break;
+			case ObjectType.Player:	
+				try {
+					GUI.Label(FromBottomRight(new Rect(300, 50, 50, 10)), "Health");
+					playerHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 100, 50)), "" + playerHealth)); 
+				}
+				catch {
+					Debug.Log("Wrong number format!");
+				}
+	
 				break;	
 			case ObjectType.Robot:
 
 				break;
 		}
 	}
+	
+	/*
+	 * Sets up the invisible planes for placing objects in the grid.
+	 */
+	public void SetupObjectPlacers() {
+		if(floor == null)
+			return;
+		// Clear out any old ObjectPlacers
+		for(int i = 0; i < objectPlacers.Count; i++) {
+			Destroy(objectPlacers[i]);
+		}
+		objectPlacers.Clear();
+		for(int i = 0; i < floor.grid.GetLength(0); i++) {
+			for(int j = 0; j < floor.grid.GetLength(1); j++) {
+				objectPlacers.Add(ObjectPlacer.MakeObjectPlacer(i, j, floor));
+			}
+		}
+	}
+
 	
 	/*
 	 * Returns the same Rect but offset from the bottom right instead

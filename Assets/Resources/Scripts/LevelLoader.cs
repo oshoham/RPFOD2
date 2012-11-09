@@ -39,7 +39,7 @@ public static class LevelLoader {
 						i += 7;
 						break;
 					case 2: // SpikeFloor
-						grid.Add(SpikeFloor.MakeSpikeFloor(x, y), x, y);
+						grid.Add(SpikeFloor.MakeSpikeFloor(grid, x, y), x, y);
 						i += 1;
 						break;
 					case 3: // Paint
@@ -106,7 +106,7 @@ public static class LevelLoader {
 		int health = Int32.Parse(info[0]);
 		bool destructible = Int32.Parse(info[1]) == 1 ? true : false;
 		Color color = ParseColor(info[2]);
-		return Wall.MakeWall(x, y, health, destructible, color);
+		return Wall.MakeWall(grid, x, y, health, destructible, color);
 	}
 
 	public static GameObject ParseSpikeWall(int x, int y, string[] info) {

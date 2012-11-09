@@ -3,22 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class SpikeFloor : MonoBehaviour {
+	public Grid grid;
 
 	public Vector2 gridCoords;
 	
+	/*void OnMouseOver() {
+		if(Input.GetMouseButtonDown(1)) {
+			Destroy(gameObject);
+		}
+		}*/
+	
 	void Update () {
 		List<string> classList = new List<string> {"Robot", "Player"};
-		List<GameObject> objects = GameManager.floor.GetObjectsOfTypes(gridCoords, classList);
+		List<GameObject> objects = grid.GetObjectsOfTypes(gridCoords, classList);
 		foreach(GameObject obj in objects) {
 			Destroy(obj);
 		}
 	}
 	
 	void OnDisable() {
-		GameManager.floor.grid[(int)gridCoords.x, (int)gridCoords.y].plane.renderer.material.color = Color.black;
+		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+		grid.grid[(int)gridCoords.x, (int)gridCoords.y].plane.renderer.material.color = Color.white;
 	}
 	
-	public static GameObject MakeSpikeFloor(int x, int y) {
+	public static GameObject MakeSpikeFloor(Grid grid, int x, int y) {
 // 		GameObject spikeFloor = GameObject.CreatePrimitive(PrimitiveType.Plane);
 //		spikeFloor.transform.position = new Vector3(x, y, 0.0f);
 //		spikeFloor.transform.localScale = new Vector3(.1f, 0, .1f);
@@ -30,7 +38,7 @@ public class SpikeFloor : MonoBehaviour {
 		spikeFloor.transform.position = new Vector3(x, y, 0.0f);
 		SpikeFloor script = spikeFloor.AddComponent<SpikeFloor>();
 		script.gridCoords = new Vector2(x, y);
-		//GameManager.floor.grid[x, y].plane.renderer.material.color = Color.yellow;
+		script.grid = grid;
 		return spikeFloor;
 	}
 }
