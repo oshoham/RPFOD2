@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour {
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 8;
 		Camera.main.backgroundColor = Color.white;
-		string filename = "fizz.txt";//EditorUtility.OpenFilePanel("Level file", "", "txt");
+		string filename = "blank.txt";//EditorUtility.OpenFilePanel("Level file", "", "txt");
 		floor = LevelLoader.LoadLevel(filename);
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();

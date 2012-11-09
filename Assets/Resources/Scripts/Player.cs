@@ -46,7 +46,15 @@ public class Player : MonoBehaviour, IColor {
 //			GameManager.plane.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(50, Camera.main.pixelHeight - 40, Camera.main.nearClipPlane+6));
 //		}
 	}
-
+	
+	void OnGUI() {
+	       if(health <= 0) {
+	       		 if(GUI.Button(new Rect(200, 450, 150, 40), "Death comes swiftest to those who die. -JFK")) {
+			 		   Application.LoadLevel("StartScreen");
+			 }
+		}	 		   
+	}
+	
 	public void GetKeypresses() {
 		if(Time.time > endMoving) {
 			if(Input.GetKey("w")) {
