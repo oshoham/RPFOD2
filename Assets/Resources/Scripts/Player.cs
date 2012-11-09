@@ -40,9 +40,9 @@ public class Player : MonoBehaviour, IColor {
 			Destroy(gameObject);
 		}
 		GetKeypresses();
-		if(GameManager.plane != null) {
-			GameManager.plane.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(50, Camera.main.pixelHeight - 40, Camera.main.nearClipPlane+6));
-		}
+//		if(GameManager.plane != null) {
+//			GameManager.plane.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(50, Camera.main.pixelHeight - 40, Camera.main.nearClipPlane+6));
+//		}
 	}
 
 	public void GetKeypresses() {

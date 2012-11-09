@@ -90,26 +90,26 @@ public class LevelEditor : MonoBehaviour {
 		l.intensity = 0.4f;
 		// Set up object selectors
 		float z = Camera.main.nearClipPlane + 5;
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 50.0f, z), 0.5f, 0.5f,
+		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 200.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/WallIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Wall, name: "Wall Selector");
 //Commented out SpikeWall because there's no difference between Spike Wall and Spike Floor, effectively. Check the Design Doc for more info
-//		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 90.0f, z), 0.5f, 0.5f,
+//		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 140.0f, z), 0.5f, 0.5f,
 //						  Resources.Load("Textures/Spike") as Texture,
 //						  () => LevelEditor.objectToBeCreated = ObjectType.SpikeWall, name: "SpikeWall Selector");
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 100.0f, z), 0.5f, 0.5f,
+		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 250.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/ElectrocuteIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.SpikeFloor, name: "SpikeFloor Selector");
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 150.0f, z), 0.5f, 0.5f,
+		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 300.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/PaintIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Paint, name: "Paint Selector");
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 200.0f, z), 0.5f, 0.5f,
+		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 350.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/ConveyorIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Conveyor, name: "Conveyor Selector");
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 250.0f, z), 0.5f, 0.5f,
+		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 400.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/PlayerIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Player, name: "Player Selector");
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 300.0f, z), 0.5f, 0.5f,
+		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 450.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/BotIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Robot, name: "Robot Selector");
 	}
@@ -130,12 +130,12 @@ public class LevelEditor : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		saveFileName = GUI.TextField(new Rect(200, 50, 100, 20), saveFileName);
-		if(GUI.Button(new Rect(350, 50, 50, 20), "Save")) {
+		saveFileName = GUI.TextField(new Rect(10, 10, 100, 20), saveFileName);
+		if(GUI.Button(new Rect(120, 10, 50, 20), "Save")) {
 			LevelWriter.WriteLevel(saveFileName, floor);
 		}
-		loadFileName = GUI.TextField(new Rect(200, 100, 100, 20), loadFileName);
-		if(GUI.Button(new Rect(350, 100, 50, 20), "Load")) {
+		loadFileName = GUI.TextField(new Rect(10, 50, 100, 20), loadFileName);
+		if(GUI.Button(new Rect(120, 50, 50, 20), "Load")) {
 			if(floor != null) {
 				floor.Clear();
 			}
@@ -144,8 +144,8 @@ public class LevelEditor : MonoBehaviour {
 			newWidth = floor.grid.GetLength(0);
 			newHeight = floor.grid.GetLength(1);
 		}
-		widthCommaHeight = GUI.TextField(new Rect(200, 150, 100, 20), widthCommaHeight);
-		if(GUI.Button(new Rect(350, 150, 100, 20), "Resize")) {
+		widthCommaHeight = GUI.TextField(new Rect(10, 90, 100, 20), widthCommaHeight);
+		if(GUI.Button(new Rect(120, 90, 100, 20), "Resize")) {
 			try {
 				string[] bits = widthCommaHeight.Split(new char[] {','});
 				floor = floor.Copy(Int32.Parse(bits[0]), Int32.Parse(bits[1]));
@@ -155,6 +155,9 @@ public class LevelEditor : MonoBehaviour {
 				print("shit!");
 			}
 		}
+		if(GUI.Button(new Rect(10, 860, 150, 40), "Main Menu")) {
+			 Application.LoadLevel("StartScreen");	  
+		}		  
 		// Object-specific stuffs
 		switch(objectToBeCreated) {
 			case ObjectType.Wall:
