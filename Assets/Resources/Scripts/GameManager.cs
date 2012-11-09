@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour {
                boxStyle.normal.background = texture; 
 		GUI.Box(new Rect(1, 1, 320, 140), new GUIContent(""), boxStyle);
 */
-		GUI.Box(new Rect(1, 1, 320, 140), "");
+		//GUI.Box(new Rect(1, 1, 320, 140), "");
 		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health, guiStyle);
 		GUI.Label(new Rect(10, 40, 100, 50), "Shooting:", guiStyle);
 		GUI.Label(new Rect(10, 100, 100, 50), "Painted:", guiStyle);
@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour {
 	 * actually ended up moving, false otherwise.
 	 */
 	public static bool Move(Vector2 start, Vector2 end, GameObject mover) {
-		if(!floor.Check(end)) {
+		if(floor != null && !floor.Check(end)) {
 			floor.Move(start, end, mover);
 			return true;
 		}

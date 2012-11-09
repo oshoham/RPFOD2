@@ -139,20 +139,28 @@ public class LevelEditor : MonoBehaviour {
 			if(floor != null) {
 				floor.Clear();
 			}
-			floor = LevelLoader.LoadLevel(loadFileName);
-			SetupObjectPlacers();
-			newWidth = floor.grid.GetLength(0);
-			newHeight = floor.grid.GetLength(1);
+			Grid newGrid = LevelLoader.LoadLevel(loadFileName);
+			if(newGrid != null) {
+				floor = newGrid;
+				SetupObjectPlacers();
+				newWidth = floor.grid.GetLength(0);
+				newHeight = floor.grid.GetLength(1);
+			}
 		}
 		widthCommaHeight = GUI.TextField(new Rect(10, 90, 100, 20), widthCommaHeight);
 		if(GUI.Button(new Rect(120, 90, 100, 20), "Resize")) {
 			try {
 				string[] bits = widthCommaHeight.Split(new char[] {','});
 				floor = floor.Copy(Int32.Parse(bits[0]), Int32.Parse(bits[1]));
-				SetupObjectPlacers();
+				try {
+					SetupObjectPlacers();
+				}
+				catch {
+					print("haha, objects");
+				}
 			}
-			catch {
-				print("shit!");
+			catch (Exception e) {
+				print("shit! " + e.StackTrace);
 			}
 		}
 		if(GUI.Button(new Rect(10, 860, 150, 40), "Main Menu")) {

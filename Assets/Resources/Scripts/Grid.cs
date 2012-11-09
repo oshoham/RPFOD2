@@ -197,21 +197,37 @@ public class Grid {
 	 */
 	public Grid Copy(int width, int height) {
 		Grid copy = new Grid(width, height);
-		int maxWidth = width > grid.GetLength(0) ? width : grid.GetLength(0);
-		int maxHeight = height > grid.GetLength(1) ? height : grid.GetLength(1);
-		for(int i = 0; i < maxWidth; i++) {
-			for(int j = 0; j < maxHeight; j++) {
-				// We're within both grids
-				if(i < grid.GetLength(0) && j < grid.GetLength(1) &&
-				   i < width && i < height) {
-					copy.grid[i, j] = grid[i, j];
+		for(int i = 0; i < width; i++) {
+			for(int j = 0; j < height; j++) {
+				if(i < grid.GetLength(0) && j < grid.GetLength(1)) {
+					copy.grid[i, j].objects = grid[i, j].objects;
+					UnityEngine.Object.Destroy(grid[i, j].plane);
 				}
-				// we're in old but not new
-				else if(i >= width || i >= height) {
+			}
+		}
+		for(int i = 0; i < grid.GetLength(0); i++) {
+			for(int j = 0; j < grid.GetLength(1); j++) {
+				if(i >= width || j >= height) {
 					grid[i, j].Clear();
 				}
 			}
 		}
+		// int maxWidth = width > grid.GetLength(0) ? width : grid.GetLength(0);
+		// int maxHeight = height > grid.GetLength(1) ? height : grid.GetLength(1);
+		// for(int i = 0; i < maxWidth; i++) {
+		// 	for(int j = 0; j < maxHeight; j++) {
+		// 		// We're within both grids
+		// 		if(i < grid.GetLength(0) && j < grid.GetLength(1) &&
+		// 		   i < width && j < height) {
+		// 			copy.grid[i, j].objects = grid[i, j].objects;
+		// 		}
+		// 		// we're in old but not new
+		// 		else if(i < grid.GetLength(0) && j < grid.GetLength(1)) {
+		// 			Debug.Log(i + ", " + j);
+		// 			grid[i, j].Clear();
+		// 		}
+		// 	}
+		// }
 		return copy;
 	}
 }
