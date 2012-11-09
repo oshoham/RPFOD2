@@ -323,7 +323,7 @@ public class LevelEditor : MonoBehaviour {
 					robotHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(375, 50, 50, 25)), "" + robotHealth)); 
 					robotForwardRange = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 25)), "" + robotForwardRange)); 
 					robotSideRange = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(225, 50, 50, 25)), "" + robotSideRange)); 
-					robotSpeed = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(150, 50, 50, 25)), "" + robotSpeed));
+					robotSpeed = Single.Parse(GUI.TextField(FromBottomRight(new Rect(150, 50, 50, 25)), "" + robotSpeed));
 				}
 				catch {
 					Debug.Log("Wrong number format!");
