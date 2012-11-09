@@ -75,10 +75,14 @@ public class Square {
 	/*
 	 * Destroys all game objects on this square.
 	 */
-	public void Clear() {
+	public void ClearObjects() {
 		for(int i = 0; i < objects.Count; i++) {
 			Object.Destroy(objects[i]);
 		}
+	}
+
+	public void Clear() {
+		ClearObjects();
 		Object.Destroy(plane);
 	}
 }

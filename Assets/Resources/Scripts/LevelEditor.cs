@@ -135,14 +135,14 @@ public class LevelEditor : MonoBehaviour {
 			case ObjectType.Wall:
 				// health
 				try {
-					wallHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 10)),
+					wallHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(250, 50, 100, 20)),
 									       "" + wallHealth));
 				}
 				catch {
 					Debug.Log("Wrong number format!");
 				}
 				// destructible
-				wallDestructible = GUI.Toggle(FromBottomRight(new Rect(300, 70, 50, 10)),
+				wallDestructible = GUI.Toggle(FromBottomRight(new Rect(300, 70, 100, 50)),
 							      wallDestructible,
 							      "Destructible?");
 				// color
@@ -159,7 +159,7 @@ public class LevelEditor : MonoBehaviour {
 				else {
 					colorInt = 3;
 				}
-				colorInt = GUI.Toolbar(FromBottomRight(new Rect(300, 90, 250, 30)),
+				colorInt = GUI.Toolbar(FromBottomRight(new Rect(300, 120, 250, 30)),
 						       colorInt,
 						       new string[] {"Red", "Green", "Blue", "None"});
 				switch(colorInt) {
@@ -221,14 +221,11 @@ public class LevelEditor : MonoBehaviour {
 						break;
 				}
 				break;
-			case ObjectType.SpikeFloor:
-
-				break;
 			case ObjectType.Paint:
 				// spawn
 				try {
-					GUI.Label(FromBottomRight(new Rect(300, 50, 50, 10)), "Respawn Rate");
-					paintRespawnTime = Single.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 10)), "" + paintRespawnTime)); 
+					GUI.Label(FromBottomRight(new Rect(250, 50, 50, 20)), "Respawn Rate");
+					paintRespawnTime = Single.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 20)), "" + paintRespawnTime)); 
 				}	
 				catch {
 					Debug.Log("Wrong number format!");
@@ -240,15 +237,12 @@ public class LevelEditor : MonoBehaviour {
 				else if(paintColor == Color.green) {
 					colorInt = 1;
 				}
-				else if(paintColor == Color.blue) {
-					colorInt = 2;
-				}
 				else {
-					colorInt = 3;
+					colorInt = 2;
 				}
 				colorInt = GUI.Toolbar(FromBottomRight(new Rect(300, 90, 250, 30)),
 						       colorInt,
-						       new string[] {"Red", "Green", "Blue", "None"});
+						       new string[] {"Red", "Green", "Blue"});
 				switch(colorInt) {
 					case 0:
 						paintColor = Color.red;
@@ -259,13 +253,10 @@ public class LevelEditor : MonoBehaviour {
 					case 2:
 						paintColor = Color.blue;
 						break;
-					case 3:
-						paintColor = Color.white;
-						break;
 				}
 				break;
 			case ObjectType.Conveyor:
-
+				
 				break;
 			case ObjectType.Player:	
 				try {
