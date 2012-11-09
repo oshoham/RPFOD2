@@ -87,6 +87,10 @@ public class Grid {
 		}
 		return objects;
 	}
+	
+	/*
+	 * Checks square radius
+	 */
 
 	/*
 	 * Makes sure a Vector2's coordinates are in the right range and

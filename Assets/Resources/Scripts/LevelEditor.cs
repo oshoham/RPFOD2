@@ -155,19 +155,104 @@ public class LevelEditor : MonoBehaviour {
 				}
 				break;
 			case ObjectType.SpikeWall:
-
+				// health 
+				try {
+					GUI.Label(FromBottomRight(new Rect(300, 50, 50, 10)), "Health");
+					spikeWallHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 10)),
+										 "" + spikeWallHealth));
+				}
+				catch {
+					Debug.Log("Wrong number format!");
+				}
+				// destructible
+				spikeWallDestructible = GUI.Toggle(FromBottomRight(new Rect(300, 70, 50, 10)),
+								spikeWallDestructible, "Destructible?");	
+				// color
+				if(spikeWallColor == Color.red) {
+					colorInt = 0;
+				}
+				else if(spikeWallColor == Color.green) {
+					colorInt = 1;
+				}
+				else if(spikeWallColor == Color.blue) {
+					colorInt = 2;
+				}
+				else {
+					colorInt = 3;
+				}
+				colorInt = GUI.Toolbar(FromBottomRight(new Rect(300, 90, 250, 30)),
+						       colorInt,
+						       new string[] {"Red", "Green", "Blue", "None"});
+				switch(colorInt) {
+					case 0:
+						spikeWallColor = Color.red;
+						break;
+					case 1:
+						spikeWallColor = Color.green;
+						break;
+					case 2:
+						spikeWallColor = Color.blue;
+						break;
+					case 3:
+						spikeWallColor = Color.white;
+						break;
+				}
 				break;
 			case ObjectType.SpikeFloor:
 
 				break;
 			case ObjectType.Paint:
-
+				// spawn
+				try {
+					GUI.Label(FromBottomRight(new Rect(300, 50, 50, 10)), "Respawn Rate");
+					paintRespawnTime = Single.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 10)), "" + paintRespawnTime)); 
+				}	
+				catch {
+					Debug.Log("Wrong number format!");
+				}
+				// color
+				if(paintColor == Color.red) {
+					colorInt = 0;
+				}
+				else if(paintColor == Color.green) {
+					colorInt = 1;
+				}
+				else if(paintColor == Color.blue) {
+					colorInt = 2;
+				}
+				else {
+					colorInt = 3;
+				}
+				colorInt = GUI.Toolbar(FromBottomRight(new Rect(300, 90, 250, 30)),
+						       colorInt,
+						       new string[] {"Red", "Green", "Blue", "None"});
+				switch(colorInt) {
+					case 0:
+						paintColor = Color.red;
+						break;
+					case 1:
+						paintColor = Color.green;
+						break;
+					case 2:
+						paintColor = Color.blue;
+						break;
+					case 3:
+						paintColor = Color.white;
+						break;
+				}
 				break;
 			case ObjectType.Conveyor:
 
 				break;
-			case ObjectType.Player:
-				
+			case ObjectType.Player:	
+				try {
+					GUI.Label(FromBottomRight(new Rect(300, 50, 50, 10)), "Health");
+					playerHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 10)), "" + paintRespawnTime)); 
+				}
+				catch {
+					Debug.Log("Wrong number format!");
+				}
+	
 				break;	
 			case ObjectType.Robot:
 
