@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class Paint : MonoBehaviour, IColor {
+	public Grid grid;
 
 	public Vector2 gridCoords;
 	public Color colorPainted { get; set;}
@@ -26,8 +27,8 @@ public class Paint : MonoBehaviour, IColor {
 			isEnabled = true;
 		}
 		if(isEnabled) {
-			GameObject player = GameManager.floor.grid[(int)gridCoords.x, (int)gridCoords.y].objects.Find((GameObject obj) =>
-														 obj.GetComponent<Player>() != null);
+			GameObject player = grid.grid[(int)gridCoords.x, (int)gridCoords.y].objects.Find((GameObject obj) =>
+												    obj.GetComponent<Player>() != null);
 			if(player) {
 				player.GetComponent<Player>().PickupColor(colorPainted);
 				isEnabled = false;
@@ -36,10 +37,10 @@ public class Paint : MonoBehaviour, IColor {
 	}
 	
 	void OnDisable() {
-		GameManager.floor.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 	}
 	
-	public static GameObject MakePaint(int x, int y, Color color, float respawnTime) {
+	public static GameObject MakePaint(Grid grid, int x, int y, Color color, float respawnTime) {
 		GameObject paint = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		paint.name = "Paint";
 		paint.transform.localScale = new Vector3(0.65f, 0.65f, 0.65f);
@@ -53,6 +54,7 @@ public class Paint : MonoBehaviour, IColor {
 		script.isEnabled = true;
 		script.respawnTime = respawnTime;
 		script.lastPickedUp = Time.time - respawnTime;
+		script.grid = grid;
 		return paint;
 	}
 }

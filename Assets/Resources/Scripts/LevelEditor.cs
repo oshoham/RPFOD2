@@ -52,7 +52,7 @@ public class LevelEditor : MonoBehaviour {
 	public static Vector2 conveyorDirection = new Vector2(1, 0);
 	public static float conveyorLength = 1;
 	public static float conveyorSpeed = 0.5f;
-	public static bool conveyorSwitchable;
+	public static bool conveyorSwitchable = false;
 	public static float conveyorSwitchRate = 1.0f;
 
 	// Player
@@ -82,7 +82,6 @@ public class LevelEditor : MonoBehaviour {
 		floor = LevelLoader.LoadLevel(filename);
 		//LevelWriter.WriteLevel(filename);
 		//Debug.Log("Level Written.");
-		LevelLoader.LoadLevel(filename);
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
@@ -96,15 +95,42 @@ public class LevelEditor : MonoBehaviour {
 		}
 		// Set up object selectors
 		float z = Camera.main.nearClipPlane + 5;
-		ObjectSelector.MakeObjectSelector(new Vector3(140.0f, Camera.main.pixelHeight - 50.0f, z), 1, 1,
+		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 50.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/Tile2") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Wall, name: "Wall Selector");
+		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 90.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/Tile2") as Texture,
+						  () => LevelEditor.objectToBeCreated = ObjectType.SpikeWall, name: "SpikeWall Selector");
+		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 130.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/Tile2") as Texture,
+						  () => LevelEditor.objectToBeCreated = ObjectType.SpikeFloor, name: "SpikeFloor Selector");
+		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 170.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/Tile2") as Texture,
+						  () => LevelEditor.objectToBeCreated = ObjectType.Paint, name: "Paint Selector");
+		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 210.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/Tile2") as Texture,
+						  () => LevelEditor.objectToBeCreated = ObjectType.Conveyor, name: "Conveyor Selector");
+		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 250.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/Tile2") as Texture,
+						  () => LevelEditor.objectToBeCreated = ObjectType.Player, name: "Player Selector");
+		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 290.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/Tile2") as Texture,
+						  () => LevelEditor.objectToBeCreated = ObjectType.Robot, name: "Robot Selector");
 	}
 
 	void Update() {
-		// if(Input.GetKeyDown("w")) {
-		// 	Camera.main.transform.Translate(0, 1, 0);
-		// }
+		if(Input.GetKeyDown("w")) {
+			Camera.main.transform.Translate(0, 1, 0);
+		}
+		if(Input.GetKeyDown("d")) {
+			Camera.main.transform.Translate(1, 0, 0);
+		}
+		if(Input.GetKeyDown("s")) {
+			Camera.main.transform.Translate(0, -1, 0);
+		}
+		if(Input.GetKeyDown("a")) {
+			Camera.main.transform.Translate(-1, 0, 0);
+		}
 	}
 	
 	void OnGUI() {
