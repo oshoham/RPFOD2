@@ -135,14 +135,14 @@ public class LevelEditor : MonoBehaviour {
 			case ObjectType.Wall:
 				// health
 				try {
-					wallHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 10)),
+					wallHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(250, 50, 100, 20)),
 									       "" + wallHealth));
 				}
 				catch {
 					Debug.Log("Wrong number format!");
 				}
 				// destructible
-				wallDestructible = GUI.Toggle(FromBottomRight(new Rect(300, 70, 50, 10)),
+				wallDestructible = GUI.Toggle(FromBottomRight(new Rect(300, 70, 100, 50)),
 							      wallDestructible,
 							      "Destructible?");
 				// color
@@ -159,7 +159,7 @@ public class LevelEditor : MonoBehaviour {
 				else {
 					colorInt = 3;
 				}
-				colorInt = GUI.Toolbar(FromBottomRight(new Rect(300, 90, 250, 30)),
+				colorInt = GUI.Toolbar(FromBottomRight(new Rect(300, 120, 250, 30)),
 						       colorInt,
 						       new string[] {"Red", "Green", "Blue", "None"});
 				switch(colorInt) {

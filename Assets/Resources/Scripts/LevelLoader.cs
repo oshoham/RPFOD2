@@ -39,7 +39,7 @@ public static class LevelLoader {
 						i += 7;
 						break;
 					case 2: // SpikeFloor
-						grid.Add(SpikeFloor.MakeSpikeFloor(x, y), x, y);
+						grid.Add(SpikeFloor.MakeSpikeFloor(grid, x, y), x, y);
 						i += 1;
 						break;
 					case 3: // Paint

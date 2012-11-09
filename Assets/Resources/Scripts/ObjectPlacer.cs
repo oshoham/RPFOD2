@@ -7,6 +7,15 @@ public class ObjectPlacer : MonoBehaviour {
 	public int x, y;
 	public Grid grid;
 	
+	/*
+	 * If we get a right click, clear this square.
+	 */
+	void OnMouseOver() {
+		if(Input.GetMouseButtonDown(1)) {
+			grid.grid[x, y].ClearObjects();
+		}
+	}
+	
 	void OnMouseDown() {
 		switch(LevelEditor.objectToBeCreated) {
 			case ObjectType.Wall:
@@ -17,7 +26,7 @@ public class ObjectPlacer : MonoBehaviour {
 								 LevelEditor.spikeWallDirections, LevelEditor.spikeWallColor), x, y);
 				break;
 			case ObjectType.SpikeFloor:
-				grid.Add(SpikeFloor.MakeSpikeFloor(x, y), x, y);
+				grid.Add(SpikeFloor.MakeSpikeFloor(grid, x, y), x, y);
 				break;
 			case ObjectType.Paint:
 				grid.Add(Paint.MakePaint(grid, x, y, LevelEditor.paintColor, LevelEditor.paintRespawnTime), x, y);
