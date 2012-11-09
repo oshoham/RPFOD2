@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 // worst class name ever? maybe?
 public class ObjectPlacer : MonoBehaviour {
@@ -37,7 +38,12 @@ public class ObjectPlacer : MonoBehaviour {
 						      LevelEditor.conveyorSwitchRate);
 				break;
 			case ObjectType.Player:
+				print("Placing player: " + x + " " + y);
 				grid.Add(Player.MakePlayer(grid, x, y, LevelEditor.playerHealth), x, y);
+				print("placed player");
+				foreach(GameObject obj in grid.GetObjectsOfTypes(new Vector2(x, y), new List<string>() {"Player"})) {
+					print(obj.GetComponent<Player>());
+				}
 				break;	
 			case ObjectType.Robot:
 				grid.Add(Robot.MakeRobot(grid, x, y, LevelEditor.robotSpeed, LevelEditor.robotDamageDealt, LevelEditor.robotHealth,

@@ -24,6 +24,7 @@ public class LevelEditor : MonoBehaviour {
 	public static GameObject plane;
 
 	public static ObjectType objectToBeCreated;
+	public static String filename = "";
 	
 	/*
 	 * Information for each type of object that we might create. Most of
@@ -131,6 +132,11 @@ public class LevelEditor : MonoBehaviour {
 	}
 	
 	void OnGUI() {
+		filename = GUI.TextField(new Rect(200, 50, 100, 20), filename);
+		if(GUI.Button(new Rect(350, 50, 50, 100), "Save")) {
+			LevelWriter.WriteLevel(filename, floor);
+		}
+		// Object-specific stuffs
 		switch(objectToBeCreated) {
 			case ObjectType.Wall:
 				// health
@@ -261,7 +267,7 @@ public class LevelEditor : MonoBehaviour {
 			case ObjectType.Player:	
 				try {
 					GUI.Label(FromBottomRight(new Rect(300, 50, 50, 10)), "Health");
-					playerHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 10)), "" + paintRespawnTime)); 
+					playerHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 100, 50)), "" + playerHealth)); 
 				}
 				catch {
 					Debug.Log("Wrong number format!");

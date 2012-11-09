@@ -184,6 +184,7 @@ public static class LevelWriter {
 				}
 			}
 			writer.Close();
+			Debug.Log("Saved to " + path);
 		}
 	/*	else
 			Debug.Log("Dude, what are you trying to do here? Filename: " + filename + " already exists. Just stop already.");*/
