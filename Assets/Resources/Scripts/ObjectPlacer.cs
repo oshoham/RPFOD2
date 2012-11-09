@@ -20,7 +20,7 @@ public class ObjectPlacer : MonoBehaviour {
 	void OnMouseDown() {
 		switch(LevelEditor.objectToBeCreated) {
 			case ObjectType.Wall:
-				grid.Add(Wall.MakeWall(x, y, LevelEditor.wallHealth, LevelEditor.wallDestructible, LevelEditor.wallColor), x, y);
+				grid.Add(Wall.MakeWall(grid, x, y, LevelEditor.wallHealth, LevelEditor.wallDestructible, LevelEditor.wallColor), x, y);
 				break;
 			case ObjectType.SpikeWall:
 				grid.Add(SpikeWall.MakeSpikeWall(grid, x, y, LevelEditor.spikeWallHealth, LevelEditor.spikeWallDestructible,

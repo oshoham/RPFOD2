@@ -76,19 +76,13 @@ public class LevelEditor : MonoBehaviour {
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 5;
 		Camera.main.backgroundColor = Color.white;
-		string filename = EditorUtility.OpenFilePanel("Level file", "", "txt");
-		floor = LevelLoader.LoadLevel(filename);
+		//string filename = EditorUtility.OpenFilePanel("Level file", "", "txt");
+		//floor = LevelLoader.LoadLevel(filename);
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
 		l.type = LightType.Directional;
 		l.intensity = 0.4f;
-		// Set up object placers
-		for(int i = 0; i < floor.grid.GetLength(0); i++) {
-			for(int j = 0; j < floor.grid.GetLength(1); j++) {
-				ObjectPlacer.MakeObjectPlacer(i, j, floor);
-			}
-		}
 		// Set up object selectors
 		float z = Camera.main.nearClipPlane + 5;
 		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 50.0f, z), 0.5f, 0.5f,
@@ -141,6 +135,7 @@ public class LevelEditor : MonoBehaviour {
 				floor.Clear();
 			}
 			floor = LevelLoader.LoadLevel(loadFileName);
+			SetupObjectPlacers();
 		}
 		// Object-specific stuffs
 		switch(objectToBeCreated) {
@@ -285,6 +280,25 @@ public class LevelEditor : MonoBehaviour {
 				break;
 		}
 	}
+	
+	/*
+	 * Sets up the invisible planes for placing objects in the grid.
+	 */
+	public void SetupObjectPlacers() {
+		if(floor == null)
+			return;
+		// Clear out any old ObjectPlacers
+		GameObject obj;
+		while((obj = GameObject.Find("Object Placer")) != null) {
+			Destroy(obj);
+		}
+		for(int i = 0; i < floor.grid.GetLength(0); i++) {
+			for(int j = 0; j < floor.grid.GetLength(1); j++) {
+				ObjectPlacer.MakeObjectPlacer(i, j, floor);
+			}
+		}
+	}
+
 	
 	/*
 	 * Returns the same Rect but offset from the bottom right instead

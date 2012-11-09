@@ -181,6 +181,7 @@ public class Robot : MonoBehaviour, IColor {
 			sq.colors[colorVisible]--;
 			sq.SetColor();
 		}
+		print("foo");
 		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 	}
 	
@@ -204,7 +205,7 @@ public class Robot : MonoBehaviour, IColor {
 		indicator.transform.localPosition = new Vector3(0.0f, 0.0f, -1.5f);
 		indicator.renderer.material.color = colorVisible;
 		Robot script = robot.AddComponent<Robot>();
-		robot.transform.position = new Vector3(x, y, -1.0f);
+		robot.transform.position = new Vector3(x, y, -0.5f);
 		script.oldPosition = robot.transform.position;
 		script.newPosition = robot.transform.position;
 		script.forwardRange = forwardRange;
