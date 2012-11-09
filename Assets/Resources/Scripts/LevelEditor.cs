@@ -314,7 +314,75 @@ public class LevelEditor : MonoBehaviour {
 	
 				break;	
 			case ObjectType.Robot:
+				try {
+					GUI.Label(FromBottomRight(new Rect(375, 150, 75, 50)), "Health");
+					GUI.Label(FromBottomRight(new Rect(300, 150, 75, 50)), "ForwardRange");
+					GUI.Label(FromBottomRight(new Rect(225, 150, 75, 50)), "SideRange");
+					GUI.Label(FromBottomRight(new Rect(150, 150, 75, 50)), "Speed");
 
+					robotHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(375, 50, 50, 25)), "" + robotHealth)); 
+					robotForwardRange = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 25)), "" + robotForwardRange)); 
+					robotSideRange = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(225, 50, 50, 25)), "" + robotSideRange)); 
+					robotSpeed = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(150, 50, 50, 25)), "" + robotSpeed));
+				}
+				catch {
+					Debug.Log("Wrong number format!");
+				}
+				// color
+				if(robotColorVisible == Color.red) {
+					colorInt = 0;
+				}
+				else if(robotColorVisible == Color.green) {
+					colorInt = 1;
+				}
+				else {
+					colorInt = 2;
+				}
+				colorInt = GUI.Toolbar(FromBottomRight(new Rect(700, 90, 175, 30)),
+						       colorInt,
+						       new string[] {"Red", "Green", "Blue"});
+				switch(colorInt) {
+					case 0:
+						robotColorVisible = Color.red;
+						break;
+					case 1:
+						robotColorVisible = Color.green;
+						break;
+					case 2:
+						robotColorVisible = Color.blue;
+						break;
+				}
+				// direction
+				int dir;
+				if(robotFireDirection.y > 0) {
+					dir = 0;
+				}
+				else if(robotFireDirection.x > 0) {
+					dir = 1;
+				}
+				else if(robotFireDirection.y < 0) {
+					dir = 2;
+				}
+				else {
+					dir = 3;
+				}
+				dir = GUI.Toolbar(FromBottomRight(new Rect(500, 90, 175, 30)),
+						       dir,
+						       new string[] {"North", "East", "South", "West"});
+				switch(dir) {
+					case 0:
+						robotFireDirection = new Vector2(0, 1);
+						break;
+					case 1:
+						robotFireDirection = new Vector2(1, 0);
+						break;
+					case 2:
+						robotFireDirection = new Vector2(0, -1);
+						break;
+					case 3:
+						robotFireDirection = new Vector2(-1, 0);
+						break;
+				}
 				break;
 		}
 	}
