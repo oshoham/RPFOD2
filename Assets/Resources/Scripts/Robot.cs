@@ -66,6 +66,9 @@ public class Robot : MonoBehaviour, IColor {
 		oVision = new List<Square>();
 		oVision.AddRange(nVision);
 
+		if(Time.timeScale == 0)
+			return;
+
 		if(health <= 0) {
 			Destroy(gameObject);
 		}
