@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 public class Conveyor : MonoBehaviour {
+	public Grid grid;
 
 	public Vector2 startCoords; // the start of the conveyor belt (unneccessary?)
 	public Vector2 endCoords; // the end of the conveyor belt
@@ -46,7 +47,7 @@ public class Conveyor : MonoBehaviour {
 	
 	void Update () {
 		for(int i = 0; i < cells.Length; i++) {
-			List<GameObject> objects = GameManager.floor.GetObjectsOfTypes(cells[i], moveableObjects);
+			List<GameObject> objects = grid.GetObjectsOfTypes(cells[i], moveableObjects);
 			foreach(GameObject obj in objects) {
 				if(currentObjects.ContainsKey(obj)) {
 					continue;
@@ -104,7 +105,7 @@ public class Conveyor : MonoBehaviour {
 		return false;
 	}
 
-	public static GameObject MakeConveyor(Vector2 startCoords, Vector2 direction, float length, float speed, bool switchable = false, float switchRate = 0) {
+	public static GameObject MakeConveyor(Grid grid, Vector2 startCoords, Vector2 direction, float length, float speed, bool switchable = false, float switchRate = 0) {
 		if(direction.x != 0 && direction.y != 0) // no diagonal conveyors
 			return null;
 		GameObject conveyor = GameObject.CreatePrimitive(PrimitiveType.Plane);
@@ -121,8 +122,8 @@ public class Conveyor : MonoBehaviour {
 		while(count < length) {
 			script.cells[count] = startCoords + (count * direction);
 			GameObject conveyorPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-			conveyorPlane.transform.position = GameManager.floor.grid[(int)script.cells[count].x, (int)script.cells[count].y].plane.transform.position + new Vector3(0f, 0f, 0f);
-			conveyorPlane.transform.localScale = new Vector3(0f, 0f, 0.01f) + GameManager.floor.grid[(int)script.cells[count].x, (int)script.cells[count].y].plane.transform.localScale;
+			conveyorPlane.transform.position = grid.grid[(int)script.cells[count].x, (int)script.cells[count].y].plane.transform.position + new Vector3(0f, 0f, 0f);
+			conveyorPlane.transform.localScale = new Vector3(0f, 0f, 0.01f) + grid.grid[(int)script.cells[count].x, (int)script.cells[count].y].plane.transform.localScale;
 			conveyorPlane.transform.Rotate(-90.0f, 0.0f, 0.0f);
 			conveyorPlane.renderer.material.mainTexture = Resources.Load("Textures/Conveyor") as Texture;
 	                conveyorPlane.renderer.material.shader = Shader.Find("Transparent/Diffuse");
@@ -147,6 +148,7 @@ public class Conveyor : MonoBehaviour {
 		conveyor.renderer.material.color = Color.white;
 		script.wloc = conveyor.transform.position;
 		conveyor.transform.Rotate(-90.0f, 0.0f, 0.0f);
+		script.grid = grid;
 		return conveyor;
 	}
 

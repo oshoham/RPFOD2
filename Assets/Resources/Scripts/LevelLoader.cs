@@ -133,7 +133,7 @@ public static class LevelLoader {
 		float speed = Single.Parse(info[2]);
 		bool switchable = Int32.Parse(info[3]) == 1 ? true : false;
 		float switchRate = Single.Parse(info[4]);
-		Conveyor.MakeConveyor(new Vector2(x, y), direction, length, speed, switchable, switchRate);
+		Conveyor.MakeConveyor(grid, new Vector2(x, y), direction, length, speed, switchable, switchRate);
 	}
 	
 	public static GameObject ParsePlayer(int x, int y, string[] info) {

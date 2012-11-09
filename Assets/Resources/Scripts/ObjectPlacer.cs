@@ -8,7 +8,6 @@ public class ObjectPlacer : MonoBehaviour {
 	public Grid grid;
 	
 	void OnMouseDown() {
-		print("fuck yeah! " + Time.time);
 		switch(LevelEditor.objectToBeCreated) {
 			case ObjectType.Wall:
 				grid.Add(Wall.MakeWall(x, y, LevelEditor.wallHealth, LevelEditor.wallDestructible, LevelEditor.wallColor), x, y);
@@ -24,7 +23,7 @@ public class ObjectPlacer : MonoBehaviour {
 				grid.Add(Paint.MakePaint(grid, x, y, LevelEditor.paintColor, LevelEditor.paintRespawnTime), x, y);
 				break;
 			case ObjectType.Conveyor:
-				Conveyor.MakeConveyor(new Vector2(x, y), LevelEditor.conveyorDirection, LevelEditor.conveyorLength,
+				Conveyor.MakeConveyor(grid, new Vector2(x, y), LevelEditor.conveyorDirection, LevelEditor.conveyorLength,
 						      LevelEditor.conveyorSpeed, LevelEditor.conveyorSwitchable,
 						      LevelEditor.conveyorSwitchRate);
 				break;
@@ -42,8 +41,12 @@ public class ObjectPlacer : MonoBehaviour {
 
 	public static GameObject MakeObjectPlacer(int x, int y, Grid grid) {
 		GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		plane.transform.Rotate(-90, 0, 0);
+		plane.transform.localScale = new Vector3(0.1f, 1, 0.1f);
 		plane.transform.position = new Vector3(x, y, -1.0f); // get it in front of Squares
 		plane.renderer.enabled = false; // make it invisible
+		plane.collider.enabled = true;
+		plane.name = "Object Placer";
 		ObjectPlacer script = plane.AddComponent<ObjectPlacer>();
 		script.x = x;
 		script.y = y;
