@@ -71,6 +71,7 @@ public class Robot : MonoBehaviour, IColor {
 		}
 		Fire();
 		if(Time.time > endMoving) {
+			print("time " + Time.time + " " + endMoving);
 			Move(movementDirection);
 		}
 		AnimateMotion();
