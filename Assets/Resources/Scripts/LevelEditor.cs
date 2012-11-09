@@ -163,9 +163,18 @@ public class LevelEditor : MonoBehaviour {
 				print("shit! " + e.StackTrace);
 			}
 		}
+		if(GUI.Button(new Rect(10, 120, 100, 20), "Reset")) {
+			if(floor == null) {
+				floor = new Grid(newWidth == 0 ? 10 : newWidth,
+						 newHeight == 0 ? 10 : newHeight);
+			}
+			else {
+				floor.ClearObjects();
+			}
+		}
 		if(GUI.Button(new Rect(10, 860, 150, 40), "Main Menu")) {
 			 Application.LoadLevel("StartScreen");	  
-		}		  
+		}
 		// Object-specific stuffs
 		switch(objectToBeCreated) {
 			case ObjectType.Wall:

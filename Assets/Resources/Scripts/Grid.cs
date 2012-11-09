@@ -183,11 +183,21 @@ public class Grid {
 	}
 	
 	/*
-	 * Clears the whole grid by removing all game objects from each square.
+	 * Clears the whole grid by removing all game objects from each square and
+	 * destroying all the square's planes.
 	 */
 	public void Clear() {
 		foreach(Square sq in grid) {
 			sq.Clear();
+		}
+	}
+	
+	/*
+	 * Similar to Clear(), but leaves planes intact.
+	 */
+	public void ClearObjects() {
+		foreach(Square sq in grid) {
+			sq.ClearObjects();
 		}
 	}
 	
