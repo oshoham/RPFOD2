@@ -92,25 +92,26 @@ public class LevelEditor : MonoBehaviour {
 		// Set up object selectors
 		float z = Camera.main.nearClipPlane + 5;
 		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 50.0f, z), 0.5f, 0.5f,
-						  Resources.Load("Textures/Tile2") as Texture,
+						  Resources.Load("Textures/Wall") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Wall, name: "Wall Selector");
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 90.0f, z), 0.5f, 0.5f,
-						  Resources.Load("Textures/Tile2") as Texture,
-						  () => LevelEditor.objectToBeCreated = ObjectType.SpikeWall, name: "SpikeWall Selector");
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 130.0f, z), 0.5f, 0.5f,
-						  Resources.Load("Textures/Tile2") as Texture,
+//Commented out SpikeWall because there's no difference between Spike Wall and Spike Floor, effectively. Check the Design Doc for more info
+//		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 90.0f, z), 0.5f, 0.5f,
+//						  Resources.Load("Textures/Spike") as Texture,
+//						  () => LevelEditor.objectToBeCreated = ObjectType.SpikeWall, name: "SpikeWall Selector");
+		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 100.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/Electrocute") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.SpikeFloor, name: "SpikeFloor Selector");
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 170.0f, z), 0.5f, 0.5f,
-						  Resources.Load("Textures/Tile2") as Texture,
+		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 150.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/Paint") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Paint, name: "Paint Selector");
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 210.0f, z), 0.5f, 0.5f,
-						  Resources.Load("Textures/Tile2") as Texture,
+		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 200.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/Conveyor") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Conveyor, name: "Conveyor Selector");
 		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 250.0f, z), 0.5f, 0.5f,
-						  Resources.Load("Textures/Tile2") as Texture,
+						  Resources.Load("Textures/PlayerPacMan") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Player, name: "Player Selector");
-		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 290.0f, z), 0.5f, 0.5f,
-						  Resources.Load("Textures/Tile2") as Texture,
+		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 300.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/BlankBot") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Robot, name: "Robot Selector");
 	}
 
