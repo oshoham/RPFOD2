@@ -11,7 +11,7 @@ public static class LevelLoader {
 		StreamReader reader;
 		string path = Path.Combine(Application.persistentDataPath, filename);
 		try {
-			reader = new StreamReader(path);
+			reader = new StreamReader(filename);
 		}
 		catch(Exception) {
 			Debug.Log("Shit, bro! This file didn't work. Filename was: " + filename);
