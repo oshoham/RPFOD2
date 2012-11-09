@@ -71,10 +71,6 @@ public class LevelEditor : MonoBehaviour {
 	
 	void Start() {
 		Time.timeScale = 0;
-		plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-		plane.transform.localScale = new Vector3(1.0f, 1.0f, .4f);
-		plane.transform.Rotate(-90f, 0, 0);
-		plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 5;
 		Camera.main.backgroundColor = Color.white;
