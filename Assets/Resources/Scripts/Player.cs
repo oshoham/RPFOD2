@@ -40,8 +40,6 @@ public class Player : MonoBehaviour, IColor {
 			Destroy(gameObject);
 		}
 		GetKeypresses();
-		Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y,
-							     Camera.main.transform.position.z);
 		if(GameManager.plane != null) {
 			GameManager.plane.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(50, Camera.main.pixelHeight - 40, Camera.main.nearClipPlane+6));
 		}
@@ -134,11 +132,13 @@ public class Player : MonoBehaviour, IColor {
 	 * For smooth motion animation.
 	 */
 	public void AnimateMotion() {
-		if(Time.time > endMoving) {
+		if(Time.time >= endMoving) {
 			return;
 		}
 		float time = (Time.time - startedMoving)/moveSpeed + .1f;
 		transform.position = Vector3.Lerp(oldPosition, newPosition, time);
+		Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y,
+							     Camera.main.transform.position.z);
 	}
 
 	/*
@@ -176,6 +176,7 @@ public class Player : MonoBehaviour, IColor {
 		script.oldPosition = player.transform.position;
 		script.newPosition = player.transform.position;
 		script.startedMoving = Time.time;
+		script.endMoving = Time.time;
 		script.lastMovedHorizontal = Time.time;
 		script.lastMovedVertical = Time.time;
 		script.moveRate = 0.1f;

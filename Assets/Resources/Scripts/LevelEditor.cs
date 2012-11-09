@@ -119,9 +119,18 @@ public class LevelEditor : MonoBehaviour {
 	}
 
 	void Update() {
-		// if(Input.GetKeyDown("w")) {
-		// 	Camera.main.transform.Translate(0, 1, 0);
-		// }
+		if(Input.GetKeyDown("w")) {
+			Camera.main.transform.Translate(0, 1, 0);
+		}
+		if(Input.GetKeyDown("d")) {
+			Camera.main.transform.Translate(1, 0, 0);
+		}
+		if(Input.GetKeyDown("s")) {
+			Camera.main.transform.Translate(0, -1, 0);
+		}
+		if(Input.GetKeyDown("a")) {
+			Camera.main.transform.Translate(-1, 0, 0);
+		}
 	}
 	
 	void OnGUI() {
