@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class SpikeWall : Wall {
-	public Grid board;
 
 	public List<Vector2> directions;
 
@@ -12,7 +11,7 @@ public class SpikeWall : Wall {
 		List<string> classList = new List<string> {"Robot", "Player"};
 		foreach(Vector2 direction in directions) {
 			Vector2 coord = gridCoords + direction;
-			List<GameObject> objects = board.GetObjectsOfTypes(coord, classList);
+			List<GameObject> objects = grid.GetObjectsOfTypes(coord, classList);
 			foreach(GameObject obj in objects) {
 				Destroy(obj);
 			}
@@ -25,6 +24,7 @@ public class SpikeWall : Wall {
 			color = Color.white;
 		}
 		GameObject spikeWall = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		spikeWall.name = "Spike Wall";
 		spikeWall.transform.position = new Vector3(x, y, 0.0f);
 		SpikeWall script = spikeWall.AddComponent<SpikeWall>();
 		spikeWall.renderer.material.mainTexture = Resources.Load("Textures/Electrocute") as Texture;
@@ -35,7 +35,7 @@ public class SpikeWall : Wall {
 		script.colorPainted = color;
 		script.gridCoords = new Vector2(x, y);
 		script.directions = directions;
-		script.board = grid;
+		script.grid = grid;
 		foreach(Vector2 direction in directions) {
 			grid.grid[(int)(direction.x + x), (int)(direction.y + y)].plane.renderer.material.color = Color.yellow;
 		}
@@ -48,8 +48,8 @@ public class SpikeWall : Wall {
 	 */
 	void OnDisable() {
 		foreach(Vector2 direction in directions) {
-			board.grid[(int)(direction.x + gridCoords.x), (int)(direction.y + gridCoords.y)].plane.renderer.material.color = Color.white;
+			grid.grid[(int)(direction.x + gridCoords.x), (int)(direction.y + gridCoords.y)].plane.renderer.material.color = Color.white;
 		}
-		board.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 	}
 }
