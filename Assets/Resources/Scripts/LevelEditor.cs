@@ -169,6 +169,7 @@ public class LevelEditor : MonoBehaviour {
 			if(floor == null) {
 				floor = new Grid(newWidth == 0 ? 10 : newWidth,
 						 newHeight == 0 ? 10 : newHeight);
+				SetupObjectPlacers();
 			}
 			else {
 				floor.ClearObjects();
@@ -385,6 +386,7 @@ public class LevelEditor : MonoBehaviour {
 						robotFireDirection = new Vector2(-1, 0);
 						break;
 				}
+				robotMovementDirection = robotFireDirection;
 				break;
 		}
 	}
