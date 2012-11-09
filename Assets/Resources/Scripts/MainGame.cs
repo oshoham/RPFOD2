@@ -7,7 +7,7 @@ public class MainGame : MonoBehaviour {
        public static int resizeTo = 50;
        
        void Start() {
-       	    game = GameObject.Find("Main Game");
+       	    game = GameObject.Find("Level 1");
        	    defaultFontSize = game.guiText.fontSize;
        }
 

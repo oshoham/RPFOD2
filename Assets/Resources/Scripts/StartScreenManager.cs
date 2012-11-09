@@ -8,13 +8,16 @@ using System.Collections.Generic;
 
 public class StartScreenManager : MonoBehaviour {
 
-       public static GameObject game;
+       public static GameObject level1;
+       public static GameObject level2;
        public static GameObject editor;
 
 	void Start () {
-	     	game = GameObject.Find("Main Game");
+	     	level1 = GameObject.Find("Level 1");
+		level2 = GameObject.Find("Level 2");
 		editor = GameObject.Find("Level Editor");
-		game.AddComponent("MainGame");
+		level2.AddComponent("Level2y");
+		level1.AddComponent("MainGame");
 		editor.AddComponent("StartScreenEditorButton");
 	}
 	

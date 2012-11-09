@@ -416,6 +416,8 @@ public class LevelEditor : MonoBehaviour {
 						robotFireDirection = new Vector2(-1, 0);
 						break;
 				}
+				robotTurnsLeft = GUI.Toggle(FromBottomRight(new Rect(300, 100, 50, 10)),
+								robotTurnsLeft, "TurnsLeft?");
 				robotMovementDirection = robotFireDirection;
 				break;
 		}
