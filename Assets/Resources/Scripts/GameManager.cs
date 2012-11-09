@@ -23,9 +23,6 @@ public class GameManager : MonoBehaviour {
 		Camera.main.orthographicSize = 8;
 		Camera.main.backgroundColor = Color.white;
 		string filename = EditorUtility.OpenFilePanel("Level file", "", "txt");
-		LevelLoader.LoadLevel(filename);
-		//LevelWriter.WriteLevel(filename);
-		Debug.Log("Level Written.");
 		floor = LevelLoader.LoadLevel(filename);
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
