@@ -24,7 +24,8 @@ public class LevelEditor : MonoBehaviour {
 	public static GameObject plane;
 
 	public static ObjectType objectToBeCreated;
-	public static String filename = "";
+	public static String saveFileName = "";
+	public static String loadFileName = "";
 	
 	/*
 	 * Information for each type of object that we might create. Most of
@@ -77,8 +78,6 @@ public class LevelEditor : MonoBehaviour {
 		Camera.main.backgroundColor = Color.white;
 		string filename = EditorUtility.OpenFilePanel("Level file", "", "txt");
 		floor = LevelLoader.LoadLevel(filename);
-		//LevelWriter.WriteLevel(filename);
-		//Debug.Log("Level Written.");
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
@@ -132,9 +131,16 @@ public class LevelEditor : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		filename = GUI.TextField(new Rect(200, 50, 100, 20), filename);
-		if(GUI.Button(new Rect(350, 50, 50, 100), "Save")) {
-			LevelWriter.WriteLevel(filename, floor);
+		saveFileName = GUI.TextField(new Rect(200, 50, 100, 20), saveFileName);
+		if(GUI.Button(new Rect(350, 50, 50, 20), "Save")) {
+			LevelWriter.WriteLevel(saveFileName, floor);
+		}
+		loadFileName = GUI.TextField(new Rect(200, 100, 100, 20), loadFileName);
+		if(GUI.Button(new Rect(350, 100, 50, 20), "Load")) {
+			if(floor != null) {
+				floor.Clear();
+			}
+			floor = LevelLoader.LoadLevel(loadFileName);
 		}
 		// Object-specific stuffs
 		switch(objectToBeCreated) {
