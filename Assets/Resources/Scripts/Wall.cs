@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class Wall : MonoBehaviour, IColor {
+	public Grid grid;
 
 	private Color _colorPainted;
 	public Color colorPainted
@@ -31,10 +32,10 @@ public class Wall : MonoBehaviour, IColor {
 	}
 	
 	void OnDisable() {
-		GameManager.floor.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 	}
 	
-	public static GameObject MakeWall(int x, int y, int health, bool destructible,
+	public static GameObject MakeWall(Grid grid, int x, int y, int health, bool destructible,
 					  Color color = default(Color)) {
 		if(color == default(Color)) {
 			color = Color.white;
@@ -47,6 +48,7 @@ public class Wall : MonoBehaviour, IColor {
 		script.destructible = destructible;
 		script.colorPainted = Color.white;
 		script.gridCoords = new Vector2(x, y);
+		script.grid = grid;
 		return wall;
 	}
 }

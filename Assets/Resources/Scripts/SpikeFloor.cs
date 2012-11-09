@@ -7,6 +7,12 @@ public class SpikeFloor : MonoBehaviour {
 
 	public Vector2 gridCoords;
 	
+	/*void OnMouseOver() {
+		if(Input.GetMouseButtonDown(1)) {
+			Destroy(gameObject);
+		}
+		}*/
+	
 	void Update () {
 		List<string> classList = new List<string> {"Robot", "Player"};
 		List<GameObject> objects = grid.GetObjectsOfTypes(gridCoords, classList);

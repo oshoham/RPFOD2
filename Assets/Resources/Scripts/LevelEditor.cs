@@ -24,6 +24,13 @@ public class LevelEditor : MonoBehaviour {
 	public static GameObject plane;
 
 	public static ObjectType objectToBeCreated;
+	public static String saveFileName = "";
+	public static String loadFileName = "";
+	public static string widthCommaHeight = "";
+	public static int newWidth;
+	public static int newHeight;
+
+	public static List<GameObject> objectPlacers = new List<GameObject>();
 	
 	/*
 	 * Information for each type of object that we might create. Most of
@@ -74,21 +81,13 @@ public class LevelEditor : MonoBehaviour {
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 5;
 		Camera.main.backgroundColor = Color.white;
-		string filename = EditorUtility.OpenFilePanel("Level file", "", "txt");
-		floor = LevelLoader.LoadLevel(filename);
-		//LevelWriter.WriteLevel(filename);
-		//Debug.Log("Level Written.");
+		//string filename = EditorUtility.OpenFilePanel("Level file", "", "txt");
+		//floor = LevelLoader.LoadLevel(filename);
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
 		l.type = LightType.Directional;
 		l.intensity = 0.4f;
-		// Set up object placers
-		for(int i = 0; i < floor.grid.GetLength(0); i++) {
-			for(int j = 0; j < floor.grid.GetLength(1); j++) {
-				ObjectPlacer.MakeObjectPlacer(i, j, floor);
-			}
-		}
 		// Set up object selectors
 		float z = Camera.main.nearClipPlane + 5;
 		ObjectSelector.MakeObjectSelector(new Vector3(100.0f, Camera.main.pixelHeight - 50.0f, z), 0.5f, 0.5f,
@@ -131,6 +130,32 @@ public class LevelEditor : MonoBehaviour {
 	}
 	
 	void OnGUI() {
+		saveFileName = GUI.TextField(new Rect(200, 50, 100, 20), saveFileName);
+		if(GUI.Button(new Rect(350, 50, 50, 20), "Save")) {
+			LevelWriter.WriteLevel(saveFileName, floor);
+		}
+		loadFileName = GUI.TextField(new Rect(200, 100, 100, 20), loadFileName);
+		if(GUI.Button(new Rect(350, 100, 50, 20), "Load")) {
+			if(floor != null) {
+				floor.Clear();
+			}
+			floor = LevelLoader.LoadLevel(loadFileName);
+			SetupObjectPlacers();
+			newWidth = floor.grid.GetLength(0);
+			newHeight = floor.grid.GetLength(1);
+		}
+		widthCommaHeight = GUI.TextField(new Rect(200, 150, 100, 20), widthCommaHeight);
+		if(GUI.Button(new Rect(350, 150, 100, 20), "Resize")) {
+			try {
+				string[] bits = widthCommaHeight.Split(new char[] {','});
+				floor = floor.Copy(Int32.Parse(bits[0]), Int32.Parse(bits[1]));
+				SetupObjectPlacers();
+			}
+			catch {
+				print("shit!");
+			}
+		}
+		// Object-specific stuffs
 		switch(objectToBeCreated) {
 			case ObjectType.Wall:
 				// health
@@ -261,7 +286,7 @@ public class LevelEditor : MonoBehaviour {
 			case ObjectType.Player:	
 				try {
 					GUI.Label(FromBottomRight(new Rect(300, 50, 50, 10)), "Health");
-					playerHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 10)), "" + paintRespawnTime)); 
+					playerHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 100, 50)), "" + playerHealth)); 
 				}
 				catch {
 					Debug.Log("Wrong number format!");
@@ -273,6 +298,25 @@ public class LevelEditor : MonoBehaviour {
 				break;
 		}
 	}
+	
+	/*
+	 * Sets up the invisible planes for placing objects in the grid.
+	 */
+	public void SetupObjectPlacers() {
+		if(floor == null)
+			return;
+		// Clear out any old ObjectPlacers
+		for(int i = 0; i < objectPlacers.Count; i++) {
+			Destroy(objectPlacers[i]);
+		}
+		objectPlacers.Clear();
+		for(int i = 0; i < floor.grid.GetLength(0); i++) {
+			for(int j = 0; j < floor.grid.GetLength(1); j++) {
+				objectPlacers.Add(ObjectPlacer.MakeObjectPlacer(i, j, floor));
+			}
+		}
+	}
+
 	
 	/*
 	 * Returns the same Rect but offset from the bottom right instead

@@ -167,8 +167,8 @@ public class Player : MonoBehaviour, IColor {
 		player.name = "Player";
 		player.renderer.material.mainTexture = Resources.Load("Textures/PlayerPacMan") as Texture;
 		player.renderer.material.color = Color.white;
-		player.renderer.material.shader =Shader.Find("Transparent/Diffuse");
-		player.transform.position = new Vector3(x, y, -1.0f);
+		player.renderer.material.shader = Shader.Find("Transparent/Diffuse");
+		player.transform.position = new Vector3(x, y, -0.5f);
 		Player script = player.AddComponent<Player>();
 		script.gridCoords = new Vector2(x, y);
 		script.health = health;

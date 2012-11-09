@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 // worst class name ever? maybe?
 public class ObjectPlacer : MonoBehaviour {
@@ -19,7 +20,7 @@ public class ObjectPlacer : MonoBehaviour {
 	void OnMouseDown() {
 		switch(LevelEditor.objectToBeCreated) {
 			case ObjectType.Wall:
-				grid.Add(Wall.MakeWall(x, y, LevelEditor.wallHealth, LevelEditor.wallDestructible, LevelEditor.wallColor), x, y);
+				grid.Add(Wall.MakeWall(grid, x, y, LevelEditor.wallHealth, LevelEditor.wallDestructible, LevelEditor.wallColor), x, y);
 				break;
 			case ObjectType.SpikeWall:
 				grid.Add(SpikeWall.MakeSpikeWall(grid, x, y, LevelEditor.spikeWallHealth, LevelEditor.spikeWallDestructible,
@@ -37,7 +38,12 @@ public class ObjectPlacer : MonoBehaviour {
 						      LevelEditor.conveyorSwitchRate);
 				break;
 			case ObjectType.Player:
+				print("Placing player: " + x + " " + y);
 				grid.Add(Player.MakePlayer(grid, x, y, LevelEditor.playerHealth), x, y);
+				print("placed player");
+				foreach(GameObject obj in grid.GetObjectsOfTypes(new Vector2(x, y), new List<string>() {"Player"})) {
+					print(obj.GetComponent<Player>());
+				}
 				break;	
 			case ObjectType.Robot:
 				grid.Add(Robot.MakeRobot(grid, x, y, LevelEditor.robotSpeed, LevelEditor.robotDamageDealt, LevelEditor.robotHealth,
