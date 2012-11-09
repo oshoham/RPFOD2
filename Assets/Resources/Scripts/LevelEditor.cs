@@ -4,6 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+//Script for handling the levelEditor 
+
 public enum ObjectType {
 	Wall,
 	SpikeWall,
