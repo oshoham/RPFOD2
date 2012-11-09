@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -19,10 +19,11 @@ public class GameManager : MonoBehaviour {
 //		plane.transform.localScale = new Vector3(2.0f, 1.0f, 1.0f);
 //		plane.transform.Rotate(-90, 0, 0);
 //	     	plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
+		Time.timeScale = 1;
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 8;
 		Camera.main.backgroundColor = Color.white;
-		string filename = EditorUtility.OpenFilePanel("Level file", "", "txt");
+		string filename = "fizz.txt";//EditorUtility.OpenFilePanel("Level file", "", "txt");
 		floor = LevelLoader.LoadLevel(filename);
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();

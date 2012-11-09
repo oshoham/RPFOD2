@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 using System.Collections.Generic;
-using UnityEditor;
+//using UnityEditor;
 
 //This class manages the start screen.
 
