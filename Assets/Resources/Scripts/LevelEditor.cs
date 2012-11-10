@@ -183,7 +183,6 @@ public class LevelEditor : MonoBehaviour {
 			case ObjectType.Wall:
 				// health
 				wallHealth = GUI.TextField(FromBottomRight(new Rect(250, 50, 100, 20)), wallHealth);
-				Debug.Log("Wrong number format!");
 				// destructible
 				wallDestructible = GUI.Toggle(FromBottomRight(new Rect(300, 70, 100, 50)),
 							      wallDestructible,
