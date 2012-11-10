@@ -43,36 +43,36 @@ public class LevelEditor : MonoBehaviour {
 	 */
 	
 	// Wall
-	public static int wallHealth = 10;
+	public static string wallHealth = "10";
 	public static bool wallDestructible;
 	public static Color wallColor = Color.white;
 
 	// SpikeWall
-	public static int spikeWallHealth = 10;
+	public static string spikeWallHealth = "10";
 	public static bool spikeWallDestructible;
 	public static List<Vector2> spikeWallDirections = new List<Vector2>();
 	public static Color spikeWallColor = Color.white;
 
 	// Paint
 	public static Color paintColor = Color.red;
-	public static float paintRespawnTime;
+	public static string paintRespawnTime = "0";
 
 	// Conveyor
 	public static Vector2 conveyorDirection = new Vector2(1, 0);
-	public static float conveyorLength = 1;
-	public static float conveyorSpeed = 0.5f;
+	public static string conveyorLength = "1";
+	public static string conveyorSpeed = "0.5";
 	public static bool conveyorSwitchable = false;
-	public static float conveyorSwitchRate = 1.0f;
+	public static string conveyorSwitchRate = "1";
 
 	// Player
-	public static int playerHealth = 15;
+	public static string playerHealth = "15";
 
 	// Robot
-	public static float robotSpeed = 0.5f;
-	public static int robotDamageDealt = 1;
-	public static int robotHealth = 10;
-	public static int robotForwardRange = 1;
-	public static int robotSideRange = 1;
+	public static string robotSpeed = "0.5";
+	public static string robotDamageDealt = "1";
+	public static string robotHealth = "10";
+	public static string robotForwardRange = "1";
+	public static string robotSideRange = "1";
 	public static Vector2 robotMovementDirection = new Vector2(1, 0);
 	public static Color robotColorVisible = Color.red;
 	public static Vector2 robotFireDirection = new Vector2(1, 0);
@@ -182,13 +182,8 @@ public class LevelEditor : MonoBehaviour {
 		switch(objectToBeCreated) {
 			case ObjectType.Wall:
 				// health
-				try {
-					wallHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(250, 50, 100, 20)),
-									       "" + wallHealth));
-				}
-				catch {
-					Debug.Log("Wrong number format!");
-				}
+				wallHealth = GUI.TextField(FromBottomRight(new Rect(250, 50, 100, 20)), wallHealth);
+				Debug.Log("Wrong number format!");
 				// destructible
 				wallDestructible = GUI.Toggle(FromBottomRight(new Rect(300, 70, 100, 50)),
 							      wallDestructible,
@@ -227,14 +222,8 @@ public class LevelEditor : MonoBehaviour {
 				break;
 			case ObjectType.SpikeWall:
 				// health 
-				try {
-					GUI.Label(FromBottomRight(new Rect(300, 50, 50, 10)), "Health");
-					spikeWallHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 10)),
-										 "" + spikeWallHealth));
-				}
-				catch {
-					Debug.Log("Wrong number format!");
-				}
+				GUI.Label(FromBottomRight(new Rect(300, 50, 50, 10)), "Health");
+				spikeWallHealth = GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 10)), spikeWallHealth);
 				// destructible
 				spikeWallDestructible = GUI.Toggle(FromBottomRight(new Rect(300, 70, 50, 10)),
 								spikeWallDestructible, "Destructible?");	
@@ -271,13 +260,9 @@ public class LevelEditor : MonoBehaviour {
 				break;
 			case ObjectType.Paint:
 				// spawn
-				try {
-					GUI.Label(FromBottomRight(new Rect(250, 50, 50, 20)), "Respawn Rate");
-					paintRespawnTime = Single.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 20)), "" + paintRespawnTime)); 
-				}	
-				catch {
-					Debug.Log("Wrong number format!");
-				}
+				GUI.Label(FromBottomRight(new Rect(250, 50, 50, 20)), "Respawn Rate");
+				paintRespawnTime = GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 20)), paintRespawnTime);
+				Debug.Log("Wrong number format!");
 				// color
 				if(paintColor == Color.red) {
 					colorInt = 0;
@@ -337,30 +322,19 @@ public class LevelEditor : MonoBehaviour {
 				}
 				break;
 			case ObjectType.Player:	
-				try {
-					GUI.Label(FromBottomRight(new Rect(300, 50, 50, 10)), "Health");
-					playerHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 100, 50)), "" + playerHealth)); 
-				}
-				catch {
-					Debug.Log("Wrong number format!");
-				}
-	
+				GUI.Label(FromBottomRight(new Rect(300, 50, 50, 10)), "Health");
+				playerHealth = GUI.TextField(FromBottomRight(new Rect(300, 50, 100, 50)), "" + playerHealth);
 				break;	
 			case ObjectType.Robot:
-				try {
-					GUI.Label(FromBottomRight(new Rect(375, 150, 75, 50)), "Health");
-					GUI.Label(FromBottomRight(new Rect(300, 150, 75, 50)), "ForwardRange");
-					GUI.Label(FromBottomRight(new Rect(225, 150, 75, 50)), "SideRange");
-					GUI.Label(FromBottomRight(new Rect(150, 150, 75, 50)), "Speed");
-
-					robotHealth = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(375, 50, 50, 25)), "" + robotHealth)); 
-					robotForwardRange = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 25)), "" + robotForwardRange)); 
-					robotSideRange = Int32.Parse(GUI.TextField(FromBottomRight(new Rect(225, 50, 50, 25)), "" + robotSideRange)); 
-					robotSpeed = Single.Parse(GUI.TextField(FromBottomRight(new Rect(150, 50, 50, 25)), "" + robotSpeed));
-				}
-				catch {
-					Debug.Log("Wrong number format!");
-				}
+				GUI.Label(FromBottomRight(new Rect(375, 150, 75, 50)), "Health");
+				GUI.Label(FromBottomRight(new Rect(300, 150, 75, 50)), "ForwardRange");
+				GUI.Label(FromBottomRight(new Rect(225, 150, 75, 50)), "SideRange");
+				GUI.Label(FromBottomRight(new Rect(150, 150, 75, 50)), "Speed");
+				
+				robotHealth = GUI.TextField(FromBottomRight(new Rect(375, 50, 50, 25)), robotHealth);
+				robotForwardRange = GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 25)), robotForwardRange);
+				robotSideRange = GUI.TextField(FromBottomRight(new Rect(225, 50, 50, 25)), robotSideRange);
+				robotSpeed = GUI.TextField(FromBottomRight(new Rect(150, 50, 50, 25)), robotSpeed);
 				// color
 				if(robotColorVisible == Color.red) {
 					colorInt = 0;

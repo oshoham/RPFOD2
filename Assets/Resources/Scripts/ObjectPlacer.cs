@@ -20,36 +20,71 @@ public class ObjectPlacer : MonoBehaviour {
 	void OnMouseDown() {
 		switch(LevelEditor.objectToBeCreated) {
 			case ObjectType.Wall:
-				grid.Add(Wall.MakeWall(grid, x, y, LevelEditor.wallHealth, LevelEditor.wallDestructible, LevelEditor.wallColor), x, y);
+				try {
+					grid.Add(Wall.MakeWall(grid, x, y, Int32.Parse(LevelEditor.wallHealth), LevelEditor.wallDestructible, LevelEditor.wallColor), x, y);
+				}
+				catch(FormatException) {
+					print("Number format exception for Wall health!");
+				}
 				break;
 			case ObjectType.SpikeWall:
-				grid.Add(SpikeWall.MakeSpikeWall(grid, x, y, LevelEditor.spikeWallHealth, LevelEditor.spikeWallDestructible,
-								 LevelEditor.spikeWallDirections, LevelEditor.spikeWallColor), x, y);
+				try {
+					grid.Add(SpikeWall.MakeSpikeWall(grid, x, y,Int32.Parse( LevelEditor.spikeWallHealth), LevelEditor.spikeWallDestructible,
+									 LevelEditor.spikeWallDirections, LevelEditor.spikeWallColor), x, y);
+				}
+				catch(FormatException) {
+					print("Number format exception for SpikeWall health!");
+				}
 				break;
 			case ObjectType.SpikeFloor:
 				grid.Add(SpikeFloor.MakeSpikeFloor(grid, x, y), x, y);
 				break;
 			case ObjectType.Paint:
-				grid.Add(Paint.MakePaint(grid, x, y, LevelEditor.paintColor, LevelEditor.paintRespawnTime), x, y);
+				try{
+					grid.Add(Paint.MakePaint(grid, x, y, LevelEditor.paintColor, Single.Parse(LevelEditor.paintRespawnTime)), x, y);
+				}
+				catch(FormatException) {
+					print("Number format exception for Paint respawn time!");
+				}
 				break;
 			case ObjectType.Conveyor:
-				Conveyor.MakeConveyor(grid, new Vector2(x, y), LevelEditor.conveyorDirection, LevelEditor.conveyorLength,
-						      LevelEditor.conveyorSpeed, LevelEditor.conveyorSwitchable,
-						      LevelEditor.conveyorSwitchRate);
+				try {
+					Conveyor.MakeConveyor(grid, new Vector2(x, y), LevelEditor.conveyorDirection,
+							      Single.Parse(LevelEditor.conveyorLength),
+							      Single.Parse(LevelEditor.conveyorSpeed), LevelEditor.conveyorSwitchable,
+							      Single.Parse(LevelEditor.conveyorSwitchRate));
+				}
+				catch(FormatException) {
+					print("Number format exception for Conveyor... somewhere!");
+				}
 				break;
 			case ObjectType.Player:
-				print("Placing player: " + x + " " + y);
-				grid.Add(Player.MakePlayer(grid, x, y, LevelEditor.playerHealth), x, y);
-				print("placed player");
-				foreach(GameObject obj in grid.GetObjectsOfTypes(new Vector2(x, y), new List<string>() {"Player"})) {
-					print(obj.GetComponent<Player>());
+				try {
+					print("Placing player: " + x + " " + y);
+					grid.Add(Player.MakePlayer(grid, x, y, Int32.Parse(LevelEditor.playerHealth)), x, y);
+					print("placed player");
+					foreach(GameObject obj in grid.GetObjectsOfTypes(new Vector2(x, y), new List<string>() {"Player"})) {
+						print(obj.GetComponent<Player>());
+					}
+				}
+				catch(FormatException) {
+					print("Number format exception for Player health!");
 				}
 				break;	
 			case ObjectType.Robot:
-				grid.Add(Robot.MakeRobot(grid, x, y, LevelEditor.robotSpeed, LevelEditor.robotDamageDealt, LevelEditor.robotHealth,
-							 LevelEditor.robotForwardRange, LevelEditor.robotSideRange, LevelEditor.robotMovementDirection,
-							 LevelEditor.robotColorVisible, LevelEditor.robotFireDirection, LevelEditor.robotTurnsLeft),
-					 x, y);
+				try {
+					grid.Add(Robot.MakeRobot(grid, x, y, Single.Parse(LevelEditor.robotSpeed),
+								 Int32.Parse(LevelEditor.robotDamageDealt),
+								 Int32.Parse(LevelEditor.robotHealth),
+								 Int32.Parse(LevelEditor.robotForwardRange),
+								 Int32.Parse(LevelEditor.robotSideRange),
+								 LevelEditor.robotMovementDirection,
+								 LevelEditor.robotColorVisible, LevelEditor.robotFireDirection, LevelEditor.robotTurnsLeft),
+						 x, y);
+				}
+				catch(FormatException) {
+					print("Number format exception for Roobitt... somewhere!");
+				}
 				break;
 		}
 	}
