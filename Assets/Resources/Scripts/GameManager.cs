@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour {
 	public static Grid floor;
 	public static Player player;
 
+	public static string filename;
+
 	public static int level = 1;
 //	public static GameObject plane;
 
@@ -23,9 +25,11 @@ public class GameManager : MonoBehaviour {
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 8;
 		Camera.main.backgroundColor = Color.white;
-		string filename = "L2.txt";//EditorUtility.OpenFilePanel("Level file", "", "txt");
-
-		floor = LevelLoader.LoadLevel(filename);
+		filename = GlobalSettings.currentFile; // this is so janky I feel embarassed writing this
+		if(filename != "")
+			floor = LevelLoader.LoadLevel(filename);
+		else
+			floor = LeveLloader.LoadLevel("L2.txt");
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
@@ -41,12 +45,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update() {
-
-//		plane.renderer.material.ycolor = Color.white;
-		if(Input.GetKeyDown("p")) {
-			print("Woo!");
-			LevelWriter.WriteLevel("fizz.txt", floor);
-		}
 	}
 
 	void OnGUI() {
