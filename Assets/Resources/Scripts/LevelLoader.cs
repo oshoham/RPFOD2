@@ -12,8 +12,8 @@ public static class LevelLoader {
 		string path = "";
 		if(Application.isEditor)
 			path = Path.Combine(Application.dataPath + "/Resources/Levels", filename);
-		//else
-			// we should figure out what the file path should be when the game is built
+		else
+			path = Path.Combine(Application.dataPath, filename);
 		try {
 			reader = new StreamReader(path);
 		}

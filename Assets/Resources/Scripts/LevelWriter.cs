@@ -10,9 +10,10 @@ public static class LevelWriter {
 		string path = "";
 		if(Application.isEditor)
 			path = Path.Combine(Application.dataPath + "/Resources/Levels", filename);
-		//else
-			// we should figure out what the file path should be when the game is built
-		using (StreamWriter writer = File.CreateText(filename)) {
+		else
+			path = Path.Combine(Application.dataPath, filename);
+		//path = path.Replace(@"\", "/");
+		using (StreamWriter writer = File.CreateText(path)) {
 			writer.WriteLine(grid.width);
 			writer.WriteLine(grid.height);
 			for(int i = 0; i < grid.width; i++) {
