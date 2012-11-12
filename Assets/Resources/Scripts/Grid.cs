@@ -29,7 +29,7 @@ public class Grid {
 		}
 		// Checks if there are any non-paint objects in the square.
 		if(grid[(int)loc.x, (int)loc.y].objects.Find((GameObject obj) => {
-					return obj.GetComponent<Paint>() == null;
+					return obj.GetComponent<Paint>() == null && obj.GetComponent<SpikeFloor>() == null;
 				})
 			!= null)
 			return true;
