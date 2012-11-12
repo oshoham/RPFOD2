@@ -1,13 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class MainGame : MonoBehaviour {
+public class Cavalcade : MonoBehaviour {
        GameObject game;
        public static int defaultFontSize;
        public static int resizeTo = 50;
        
        void Start() {
-       	    game = GameObject.Find("Level 1");
+       	    game = GameObject.Find("Cavalcade");
        	    defaultFontSize = game.guiText.fontSize;
        }
 

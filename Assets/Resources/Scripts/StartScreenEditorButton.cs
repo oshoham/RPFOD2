@@ -7,7 +7,7 @@ public class StartScreenEditorButton : MonoBehaviour {
        public static int resizeTo = 50;
 
        void Start() {
-       	    editor = GameObject.Find("Level Editor");
+       	    editor = GameObject.Find("Editor");
        	    defaultFontSize = editor.guiText.fontSize;
        }
 
