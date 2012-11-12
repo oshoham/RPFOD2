@@ -17,7 +17,7 @@ public class StartScreenManager : MonoBehaviour {
 		freeplay = GameObject.Find("Free Play");
 		editor = GameObject.Find("Editor");
 		cavalcade.AddComponent("Cavalcade");
-//		freeplay.AddComponent("FreePlay");
+		freeplay.AddComponent("FreePlay");
 		editor.AddComponent("StartScreenEditorButton");
 	}
 	
