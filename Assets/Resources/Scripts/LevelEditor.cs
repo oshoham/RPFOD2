@@ -288,6 +288,16 @@ public class LevelEditor : MonoBehaviour {
 				}
 				break;
 			case ObjectType.Conveyor:
+				// length
+				try {
+					conveyorLength = GUI.TextField(FromBottomRight(new Rect(500, 50, 175, 30)), "" + conveyorLength);
+					conveyorSpeed = GUI.TextField(FromBottomRight(new Rect(500, 30, 175, 30)), "" + conveyorSpeed);
+					conveyorSwitchable = GUI.Toggle(FromBottomRight(new Rect(300, 50, 175, 30)), conveyorSwitchable, "Switchable");
+					conveyorSwitchRate = GUI.TextField(FromBottomRight(new Rect(300, 30, 175, 30)), "" + conveyorSwitchRate);
+				}
+				catch {
+					
+				}
 				// direction
 				int direct;
 				if(conveyorDirection.y > 0) {

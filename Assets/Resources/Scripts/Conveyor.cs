@@ -57,15 +57,15 @@ public class Conveyor : MonoBehaviour {
 					Vector3 oldPosition;
 					if(obj.GetComponent<Player>() != null) {
 						Player p = obj.GetComponent<Player>();
-						oldPosition = new Vector3(p.gridCoords.x, p.gridCoords.y, 0);
+						oldPosition = new Vector3(p.gridCoords.x, p.gridCoords.y, -1);
 						p.gridCoords += direction;
-						newPosition = new Vector3(p.gridCoords.x, p.gridCoords.y, 0);
+						newPosition = new Vector3(p.gridCoords.x, p.gridCoords.y, -1);
 					}
 					else {
 						Robot r = obj.GetComponent<Robot>();
-						oldPosition = new Vector3(r.gridCoords.x, r.gridCoords.y, 0);
+						oldPosition = new Vector3(r.gridCoords.x, r.gridCoords.y, -1);
 						r.gridCoords += direction;
-						newPosition = new Vector3(r.gridCoords.x, r.gridCoords.y, 0);
+						newPosition = new Vector3(r.gridCoords.x, r.gridCoords.y, -1);
 					}
 					currentObjects.Add(obj, new GameObjectAnimation(Time.time, Time.time + speed, oldPosition, newPosition));
 				}
@@ -113,8 +113,16 @@ public class Conveyor : MonoBehaviour {
 		Conveyor script = conveyor.AddComponent<Conveyor>();
 		script.startCoords = startCoords;
 		script.direction = direction;
-		script.length = length;
 		script.speed = speed;
+		if((startCoords + (direction*length)).x >= grid.width)
+			length = grid.width - startCoords.x;
+		if((startCoords + (direction*length)).x < 0)
+			length = startCoords.x + 1;
+		if((startCoords + (direction*length)).y >= grid.height)
+			length = grid.height - startCoords.y;
+		if((startCoords + (direction*length)).y < 0)
+			length = startCoords.y + 1;
+		script.length = length;
 		script.switchable = switchable;
 		script.switchRate = switchRate;
 		script.cells = new Vector2[(int)length];
@@ -122,7 +130,7 @@ public class Conveyor : MonoBehaviour {
 		while(count < length) {
 			script.cells[count] = startCoords + (count * direction);
 			GameObject conveyorPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-			conveyorPlane.transform.position = grid.grid[(int)script.cells[count].x, (int)script.cells[count].y].plane.transform.position + new Vector3(0f, 0f, 0f);
+			conveyorPlane.transform.position = grid.grid[(int)script.cells[count].x, (int)script.cells[count].y].plane.transform.position + new Vector3(0f, 0f, -0.1f);
 			conveyorPlane.transform.localScale = new Vector3(0f, 0f, 0.01f) + grid.grid[(int)script.cells[count].x, (int)script.cells[count].y].plane.transform.localScale;
 			conveyorPlane.transform.Rotate(-90.0f, 0.0f, 0.0f);
 			conveyorPlane.renderer.material.mainTexture = Resources.Load("Textures/Conveyor") as Texture;
@@ -130,13 +138,11 @@ public class Conveyor : MonoBehaviour {
         	        conveyorPlane.renderer.material.color = Color.white;
 			conveyorPlane.name = "conveyor plane";
 			if(direction == new Vector2(1, 0))
-				conveyorPlane.transform.Rotate(new Vector3(0, 90f, 0));
+				conveyorPlane.transform.Rotate(0, 90f, 0);
 			else if(direction == new Vector2(0, 1))
-				conveyorPlane.transform.Rotate(new Vector3(0, 180f, 0));
+				conveyorPlane.transform.Rotate(0, 180f, 0);
 			else if(direction == new Vector2(-1, 0))
-				conveyorPlane.transform.Rotate(new Vector3(0, 270f, 0));
-			else if(direction == new Vector2(0, -1))
-				conveyorPlane.transform.Rotate(new Vector3(0, 360f, 0));
+				conveyorPlane.transform.Rotate(0, 270f, 0);
 			count++;
 		}
 		script.endCoords = script.cells[(int)length-1];
