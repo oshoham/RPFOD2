@@ -148,6 +148,7 @@ public class LevelEditor : MonoBehaviour {
 				newWidth = floor.grid.GetLength(0);
 				newHeight = floor.grid.GetLength(1);
 			}
+			GlobalSettings.currentFile = loadFileName;
 		}
 		widthCommaHeight = GUI.TextField(new Rect(10, 90, 100, 20), widthCommaHeight);
 		if(GUI.Button(new Rect(120, 90, 100, 20), "Resize")) {

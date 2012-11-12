@@ -9,9 +9,13 @@ public static class LevelLoader {
 	
 	public static Grid LoadLevel(string filename) {
 		StreamReader reader;
-		string path = Path.Combine(Application.persistentDataPath, filename);
+		string path = "";
+		if(Application.isEditor)
+			path = Path.Combine(Application.dataPath + "/Resources/Levels", filename);
+		//else
+			// we should figure out what the file path should be when the game is built
 		try {
-			reader = new StreamReader(filename);
+			reader = new StreamReader(path);
 		}
 		catch(Exception) {
 			Debug.Log("Shit, bro! This file didn't work. Filename was: " + filename);
