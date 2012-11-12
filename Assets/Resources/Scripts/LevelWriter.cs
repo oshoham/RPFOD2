@@ -7,7 +7,11 @@ using System.Text;
 public static class LevelWriter {
 
 	public static void WriteLevel(string filename, Grid grid) {
-		string path = Path.Combine(Application.persistentDataPath, filename);
+		string path = "";
+		if(Application.isEditor)
+			path = Path.Combine(Application.dataPath + "/Resources/Levels", filename);
+		//else
+			// we should figure out what the file path should be when the game is built
 		using (StreamWriter writer = File.CreateText(filename)) {
 			writer.WriteLine(grid.width);
 			writer.WriteLine(grid.height);

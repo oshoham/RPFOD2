@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
 		if(filename != "")
 			floor = LevelLoader.LoadLevel(filename);
 		else
-			floor = LeveLloader.LoadLevel("L2.txt");
+			floor = LevelLoader.LoadLevel("L2.txt");
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
