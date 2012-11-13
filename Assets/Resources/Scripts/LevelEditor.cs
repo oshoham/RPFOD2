@@ -138,6 +138,7 @@ public class LevelEditor : MonoBehaviour {
 		saveFileName = GUI.TextField(new Rect(10, 10, 100, 20), saveFileName);
 		if(GUI.Button(new Rect(120, 10, 50, 20), "Save")) {
 			LevelWriter.WriteLevel(saveFileName, floor);
+			GlobalSettings.currentFile = saveFileName;
 		}
 		loadFileName = GUI.TextField(new Rect(10, 50, 100, 20), loadFileName);
 		if(GUI.Button(new Rect(120, 50, 50, 20), "Load")) {

@@ -1,10 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class LevelButton : MonoBehaviour {
-       public string fileName;
+public class BackButton : MonoBehaviour {
        public static int defaultFontSize;
-       public static int resizeTo = 50;
+       public static int resizeTo = 30;
        
        void Start() {
        	    defaultFontSize = this.gameObject.guiText.fontSize;
@@ -19,8 +18,6 @@ public class LevelButton : MonoBehaviour {
        }
 
        void OnMouseDown() {
-	    GlobalSettings.currentFile = fileName;
-	    GlobalSettings.lastScene = "FreePlaySelector";
-       	    Application.LoadLevel("Game");
+       	    Application.LoadLevel("StartScreen");
        }
 }      

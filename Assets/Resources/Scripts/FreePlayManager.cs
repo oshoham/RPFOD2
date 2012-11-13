@@ -12,6 +12,17 @@ public class FreePlayManager : MonoBehaviour {
 	public string path;
 
 	void Start () {
+		GameObject backButton = new GameObject("Back Button");
+		GUIText back = (GUIText)backButton.AddComponent(typeof(GUIText));
+		back.text = "Back";
+		back.anchor = TextAnchor.UpperLeft;
+		back.alignment = TextAlignment.Left;
+		back.lineSpacing = 1.0F;
+		back.font = (Font)Resources.Load("Fonts/ALIEN5");
+		back.fontSize = 25;
+		backButton.transform.position = new Vector3(0.005F, 0.985F, 0.0F);
+		backButton.AddComponent<BackButton>();
+
 		path = "";
 		if(Application.isEditor)
 			path = Application.dataPath + "/Resources/Levels";

@@ -57,6 +57,12 @@ public class GameManager : MonoBehaviour {
 				Application.LoadLevel("Editor");
 			}
 		}
+		else if(GlobalSettings.lastScene == "FreePlaySelector") {
+			if(GUI.Button(new Rect(10, 490, 150, 40), "Level Selector")) {
+				GlobalSettings.lastScene = "Game";
+				Application.LoadLevel("FreePlaySelector");
+			}
+		}
 		if(player == null)
 			return;
 		GUIStyle guiStyle = new GUIStyle();
