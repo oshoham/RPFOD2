@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 
 public class LevelButton : MonoBehaviour {
-       public string levelName;
        public string fileName;
        public static int defaultFontSize;
        public static int resizeTo = 50;
