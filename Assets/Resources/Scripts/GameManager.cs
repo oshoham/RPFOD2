@@ -48,6 +48,15 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void OnGUI() {
+		if(GUI.Button(new Rect(10, 540, 150, 40), "Main Menu")) {                                    
+                            Application.LoadLevel("StartScreen");                                                     
+                }
+		if(GlobalSettings.lastScene == "Editor") {
+			if(GUI.Button(new Rect(10, 490, 150, 40), "Level Editor")) {
+				GlobalSettings.lastScene = "Game";
+				Application.LoadLevel("Editor");
+			}
+		}
 		if(player == null)
 			return;
 		GUIStyle guiStyle = new GUIStyle();
@@ -77,9 +86,6 @@ public class GameManager : MonoBehaviour {
 		GUI.Label(new Rect(135, 70, 20, 20), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0), guiStyle);
 		GUI.Label(new Rect(185, 70, 20, 20), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0), guiStyle);
 		GUI.Label(new Rect(235, 70, 20, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0), guiStyle);
-                if(GUI.Button(new Rect(10, 860, 150, 40), "Main Menu")) {                                          
-                            Application.LoadLevel("StartScreen");                                                     
-                } 
 //		GUI.Box(new Rect(1, 1, 320, 140), "");
 	}
 	

@@ -114,6 +114,9 @@ public class LevelEditor : MonoBehaviour {
 		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 450.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/BotIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Robot, name: "Robot Selector");
+
+		if(GlobalSettings.lastScene == "Game")
+			LevelLoader.LoadLevel(GlobalSettings.currentFile);
 	}
 
 	void Update() {
@@ -176,8 +179,16 @@ public class LevelEditor : MonoBehaviour {
 				floor.ClearObjects();
 			}
 		}
+		if(GUI.Button(new Rect(120, 120, 100, 20), "Play")) {
+			if(GlobalSettings.currentFile != "") {
+				Application.LoadLevel("Game");
+				GlobalSettings.lastScene = "Game";
+			}
+			else
+				Debug.Log("You should probably load a level first or something.");
+		}
 		if(GUI.Button(new Rect(10, 860, 150, 40), "Main Menu")) {
-			 Application.LoadLevel("StartScreen");	  
+			Application.LoadLevel("StartScreen");	  
 		}
 		// Object-specific stuffs
 		switch(objectToBeCreated) {
