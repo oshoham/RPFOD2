@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void OnGUI() {
-		if(GUI.Button(new Rect(10, 540, 150, 40), "Main Menu")) {                                    
+		if(GUI.Button(new Rect(10, 540, 150, 40), "Main Menu")) {                                   
                             Application.LoadLevel("StartScreen");                                                     
                 }
 		if(GlobalSettings.lastScene == "Editor") {
