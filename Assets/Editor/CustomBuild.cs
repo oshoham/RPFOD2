@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CustomBuild : EditorWindow {
 	
-	string path = "";
+	static string path = "";
 	
 	[MenuItem ("File/Custom Build")]
 	static void Init() {
@@ -11,7 +11,14 @@ public class CustomBuild : EditorWindow {
 	}
 	
 	public static void BuildGame() {
-		BuildPipeline.BuildPlayer(new string[] {"foo.txt"}, "whatever", BuildTarget.StandaloneOSXIntel, BuildOptions.None);
+		if(path == "")
+			// set path to be some default thing - maybe the desktop?
+		if(Application.platform == RuntimePlatorm.OSXEditor)
+			BuildPipeline.BuildPlayer(new string[] {"foo.txt"}, path + "RPFOD.app", BuildTarget.StandaloneOSXIntel, BuildOptions.None);
+		else if(Application.platform == RuntimePlatform.WindowsEditor)
+			BuildPipeline.BuildPlayer(new string[] {"foo.txt"}, path + "RPFOD.exe", BuildTarget.StandaloneWindows, BuildOptions.None);
+		else
+			Debug.Log("What, are you using Linux or something? Get outta here.");
 	}
 
 	void OnGUI() {
