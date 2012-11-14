@@ -20,21 +20,13 @@ public class ObjectPlacer : MonoBehaviour {
 	void OnMouseDown() {
 		switch(LevelEditor.objectToBeCreated) {
 			case ObjectType.Wall:
-				try {
-					grid.Add(Wall.MakeWall(grid, x, y, Int32.Parse(LevelEditor.wallHealth), LevelEditor.wallDestructible, LevelEditor.wallColor), x, y);
-				}
-				catch(FormatException) {
-					print("Number format exception for Wall health!");
-				}
+				grid.Add(Wall.MakeWall(grid, x, y, LevelEditor.wallColor), x, y);
 				break;
 			case ObjectType.SpikeWall:
-				try {
-					grid.Add(SpikeWall.MakeSpikeWall(grid, x, y,Int32.Parse( LevelEditor.spikeWallHealth), LevelEditor.spikeWallDestructible,
-									 LevelEditor.spikeWallDirections, LevelEditor.spikeWallColor), x, y);
-				}
-				catch(FormatException) {
-					print("Number format exception for SpikeWall health!");
-				}
+				grid.Add(SpikeWall.MakeSpikeWall(grid, x, y,
+								 LevelEditor.spikeWallDirections,
+								 LevelEditor.spikeWallColor),
+					 x, y);
 				break;
 			case ObjectType.SpikeFloor:
 				grid.Add(SpikeFloor.MakeSpikeFloor(grid, x, y), x, y);
@@ -84,6 +76,17 @@ public class ObjectPlacer : MonoBehaviour {
 				}
 				catch(FormatException) {
 					print("Number format exception for Roobitt... somewhere!");
+				}
+				break;
+			case ObjectType.DestructibleWall:
+				try {
+					grid.Add(DestructibleWall.MakeDestructibleWall(grid, x, y,
+										       Int32.Parse(LevelEditor.destructibleWallHealth),
+										       LevelEditor.destructibleWallColor),
+						 x, y);
+				}
+				catch(FormatException) {
+					print("Number format exception for DestructibleWall health!");
 				}
 				break;
 		}

@@ -13,7 +13,8 @@ public enum ObjectType {
 	Paint,
 	Conveyor,
 	Player,
-	Robot
+	Robot,
+	DestructibleWall
 }
 
 public class LevelEditor : MonoBehaviour {
@@ -43,8 +44,6 @@ public class LevelEditor : MonoBehaviour {
 	 */
 	
 	// Wall
-	public static string wallHealth = "10";
-	public static bool wallDestructible;
 	public static Color wallColor = Color.white;
 
 	// SpikeWall
@@ -77,6 +76,10 @@ public class LevelEditor : MonoBehaviour {
 	public static Color robotColorVisible = Color.red;
 	public static Vector2 robotFireDirection = new Vector2(1, 0);
 	public static bool robotTurnsLeft;
+
+	// DestructibleWall
+	public static string destructibleWallHealth = "10";
+	public static Color destructibleWallColor;
 	
 	void Start() {
 		Time.timeScale = 0;
@@ -114,6 +117,9 @@ public class LevelEditor : MonoBehaviour {
 		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 450.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/BotIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Robot, name: "Robot Selector");
+		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 500.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/WallIcon") as Texture,
+						  () => LevelEditor.objectToBeCreated = ObjectType.DestructibleWall, name: "DestructibleWall Selector");
 
 		if(GlobalSettings.lastScene == "Game")
 			LevelLoader.LoadLevel(GlobalSettings.currentFile);
@@ -194,12 +200,6 @@ public class LevelEditor : MonoBehaviour {
 		// Object-specific stuffs
 		switch(objectToBeCreated) {
 			case ObjectType.Wall:
-				// health
-				wallHealth = GUI.TextField(FromBottomRight(new Rect(250, 50, 100, 20)), wallHealth);
-				// destructible
-				wallDestructible = GUI.Toggle(FromBottomRight(new Rect(300, 70, 100, 50)),
-							      wallDestructible,
-							      "Destructible?");
 				// color
 				int colorInt;
 				if(wallColor == Color.red) {
@@ -415,6 +415,37 @@ public class LevelEditor : MonoBehaviour {
 				robotTurnsLeft = GUI.Toggle(FromBottomRight(new Rect(300, 100, 50, 10)),
 								robotTurnsLeft, "TurnsLeft?");
 				robotMovementDirection = robotFireDirection;
+				break;
+			case ObjectType.DestructibleWall:
+				// health
+				destructibleWallHealth = GUI.TextField(FromBottomRight(new Rect(250, 50, 100, 20)), destructibleWallHealth);
+				// color
+				if(destructibleWallColor == Color.red) {
+					colorInt = 0;
+				}
+				else if(destructibleWallColor == Color.green) {
+					colorInt = 1;
+				}
+				else if(destructibleWallColor == Color.blue) {
+					colorInt = 2;
+				}
+				else {
+					colorInt = 3;
+				}
+				colorInt = GUI.Toolbar(FromBottomRight(new Rect(300, 90, 250, 30)),
+						       colorInt,
+						       new string[] {"Red", "Green", "Blue"});
+				switch(colorInt) {
+					case 0:
+						destructibleWallColor = Color.red;
+						break;
+					case 1:
+						destructibleWallColor = Color.green;
+						break;
+					case 2:
+						destructibleWallColor = Color.blue;
+						break;
+				}
 				break;
 		}
 	}

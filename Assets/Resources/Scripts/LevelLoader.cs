@@ -37,12 +37,12 @@ public static class LevelLoader {
 				int type = Int32.Parse(parts[i++]);
 				switch(type) {
 					case 0: // Wall
-						grid.Add(ParseWall(x, y, CopyRange(parts, i, 3)), x, y);
-						i += 3;
+						grid.Add(ParseWall(x, y, CopyRange(parts, i, 1)), x, y);
+						i += 1;
 						break;
 					case 1: // SpikeWall
-						grid.Add(ParseSpikeWall(x, y, CopyRange(parts, i, 7)), x, y);
-						i += 7;
+						grid.Add(ParseSpikeWall(x, y, CopyRange(parts, i, 5)), x, y);
+						i += 5;
 						break;
 					case 2: // SpikeFloor
 						grid.Add(SpikeFloor.MakeSpikeFloor(grid, x, y), x, y);
@@ -65,6 +65,10 @@ public static class LevelLoader {
 					case 6: // Robot
 						grid.Add(ParseRobot(x, y, CopyRange(parts, i, 9)), x, y);
 						i += 9;
+						break;
+					case 7: // DestructibleWall
+						grid.Add(ParseDestructibleWall(x, y, CopyRange(parts, i, 2)), x, y);
+						i += 2;
 						break;
 				}
 			}
@@ -109,22 +113,18 @@ public static class LevelLoader {
 	}
 	
 	public static GameObject ParseWall(int x, int y, string[] info) {
-		int health = Int32.Parse(info[0]);
-		bool destructible = Int32.Parse(info[1]) == 1 ? true : false;
-		Color color = ParseColor(info[2]);
-		return Wall.MakeWall(grid, x, y, health, destructible, color);
+		Color color = ParseColor(info[0]);
+		return Wall.MakeWall(grid, x, y, color);
 	}
 
 	public static GameObject ParseSpikeWall(int x, int y, string[] info) {
-		int health = Int32.Parse(info[0]);
-		bool destructible = Int32.Parse(info[1]) == 1 ? true : false;
 		List<Vector2> directions = new List<Vector2>();
 		int i = 3;
 		for(; info[i] != "]"; i++) {
 			directions.Add(ParseVector2(info[i]));
 		}
 		Color color = ParseColor(info[++i]);
-		return SpikeWall.MakeSpikeWall(grid, x, y, health, destructible, directions, color);
+		return SpikeWall.MakeSpikeWall(grid, x, y, directions, color);
 	}
 	
 	public static GameObject ParsePaint(int x, int y, string[] info) {
@@ -159,6 +159,12 @@ public static class LevelLoader {
 		bool turnsLeft = Int32.Parse(info[8]) == 1 ? true : false;
 		return Robot.MakeRobot(grid, x, y, speed, damageDealt, health, forwardRange, sideRange,
 				       movementDirection, colorVisible, fireDirection, turnsLeft);
+	}
+
+	public static GameObject ParseDestructibleWall(int x, int y, string[] info) {
+		int health = Int32.Parse(info[0]);
+		Color color = ParseColor(info[1]);
+		return DestructibleWall.MakeDestructibleWall(grid, x, y, health, color);
 	}
 	
 	/*

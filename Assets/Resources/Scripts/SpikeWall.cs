@@ -7,7 +7,6 @@ public class SpikeWall : Wall {
 	public List<Vector2> directions;
 
 	void Update() {
-		CheckHealth();
 		List<string> classList = new List<string> {"Robot", "Player"};
 		foreach(Vector2 direction in directions) {
 			Vector2 coord = gridCoords + direction;
@@ -18,8 +17,7 @@ public class SpikeWall : Wall {
 		}
 	}
 
-	public static GameObject MakeSpikeWall(Grid grid, int x, int y, int health, bool destructible,
-					       List<Vector2> directions, Color color = default(Color)) {
+	public static GameObject MakeSpikeWall(Grid grid, int x, int y, List<Vector2> directions, Color color = default(Color)) {
 		if(color == default(Color)) {
 			color = Color.white;
 		}
@@ -28,10 +26,7 @@ public class SpikeWall : Wall {
 		spikeWall.transform.position = new Vector3(x, y, 0.0f);
 		SpikeWall script = spikeWall.AddComponent<SpikeWall>();
 		spikeWall.renderer.material.mainTexture = Resources.Load("Textures/Electrocute") as Texture;
-//		spikeWall.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		spikeWall.renderer.material.color = Color.white;
-		script.health = health;
-		script.destructible = destructible;
 		script.colorPainted = color;
 		script.gridCoords = new Vector2(x, y);
 		script.directions = directions;

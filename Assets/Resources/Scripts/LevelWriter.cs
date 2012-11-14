@@ -27,13 +27,7 @@ public static class LevelWriter {
 					if(obj != null) {
 						Wall wall = obj.GetComponent<Wall>();
 						if(wall != null) {
-							sb.Append(0 + " " + wall.health + " ");
-							
-							if(wall.destructible == false)
-								sb.Append(0 + " ");
-							else
-								sb.Append(1 + " ");
-							
+							sb.Append(0 + " ");
 							if(wall.colorPainted == Color.red)
 								sb.Append(0 + " ");
 							else if(wall.colorPainted == Color.green)
@@ -49,13 +43,7 @@ public static class LevelWriter {
 					if(obj != null) {
 						SpikeWall spike = obj.GetComponent<SpikeWall>();
 						if(spike != null) {
-							sb.Append(1 + " " + spike.health + " ");
-							
-							if(spike.destructible == false)
-								sb.Append(0 + " ");
-							else
-								sb.Append(1 + " ");
-							
+							sb.Append(1 + " ");
 							sb.Append("[ ");
 							foreach(Vector2 dir in spike.directions) {
 								if(dir == new Vector2(0, 1))
@@ -178,6 +166,21 @@ public static class LevelWriter {
 								sb.Append(0 + " ");
 							else
 								sb.Append(1 + " ");
+						}
+					}
+					obj = sq.objects.Find((GameObject g) => g.GetComponent<DestructibleWall>() != null);
+					if(obj != null) {
+						DestructibleWall wall = obj.GetComponent<DestructibleWall>();
+						if(wall != null) {
+							sb.Append(7 + " " + wall.health + " ");
+							if(wall.colorPainted == Color.red)
+								sb.Append(0 + " ");
+							else if(wall.colorPainted == Color.green)
+								sb.Append(1 + " ");
+							else if(wall.colorPainted == Color.blue)
+								sb.Append(2 + " ");
+							else
+								sb.Append(3 + " ");
 						}
 					}
 					string line = sb.ToString().Trim();
