@@ -16,6 +16,15 @@ public static class LevelWriter {
 		using (StreamWriter writer = File.CreateText(path)) {
 			writer.WriteLine(grid.width);
 			writer.WriteLine(grid.height);
+			StringBuilder conditions = new StringBuilder("");
+			if(LevelEditor.robotsWin) {
+				conditions.Append("0 " + LevelEditor.robotLimit);
+			}
+			if(LevelEditor.squareWins) {
+				string[] coords = LevelEditor.winCoords.Split(new char[] {','});
+				conditions.Append("1 " + Int32.Parse(coords[0]) + " " + Int32.Parse(coords[1]));
+			}
+			writer.WriteLine(conditions.ToString());
 			for(int i = 0; i < grid.width; i++) {
 				for(int j = 0; j < grid.height; j++) {
 					StringBuilder sb = new StringBuilder();

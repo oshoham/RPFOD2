@@ -188,8 +188,8 @@ public class Robot : MonoBehaviour, IColor {
 			sq.colors[colorVisible]--;
 			sq.SetColor();
 		}
-		print("foo");
 		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+		WinChecker.numRobots--;
 	}
 	
 	public static GameObject MakeRobot(Grid grid, int x, int y, float speed, int damage, int health,
@@ -235,6 +235,7 @@ public class Robot : MonoBehaviour, IColor {
 			script.transform.localEulerAngles = new Vector3(0, 0, 270f);
 		else if(script.movementDirection == new Vector2(0, -1))
 			script.transform.localEulerAngles = new Vector3(0, 0, 360f);
+		WinChecker.numRobots++;
 		return robot;
 	}
 }

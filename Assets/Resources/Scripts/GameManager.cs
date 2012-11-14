@@ -47,6 +47,13 @@ public class GameManager : MonoBehaviour {
 	void Update() {
 	}
 
+	/*
+	 * Should be called when win conditions are met.
+	 */
+	public static void Win() {
+		// TODO: What do we do here?
+	}
+	
 	void OnGUI() {
 		if(GUI.Button(new Rect(10, 540, 150, 40), "Main Menu")) {                                   
                             Application.LoadLevel("StartScreen");                                                     
@@ -106,15 +113,4 @@ public class GameManager : MonoBehaviour {
 		}
 		return false;
 	}
-
-	// public static void makeLev(int lev)
-	// {
-	// 	switch(lev){
-	// 		case 1:
-	// 			new L1();
-	// 			break;
-	// 		default:
-	// 			break;
-	// 	}
-	// }
 }

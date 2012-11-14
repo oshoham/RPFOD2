@@ -80,6 +80,12 @@ public class LevelEditor : MonoBehaviour {
 	// DestructibleWall
 	public static string destructibleWallHealth = "10";
 	public static Color destructibleWallColor;
+
+	// Win conditions
+	public static bool robotsWin = false;
+	public static string robotLimit = "-1";
+	public static bool squareWins = false;
+	public static string winCoords = "";
 	
 	void Start() {
 		Time.timeScale = 0;
@@ -143,8 +149,13 @@ public class LevelEditor : MonoBehaviour {
 	void OnGUI() {
 		saveFileName = GUI.TextField(new Rect(10, 10, 100, 20), saveFileName);
 		if(GUI.Button(new Rect(120, 10, 50, 20), "Save")) {
-			LevelWriter.WriteLevel(saveFileName, floor);
-			GlobalSettings.currentFile = saveFileName;
+			if(!robotsWin && !squareWins) {
+				print("Hey bro! Might want some way to win the level, eh?");
+			}
+			else {
+				LevelWriter.WriteLevel(saveFileName, floor);
+				GlobalSettings.currentFile = saveFileName;
+			}
 		}
 		loadFileName = GUI.TextField(new Rect(10, 50, 100, 20), loadFileName);
 		if(GUI.Button(new Rect(120, 50, 50, 20), "Load")) {
@@ -197,6 +208,11 @@ public class LevelEditor : MonoBehaviour {
 		if(GUI.Button(new Rect(10, 860, 150, 40), "Main Menu")) {
 			Application.LoadLevel("StartScreen");	  
 		}
+		// Win conditions
+		robotsWin = GUI.Toggle(new Rect(300, 120, 20, 20),  robotsWin, "Robots win");
+		robotLimit = GUI.TextField(new Rect(350, 120, 100, 20), robotLimit);
+		squareWins = GUI.Toggle(new Rect(300, 150, 20, 20), squareWins, "Square wins (x, y)");
+		winCoords = GUI.TextField(new Rect(350, 150, 100, 20), winCoords);
 		// Object-specific stuffs
 		switch(objectToBeCreated) {
 			case ObjectType.Wall:
