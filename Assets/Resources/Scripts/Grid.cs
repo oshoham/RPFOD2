@@ -49,7 +49,8 @@ public class Grid {
 		if(diff.x == 0) { // we're checking in the y direction
 			int sign = diff.y < 0 ? -1 : 1; // which way are we going?
 			origin.y += sign;
-			while(sign == 1 ? origin.y <= coord.y : origin.y >= coord.y) { // we want the last position as well so it's a do-while loop
+			while((sign == 1 ? origin.y <= coord.y : origin.y >= coord.y) &&
+			      GetObjectsOfTypes(origin, new List<String>() {"Wall", "DestructibleWall"}).Count == 0) { // we want the last position as well so it's a do-while loop
 				objects.AddRange(grid[(int)origin.x, (int)origin.y].objects);
 				origin.y += sign;
 			}
@@ -57,31 +58,9 @@ public class Grid {
 		else { // checking y, otherwise the same
 			int sign = diff.x < 0 ? -1 : 1;
 			origin.x += sign;
-			while(sign == 1 ? origin.x <= coord.x : origin.x >= coord.x) {
+			while((sign == 1 ? origin.x <= coord.x : origin.x >= coord.x) &&
+			      GetObjectsOfTypes(origin, new List<String>() {"Wall", "DestructibleWall"}).Count == 0) {
 				objects.AddRange(grid[(int)origin.x, (int)origin.y].objects);
-				origin.x += sign;
-			}
-		}
-		return objects;
-	}
-
-	public List<Square> SCheckLine(Vector2 origin, Vector2 coord) {
-		Vector2 diff = coord - origin;
-		List<Square> objects = new List<Square>();
-		FixVector(ref coord);
-		if(diff.x == 0) { // we're checking in the y direction
-			int sign = diff.y < 0 ? -1 : 1; // which way are we going?
-			origin.y += sign;
-			while(sign == 1 ? origin.y <= coord.y : origin.y >= coord.y) { // we want the last position as well so it's a do-while loop
-				objects.Add(grid[(int)origin.x, (int)origin.y]);
-				origin.y += sign;
-			}
-		}
-		else { // checking y, otherwise the same
-			int sign = diff.x < 0 ? -1 : 1;
-			origin.x += sign;
-			while(sign == 1 ? origin.x <= coord.x : origin.x >= coord.x) {
-				objects.Add(grid[(int)origin.x, (int)origin.y]);
 				origin.x += sign;
 			}
 		}
@@ -89,8 +68,32 @@ public class Grid {
 	}
 	
 	/*
-	 * Checks square radius
+	 * Similar to CheckLine, but returns Squares instead of GameObjects.
 	 */
+	public List<Square> SCheckLine(Vector2 origin, Vector2 coord) {
+		Vector2 diff = coord - origin;
+		List<Square> objects = new List<Square>();
+		FixVector(ref coord);
+		if(diff.x == 0) { // we're checking in the y direction
+			int sign = diff.y < 0 ? -1 : 1; // which way are we going?
+			origin.y += sign;
+			while((sign == 1 ? origin.y <= coord.y : origin.y >= coord.y) &&
+			      GetObjectsOfTypes(origin, new List<String>() {"Wall", "DestructibleWall"}).Count == 0) {
+				objects.Add(grid[(int)origin.x, (int)origin.y]);
+				origin.y += sign;
+			}
+		}
+		else { // checking y, otherwise the same
+			int sign = diff.x < 0 ? -1 : 1;
+			origin.x += sign;
+			while((sign == 1 ? origin.x <= coord.x : origin.x >= coord.x) &&
+			      GetObjectsOfTypes(origin, new List<String>() {"Wall", "DestructibleWall"}).Count == 0) {
+				objects.Add(grid[(int)origin.x, (int)origin.y]);
+				origin.x += sign;
+			}
+		}
+		return objects;
+	}
 
 	/*
 	 * Makes sure a Vector2's coordinates are in the right range and
