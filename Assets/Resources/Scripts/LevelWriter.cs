@@ -162,10 +162,14 @@ public static class LevelWriter {
 							else if(robot.fireDirection == new Vector2(-1, 0))
 								sb.Append(3 + " ");
 							
-							if(robot.turnsLeft == false)
+							if(robot.rotation == new RotationMatrix(RotationMatrix.Rotation.Identity))
 								sb.Append(0 + " ");
-							else
+							if(robot.rotation == new RotationMatrix(RotationMatrix.Rotation.Left))
 								sb.Append(1 + " ");
+							if(robot.rotation == new RotationMatrix(RotationMatrix.Rotation.Right))
+								sb.Append(2 + " ");
+							else
+								sb.Append(3 + " ");
 						}
 					}
 					obj = sq.objects.Find((GameObject g) => g.GetComponent<DestructibleWall>() != null);

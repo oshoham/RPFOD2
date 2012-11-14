@@ -112,6 +112,22 @@ public static class LevelLoader {
 		}
 	}
 	
+	public static RotationMatrix ParseRotationMatrix(string rotationString) {
+		int val = Int32.Parse(rotationString);
+		switch(val) {
+			case 0:
+				return new RotationMatrix(RotationMatrix.Rotation.Identity);
+			case 1:
+				return new RotationMatrix(RotationMatrix.Rotation.Left);
+			case 2:
+				return new RotationMatrix(RotationMatrix.Rotation.Right);
+			case 3:
+				return new RotationMatrix(RotationMatrix.Rotation.Halfway);
+			default:
+				return default(RotationMatrix);
+		}
+	}
+	
 	public static GameObject ParseWall(int x, int y, string[] info) {
 		Color color = ParseColor(info[0]);
 		return Wall.MakeWall(grid, x, y, color);
@@ -156,9 +172,9 @@ public static class LevelLoader {
 		Vector2 movementDirection = ParseVector2(info[5]);
 		Color colorVisible = ParseColor(info[6]);
 		Vector2 fireDirection = ParseVector2(info[7]);
-		bool turnsLeft = Int32.Parse(info[8]) == 1 ? true : false;
+		RotationMatrix rotation = ParseRotationMatrix(info[8]);
 		return Robot.MakeRobot(grid, x, y, speed, damageDealt, health, forwardRange, sideRange,
-				       movementDirection, colorVisible, fireDirection, turnsLeft);
+				       movementDirection, colorVisible, fireDirection, rotation);
 	}
 
 	public static GameObject ParseDestructibleWall(int x, int y, string[] info) {

@@ -8,7 +8,7 @@ public class Robot : MonoBehaviour, IColor {
 
 	public int health;
 	public float moveSpeed;
-	public bool turnsLeft;
+	public RotationMatrix rotation;
 	public Vector2 gridCoords;
 	public int damageDealt;
 	public int forwardRange;
@@ -92,16 +92,19 @@ public class Robot : MonoBehaviour, IColor {
 			newPosition = new Vector3(gridCoords.x, gridCoords.y, -1.0f);
 		}
 		else { // Turn if we hit something
-			if(turnsLeft) {
-				movementDirection = new Vector2(-movementDirection.y, movementDirection.x);
-				fireDirection = new Vector2(-fireDirection.y, fireDirection.x);
-			}
-			else {
-				if(movementDirection == fireDirection) {
-					fireDirection *= -1.0f;
-				}
-				movementDirection *= -1.0f;
-			}
+			if(fireDirection == movementDirection)
+				fireDirection = rotation.Rotate(fireDirection);
+			movementDirection = rotation.Rotate(movementDirection);
+			// if(turnsLeft) {
+			// 	movementDirection = new Vector2(-movementDirection.y, movementDirection.x);
+			// 	fireDirection = new Vector2(-fireDirection.y, fireDirection.x);
+			// }
+			// else {
+			// 	if(movementDirection == fireDirection) {
+			// 		fireDirection *= -1.0f;
+			// 	}
+			// 	movementDirection *= -1.0f;
+			// }
 		}
 
 		if(movementDirection == new Vector2(1, 0))
@@ -191,11 +194,8 @@ public class Robot : MonoBehaviour, IColor {
 	
 	public static GameObject MakeRobot(Grid grid, int x, int y, float speed, int damage, int health,
 					   int forwardRange, int sideRange, Vector2 movementDirection,
-					   Color colorVisible, Vector2 fireDirection = default(Vector3),
-					   bool turnsLeft = false) {
-		if(fireDirection == default(Vector2)) {
-			fireDirection = movementDirection;
-		}
+					   Color colorVisible, Vector2 fireDirection,
+					   RotationMatrix rotation) {
 		GameObject robot = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		robot.name = "Robot";
 		robot.renderer.material.mainTexture = Resources.Load("Textures/BlankBot") as Texture;
@@ -221,7 +221,7 @@ public class Robot : MonoBehaviour, IColor {
 		script.fireDirection = fireDirection;
 		script.colorVisible = colorVisible;
 		script.health = health;
-		script.turnsLeft = turnsLeft;
+		script.rotation = rotation;
 		script.oVision = new List<Square>();
 		script.lastFired = Time.time;
 		script.fireRate = 2.0f;

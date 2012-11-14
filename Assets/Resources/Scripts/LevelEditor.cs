@@ -75,7 +75,7 @@ public class LevelEditor : MonoBehaviour {
 	public static Vector2 robotMovementDirection = new Vector2(1, 0);
 	public static Color robotColorVisible = Color.red;
 	public static Vector2 robotFireDirection = new Vector2(1, 0);
-	public static bool robotTurnsLeft;
+	public static RotationMatrix robotRotation;
 
 	// DestructibleWall
 	public static string destructibleWallHealth = "10";
@@ -412,8 +412,32 @@ public class LevelEditor : MonoBehaviour {
 						robotFireDirection = new Vector2(-1, 0);
 						break;
 				}
-				robotTurnsLeft = GUI.Toggle(FromBottomRight(new Rect(300, 100, 50, 10)),
-								robotTurnsLeft, "TurnsLeft?");
+				int rotationInt;
+				if(robotRotation == new RotationMatrix(RotationMatrix.Rotation.Identity))
+					rotationInt = 0;
+				if(robotRotation == new RotationMatrix(RotationMatrix.Rotation.Left))
+					rotationInt = 1;
+				if(robotRotation == new RotationMatrix(RotationMatrix.Rotation.Right))
+					rotationInt = 2;
+				else
+					rotationInt = 3;
+				rotationInt = GUI.Toolbar(FromBottomRight(new Rect(300, 100, 50, 10)),
+							  rotationInt,
+							  new string[] {"Identity", "Left", "Right", "Halfway"});
+				switch(rotationInt) {
+					case 0:
+						robotRotation = new RotationMatrix(RotationMatrix.Rotation.Identity);
+						break;
+					case 1:
+						robotRotation = new RotationMatrix(RotationMatrix.Rotation.Left);
+						break;
+					case 2:
+						robotRotation = new RotationMatrix(RotationMatrix.Rotation.Right);
+						break;
+					default:
+						robotRotation = new RotationMatrix(RotationMatrix.Rotation.Halfway);
+						break;
+				}
 				robotMovementDirection = robotFireDirection;
 				break;
 			case ObjectType.DestructibleWall:

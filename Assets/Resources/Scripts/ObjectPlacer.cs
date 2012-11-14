@@ -71,7 +71,8 @@ public class ObjectPlacer : MonoBehaviour {
 								 Int32.Parse(LevelEditor.robotForwardRange),
 								 Int32.Parse(LevelEditor.robotSideRange),
 								 LevelEditor.robotMovementDirection,
-								 LevelEditor.robotColorVisible, LevelEditor.robotFireDirection, LevelEditor.robotTurnsLeft),
+								 LevelEditor.robotColorVisible, LevelEditor.robotFireDirection,
+								 LevelEditor.robotRotation),
 						 x, y);
 				}
 				catch(FormatException) {
