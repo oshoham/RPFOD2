@@ -200,7 +200,7 @@ public static class LevelWriter {
 					if(obj != null) {
 						ExplosiveCrate exp = obj.GetComponent<ExplosiveCrate>();
 						if(exp != null) {
-							sb.Append(8 + " ");
+							sb.Append(8 + " " + exp.health + " " + exp.range);
 						}
 					}
 					string line = sb.ToString().Trim();

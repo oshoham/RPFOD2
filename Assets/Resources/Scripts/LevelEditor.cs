@@ -81,7 +81,11 @@ public class LevelEditor : MonoBehaviour {
 	// DestructibleWall
 	public static string destructibleWallHealth = "10";
 	public static Color destructibleWallColor;
-
+	
+	// ExplosiveCrate
+	public static string explosiveCrateHealth = "10";
+	public static string explosiveCrateRange = "1";
+	
 	// Win conditions
 	public static bool robotsWin = false;
 	public static string robotLimit = "-1";
@@ -127,6 +131,9 @@ public class LevelEditor : MonoBehaviour {
 		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 500.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/WallIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.DestructibleWall, name: "DestructibleWall Selector");
+		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 550.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/WallIcon") as Texture,
+						  () => LevelEditor.objectToBeCreated = ObjectType.ExplosiveCrate, name: "ExplosiveCrate Selector");
 
 		if(GlobalSettings.lastScene == "Game")
 			LevelLoader.LoadLevel(GlobalSettings.currentFile);
@@ -486,6 +493,10 @@ public class LevelEditor : MonoBehaviour {
 						destructibleWallColor = Color.blue;
 						break;
 				}
+				break;
+			case ObjectType.ExplosiveCrate:
+				explosiveCrateHealth = GUI.TextField(FromBottomRight(new Rect(375, 50, 50, 25)), explosiveCrateHealth);
+				explosiveCrateRange = GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 25)), explosiveCrateRange);
 				break;
 		}
 	}

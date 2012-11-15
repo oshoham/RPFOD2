@@ -87,8 +87,8 @@ public static class LevelLoader {
 						i += 2;
 						break;
 					case 8: // ExplosiveCrate
-						grid.Add(ParseExplosiveCrate(x, y, CopyRange(parts, i, 0)), x, y);
-						i += 0;
+						grid.Add(ParseExplosiveCrate(x, y, CopyRange(parts, i, 2)), x, y);
+						i += 2;
 						break;
 				}
 			}
@@ -203,7 +203,9 @@ public static class LevelLoader {
 	}
 	
 	public static GameObject ParseExplosiveCrate(int x, int y, string[] info) {
-		return null; //ExplosiveCrate.MakeExplosiveCrate(grid, x, y);
+		int health = Int32.Parse(info[0]);
+		int range = Int32.Parse(info[1]);
+		return ExplosiveCrate.MakeExplosiveCrate(grid, x, y, health, range);
 	}
 	
 	/*
