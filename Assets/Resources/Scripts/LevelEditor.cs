@@ -76,7 +76,7 @@ public class LevelEditor : MonoBehaviour {
 	public static Vector2 robotMovementDirection = new Vector2(1, 0);
 	public static Color robotColorVisible = Color.red;
 	public static Vector2 robotFireDirection = new Vector2(1, 0);
-	public static RotationMatrix robotRotation;
+	public static RotationMatrix robotRotation = new RotationMatrix(RotationMatrix.Rotation.Identity);
 
 	// DestructibleWall
 	public static string destructibleWallHealth = "10";
