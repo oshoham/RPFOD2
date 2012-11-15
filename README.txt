@@ -2,8 +2,6 @@
 BUGS:
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Conveyors not being destroyed on Editor reset
-Conveyors generally not reading or writing in editor
 Writing inexplicably takes a long time to write but has no indication of taking a long time
 	that is, sometimes I'll try and save a file in editor with objects in it, and then when I load only a few of the objects actually seem to have saved
 	however if I wait a while after saving, they all seem to save and load appropriately

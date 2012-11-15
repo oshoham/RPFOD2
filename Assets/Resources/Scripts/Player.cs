@@ -108,7 +108,7 @@ public class Player : MonoBehaviour, IColor {
 			ReassignColor(Color.blue);
 		}
 		if(Input.GetKeyDown("space") && colors.ContainsKey(colorShooting) && colors[colorShooting] > 0) {
-			Paintball.MakePaintball(transform.position, dir, colorShooting, gameObject);
+			Paintball.MakePaintball(new Vector3(transform.position.x, transform.position.y, .1f), dir, colorShooting, gameObject);
 			colors[colorShooting]--;
 			if(colors[colorShooting] == 0) {
 				colorShooting = colors.FirstOrDefault((KeyValuePair<Color, int> kvp) => kvp.Value > 0).Key;

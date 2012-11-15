@@ -174,7 +174,7 @@ public class Robot : MonoBehaviour, IColor {
 			else if(lookdir == new Vector2(0, -1))
 				transform.localEulerAngles = new Vector3(0, 0, 360f);
 			if(Time.time > lastFired + fireRate) {
-				Bullet.MakeBullet(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, gameObject);
+				Bullet.MakeBullet(damageDealt, new Vector3(transform.position.x, transform.position.y, .1f), (visibles[0].transform.position - transform.position).normalized, gameObject);
 				lastFired = Time.time;
 			}
 		}
