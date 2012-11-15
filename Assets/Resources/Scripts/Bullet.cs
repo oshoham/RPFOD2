@@ -18,6 +18,10 @@ public class Bullet : Projectile {
 			obj.GetComponent<DestructibleWall>().health -= damageDealt;
 			Destroy(gameObject);
 		}
+		else if(obj.GetComponent<ExplosiveCrate>() != null) {
+			obj.GetComponent<ExplosiveCrate>().health -= damageDealt;
+			Destroy(gameObject);
+		}
 	}
 	
 	public static GameObject MakeBullet(int damage, Vector3 pos, Vector2 dir, GameObject cameFrom) {
