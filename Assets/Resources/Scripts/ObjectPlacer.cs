@@ -91,6 +91,9 @@ public class ObjectPlacer : MonoBehaviour {
 					print("Number format exception for DestructibleWall health!");
 				}
 				break;
+			case ObjectType.ExplosiveCrate:
+				grid.Add(ExplosiveCrate.MakeExplosiveCrate(grid, x, y), x, y);
+				break;
 		}
 	}
 

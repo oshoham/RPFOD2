@@ -14,7 +14,8 @@ public enum ObjectType {
 	Conveyor,
 	Player,
 	Robot,
-	DestructibleWall
+	DestructibleWall,
+	ExplosiveCrate
 }
 
 public class LevelEditor : MonoBehaviour {

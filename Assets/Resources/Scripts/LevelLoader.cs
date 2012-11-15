@@ -86,6 +86,10 @@ public static class LevelLoader {
 						grid.Add(ParseDestructibleWall(x, y, CopyRange(parts, i, 2)), x, y);
 						i += 2;
 						break;
+					case 8: // ExplosiveCrate
+						grid.Add(ParseExplosiveCrate(x, y, CopyRange(parts, i, 0)), x, y);
+						i += 0;
+						break;
 				}
 			}
 		}
@@ -196,6 +200,10 @@ public static class LevelLoader {
 		int health = Int32.Parse(info[0]);
 		Color color = ParseColor(info[1]);
 		return DestructibleWall.MakeDestructibleWall(grid, x, y, health, color);
+	}
+	
+	public static GameObject ParseExplosiveCrate(int x, int y, string[] info) {
+		return ExplosiveCrate.MakeExplosiveCrate(grid, x, y);
 	}
 	
 	/*

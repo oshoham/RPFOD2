@@ -196,6 +196,13 @@ public static class LevelWriter {
 								sb.Append(3 + " ");
 						}
 					}
+					obj = sq.objects.Find((GameObject g) => g.GetComponent<ExplosiveCrate>() != null);
+					if(obj != null) {
+						ExplosiveCrate exp = obj.GetComponent<ExplosiveCrate>();
+						if(exp != null) {
+							sb.Append(8 + " ");
+						}
+					}
 					string line = sb.ToString().Trim();
 					// Don't just write x and y coords if we don't need them
 					if(line.Split(new char[] {' '}).Length > 2) {
