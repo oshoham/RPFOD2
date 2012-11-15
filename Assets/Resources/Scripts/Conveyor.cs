@@ -15,6 +15,8 @@ public class Conveyor : MonoBehaviour {
 	
 	public Dictionary<GameObject, GameObjectAnimation> currentObjects;
 
+	public List<GameObject> planes;
+
 	public bool switchable;
 	public float switchRate;
 	public float lastSwitched;
@@ -91,7 +93,14 @@ public class Conveyor : MonoBehaviour {
 			}
 		}
 	}
-
+	
+	void OnDisable() {
+		for(int i = 0; i < planes.Count; i++) {
+			Destroy(planes[i]);
+		}
+		grid.Remove(gameObject, (int)startCoords.x, (int)startCoords.y);
+	}
+	
 	/*
 	 * This returns true if the animation for this GameObjectAnimation is done, false
 	 * otherwise. Slightly jank!
@@ -126,10 +135,12 @@ public class Conveyor : MonoBehaviour {
 		script.switchable = switchable;
 		script.switchRate = switchRate;
 		script.cells = new Vector2[(int)length];
+		script.planes = new List<GameObject>();
 		int count = 0;
 		while(count < length) {
 			script.cells[count] = startCoords + (count * direction);
 			GameObject conveyorPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+			script.planes.Add(conveyorPlane);
 			conveyorPlane.transform.position = grid.grid[(int)script.cells[count].x, (int)script.cells[count].y].plane.transform.position + new Vector3(0f, 0f, -0.1f);
 			conveyorPlane.transform.localScale = new Vector3(0f, 0f, 0.01f) + grid.grid[(int)script.cells[count].x, (int)script.cells[count].y].plane.transform.localScale;
 			conveyorPlane.transform.Rotate(-90.0f, 0.0f, 0.0f);

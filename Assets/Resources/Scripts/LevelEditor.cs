@@ -291,7 +291,6 @@ public class LevelEditor : MonoBehaviour {
 				// spawn
 				GUI.Label(FromBottomRight(new Rect(250, 50, 50, 20)), "Respawn Rate");
 				paintRespawnTime = GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 20)), paintRespawnTime);
-				Debug.Log("Wrong number format!");
 				// color
 				if(paintColor == Color.red) {
 					colorInt = 0;
