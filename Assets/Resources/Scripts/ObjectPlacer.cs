@@ -92,7 +92,7 @@ public class ObjectPlacer : MonoBehaviour {
 				}
 				break;
 			case ObjectType.ExplosiveCrate:
-				grid.Add(ExplosiveCrate.MakeExplosiveCrate(grid, x, y), x, y);
+				//grid.Add(ExplosiveCrate.MakeExplosiveCrate(grid, x, y), x, y);
 				break;
 		}
 	}

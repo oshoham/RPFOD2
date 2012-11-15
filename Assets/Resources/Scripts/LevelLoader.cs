@@ -203,7 +203,7 @@ public static class LevelLoader {
 	}
 	
 	public static GameObject ParseExplosiveCrate(int x, int y, string[] info) {
-		return ExplosiveCrate.MakeExplosiveCrate(grid, x, y);
+		return null; //ExplosiveCrate.MakeExplosiveCrate(grid, x, y);
 	}
 	
 	/*
