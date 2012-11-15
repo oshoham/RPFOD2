@@ -41,10 +41,11 @@ public class ObjectPlacer : MonoBehaviour {
 				break;
 			case ObjectType.Conveyor:
 				try {
-					Conveyor.MakeConveyor(grid, new Vector2(x, y), LevelEditor.conveyorDirection,
-							      Single.Parse(LevelEditor.conveyorLength),
-							      Single.Parse(LevelEditor.conveyorSpeed), LevelEditor.conveyorSwitchable,
-							      Single.Parse(LevelEditor.conveyorSwitchRate));
+					grid.Add(Conveyor.MakeConveyor(grid, new Vector2(x, y), LevelEditor.conveyorDirection,
+								       Single.Parse(LevelEditor.conveyorLength),
+								       Single.Parse(LevelEditor.conveyorSpeed), LevelEditor.conveyorSwitchable,
+								       Single.Parse(LevelEditor.conveyorSwitchRate)),
+						 x, y);
 				}
 				catch(FormatException) {
 					print("Number format exception for Conveyor... somewhere!");

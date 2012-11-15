@@ -27,9 +27,11 @@ public class Grid {
 		if(!CheckCoords(loc)) {
 			return true;
 		}
-		// Checks if there are any non-paint objects in the square.
+		// Checks if there are any objects in the square that should be avoided.
 		if(grid[(int)loc.x, (int)loc.y].objects.Find((GameObject obj) => {
-					return obj.GetComponent<Paint>() == null && obj.GetComponent<SpikeFloor>() == null;
+					return obj.GetComponent<Paint>() == null &&
+					obj.GetComponent<SpikeFloor>() == null &&
+					obj.GetComponent<Conveyor>() == null;
 				})
 			!= null)
 			return true;

@@ -42,6 +42,11 @@ public class Player : MonoBehaviour, IColor {
 			  }		    
 		}
 		GetKeypresses();
+		// Make sure the camera follows the Player if we're not in the editor
+		if(Time.timeScale > 0) {
+			Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y,
+								     Camera.main.transform.position.z);
+		}
 //		if(GameManager.plane != null) {
 //			GameManager.plane.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(50, Camera.main.pixelHeight - 40, Camera.main.nearClipPlane+6));
 //		}
@@ -147,8 +152,6 @@ public class Player : MonoBehaviour, IColor {
 		}
 		float time = (Time.time - startedMoving)/moveSpeed + .1f;
 		transform.position = Vector3.Lerp(oldPosition, newPosition, time);
-		Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y,
-							     Camera.main.transform.position.z);
 	}
 
 	/*
