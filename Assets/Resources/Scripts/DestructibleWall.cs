@@ -13,10 +13,20 @@ public class DestructibleWall : MonoBehaviour, IColor {
 	}
 	public Vector2 gridCoords;
 	public int health;
+	
+	void Update() {
+		if(health <= 0) {
+			Destroy(gameObject);
+		}
+	}
+	
+	void OnDisable() {
+		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+	}
 
 	public static GameObject MakeDestructibleWall(Grid grid, int x, int y, int health, Color color) {
 		GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		wall.transform.position = new Vector3(x, y, 0.0f);
+		wall.transform.position = new Vector3(x, y, -0.5f);
 		wall.renderer.material.mainTexture = Resources.Load("Textures/DWall") as Texture;
 		DestructibleWall script = wall.AddComponent<DestructibleWall>();
 		script.colorPainted = Color.white;
