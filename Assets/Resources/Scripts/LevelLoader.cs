@@ -31,6 +31,8 @@ public static class LevelLoader {
 			int type = Int32.Parse(conditions[i++]);
 			switch(type) {
 				case 0: // Robot
+					LevelEditor.robotLimit = conditions[i];
+					LevelEditor.robotsWin = true;
 					WinChecker.robotsWin = true;
 					WinChecker.robotLimit = Int32.Parse(conditions[i++]);
 					break;
@@ -40,6 +42,8 @@ public static class LevelLoader {
 					winCoords.x = Int32.Parse(conditions[i++]);
 					winCoords.y = Int32.Parse(conditions[i++]);
 					WinChecker.winCoords = winCoords;
+					LevelEditor.squareWins = true;
+					LevelEditor.winCoords = winCoords.x + ", " + winCoords.y;
 					break;
 			}
 		}

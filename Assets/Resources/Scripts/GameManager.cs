@@ -51,7 +51,8 @@ public class GameManager : MonoBehaviour {
 	 * Should be called when win conditions are met.
 	 */
 	public static void Win() {
-		// TODO: What do we do here?
+		print("A winner is you!");
+		Application.LoadLevel("WinScreen");
 	}
 	
 	void OnGUI() {
