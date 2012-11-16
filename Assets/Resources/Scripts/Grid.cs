@@ -98,6 +98,86 @@ public class Grid {
 	}
 
 	/*
+	 * Checks radius for squares that aren't walls
+	 */
+	public Square[,] SCheckRad(int rad, Vector2 origin) {
+		Vector2 scoord = new Vector2(origin.x-rad, origin.y-rad);
+		Vector2 ecoord = new Vector2(origin.x+rad, origin.y+rad);
+		FixVector(ref scoord);
+		FixVector(ref ecoord);
+		Square[,] see = new Square[rad*2+1, rad*2+1];
+
+		for(int i = 0; i < see.GetLength(0); i++) {
+			for(int j = 0; j < see.GetLength(1); j++) {
+				see[i,j] = grid[(int)scoord.x + i,(int)scoord.y + j];
+			}
+		}
+
+		for(int i = 0; i < see.GetLength(0); i++) {
+			for(int j = 0; j < see.GetLength(1); j++) {
+				List<GameObject> obj = see[i,j].objects;
+				foreach( GameObject o in obj)
+				{
+					if(o.GetComponent("Wall") != null) {
+						if(i/2 > rad && j/2 == rad)
+							see = ZOut(see, i, see.GetLength(0)-1, j, true, rad, false, origin);
+						else if(i/2 < rad && j/2 == rad)
+							see = ZOut(see, i, 0, j, true, rad, false, origin);
+						else if(j/2 > rad && i/2 == rad)
+							see = ZOut(see, j, see.GetLength(1)-1, i, false, rad, false, origin);
+						else if(j/2 < rad && i/2 == rad)
+							see = ZOut(see, j, 0, i, false, rad, false, origin);
+						else if(i/2 > rad && j/2 > rad)
+							see = ZOut(see, i, 0, j, false, 0, true, new Vector2(see.GetLength(0)-1, see.GetLength(1)-1));  
+						else if(i/2 > rad && j/2 < rad)
+							see = ZOut(see, i, 0, 0, false, 0, true, new Vector2(see.GetLength(0)-1, j));
+						else if(i/2 < rad && j/2 < rad)  
+							see = ZOut(see, 0, 0, 0, false, 0, true, new Vector2(i, j));
+						else if(i/2 < rad && j/2 > rad)  
+							see = ZOut(see, 0, 0, j, false, 0, true, new Vector2(i, see.GetLength(1)-1));  
+					}
+				}
+			}
+		}
+		return see;
+	}
+
+	/*
+	 * Helper for SCheckRad
+	 */
+	public Square[,] ZOut(Square[,] see, int start, int end, int other, bool xy, int rad, bool diag, Vector2 dend) {
+		if(diag) {
+			for(;start <= (int)dend.x; start++)
+				for(;other <= (int)dend.y; other++)
+					see[start,other] = null;
+			return see;
+		}		
+
+		if(xy) {
+			if(start/2 < rad) {
+				for(;start <= end; start++)
+					 see[start,other] = null;
+			} 
+			else
+				for(;start >= end; start--)
+					see[start, other] = null;
+			return see;
+		}
+		else {
+			if(start/2 < rad) {
+				for(;start <= end; start++)
+					 see[other,start] = null;
+			} 
+			else
+				for(;start >= end; start--)
+					see[other, start] = null;
+			return see;
+		}
+			
+	}
+	
+
+	/*
 	 * Makes sure a Vector2's coordinates are in the right range and
 	 * puts them in the right range if they aren't.
 	 */

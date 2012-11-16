@@ -15,6 +15,10 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 	public Vector2 gridCoords;
 	public int health;
 	public int range;
+	
+	void Update() {
+		Square[,] see = grid.SCheckRad(1, gridCoords);
+	}
 
 	public static GameObject MakeExplosiveCrate(Grid grid, int x, int y, int health, int range) {
 		GameObject crate = GameObject.CreatePrimitive(PrimitiveType.Cube);
