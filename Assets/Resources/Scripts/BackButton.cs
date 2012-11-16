@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BackButton : MonoBehaviour {
        public static int defaultFontSize;
-       public static int resizeTo = 30;
+       public int resizeTo = 30;
        
        void Start() {
        	    defaultFontSize = this.gameObject.guiText.fontSize;
