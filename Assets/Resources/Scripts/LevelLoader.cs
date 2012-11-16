@@ -144,10 +144,8 @@ public static class LevelLoader {
 				return new RotationMatrix(RotationMatrix.Rotation.Left);
 			case 2:
 				return new RotationMatrix(RotationMatrix.Rotation.Right);
-			case 3:
-				return new RotationMatrix(RotationMatrix.Rotation.Halfway);
 			default:
-				return default(RotationMatrix);
+				return new RotationMatrix(RotationMatrix.Rotation.Halfway);
 		}
 	}
 	

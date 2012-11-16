@@ -39,8 +39,8 @@ public struct RotationMatrix {
 	 * Rotate vec by this matrix.
 	 */
 	public Vector2 Rotate(Vector2 vec) {
-		return new Vector2(vec.x * matrix[0] - vec.y * matrix[1],
-				   vec.x * matrix[2] - vec.y * matrix[3]);
+		return new Vector2(vec.x * matrix[0] + vec.y * matrix[1],
+				   vec.x * matrix[2] + vec.y * matrix[3]);
 	}
 	
 	/*
@@ -62,7 +62,7 @@ public struct RotationMatrix {
 	public static bool operator !=(RotationMatrix r1, RotationMatrix r2) {
 		return !(r1 == r2);
 	}
-	
+		
 	public static bool operator ==(RotationMatrix r1, RotationMatrix r2) {
 		for(int i = 0; i < 4; i++) {
 			if(r1.matrix[i] != r2.matrix[i])
