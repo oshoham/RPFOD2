@@ -23,7 +23,6 @@ public class Paintball : Projectile, IColor {
 			Destroy(gameObject);
 		}
 		else if(obj.GetComponent<Wall>() != null) {
-			obj.GetComponent<Wall>().colorPainted = colorPainted;
 			Destroy(gameObject);
 		}
 		else if(obj.GetComponent<DestructibleWall>() != null) {

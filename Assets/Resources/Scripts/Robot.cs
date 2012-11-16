@@ -56,12 +56,10 @@ public class Robot : MonoBehaviour, IColor {
 		}
 		foreach(Square sq in oVision)
 		{
-			sq.colors[colorVisible]--;
-			sq.SetColor();
+			incColor(sq, false);	
 		}
 		foreach(Square sq in nVision) {
-			sq.colors[colorVisible]++;
-			sq.SetColor();
+			incColor(sq, true);	
 		}
 		oVision = new List<Square>();
 		oVision.AddRange(nVision);
@@ -77,6 +75,17 @@ public class Robot : MonoBehaviour, IColor {
 			Move(movementDirection);
 		}
 		AnimateMotion();
+	}
+	
+	/*
+	 * Increment or decrement color
+	 */
+	void incColor(Square sq, bool inc) {
+		if(inc)
+			sq.colors[colorVisible]++;
+		else
+			sq.colors[colorVisible]--;
+		sq.SetColor();
 	}
 
 	void Move(Vector2 coords) {
@@ -184,8 +193,7 @@ public class Robot : MonoBehaviour, IColor {
 
 	void OnDisable() {
 		foreach(Square sq in oVision) {
-			sq.colors[colorVisible]--;
-			sq.SetColor();
+			incColor(sq, false);	
 		}
 		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 		WinChecker.numRobots--;

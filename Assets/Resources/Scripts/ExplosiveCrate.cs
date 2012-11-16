@@ -17,7 +17,13 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 	public int range;
 	
 	void Update() {
-		Square[,] see = grid.SCheckRad(1, gridCoords);
+		Square[,] see = grid.SCheckRad(3, gridCoords);
+		for(int i = 0; i < see.GetLength(0); i++)
+			for(int j = 0; j < see.GetLength(1); j++)
+				if(see[i, j] != null) {
+					see[i,j].colors[Color.green]++;
+					see[i,j].SetColor();
+				}
 	}
 
 	public static GameObject MakeExplosiveCrate(Grid grid, int x, int y, int health, int range) {
