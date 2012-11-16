@@ -74,7 +74,8 @@ public class GameManager : MonoBehaviour {
 		if(player == null)
 			return;
 		GUIStyle guiStyle = new GUIStyle();
-		guiStyle.font = Resources.Load("Fonts/Chalkduster") as Font;
+		guiStyle.font = Resources.Load("Fonts/ALIEN5") as Font;
+		guiStyle.fontSize = 23;
 /* 
    GUI Box that doesn't work the way I want it to
 		GUIStyle boxStyle = new GUIStyle();
