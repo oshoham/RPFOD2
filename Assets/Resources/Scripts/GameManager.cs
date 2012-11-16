@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour {
 //	     	plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
 		Time.timeScale = 1;
 		Camera.main.orthographic = true;
-		Camera.main.orthographicSize = 8;
+		Camera.main.orthographicSize = 5;
 		Camera.main.backgroundColor = Color.white;
 		filename = GlobalSettings.currentFile; // this is so janky I feel embarassed writing this
 		if(filename != "")
@@ -73,34 +73,17 @@ public class GameManager : MonoBehaviour {
 		}
 		if(player == null)
 			return;
+		//Gui style for ALIEN5 font 
 		GUIStyle guiStyle = new GUIStyle();
 		guiStyle.font = Resources.Load("Fonts/ALIEN5") as Font;
 		guiStyle.fontSize = 23;
-/* 
-   GUI Box that doesn't work the way I want it to
-		GUIStyle boxStyle = new GUIStyle();
-		Texture2D texture = new Texture2D(256, 256);
-	        for (int y = 0; y < texture.height; ++y) {
-	            for (int x = 0; x < texture.width; ++x) {
-        	        Color color = new Color(1f, 1f, 1f);
-                	texture.SetPixel(x, y, color);
-            	    }
-               }
-	       for (int y = 0; y< texture.height; ++y) {
-	       	   Color color = new Color(0f, 0f, 0f);
-		   texture.SetPixel(0, y, color);
-		   texture.SetPixel(texture.width, y, color);
-	       }
-       	       texture.Apply();
-               boxStyle.normal.background = texture; 
-		GUI.Box(new Rect(1, 1, 320, 140), new GUIContent(""), boxStyle);
-*/		
+
 		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health, guiStyle);
 		GUI.Label(new Rect(10, 40, 100, 50), "Shooting:", guiStyle);
 		GUI.Label(new Rect(10, 100, 100, 50), "Painted:", guiStyle);
-		GUI.Label(new Rect(135, 70, 20, 20), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0), guiStyle);
-		GUI.Label(new Rect(185, 70, 20, 20), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0), guiStyle);
-		GUI.Label(new Rect(235, 70, 20, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0), guiStyle);
+		GUI.Label(new Rect(50, 40, 20, 20), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0), guiStyle);
+		GUI.Label(new Rect(100, 40, 20, 20), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0), guiStyle);
+		GUI.Label(new Rect(150, 40, 20, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0), guiStyle);
 //		GUI.Box(new Rect(1, 1, 320, 140), "");
 	}
 	
