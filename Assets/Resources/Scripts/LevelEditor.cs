@@ -135,8 +135,14 @@ public class LevelEditor : MonoBehaviour {
 						  Resources.Load("Textures/explosive") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.ExplosiveCrate, name: "ExplosiveCrate Selector");
 
-		if(GlobalSettings.lastScene == "Game")
-			LevelLoader.LoadLevel(GlobalSettings.currentFile);
+		if(GlobalSettings.lastScene == "Game") {
+			floor = LevelLoader.LoadLevel(GlobalSettings.currentFile);
+			if(floor != null) {
+				SetupObjectPlacers();
+				newWidth = floor.grid.GetLength(0);
+				newHeight = floor.grid.GetLength(1);
+			}
+		}
 	}
 
 	void Update() {
@@ -207,6 +213,8 @@ public class LevelEditor : MonoBehaviour {
 		}
 		if(GUI.Button(new Rect(120, 120, 100, 20), "Play")) {
 			if(GlobalSettings.currentFile != "") {
+				floor.Clear();
+				//GlobalSettings.currentFile = "";
 				Application.LoadLevel("Game");
 				GlobalSettings.lastScene = "Game";
 			}
@@ -214,6 +222,9 @@ public class LevelEditor : MonoBehaviour {
 				Debug.Log("You should probably load a level first or something.");
 		}
 		if(GUI.Button(new Rect(10, 860, 150, 40), "Main Menu")) {
+			if(floor != null) {
+				floor.Clear();
+			}
 			Application.LoadLevel("StartScreen");	  
 		}
 		// Win conditions
@@ -529,5 +540,11 @@ public class LevelEditor : MonoBehaviour {
 				Camera.main.pixelHeight - r.y,
 				r.width,
 				r.height);
+	}
+	
+	void OnDisable() {
+		if(floor != null) {
+			floor.Clear();
+		}
 	}
 }
