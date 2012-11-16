@@ -71,7 +71,7 @@ public class Robot : MonoBehaviour, IColor {
 			Destroy(gameObject);
 		}
 		Fire();
-		if(Time.time > endMoving) {
+		if(Time.time > endMoving && moveSpeed > 0) {
 			Move(movementDirection);
 		}
 		AnimateMotion();
@@ -103,16 +103,6 @@ public class Robot : MonoBehaviour, IColor {
 			if(fireDirection == movementDirection)
 				fireDirection = rotation.Rotate(fireDirection);
 			movementDirection = rotation.Rotate(movementDirection);
-			// if(turnsLeft) {
-			// 	movementDirection = new Vector2(-movementDirection.y, movementDirection.x);
-			// 	fireDirection = new Vector2(-fireDirection.y, fireDirection.x);
-			// }
-			// else {
-			// 	if(movementDirection == fireDirection) {
-			// 		fireDirection *= -1.0f;
-			// 	}
-			// 	movementDirection *= -1.0f;
-			// }
 		}
 
 		if(movementDirection == new Vector2(1, 0))
@@ -129,7 +119,7 @@ public class Robot : MonoBehaviour, IColor {
 	 * For smooth motion animation.
 	 */
 	public void AnimateMotion() {
-		if(Time.time > endMoving) {
+		if(Time.time > endMoving || moveSpeed == 0) {
 			return;
 		}
 		float time = (Time.time - startedMoving)/moveSpeed + .1f;
@@ -182,7 +172,7 @@ public class Robot : MonoBehaviour, IColor {
 			else if(lookdir == new Vector2(0, -1))
 				transform.localEulerAngles = new Vector3(0, 0, 360f);
 			if(Time.time > lastFired + fireRate) {
-				Bullet.MakeBullet(damageDealt, new Vector3(transform.position.x, transform.position.y, .1f), (visibles[0].transform.position - transform.position).normalized, gameObject);
+				Bullet.MakeBullet(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, gameObject);
 				lastFired = Time.time;
 			}
 		}
