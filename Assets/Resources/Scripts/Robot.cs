@@ -150,6 +150,10 @@ public class Robot : MonoBehaviour, IColor {
 				if(r != null && (r.colorPainted == colorVisible)) {
 					return true;
 				}
+				DestructibleWall d = obj.GetComponent<DestructibleWall>();
+				if(d != null && (d.colorPainted == colorVisible)) {
+					return true;
+				}
 				return false;
 			});
 		if(visibles.Count > 0) {

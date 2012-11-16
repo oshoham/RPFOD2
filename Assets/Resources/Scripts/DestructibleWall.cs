@@ -13,6 +13,16 @@ public class DestructibleWall : MonoBehaviour, IColor {
 	}
 	public Vector2 gridCoords;
 	public int health;
+	
+	void Update() {
+		if(health <= 0) {
+			Destroy(gameObject);
+		}
+	}
+	
+	void OnDisable() {
+		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+	}
 
 	public static GameObject MakeDestructibleWall(Grid grid, int x, int y, int health, Color color) {
 		GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
