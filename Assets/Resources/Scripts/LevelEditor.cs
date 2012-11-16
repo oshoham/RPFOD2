@@ -44,9 +44,6 @@ public class LevelEditor : MonoBehaviour {
 	 * Global variables: AWESOME programming style!
 	 */
 	
-	// Wall
-	public static Color wallColor = Color.white;
-
 	// SpikeWall
 	public static string spikeWallHealth = "10";
 	public static bool spikeWallDestructible;
@@ -87,6 +84,7 @@ public class LevelEditor : MonoBehaviour {
 	// ExplosiveCrate
 	public static string explosiveCrateHealth = "10";
 	public static string explosiveCrateRange = "1";
+	public static string explosiveCrateDamage = "1";
 	
 	// Win conditions
 	public static bool robotsWin = false;
@@ -236,39 +234,6 @@ public class LevelEditor : MonoBehaviour {
 		winCoords = GUI.TextField(new Rect(350, 150, 100, 20), winCoords);
 		// Object-specific stuffs
 		switch(objectToBeCreated) {
-			case ObjectType.Wall:
-				// color
-				int colorInt;
-				if(wallColor == Color.red) {
-					colorInt = 0;
-				}
-				else if(wallColor == Color.green) {
-					colorInt = 1;
-				}
-				else if(wallColor == Color.blue) {
-					colorInt = 2;
-				}
-				else {
-					colorInt = 3;
-				}
-				colorInt = GUI.Toolbar(FromBottomRight(new Rect(300, 120, 250, 30)),
-						       colorInt,
-						       new string[] {"Red", "Green", "Blue", "None"});
-				switch(colorInt) {
-					case 0:
-						wallColor = Color.red;
-						break;
-					case 1:
-						wallColor = Color.green;
-						break;
-					case 2:
-						wallColor = Color.blue;
-						break;
-					case 3:
-						wallColor = Color.white;
-						break;
-				}
-				break;
 			case ObjectType.SpikeWall:
 				// health 
 				GUI.Label(FromBottomRight(new Rect(300, 50, 50, 10)), "Health");
@@ -277,6 +242,7 @@ public class LevelEditor : MonoBehaviour {
 				spikeWallDestructible = GUI.Toggle(FromBottomRight(new Rect(300, 70, 50, 10)),
 								spikeWallDestructible, "Destructible?");	
 				// color
+				int colorInt;
 				if(spikeWallColor == Color.red) {
 					colorInt = 0;
 				}
@@ -542,6 +508,7 @@ public class LevelEditor : MonoBehaviour {
 			case ObjectType.ExplosiveCrate:
 				explosiveCrateHealth = GUI.TextField(FromBottomRight(new Rect(375, 50, 50, 25)), explosiveCrateHealth);
 				explosiveCrateRange = GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 25)), explosiveCrateRange);
+				explosiveCrateDamage = GUI.TextField(FromBottomRight(new Rect(225, 50, 50, 25)), explosiveCrateDamage);
 				break;
 		}
 	}

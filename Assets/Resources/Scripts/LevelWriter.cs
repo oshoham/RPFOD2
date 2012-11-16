@@ -35,47 +35,38 @@ public static class LevelWriter {
 					GameObject obj = sq.objects.Find((GameObject g) => g.GetComponent<Wall>() != null);
 					if(obj != null) {
 						Wall wall = obj.GetComponent<Wall>();
-						if(wall != null) {
+						if(wall != null)
 							sb.Append(0 + " ");
-							if(wall.colorPainted == Color.red)
-								sb.Append(0 + " ");
-							else if(wall.colorPainted == Color.green)
-								sb.Append(1 + " ");
-							else if(wall.colorPainted == Color.blue)
-								sb.Append(2 + " ");
-							else
-								sb.Append(3 + " ");
-						}
 					}
 					// if the Square contains a SpikeWall, encode the relevant information
-					obj = sq.objects.Find((GameObject g) => g.GetComponent<SpikeWall>() != null);
-					if(obj != null) {
-						SpikeWall spike = obj.GetComponent<SpikeWall>();
-						if(spike != null) {
-							sb.Append(1 + " ");
-							sb.Append("[ ");
-							foreach(Vector2 dir in spike.directions) {
-								if(dir == new Vector2(0, 1))
-									sb.Append(0 + " ");
-								else if(dir == new Vector2(1, 0))
-									sb.Append(1 + " ");
-								else if(dir == new Vector2(0, -1))
-									sb.Append(2 + " ");
-								else if(dir == new Vector2(-1, 0))
-									sb.Append(3 + " ");
-							}
-							sb.Append("] ");
+					// obj = sq.objects.Find((GameObject g) => g.GetComponent<SpikeWall>() != null);
+					// if(obj != null) {
+					// 	SpikeWall spike = obj.GetComponent<SpikeWall>();
+					// 	if(spike != null) {
+					// 		sb.Append(1 + " ");
+					// 		sb.Append("[ ");
+					// 		foreach(Vector2 dir in spike.directions) {
+					// 			if(dir == new Vector2(0, 1))
+					// 				sb.Append(0 + " ");
+					// 			else if(dir == new Vector2(1, 0))
+					// 				sb.Append(1 + " ");
+					// 			else if(dir == new Vector2(0, -1))
+					// 				sb.Append(2 + " ");
+					// 			else if(dir == new Vector2(-1, 0))
+					// 				sb.Append(3 + " ");
+					// 		}
+					// 		sb.Append("] ");
 							
-							if(spike.colorPainted == Color.red)
-								sb.Append(0 + " ");
-							else if(spike.colorPainted == Color.green)
-								sb.Append(1 + " ");
-							else if(spike.colorPainted == Color.blue)
-								sb.Append(2 + " ");
-							else
-								sb.Append(3 + " ");
-						}
-					}
+					// 		if(spike.colorPainted == Color.red)
+					// 			sb.Append(0 + " ");
+					// 		else if(spike.colorPainted == Color.green)
+					// 			sb.Append(1 + " ");
+					// 		else if(spike.colorPainted == Color.blue)
+					// 			sb.Append(2 + " ");
+					// 		else
+					// 			sb.Append(3 + " ");
+					// 	}
+					// }
 					// if the Square contains a SpikeFloor, encode the relevant information
 					obj = sq.objects.Find((GameObject g) => g.GetComponent<SpikeFloor>() != null);
 					if(obj != null) {
@@ -211,7 +202,7 @@ public static class LevelWriter {
 					if(obj != null) {
 						ExplosiveCrate exp = obj.GetComponent<ExplosiveCrate>();
 						if(exp != null) {
-							sb.Append(8 + " " + exp.health + " " + exp.range);
+							sb.Append(8 + " " + exp.health + " " + exp.range + " " + exp.damageDealt);
 						}
 					}
 					string line = sb.ToString().Trim();

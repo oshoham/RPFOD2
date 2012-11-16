@@ -58,8 +58,7 @@ public static class LevelLoader {
 				int type = Int32.Parse(parts[i++]);
 				switch(type) {
 					case 0: // Wall
-						grid.Add(ParseWall(x, y, CopyRange(parts, i, 1)), x, y);
-						i += 1;
+						grid.Add(Wall.MakeWall(grid, x, y), x, y);
 						break;
 					case 1: // SpikeWall
 						grid.Add(ParseSpikeWall(x, y, CopyRange(parts, i, 5)), x, y);
@@ -92,8 +91,8 @@ public static class LevelLoader {
 						i += 2;
 						break;
 					case 8: // ExplosiveCrate
-						grid.Add(ParseExplosiveCrate(x, y, CopyRange(parts, i, 2)), x, y);
-						i += 2;
+						grid.Add(ParseExplosiveCrate(x, y, CopyRange(parts, i, 3)), x, y);
+						i += 3;
 						break;
 				}
 			}
@@ -148,11 +147,6 @@ public static class LevelLoader {
 			default:
 				return new RotationMatrix(RotationMatrix.Rotation.Halfway);
 		}
-	}
-	
-	public static GameObject ParseWall(int x, int y, string[] info) {
-		Color color = ParseColor(info[0]);
-		return Wall.MakeWall(grid, x, y, color);
 	}
 
 	public static GameObject ParseSpikeWall(int x, int y, string[] info) {
@@ -210,7 +204,8 @@ public static class LevelLoader {
 	public static GameObject ParseExplosiveCrate(int x, int y, string[] info) {
 		int health = Int32.Parse(info[0]);
 		int range = Int32.Parse(info[1]);
-		return ExplosiveCrate.MakeExplosiveCrate(grid, x, y, health, range);
+		int damageDealt = Int32.Parse(info[2]);
+		return ExplosiveCrate.MakeExplosiveCrate(grid, x, y, health, range, damageDealt);
 	}
 	
 	/*

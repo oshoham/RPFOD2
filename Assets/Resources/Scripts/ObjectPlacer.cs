@@ -20,7 +20,7 @@ public class ObjectPlacer : MonoBehaviour {
 	void OnMouseDown() {
 		switch(LevelEditor.objectToBeCreated) {
 			case ObjectType.Wall:
-				grid.Add(Wall.MakeWall(grid, x, y, LevelEditor.wallColor), x, y);
+				grid.Add(Wall.MakeWall(grid, x, y), x, y);
 				break;
 			case ObjectType.SpikeWall:
 				grid.Add(SpikeWall.MakeSpikeWall(grid, x, y,
@@ -97,7 +97,8 @@ public class ObjectPlacer : MonoBehaviour {
 			case ObjectType.ExplosiveCrate:
 				grid.Add(ExplosiveCrate.MakeExplosiveCrate(grid, x, y,
 									   Int32.Parse(LevelEditor.explosiveCrateHealth),
-									   Int32.Parse(LevelEditor.explosiveCrateRange)),
+									   Int32.Parse(LevelEditor.explosiveCrateRange),
+									   Int32.Parse(LevelEditor.explosiveCrateDamage)),
 					 x, y);
 				break;
 		}

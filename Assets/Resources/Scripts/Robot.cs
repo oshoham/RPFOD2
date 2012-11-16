@@ -142,10 +142,6 @@ public class Robot : MonoBehaviour, IColor {
 						 p.colorPainted == p.defaultColor)) {
 					return true;
 				}
-				Wall w = obj.GetComponent<Wall>();
-				if(w != null && w.colorPainted == colorVisible) {
-					return true;
-				}
 				Robot r = obj.GetComponent<Robot>();
 				if(r != null && (r.colorPainted == colorVisible)) {
 					return true;

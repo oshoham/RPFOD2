@@ -15,8 +15,12 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 	public Vector2 gridCoords;
 	public int health;
 	public int range;
+	public int damageDealt;
 	
 	void Update() {
+		if(health <= 0) {
+			Destroy(gameObject);
+		}
 		Square[,] see = grid.SCheckRad(3, gridCoords);
 		for(int i = 0; i < see.GetLength(0); i++)
 			for(int j = 0; j < see.GetLength(1); j++)
@@ -25,8 +29,12 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 					see[i,j].SetColor();
 				}
 	}
+	
+	void OnDisable() {
+		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+	}
 
-	public static GameObject MakeExplosiveCrate(Grid grid, int x, int y, int health, int range) {
+	public static GameObject MakeExplosiveCrate(Grid grid, int x, int y, int health, int range, int damageDealt) {
 		GameObject crate = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		crate.transform.position = new Vector3(x, y, 0.0f);
 		ExplosiveCrate script = crate.AddComponent<ExplosiveCrate>();
@@ -37,6 +45,7 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 		script.grid = grid;
 		script.health = health;
 		script.range = range;
+		script.damageDealt = damageDealt;
 		return crate;
 	}
 }
