@@ -20,6 +20,6 @@ public class Cavalcade : MonoBehaviour {
        }
 
        void OnMouseDown() {
-       	    Application.LoadLevel("Game");
+       	    Application.LoadLevel("CavalcadeMap");
        }
 }      
