@@ -14,4 +14,8 @@ public class WinScreen : MonoBehaviour {
 		winButton.transform.position = new Vector3(0.2F, 0.75F, 0.0F);
 		winButton.AddComponent<BackButton>().resizeTo = 50;
 	}
+
+	void Update() {
+
+	}
 }

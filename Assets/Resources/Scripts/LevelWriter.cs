@@ -18,11 +18,11 @@ public static class LevelWriter {
 			writer.WriteLine(grid.height);
 			StringBuilder conditions = new StringBuilder("");
 			if(LevelEditor.robotsWin) {
-				conditions.Append("0 " + LevelEditor.robotLimit);
+				conditions.Append("0 " + LevelEditor.robotLimit + " ");
 			}
 			if(LevelEditor.squareWins) {
 				string[] coords = LevelEditor.winCoords.Split(new char[] {','});
-				conditions.Append("1 " + Int32.Parse(coords[0]) + " " + Int32.Parse(coords[1]));
+				conditions.Append("1 " + Int32.Parse(coords[0]) + " " + Int32.Parse(coords[1]) + " ");
 			}
 			writer.WriteLine(conditions.ToString());
 			for(int i = 0; i < grid.width; i++) {

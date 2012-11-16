@@ -15,6 +15,11 @@ public class WinChecker : MonoBehaviour {
 	public static Vector2 winCoords;
 
 	void Update() {
+		if(robotsWin && squareWins &&
+		   numRobots <= robotLimit &&
+		   GameManager.player.gridCoords == winCoords) {
+			GameManager.Win();
+		}
 		if(robotsWin && numRobots <= robotLimit) {
 			GameManager.Win();
 		}
