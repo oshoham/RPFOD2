@@ -77,13 +77,14 @@ public class GameManager : MonoBehaviour {
 		GUIStyle guiStyle = new GUIStyle();
 		guiStyle.font = Resources.Load("Fonts/ALIEN5") as Font;
 		guiStyle.fontSize = 23;
+		guiStyle.fontStyle = FontStyle.Bold;
 
 		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health, guiStyle);
 		GUI.Label(new Rect(10, 40, 100, 50), "Shooting:", guiStyle);
 		GUI.Label(new Rect(10, 100, 100, 50), "Painted:", guiStyle);
-		GUI.Label(new Rect(50, 40, 20, 20), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0), guiStyle);
-		GUI.Label(new Rect(100, 40, 20, 20), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0), guiStyle);
-		GUI.Label(new Rect(150, 40, 20, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0), guiStyle);
+		GUI.Label(new Rect(135, 40, 100, 20), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0), guiStyle);
+		GUI.Label(new Rect(185, 40, 100, 20), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0), guiStyle);
+		GUI.Label(new Rect(235, 40, 100, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0), guiStyle);
 //		GUI.Box(new Rect(1, 1, 320, 140), "");
 	}
 	
