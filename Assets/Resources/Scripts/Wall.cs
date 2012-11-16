@@ -24,7 +24,7 @@ public class Wall : MonoBehaviour, IColor {
 			color = Color.white;
 		}
 		GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		wall.transform.position = new Vector3(x, y, 0.0f);
+		wall.transform.position = new Vector3(x, y, -0.5f);
 		wall.renderer.material.mainTexture = Resources.Load("Textures/Wall") as Texture;
 		Wall script = wall.AddComponent<Wall>();
 		script.colorPainted = Color.white;
