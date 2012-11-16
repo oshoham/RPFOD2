@@ -71,6 +71,9 @@ public class GameManager : MonoBehaviour {
 				Application.LoadLevel("FreePlaySelector");
 			}
 		}
+		if(GUI.Button(new Rect(10, 440, 150, 40), "Restart")) {
+				Application.LoadLevel("Game");
+		}
 		if(player == null)
 			return;
 		//Gui style for ALIEN5 font 
