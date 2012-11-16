@@ -67,12 +67,15 @@ public class ObjectPlacer : MonoBehaviour {
 			case ObjectType.Robot:
 				try {
 					grid.Add(Robot.MakeRobot(grid, x, y, Single.Parse(LevelEditor.robotSpeed),
+								 Single.Parse(LevelEditor.robotFireRate),
 								 Int32.Parse(LevelEditor.robotDamageDealt),
 								 Int32.Parse(LevelEditor.robotHealth),
 								 Int32.Parse(LevelEditor.robotForwardRange),
 								 Int32.Parse(LevelEditor.robotSideRange),
 								 LevelEditor.robotMovementDirection,
-								 LevelEditor.robotColorVisible, LevelEditor.robotFireDirection,
+								 LevelEditor.robotColorVisible,
+								 LevelEditor.robotColorPainted,
+								 LevelEditor.robotFireDirection,
 								 LevelEditor.robotRotation),
 						 x, y);
 				}

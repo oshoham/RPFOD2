@@ -142,7 +142,9 @@ public static class LevelWriter {
 					if(obj != null) {
 						Robot robot = obj.GetComponent<Robot>();
 						if(robot != null) {
-							sb.Append(6 + " " + robot.moveSpeed + " " + robot.damageDealt + " " + robot.health + " " + robot.forwardRange + " " + robot.sideRange + " ");
+							sb.Append(6 + " " + robot.moveSpeed + " " + robot.fireRate +
+								  " " + robot.damageDealt + " " + robot.health +
+								  " " + robot.forwardRange + " " + robot.sideRange + " ");
 							
 							if(robot.movementDirection == new Vector2(0, 1))
 								sb.Append(0 + " ");
@@ -158,6 +160,15 @@ public static class LevelWriter {
 							else if(robot.colorVisible == Color.green)
 								sb.Append(1 + " ");
 							else if(robot.colorVisible == Color.blue)
+								sb.Append(2 + " ");
+							else
+								sb.Append(3 + " ");
+							
+							if(robot.colorPainted == Color.red)
+								sb.Append(0 + " ");
+							else if(robot.colorPainted == Color.green)
+								sb.Append(1 + " ");
+							else if(robot.colorPainted == Color.blue)
 								sb.Append(2 + " ");
 							else
 								sb.Append(3 + " ");

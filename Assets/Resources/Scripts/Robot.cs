@@ -193,10 +193,11 @@ public class Robot : MonoBehaviour, IColor {
 		WinChecker.numRobots--;
 	}
 	
-	public static GameObject MakeRobot(Grid grid, int x, int y, float speed, int damage, int health,
-					   int forwardRange, int sideRange, Vector2 movementDirection,
-					   Color colorVisible, Vector2 fireDirection,
-					   RotationMatrix rotation) {
+	public static GameObject MakeRobot(Grid grid, int x, int y, float speed, float fireRate,
+					   int damage, int health, int forwardRange,
+					   int sideRange, Vector2 movementDirection,
+					   Color colorVisible, Color colorPainted,
+					   Vector2 fireDirection, RotationMatrix rotation) {
 		GameObject robot = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		robot.name = "Robot";
 		robot.renderer.material.mainTexture = Resources.Load("Textures/BlankBot") as Texture;
@@ -221,11 +222,12 @@ public class Robot : MonoBehaviour, IColor {
 		script.movementDirection = movementDirection;
 		script.fireDirection = fireDirection;
 		script.colorVisible = colorVisible;
+		script.colorPainted = colorPainted;
 		script.health = health;
 		script.rotation = rotation;
 		script.oVision = new List<Square>();
 		script.lastFired = Time.time;
-		script.fireRate = 2.0f;
+		script.fireRate = fireRate;
 		script.collider.enabled = true;
 		script.grid = grid;
 		if(script.movementDirection == new Vector2(1, 0))

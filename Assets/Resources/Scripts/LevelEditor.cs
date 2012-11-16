@@ -77,6 +77,8 @@ public class LevelEditor : MonoBehaviour {
 	public static Color robotColorVisible = Color.red;
 	public static Vector2 robotFireDirection = new Vector2(1, 0);
 	public static RotationMatrix robotRotation = new RotationMatrix(RotationMatrix.Rotation.Identity);
+	public static string robotFireRate = "2.0";
+	public static Color robotColorPainted = Color.white;
 
 	// DestructibleWall
 	public static string destructibleWallHealth = "10";
@@ -386,11 +388,13 @@ public class LevelEditor : MonoBehaviour {
 				GUI.Label(FromBottomRight(new Rect(300, 150, 75, 50)), "ForwardRange");
 				GUI.Label(FromBottomRight(new Rect(225, 150, 75, 50)), "SideRange");
 				GUI.Label(FromBottomRight(new Rect(150, 150, 75, 50)), "Speed");
+				GUI.Label(FromBottomRight(new Rect(75, 150, 75, 50)), "Fire Rate");
 				
 				robotHealth = GUI.TextField(FromBottomRight(new Rect(375, 50, 50, 25)), robotHealth);
 				robotForwardRange = GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 25)), robotForwardRange);
 				robotSideRange = GUI.TextField(FromBottomRight(new Rect(225, 50, 50, 25)), robotSideRange);
 				robotSpeed = GUI.TextField(FromBottomRight(new Rect(150, 50, 50, 25)), robotSpeed);
+				robotFireRate = GUI.TextField(FromBottomRight(new Rect(75, 50, 50, 25)), robotFireRate);
 				// color
 				if(robotColorVisible == Color.red) {
 					colorInt = 0;
@@ -413,6 +417,36 @@ public class LevelEditor : MonoBehaviour {
 						break;
 					case 2:
 						robotColorVisible = Color.blue;
+						break;
+				}
+				// color painted
+				if(robotColorPainted == Color.red) {
+					colorInt = 0;
+				}
+				else if(robotColorPainted == Color.green) {
+					colorInt = 1;
+				}
+				else if(robotColorPainted == Color.blue) {
+					colorInt = 2;
+				}
+				else {
+					colorInt = 3;
+				}
+				colorInt = GUI.Toolbar(FromBottomRight(new Rect(700, 50, 250, 30)),
+						       colorInt,
+						       new string[] {"Red", "Green", "Blue", "Default"});
+				switch(colorInt) {
+					case 0:
+						robotColorPainted = Color.red;
+						break;
+					case 1:
+						robotColorPainted = Color.green;
+						break;
+					case 2:
+						robotColorPainted = Color.blue;
+						break;
+					case 3:
+						robotColorPainted = Color.white;
 						break;
 				}
 				// direction

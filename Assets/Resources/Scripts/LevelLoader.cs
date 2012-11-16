@@ -84,8 +84,8 @@ public static class LevelLoader {
 						i += 1;
 						break;
 					case 6: // Robot
-						grid.Add(ParseRobot(x, y, CopyRange(parts, i, 9)), x, y);
-						i += 9;
+						grid.Add(ParseRobot(x, y, CopyRange(parts, i, 11)), x, y);
+						i += 11;
 						break;
 					case 7: // DestructibleWall
 						grid.Add(ParseDestructibleWall(x, y, CopyRange(parts, i, 2)), x, y);
@@ -187,16 +187,18 @@ public static class LevelLoader {
 
 	public static GameObject ParseRobot(int x, int y, string[] info) {
 		float speed = Single.Parse(info[0]);
-		int damageDealt = Int32.Parse(info[1]);
-		int health = Int32.Parse(info[2]);
-		int forwardRange = Int32.Parse(info[3]);
-		int sideRange = Int32.Parse(info[4]);
-		Vector2 movementDirection = ParseVector2(info[5]);
-		Color colorVisible = ParseColor(info[6]);
-		Vector2 fireDirection = ParseVector2(info[7]);
-		RotationMatrix rotation = ParseRotationMatrix(info[8]);
-		return Robot.MakeRobot(grid, x, y, speed, damageDealt, health, forwardRange, sideRange,
-				       movementDirection, colorVisible, fireDirection, rotation);
+		float fireRate = Single.Parse(info[1]);
+		int damageDealt = Int32.Parse(info[2]);
+		int health = Int32.Parse(info[3]);
+		int forwardRange = Int32.Parse(info[4]);
+		int sideRange = Int32.Parse(info[5]);
+		Vector2 movementDirection = ParseVector2(info[6]);
+		Color colorVisible = ParseColor(info[7]);
+		Color colorPainted = ParseColor(info[8]);
+		Vector2 fireDirection = ParseVector2(info[9]);
+		RotationMatrix rotation = ParseRotationMatrix(info[10]);
+		return Robot.MakeRobot(grid, x, y, speed, fireRate, damageDealt, health, forwardRange, sideRange,
+				       movementDirection, colorVisible, colorPainted, fireDirection, rotation);
 	}
 
 	public static GameObject ParseDestructibleWall(int x, int y, string[] info) {
