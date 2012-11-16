@@ -89,6 +89,9 @@ public class GameManager : MonoBehaviour {
 		GUI.Label(new Rect(185, 40, 100, 20), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0), guiStyle);
 		GUI.Label(new Rect(235, 40, 100, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0), guiStyle);
 //		GUI.Box(new Rect(1, 1, 320, 140), "");
+		if(WinChecker.robotsWin) {
+			GUI.Label(new Rect(10, 135, 200, 50), "Robot goal: " + WinChecker.robotLimit, guiStyle);
+		}
 	}
 	
 	/*
