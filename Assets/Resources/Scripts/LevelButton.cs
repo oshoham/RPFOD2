@@ -4,7 +4,7 @@ using System.Collections;
 public class LevelButton : MonoBehaviour {
        public string fileName;
        public static int defaultFontSize;
-       public static int resizeTo = 50;
+       public static int resizeTo = 40;
        
        void Start() {
        	    defaultFontSize = this.gameObject.guiText.fontSize;
