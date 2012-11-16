@@ -44,6 +44,7 @@ public static class LevelLoader {
 					WinChecker.winCoords = winCoords;
 					LevelEditor.squareWins = true;
 					LevelEditor.winCoords = winCoords.x + ", " + winCoords.y;
+					grid.grid[(int)winCoords.x, (int)winCoords.y].plane.renderer.material.mainTexture = Resources.Load("Textures/Tile.png") as Texture;
 					break;
 			}
 		}

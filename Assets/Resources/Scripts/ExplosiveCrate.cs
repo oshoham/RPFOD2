@@ -30,7 +30,9 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 		GameObject crate = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		crate.transform.position = new Vector3(x, y, 0.0f);
 		ExplosiveCrate script = crate.AddComponent<ExplosiveCrate>();
-		script.colorPainted = Color.red;
+		crate.renderer.material.mainTexture = Resources.Load("Textures/explosive") as Texture;
+		crate.renderer.material.shader = Shader.Find("Transparent/Diffuse");
+		script.colorPainted = Color.white;
 		script.gridCoords = new Vector2(x, y);
 		script.grid = grid;
 		script.health = health;
