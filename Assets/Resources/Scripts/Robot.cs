@@ -160,8 +160,8 @@ public class Robot : MonoBehaviour, IColor {
 				lookdir = target.GetComponent<Player>().gridCoords - gridCoords;
 			else if(target.GetComponent<Robot>() != null)
 				lookdir = target.GetComponent<Robot>().gridCoords - gridCoords;
-			else if(target.GetComponent<Wall>() != null)
-				lookdir = target.GetComponent<Wall>().gridCoords - gridCoords;
+			else if(target.GetComponent<DestructibleWall>() != null)
+				lookdir = target.GetComponent<DestructibleWall>().gridCoords - gridCoords;
 			lookdir.Normalize();
 			if(lookdir == new Vector2(1, 0))
 				transform.localEulerAngles = new Vector3(0, 0, 90f);
