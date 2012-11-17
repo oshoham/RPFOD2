@@ -46,6 +46,7 @@ public class Robot : MonoBehaviour, IColor {
 		 */
 	
 		nVision = grid.SCheckLine(gridCoords, gridCoords + fireDirection*forwardRange);
+		nVision.Add(grid.grid[(int)gridCoords.x, (int)gridCoords.y]);
 			
 		List<Vector2> directions = new List<Vector2> {new Vector2(1, 0),
 							      new Vector2(0, 1),
