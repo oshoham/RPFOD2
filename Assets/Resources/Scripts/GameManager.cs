@@ -32,9 +32,12 @@ public class GameManager : MonoBehaviour {
 			floor = LevelLoader.LoadLevel("fortesting.txt");
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
-		light.transform.position = Camera.main.transform.position;
-		l.type = LightType.Directional;
-		l.intensity = 0.4f;
+		l.transform.position = player.transform.position;
+		l.transform.Translate(0,0,-2);
+		l.type = LightType.Point;
+		l.transform.parent = player.transform;
+		l.intensity = 0.5f;
+		l.range = 100f;
 		PlayerGui.MakePlayerGui(Color.red, new Vector3(140.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
 		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
 		PlayerGui.MakePlayerGui(Color.blue, new Vector3(240.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
@@ -42,6 +45,14 @@ public class GameManager : MonoBehaviour {
 		PlayerGui.MakePlayerGui(Color.red, new Vector3(140.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
 		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
 		PlayerGui.MakePlayerGui(Color.blue, new Vector3(240.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
+		GameObject light2 = new GameObject("Light");
+		Light l2 = light2.AddComponent<Light>();
+		l2.transform.position = GameObject.Find("GUI plane").transform.position;
+		l2.transform.Translate(0,0,-2);
+		l2.type = LightType.Point;
+		l2.transform.parent = GameObject.Find("GUI plane").transform;
+		l2.intensity = 8f;
+		l2.range = 3f;
 	}
 
 	void Update() {
