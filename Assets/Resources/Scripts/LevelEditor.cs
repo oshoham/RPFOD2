@@ -455,7 +455,7 @@ public class LevelEditor : MonoBehaviour {
 					rotationInt = 2;
 				else
 					rotationInt = 3;
-				rotationInt = GUI.Toolbar(FromBottomRight(new Rect(300, 100, 50, 10)),
+				rotationInt = GUI.Toolbar(FromBottomRight(new Rect(300, 100, 200, 50)),
 							  rotationInt,
 							  new string[] {"Identity", "Left", "Right", "Halfway"});
 				switch(rotationInt) {
