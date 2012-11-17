@@ -79,8 +79,7 @@ public class GameManager : MonoBehaviour {
 		//Gui style for ALIEN5 font 
 		GUIStyle guiStyle = new GUIStyle();
 		guiStyle.font = Resources.Load("Fonts/ALIEN5") as Font;
-//		guiStyle.font.material = Resources.Load("Fonts/ALIEN5/Font Material") as Material;
-//		guiStyle.font.material.color = Color.white;
+		guiStyle.normal.textColor = Color.white;
 		guiStyle.fontSize = 23;
 		guiStyle.fontStyle = FontStyle.Bold;
 
