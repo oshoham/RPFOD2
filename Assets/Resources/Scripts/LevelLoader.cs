@@ -115,7 +115,7 @@ public static class LevelLoader {
 			case 2:
 				return Color.blue;
 			default:
-				return default(Color);
+				return Color.white;
 		}
 	}
 	
