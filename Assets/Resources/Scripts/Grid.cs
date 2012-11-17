@@ -55,9 +55,9 @@ public class Grid {
 			      GetObjectsOfTypes(origin, new List<String>() {"Wall", "ExplosiveCrate"}).Count == 0) { // we want the last position as well so it's a do-while loop
 				Square sq = grid[(int)origin.x, (int)origin.y];
 				objects.AddRange(sq.objects);
-				origin.y += sign;
 				if(GetObjectsOfTypes(origin, new List<String>() {"DestructibleWall"}).Count > 0)
 					break;
+				origin.y += sign;
 			}
 		}
 		else { // checking y, otherwise the same
@@ -66,9 +66,9 @@ public class Grid {
 			while((sign == 1 ? origin.x <= coord.x : origin.x >= coord.x) &&
 			      GetObjectsOfTypes(origin, new List<String>() {"Wall", "ExplosiveCrate"}).Count == 0) {
 				objects.AddRange(grid[(int)origin.x, (int)origin.y].objects);
-				origin.x += sign;
 				if(GetObjectsOfTypes(origin, new List<String>() {"DestructibleWall"}).Count > 0)
 					break;
+				origin.x += sign;
 			}
 		}
 		return objects;
