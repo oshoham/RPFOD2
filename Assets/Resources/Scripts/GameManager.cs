@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour {
 		Time.timeScale = 1;
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 5;
-		Camera.main.backgroundColor = Color.white;
+		Camera.main.backgroundColor = Color.black;
 		filename = GlobalSettings.currentFile; // this is so janky I feel embarassed writing this
 		if(filename != "")
 			floor = LevelLoader.LoadLevel(filename);
@@ -79,6 +79,8 @@ public class GameManager : MonoBehaviour {
 		//Gui style for ALIEN5 font 
 		GUIStyle guiStyle = new GUIStyle();
 		guiStyle.font = Resources.Load("Fonts/ALIEN5") as Font;
+//		guiStyle.font.material = Resources.Load("Fonts/ALIEN5/Font Material") as Material;
+//		guiStyle.font.material.color = Color.white;
 		guiStyle.fontSize = 23;
 		guiStyle.fontStyle = FontStyle.Bold;
 
