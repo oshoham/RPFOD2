@@ -16,12 +16,10 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 	public int health;
 	public int range;
 	public int damageDealt;
+	public Square[,] see;
 	
-	void Update() {
-		if(health <= 0) {
-			Destroy(gameObject);
-		}
-		Square[,] see = grid.SCheckRad(3, gridCoords);
+	void Start() {
+		see = grid.SCheckRad(3, gridCoords);
 		for(int i = 0; i < see.GetLength(0); i++)
 			for(int j = 0; j < see.GetLength(1); j++)
 				if(see[i, j] != null) {
@@ -30,7 +28,20 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 				}
 	}
 	
+	void Update() {
+		if(health <= 0) {
+			Destroy(gameObject);
+		}
+		
+	}
+	
 	void OnDisable() {
+		print(see);
+		foreach(Square sq in see) {
+			print(sq);
+			sq.colors[Color.green]--;
+			sq.SetColor();
+		}
 		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 	}
 
