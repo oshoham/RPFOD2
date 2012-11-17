@@ -105,7 +105,7 @@ public class Grid {
 	/*
 	 * Checks radius for squares that aren't walls
 	 */
-	public Square[,] SCheckRad(int rad, Vector2 origin) {
+	public List<Square> SCheckRad(int rad, Vector2 origin) {
 		Vector2 scoord = new Vector2(origin.x-rad, origin.y-rad);
 		Vector2 ecoord = new Vector2(origin.x+rad, origin.y+rad);
 		FixVector(ref scoord);
@@ -144,7 +144,13 @@ public class Grid {
 				}
 			}
 		}
-		return see;
+		// filter out null square
+		List<Square> squares = new List<Square>();
+		foreach(Square sq in see) {
+			if(sq != null)
+				squares.Add(sq);
+		}
+		return squares;
 	}
 
 	/*
@@ -312,22 +318,6 @@ public class Grid {
 				}
 			}
 		}
-		// int maxWidth = width > grid.GetLength(0) ? width : grid.GetLength(0);
-		// int maxHeight = height > grid.GetLength(1) ? height : grid.GetLength(1);
-		// for(int i = 0; i < maxWidth; i++) {
-		// 	for(int j = 0; j < maxHeight; j++) {
-		// 		// We're within both grids
-		// 		if(i < grid.GetLength(0) && j < grid.GetLength(1) &&
-		// 		   i < width && j < height) {
-		// 			copy.grid[i, j].objects = grid[i, j].objects;
-		// 		}
-		// 		// we're in old but not new
-		// 		else if(i < grid.GetLength(0) && j < grid.GetLength(1)) {
-		// 			Debug.Log(i + ", " + j);
-		// 			grid[i, j].Clear();
-		// 		}
-		// 	}
-		// }
 		return copy;
 	}
 }

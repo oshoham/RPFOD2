@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ExplosiveCrate : MonoBehaviour, IColor {
 
@@ -16,23 +17,33 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 	public int health;
 	public int range;
 	public int damageDealt;
-	public Square[,] see;
+	public List<Square> see;
 	
 	void Start() {
 		see = grid.SCheckRad(3, gridCoords);
-		for(int i = 0; i < see.GetLength(0); i++)
-			for(int j = 0; j < see.GetLength(1); j++)
-				if(see[i, j] != null) {
-					see[i,j].colors[Color.green]++;
-					see[i,j].SetColor();
-				}
+		foreach(Square sq in see) {
+			if(sq != null) {
+				sq.colors[Color.green]++;
+				sq.SetColor();
+			}
+		}
 	}
-	
+		
 	void Update() {
 		if(health <= 0) {
 			Destroy(gameObject);
 		}
-		
+		bool exploded = false;
+		foreach(Square sq in see) {
+			foreach(GameObject obj in grid.GetObjectsOfTypes(sq.loc, new List<string> {"Robot",
+							"Player",
+							"DestructibleWall"})) {
+				exploded = true;
+				Destroy(obj);
+			}
+		}
+		if(exploded)
+			Destroy(gameObject);
 	}
 	
 	void OnDisable() {
