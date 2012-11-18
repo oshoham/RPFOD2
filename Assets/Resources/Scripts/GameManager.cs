@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
 	public static int level = 1;
 //	public static GameObject plane;
 
+	public static float healthbar;
+	
 	void Start() {
 		Time.timeScale = 1;		
 		Camera.main.orthographic = true;
@@ -32,7 +34,7 @@ public class GameManager : MonoBehaviour {
 		l.transform.Translate(0,0,-2);
 		l.type = LightType.Point;
 		l.transform.parent = player.transform;
-		l.intensity = 0.5f;
+		l.intensity = 0.4f;
 		l.range = 100f;
 		PlayerGui.MakePlayerGui(Color.red, new Vector3(130.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true);
 		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true);
@@ -43,17 +45,17 @@ public class GameManager : MonoBehaviour {
 		PlayerGui.MakePlayerGui(Color.blue, new Vector3(250.0f, Camera.main.pixelHeight - 160.0f, Camera.main.nearClipPlane + 5.0f), false);
 		GameObject light2 = new GameObject("Light");
 		Light l2 = light2.AddComponent<Light>();
-		l2.transform.position = GameObject.Find("GUI plane").transform.position;
-		l2.transform.Translate(0.3F,0,-2F);
+		l2.transform.position = new Vector3(-6.97F,4.52F,-16.8F);
+		l2.transform.parent = GameObject.Find("Main Camera").transform;
 		l2.type = LightType.Point;
-		l2.transform.parent = GameObject.Find("GUI plane").transform;
 		l2.intensity = 8f;
 		l2.range = 3f;
 		//Main Song handling (not working)
-		//AudioSource gamesong = Resources.Load("Audio/08 Sburban Jungle") as AudioSource;
-		//GameObject.AddComponent(gamesong);
-		//gamesong.loop = true;
-		//gamesong.Play();
+		AudioClip sburban = Resources.Load("Audio/08 Sburban Jungle") as AudioClip;
+		AudioSource gamesong = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
+		gamesong.clip = sburban;
+		gamesong.loop = true;
+		gamesong.Play();
 	}
 
 	void Update() {
@@ -68,6 +70,12 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	void OnGUI() {
+		//health bar
+		//can't figure out how to change the color of the health bar without changing the color of all the rest of the gui
+		//also the health bar width isn't behaving like it should
+//		GUILayout.HorizontalScrollbar(0, GameManager.player.health, 0F, 15F, GUILayout.Height(1000), GUILayout.Width(1000));
+//		GUI.DrawTexture(new Rect(10, 10, 300, 100), Resources.Load("Textures/PlayerReal") as Texture, ScaleMode.ScaleToFit, true, 0);
+	        healthbar = GUI.HorizontalScrollbar(new Rect(10, 10, 300, 100),0, GameManager.player.health, 0, 15);
 		if(GUI.Button(new Rect(10, 540, 150, 40), "Main Menu")) {                                   
                             Application.LoadLevel("StartScreen");                                                     
                 }
@@ -94,8 +102,23 @@ public class GameManager : MonoBehaviour {
 		guiStyle.normal.textColor = Color.white;
 		guiStyle.fontSize = 23;
 		guiStyle.fontStyle = FontStyle.Bold;
+		GUIStyle healthgui = new GUIStyle();
+		healthgui.font = Resources.Load("Fonts/ALIEN5") as Font;
+		healthgui.normal.textColor = Color.white;
+		healthgui.fontStyle = FontStyle.Bold;
+		healthgui.fontSize = 12;
+		GUIContent healthContent = new GUIContent();
+		healthContent.image = Resources.Load("Textures/PlayerReal") as Texture;
+//		healthgui.Draw(new Rect(10,10,300,100),healthContent,0,true);
+		
+		//health bar
+		//can't figure out how to change the color of the health bar without changing the color of all the rest of the gui
+		//also the health bar width isn't behaving like it should
+//		GUILayout.HorizontalScrollbar(0, GameManager.player.health, 0F, 15F, GUILayout.Height(1000), GUILayout.Width(1000));
+//		GUI.DrawTexture(new Rect(10, 10, 300, 100), Resources.Load("Textures/PlayerReal") as Texture, ScaleMode.ScaleToFit, true, 0);
+	        healthbar = GUI.HorizontalScrollbar(new Rect(10, 10, 300, 100),0, GameManager.player.health, 0, 15);
 
-		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health, guiStyle);
+		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health, healthgui);
 		GUI.Label(new Rect(10, 70, 100, 50), "Shooting:", guiStyle);
 		GUI.Label(new Rect(10, 150, 100, 50), "Painted:", guiStyle);
 		GUI.Label(new Rect(126, 70, 100, 20), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0), guiStyle);

@@ -9,6 +9,11 @@ public class PlayerGui : MonoBehaviour {
 	public static Shader transspec = Shader.Find("Transparent/Parallax Diffuse");
 	public static Shader normal = Shader.Find("Diffuse");
 	public static Shader transdiff = Shader.Find("Transparent/Diffuse");
+	public Quaternion oldRotation;
+	
+	void Start () {
+		oldRotation = transform.rotation;
+	}
 
 	void Update () {
 		transform.position = Camera.main.ScreenToWorldPoint(position);
@@ -25,17 +30,19 @@ public class PlayerGui : MonoBehaviour {
 		if(forShooting) {
 			if(GameManager.player.colorShooting == color &&
 			   GameManager.player.colors[color] > 0) {
-				transform.localScale = new Vector3(0.08f, 1.0f, 0.08f);
+				transform.localScale = new Vector3(0.07f, 1.0f, 0.07f);
 				renderer.material.shader = normal;
+				transform.Rotate(Vector3.up * Time.deltaTime * 70);
 			}
 			else {
 				transform.localScale = new Vector3(0.03f, 1.0f, 0.03f);
 				renderer.material.shader = transspec;
+				transform.rotation = oldRotation;
 			}
 		}
 		else if (!forShooting && color != GameManager.player.defaultColor) {
 			if(GameManager.player.colorPainted == color) {
-				transform.localScale = new Vector3(0.08f, 1.0f, 0.08f);
+				transform.localScale = new Vector3(0.07f, 1.0f, 0.07f);
 				renderer.material.color = color;
 				renderer.material.shader = normal;
 			}
@@ -47,7 +54,7 @@ public class PlayerGui : MonoBehaviour {
 		else {
 			renderer.material.color = color;
 			if(GameManager.player.colorPainted == color) {
-				transform.localScale = new Vector3(0.08f, 1.0f, 0.08f);
+				transform.localScale = new Vector3(0.07f, 1.0f, 0.07f);
 				renderer.material.shader = normal;
 			}
 			else {
@@ -76,7 +83,7 @@ public class PlayerGui : MonoBehaviour {
 		}
 	}
 	
-	//weirdly not working, maybe because planes don't have colliders
+	//weirdly not working, maybe because planes don't have colliders/aren't gui objects
 	void OnMouseOver() {
 		transform.localScale = new Vector3(0.05f, 1.0f, 0.05f);
 	}
