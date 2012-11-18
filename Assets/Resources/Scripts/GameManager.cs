@@ -70,12 +70,6 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		//health bar
-		//can't figure out how to change the color of the health bar without changing the color of all the rest of the gui
-		//also the health bar width isn't behaving like it should
-//		GUILayout.HorizontalScrollbar(0, GameManager.player.health, 0F, 15F, GUILayout.Height(1000), GUILayout.Width(1000));
-//		GUI.DrawTexture(new Rect(10, 10, 300, 100), Resources.Load("Textures/PlayerReal") as Texture, ScaleMode.ScaleToFit, true, 0);
-	        healthbar = GUI.HorizontalScrollbar(new Rect(10, 10, 300, 100),0, GameManager.player.health, 0, 15);
 		if(GUI.Button(new Rect(10, 540, 150, 40), "Main Menu")) {                                   
                             Application.LoadLevel("StartScreen");                                                     
                 }
@@ -107,8 +101,8 @@ public class GameManager : MonoBehaviour {
 		healthgui.normal.textColor = Color.white;
 		healthgui.fontStyle = FontStyle.Bold;
 		healthgui.fontSize = 12;
-		GUIContent healthContent = new GUIContent();
-		healthContent.image = Resources.Load("Textures/PlayerReal") as Texture;
+//		GUIContent healthContent = new GUIContent();
+//		healthContent.image = Resources.Load("Textures/PlayerReal") as Texture;
 //		healthgui.Draw(new Rect(10,10,300,100),healthContent,0,true);
 		
 		//health bar
