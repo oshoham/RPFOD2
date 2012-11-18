@@ -17,11 +17,7 @@ public class GameManager : MonoBehaviour {
 //	public static GameObject plane;
 
 	void Start() {
-//		plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-//		plane.transform.localScale = new Vector3(2.0f, 1.0f, 1.0f);
-//		plane.transform.Rotate(-90, 0, 0);
-//	     	plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
-		Time.timeScale = 1;
+		Time.timeScale = 1;		
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 5;
 		Camera.main.backgroundColor = Color.black;
@@ -41,10 +37,10 @@ public class GameManager : MonoBehaviour {
 		PlayerGui.MakePlayerGui(Color.red, new Vector3(140.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
 		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
 		PlayerGui.MakePlayerGui(Color.blue, new Vector3(240.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
-		PlayerGui.MakePlayerGui(player.defaultColor, new Vector3(140.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
-		PlayerGui.MakePlayerGui(Color.red, new Vector3(190.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
-		PlayerGui.MakePlayerGui(Color.green, new Vector3(240.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
-		PlayerGui.MakePlayerGui(Color.blue, new Vector3(290.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(player.defaultColor, new Vector3(290.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.red, new Vector3(140.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.blue, new Vector3(240.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
 		GameObject light2 = new GameObject("Light");
 		Light l2 = light2.AddComponent<Light>();
 		l2.transform.position = GameObject.Find("GUI plane").transform.position;
@@ -53,6 +49,11 @@ public class GameManager : MonoBehaviour {
 		l2.transform.parent = GameObject.Find("GUI plane").transform;
 		l2.intensity = 8f;
 		l2.range = 3f;
+		//Main Song handling (not working)
+		//AudioSource gamesong = Resources.Load("Audio/08 Sburban Jungle") as AudioSource;
+		//GameObject.AddComponent(gamesong);
+		//gamesong.loop = true;
+		//gamesong.Play();
 	}
 
 	void Update() {
@@ -102,7 +103,7 @@ public class GameManager : MonoBehaviour {
 		GUI.Label(new Rect(235, 40, 100, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0), guiStyle);
 //		GUI.Box(new Rect(1, 1, 320, 140), "");
 		if(WinChecker.robotsWin) {
-			GUI.Label(new Rect(10, 135, 200, 50), "Robot goal: " + WinChecker.robotLimit, guiStyle);
+			GUI.Label(new Rect(10, 150, 200, 50), "Robot goal: " + WinChecker.robotLimit, guiStyle);
 		}
 	}
 	
