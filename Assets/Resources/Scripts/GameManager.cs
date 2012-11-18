@@ -101,16 +101,7 @@ public class GameManager : MonoBehaviour {
 		healthgui.normal.textColor = Color.white;
 		healthgui.fontStyle = FontStyle.Bold;
 		healthgui.fontSize = 12;
-<<<<<<< HEAD
-//		GUIContent healthContent = new GUIContent();
-//		healthContent.image = Resources.Load("Textures/PlayerReal") as Texture;
-=======
-		//healthgui.normal.background = Resources.Load("Textures/PlayerReal") as Texture2D;
-		GUIContent healthContent = new GUIContent();
-		healthContent.image = Resources.Load("Textures/PlayerReal") as Texture;
->>>>>>> c92821fb4b419b1d2b73a1261a60a105bc3ad093
-//		healthgui.Draw(new Rect(10,10,300,100),healthContent,0,true);
-		
+
 		//health bar
 		//can't figure out how to change the color of the health bar without changing the color of all the rest of the gui
 		//also the health bar width isn't behaving like it should
