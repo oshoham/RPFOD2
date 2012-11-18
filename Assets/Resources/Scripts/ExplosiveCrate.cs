@@ -31,19 +31,15 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 		
 	void Update() {
 		if(health <= 0) {
-			Destroy(gameObject);
-		}
-		bool exploded = false;
-		foreach(Square sq in see) {
-			foreach(GameObject obj in grid.GetObjectsOfTypes(sq.loc, new List<string> {"Robot",
-							"Player",
-							"DestructibleWall"})) {
-				exploded = true;
-				Destroy(obj);
+			foreach(Square sq in see) {
+				foreach(GameObject obj in grid.GetObjectsOfTypes(sq.loc, new List<string> {"Robot",
+								"Player",
+								"DestructibleWall"})) {
+					Destroy(obj);
+				}
 			}
-		}
-		if(exploded)
 			Destroy(gameObject);
+		}
 	}
 	
 	void OnDisable() {
@@ -58,7 +54,8 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 
 	public static GameObject MakeExplosiveCrate(Grid grid, int x, int y, int health, int range, int damageDealt) {
 		GameObject crate = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		crate.transform.position = new Vector3(x, y, 0.0f);
+		crate.name = "Explosive Crate";
+		crate.transform.position = new Vector3(x, y, -0.5f);
 		ExplosiveCrate script = crate.AddComponent<ExplosiveCrate>();
 		crate.renderer.material.mainTexture = Resources.Load("Textures/explosive") as Texture;
 		crate.renderer.material.shader = Shader.Find("Transparent/Diffuse");

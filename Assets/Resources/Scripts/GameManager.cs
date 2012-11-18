@@ -16,12 +16,10 @@ public class GameManager : MonoBehaviour {
 	public static int level = 1;
 //	public static GameObject plane;
 
+	public static float healthbar;
+	
 	void Start() {
-//		plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-//		plane.transform.localScale = new Vector3(2.0f, 1.0f, 1.0f);
-//		plane.transform.Rotate(-90, 0, 0);
-//	     	plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
-		Time.timeScale = 1;
+		Time.timeScale = 1;		
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 5;
 		Camera.main.backgroundColor = Color.black;
@@ -36,23 +34,28 @@ public class GameManager : MonoBehaviour {
 		l.transform.Translate(0,0,-2);
 		l.type = LightType.Point;
 		l.transform.parent = player.transform;
-		l.intensity = 0.5f;
+		l.intensity = 0.4f;
 		l.range = 100f;
-		PlayerGui.MakePlayerGui(Color.red, new Vector3(140.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
-		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
-		PlayerGui.MakePlayerGui(Color.blue, new Vector3(240.0f, Camera.main.pixelHeight - 50.0f, Camera.main.nearClipPlane + 5.0f), true);
-		PlayerGui.MakePlayerGui(player.defaultColor, new Vector3(140.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
-		PlayerGui.MakePlayerGui(Color.red, new Vector3(190.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
-		PlayerGui.MakePlayerGui(Color.green, new Vector3(240.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
-		PlayerGui.MakePlayerGui(Color.blue, new Vector3(290.0f, Camera.main.pixelHeight - 110.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.red, new Vector3(130.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true);
+		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true);
+		PlayerGui.MakePlayerGui(Color.blue, new Vector3(250.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true);
+		PlayerGui.MakePlayerGui(player.defaultColor, new Vector3(310.0f, Camera.main.pixelHeight - 160.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.red, new Vector3(130.0f, Camera.main.pixelHeight - 160.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 160.0f, Camera.main.nearClipPlane + 5.0f), false);
+		PlayerGui.MakePlayerGui(Color.blue, new Vector3(250.0f, Camera.main.pixelHeight - 160.0f, Camera.main.nearClipPlane + 5.0f), false);
 		GameObject light2 = new GameObject("Light");
 		Light l2 = light2.AddComponent<Light>();
-		l2.transform.position = GameObject.Find("GUI plane").transform.position;
-		l2.transform.Translate(0.3F,0,-2F);
+		l2.transform.position = new Vector3(-6.97F,4.52F,-16.8F);
+		l2.transform.parent = GameObject.Find("Main Camera").transform;
 		l2.type = LightType.Point;
-		l2.transform.parent = GameObject.Find("GUI plane").transform;
 		l2.intensity = 8f;
 		l2.range = 3f;
+		//Main Song handling (not working)
+		AudioClip sburban = Resources.Load("Audio/08 Sburban Jungle") as AudioClip;
+		AudioSource gamesong = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
+		gamesong.clip = sburban;
+		gamesong.loop = true;
+		gamesong.Play();
 	}
 
 	void Update() {
@@ -93,16 +96,28 @@ public class GameManager : MonoBehaviour {
 		guiStyle.normal.textColor = Color.white;
 		guiStyle.fontSize = 23;
 		guiStyle.fontStyle = FontStyle.Bold;
+		GUIStyle healthgui = new GUIStyle();
+		healthgui.font = Resources.Load("Fonts/ALIEN5") as Font;
+		healthgui.normal.textColor = Color.white;
+		healthgui.fontStyle = FontStyle.Bold;
+		healthgui.fontSize = 12;
 
-		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health, guiStyle);
-		GUI.Label(new Rect(10, 40, 100, 50), "Shooting:", guiStyle);
-		GUI.Label(new Rect(10, 100, 100, 50), "Painted:", guiStyle);
-		GUI.Label(new Rect(135, 40, 100, 20), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0), guiStyle);
-		GUI.Label(new Rect(185, 40, 100, 20), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0), guiStyle);
-		GUI.Label(new Rect(235, 40, 100, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0), guiStyle);
+		//health bar
+		//can't figure out how to change the color of the health bar without changing the color of all the rest of the gui
+		//also the health bar width isn't behaving like it should
+//		GUILayout.HorizontalScrollbar(0, GameManager.player.health, 0F, 15F, GUILayout.Height(1000), GUILayout.Width(1000));
+//		GUI.DrawTexture(new Rect(10, 10, 300, 100), Resources.Load("Textures/PlayerReal") as Texture, ScaleMode.ScaleToFit, true, 0);
+	        healthbar = GUI.HorizontalScrollbar(new Rect(10, 10, 300, 10), 0, GameManager.player.health, 0, 15);
+
+		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health, healthgui);
+		GUI.Label(new Rect(10, 70, 100, 50), "Shooting:", guiStyle);
+		GUI.Label(new Rect(10, 150, 100, 50), "Painted:", guiStyle);
+		GUI.Label(new Rect(126, 70, 100, 20), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0), guiStyle);
+		GUI.Label(new Rect(186, 70, 100, 20), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0), guiStyle);
+		GUI.Label(new Rect(246, 70, 100, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0), guiStyle);
 //		GUI.Box(new Rect(1, 1, 320, 140), "");
 		if(WinChecker.robotsWin) {
-			GUI.Label(new Rect(10, 135, 200, 50), "Robot goal: " + WinChecker.robotLimit, guiStyle);
+			GUI.Label(new Rect(10, 200, 200, 50), "Robot goal: " + WinChecker.robotLimit, guiStyle);
 		}
 	}
 	
