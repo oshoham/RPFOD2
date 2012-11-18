@@ -30,6 +30,9 @@ public class Bullet : Projectile {
 	public static GameObject MakeBullet(int damage, Vector3 pos, Vector2 dir, GameObject cameFrom) {
 		GameObject bullet = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		bullet.transform.localScale = new Vector3(.25f, .25f, .25f);
+		bullet.renderer.material.mainTexture = Resources.Load("Textures/bullet3") as Texture;
+		bullet.renderer.material.shader = Shader.Find("Transparent/Diffuse");
+		bullet.renderer.material.color = Color.white;
 		bullet.name = "Bullet";
 		bullet.transform.position = pos;
 		Bullet script = bullet.AddComponent<Bullet>();
