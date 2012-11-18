@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour {
 		GameObject light2 = new GameObject("Light");
 		Light l2 = light2.AddComponent<Light>();
 		l2.transform.position = GameObject.Find("GUI plane").transform.position;
-		l2.transform.Translate(0.5f,0,-2);
+		l2.transform.Translate(0.3F,0,-2F);
 		l2.type = LightType.Point;
 		l2.transform.parent = GameObject.Find("GUI plane").transform;
 		l2.intensity = 8f;
