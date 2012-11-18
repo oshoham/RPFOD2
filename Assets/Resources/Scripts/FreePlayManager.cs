@@ -32,11 +32,11 @@ public class FreePlayManager : MonoBehaviour {
 		int j = 1;
 		for(int i = 0; i < levels.Length; i++) {
 			string fileName = Path.GetFileName(levels[i]);
-			if(i>10) j=2;
-			if(i>20) j=3;
-			if(i>30) j=4;
-			if(i>40) j=5;
-			if(i>50) j=6;
+			if(i>=10) j=2;
+			if(i>=20) j=3;
+			if(i>=30) j=4;
+			if(i>=40) j=5;
+			if(i>=50) j=6;
 			CreateLevelButton(fileName, i, j);
 		}
 	}
@@ -63,19 +63,19 @@ public class FreePlayManager : MonoBehaviour {
 				button.transform.position = new Vector3(0.05F, (0.95F - i*0.1F), 0.0F);
 				break;
 			case 2:
-				button.transform.position = new Vector3(0.2F, (0.95F - (i-11)*0.1F), 0.0F);
+				button.transform.position = new Vector3(0.2F, (0.95F - (i-10)*0.1F), 0.0F);
 				break;
 			case 3:
-				button.transform.position = new Vector3(0.35F, (0.95F - (i-21)*0.1F), 0.0F);
+				button.transform.position = new Vector3(0.35F, (0.95F - (i-20)*0.1F), 0.0F);
 				break;
 			case 4:
-				button.transform.position = new Vector3(0.5F, (0.95F - (i-31)*0.1F), 0.0F);
+				button.transform.position = new Vector3(0.5F, (0.95F - (i-30)*0.1F), 0.0F);
 				break;
 			case 5:
-				button.transform.position = new Vector3(0.65F, (0.95F - (i-41)*0.1F), 0.0F);
+				button.transform.position = new Vector3(0.65F, (0.95F - (i-40)*0.1F), 0.0F);
 				break;
 			case 6:
-				button.transform.position = new Vector3(0.8F, (0.95F - (i-51)*0.1F), 0.0F);
+				button.transform.position = new Vector3(0.8F, (0.95F - (i-50)*0.1F), 0.0F);
 				break;
 		}	     
 		LevelButton script = button.AddComponent<LevelButton>();

@@ -6,6 +6,9 @@ public class PlayerGui : MonoBehaviour {
 	Color color;
 	Vector3 position;
 	bool forShooting;
+	public static Shader transspec = Shader.Find("Transparent/Parallax Diffuse");
+	public static Shader normal = Shader.Find("Diffuse");
+	public static Shader transdiff = Shader.Find("Transparent/Diffuse");
 
 	void Update () {
 		transform.position = Camera.main.ScreenToWorldPoint(position);
@@ -16,33 +19,40 @@ public class PlayerGui : MonoBehaviour {
 			renderer.material.color = color;
 		}
 		else {
-			renderer.material.color = Color.black;
+			renderer.material.color = Color.gray;
+			renderer.material.shader = transdiff;
 		}
 		if(forShooting) {
 			if(GameManager.player.colorShooting == color &&
 			   GameManager.player.colors[color] > 0) {
-				transform.localScale = new Vector3(0.07f, 1.0f, 0.07f);
+				transform.localScale = new Vector3(0.08f, 1.0f, 0.08f);
+				renderer.material.shader = normal;
 			}
 			else {
-				transform.localScale = new Vector3(0.04f, 1.0f, 0.04f);
+				transform.localScale = new Vector3(0.03f, 1.0f, 0.03f);
+				renderer.material.shader = transspec;
 			}
 		}
 		else if (!forShooting && color != GameManager.player.defaultColor) {
 			if(GameManager.player.colorPainted == color) {
-				transform.localScale = new Vector3(0.06f, 1.0f, 0.06f);
+				transform.localScale = new Vector3(0.08f, 1.0f, 0.08f);
 				renderer.material.color = color;
+				renderer.material.shader = normal;
 			}
 			else {
-				transform.localScale = new Vector3(0.04f, 1.0f, 0.04f);
+				transform.localScale = new Vector3(0.03f, 1.0f, 0.03f);
+				renderer.material.shader = transspec;
 			}
 		}
 		else {
 			renderer.material.color = color;
 			if(GameManager.player.colorPainted == color) {
-				transform.localScale = new Vector3(0.06f, 1.0f, 0.06f);
+				transform.localScale = new Vector3(0.08f, 1.0f, 0.08f);
+				renderer.material.shader = normal;
 			}
 			else {
-				transform.localScale = new Vector3(0.04f, 1.0f, 0.04f);
+				transform.localScale = new Vector3(0.03f, 1.0f, 0.03f);
+				renderer.material.shader = transspec;
 			}
 		}
 	}
@@ -66,6 +76,11 @@ public class PlayerGui : MonoBehaviour {
 		}
 	}
 	
+	//weirdly not working, maybe because planes don't have colliders
+	void OnMouseOver() {
+		transform.localScale = new Vector3(0.05f, 1.0f, 0.05f);
+	}
+
 	/*
 	 * Creates a PlayerGui with the given color at position in screen
 	 * coordinates.
