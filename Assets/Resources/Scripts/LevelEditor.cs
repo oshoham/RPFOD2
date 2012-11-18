@@ -92,6 +92,8 @@ public class LevelEditor : MonoBehaviour {
 	public static bool squareWins = false;
 	public static string winCoords = "";
 	
+	// Audio
+	public static string audiofile = "Audio File";
 	void Start() {
 		Time.timeScale = 0;
 		Camera.main.orthographic = true;
@@ -136,7 +138,7 @@ public class LevelEditor : MonoBehaviour {
 						  () => LevelEditor.objectToBeCreated = ObjectType.ExplosiveCrate, name: "ExplosiveCrate Selector");
 
 		if(GlobalSettings.lastScene == "Game") {
-			floor = LevelLoader.LoadLevel(GlobalSettings.currentFile);
+			floor = LevelLoader.LoadLevel(GlobalSettings.currentFile, out audiofile);
 			if(floor != null) {
 				SetupObjectPlacers();
 				newWidth = floor.grid.GetLength(0);
@@ -176,7 +178,7 @@ public class LevelEditor : MonoBehaviour {
 			if(floor != null) {
 				floor.Clear();
 			}
-			Grid newGrid = LevelLoader.LoadLevel(loadFileName);
+			Grid newGrid = LevelLoader.LoadLevel(loadFileName, out audiofile);
 			if(newGrid != null) {
 				floor = newGrid;
 				SetupObjectPlacers();
@@ -232,6 +234,8 @@ public class LevelEditor : MonoBehaviour {
 		robotLimit = GUI.TextField(new Rect(350, 120, 100, 20), robotLimit);
 		squareWins = GUI.Toggle(new Rect(300, 150, 20, 20), squareWins, "Square wins (x, y)");
 		winCoords = GUI.TextField(new Rect(350, 150, 100, 20), winCoords);
+		// Audio
+		audiofile = GUI.TextField(new Rect(350, 80, 100, 20), audiofile);
 		// Object-specific stuffs
 		switch(objectToBeCreated) {
 			case ObjectType.SpikeWall:

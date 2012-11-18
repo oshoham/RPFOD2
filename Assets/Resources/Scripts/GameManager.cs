@@ -23,11 +23,14 @@ public class GameManager : MonoBehaviour {
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 5;
 		Camera.main.backgroundColor = Color.black;
+		string audiofile;
 		filename = GlobalSettings.currentFile; // this is so janky I feel embarassed writing this
 		if(filename != "")
-			floor = LevelLoader.LoadLevel(filename);
+			floor = LevelLoader.LoadLevel(filename, out audiofile);
 		else
-			floor = LevelLoader.LoadLevel("fortesting.txt");
+			floor = LevelLoader.LoadLevel("fortesting.txt", out audiofile);
+		if(audiofile == null)
+			audiofile = "Audio/08 Sburban Jungle";
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		l.transform.position = player.transform.position;
@@ -50,8 +53,7 @@ public class GameManager : MonoBehaviour {
 		l2.type = LightType.Point;
 		l2.intensity = 8f;
 		l2.range = 3f;
-		//Main Song handling (not working)
-		AudioClip sburban = Resources.Load("Audio/08 Sburban Jungle") as AudioClip;
+		AudioClip sburban = Resources.Load(audiofile) as AudioClip;
 		AudioSource gamesong = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
 		gamesong.clip = sburban;
 		gamesong.loop = true;
