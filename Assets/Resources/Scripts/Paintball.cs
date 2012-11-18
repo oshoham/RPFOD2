@@ -29,6 +29,10 @@ public class Paintball : Projectile, IColor {
 			obj.GetComponent<DestructibleWall>().colorPainted = colorPainted;
 			Destroy(gameObject);
 		}
+		else if(obj.GetComponent<ExplosiveCrate>() != null) {
+			obj.GetComponent<ExplosiveCrate>().colorPainted = colorPainted;
+			Destroy(gameObject);
+		}
 	}
 
 	public static GameObject MakePaintball(Vector3 pos, Vector2 dir, Color col, GameObject cameFrom) {
