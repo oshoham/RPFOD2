@@ -151,6 +151,10 @@ public class Robot : MonoBehaviour, IColor {
 				if(d != null && (d.colorPainted == colorVisible)) {
 					return true;
 				}
+				ExplosiveCrate e = obj.GetComponent<ExplosiveCrate>();
+				if(e != null && (e.colorPainted == colorVisible)) {
+					return true;
+				}
 				return false;
 			});
 		if(visibles.Count > 0) {
@@ -163,6 +167,8 @@ public class Robot : MonoBehaviour, IColor {
 				lookdir = target.GetComponent<Robot>().gridCoords - gridCoords;
 			else if(target.GetComponent<DestructibleWall>() != null)
 				lookdir = target.GetComponent<DestructibleWall>().gridCoords - gridCoords;
+			else if(target.GetComponent<ExplosiveCrate>() != null)
+				lookdir = target.GetComponent<ExplosiveCrate>().gridCoords - gridCoords;
 			lookdir.Normalize();
 			if(lookdir == new Vector2(1, 0))
 				transform.localEulerAngles = new Vector3(0, 0, 90f);
