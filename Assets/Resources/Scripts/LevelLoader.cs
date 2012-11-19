@@ -2,12 +2,14 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 public static class LevelLoader {
 	
 	public static Grid grid;
 	
-	public static Grid LoadLevel(string filename) {
+	public static Grid LoadLevel(string filename, out string audiofile) {
+		audiofile = null;
 		StreamReader reader;
 		string path = "";
 		if(Application.isEditor)
@@ -56,6 +58,7 @@ public static class LevelLoader {
 			int x = Int32.Parse(parts[0]);
 			int y = Int32.Parse(parts[1]);
 			for(int i = 2; i < parts.Length;) {
+				Debug.Log(parts[i]);
 				int type = Int32.Parse(parts[i++]);
 				switch(type) {
 					case 0: // Wall
@@ -94,6 +97,10 @@ public static class LevelLoader {
 					case 8: // ExplosiveCrate
 						grid.Add(ParseExplosiveCrate(x, y, CopyRange(parts, i, 3)), x, y);
 						i += 3;
+						break;
+					case 9: // Audio file
+						audiofile = ParseAudioFile(parts, i);
+						i = parts.Length;
 						break;
 				}
 			}
@@ -207,6 +214,15 @@ public static class LevelLoader {
 		int range = Int32.Parse(info[1]);
 		int damageDealt = Int32.Parse(info[2]);
 		return ExplosiveCrate.MakeExplosiveCrate(grid, x, y, health, range, damageDealt);
+	}
+	
+	public static string ParseAudioFile(string[] info, int i) {
+		StringBuilder sb = new StringBuilder();
+		for(; i < info.Length; i++) {
+			sb.Append(info[i] + " ");
+		}
+		Debug.Log(sb.ToString());
+		return sb.ToString().Trim();
 	}
 	
 	/*
