@@ -9,7 +9,7 @@ public static class LevelLoader {
 	public static Grid grid;
 	
 	public static Grid LoadLevel(string filename, out string audiofile) {
-		audiofile = null;
+		audiofile = "";
 		StreamReader reader;
 		string path = "";
 		if(Application.isEditor)
