@@ -76,7 +76,7 @@ public class ObjectPlacer : MonoBehaviour {
 								 LevelEditor.robotColorVisible,
 								 LevelEditor.robotColorPainted,
 								 LevelEditor.robotFireDirection,
-								 LevelEditor.robotRotation),
+								 new RotationMatrix(LevelEditor.robotRotation)),
 						 x, y);
 				}
 				catch(FormatException) {
