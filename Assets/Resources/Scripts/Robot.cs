@@ -69,6 +69,11 @@ public class Robot : MonoBehaviour, IColor {
 			return;
 
 		if(health <= 0) {
+			foreach(Square sq in oVision) {
+				incColor(sq, false);	
+			}
+			grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+			WinChecker.numRobots--;
 			Destroy(gameObject);
 		}
 		Fire();
@@ -188,13 +193,8 @@ public class Robot : MonoBehaviour, IColor {
 		}
 	}
 
-	void OnDisable() {
-		foreach(Square sq in oVision) {
-			incColor(sq, false);	
-		}
-		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
-		WinChecker.numRobots--;
-	}
+	//	void OnDisable() {
+	//	}
 	
 	public static GameObject MakeRobot(Grid grid, int x, int y, float speed, float fireRate,
 					   int damage, int health, int forwardRange,
@@ -242,6 +242,7 @@ public class Robot : MonoBehaviour, IColor {
 		else if(script.movementDirection == new Vector2(0, -1))
 			script.transform.localEulerAngles = new Vector3(0, 0, 360f);
 		WinChecker.numRobots++;
+		print("Win checker robot count is " + WinChecker.numRobots);
 		return robot;
 	}
 }

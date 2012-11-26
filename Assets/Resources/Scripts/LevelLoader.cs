@@ -27,6 +27,11 @@ public static class LevelLoader {
 		int width = Int32.Parse(reader.ReadLine());
 		int height = Int32.Parse(reader.ReadLine());
 		grid = new Grid(width, height);
+		WinChecker.robotsWin = false;
+		WinChecker.squareWins = false;
+		WinChecker.robotLimit = -1;
+		WinChecker.numRobots = 0;
+		WinChecker.winCoords = default(Vector2);
 		string line = reader.ReadLine();
 		string[] conditions = line.Split(new char[] {' '});
 		for(int i = 0; i < conditions.Length; i++) {
@@ -58,7 +63,6 @@ public static class LevelLoader {
 			int x = Int32.Parse(parts[0]);
 			int y = Int32.Parse(parts[1]);
 			for(int i = 2; i < parts.Length;) {
-				Debug.Log(parts[i]);
 				int type = Int32.Parse(parts[i++]);
 				switch(type) {
 					case 0: // Wall
