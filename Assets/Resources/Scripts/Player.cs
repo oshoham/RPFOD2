@@ -34,11 +34,13 @@ public class Player : MonoBehaviour, IColor {
 	
 	public Color defaultColor;
 	public Vector2 dir = new Vector2(1, 0);
+	public GameObject explosion = Resources.Load("Standard Assets/Particles/Legacy Particles/explosion") as GameObject;
 	
 	void Update() {
 		if(health <= 0) {
-			  if(GUI.Button(new Rect(200, 450, 150, 40), "Death comes swiftest to those who die. -JFK")) {
-			  		    Application.LoadLevel("StartScreen");
+			Instantiate(explosion, transform.position, Quaternion.identity);
+			if(GUI.Button(new Rect(200, 450, 150, 40), "Death comes swiftest to those who die. -JFK")) {
+				  Application.LoadLevel("StartScreen");
 			  }		    
 		}
 		GetKeypresses();
