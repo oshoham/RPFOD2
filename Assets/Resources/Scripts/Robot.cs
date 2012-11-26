@@ -211,7 +211,7 @@ public class Robot : MonoBehaviour, IColor {
 		indicator.renderer.material.mainTexture = Resources.Load("Textures/Indicator") as Texture;
 		indicator.transform.parent = robot.transform;
 		indicator.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-		indicator.transform.localPosition = new Vector3(0.0f, 0.0f, -1.5f);
+		indicator.transform.localPosition = new Vector3(0.0f, 0.0f, -1.0f);
 		indicator.renderer.material.color = colorVisible;
 		Robot script = robot.AddComponent<Robot>();
 		robot.transform.position = new Vector3(x, y, -0.5f);
