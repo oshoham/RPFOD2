@@ -73,7 +73,7 @@ public class LevelEditor : MonoBehaviour {
 	public static Vector2 robotMovementDirection = new Vector2(1, 0);
 	public static Color robotColorVisible = Color.red;
 	public static Vector2 robotFireDirection = new Vector2(1, 0);
-	public static RotationMatrix robotRotation = new RotationMatrix(RotationMatrix.Rotation.Identity);
+	public static RotationMatrix.Rotation robotRotation = RotationMatrix.Rotation.Halfway;
 	public static string robotFireRate = "2.0";
 	public static Color robotColorPainted = Color.white;
 
@@ -451,29 +451,36 @@ public class LevelEditor : MonoBehaviour {
 						break;
 				}
 				int rotationInt;
-				if(robotRotation == new RotationMatrix(RotationMatrix.Rotation.Identity))
-					rotationInt = 0;
-				if(robotRotation == new RotationMatrix(RotationMatrix.Rotation.Left))
-					rotationInt = 1;
-				if(robotRotation == new RotationMatrix(RotationMatrix.Rotation.Right))
-					rotationInt = 2;
-				else
-					rotationInt = 3;
+				switch(robotRotation) {
+					case RotationMatrix.Rotation.Identity:
+						rotationInt = 0;
+						break;
+					case RotationMatrix.Rotation.Left:
+						rotationInt = 1;
+						break;
+					case RotationMatrix.Rotation.Right:
+						rotationInt = 2;
+						break;
+					default:
+						rotationInt = 3;
+						break;
+				}
 				rotationInt = GUI.Toolbar(FromBottomRight(new Rect(300, 100, 200, 50)),
 							  rotationInt,
 							  new string[] {"Identity", "Left", "Right", "Halfway"});
 				switch(rotationInt) {
 					case 0:
-						robotRotation = new RotationMatrix(RotationMatrix.Rotation.Identity);
+						robotRotation = RotationMatrix.Rotation.Identity;
 						break;
 					case 1:
-						robotRotation = new RotationMatrix(RotationMatrix.Rotation.Left);
+						print("one");
+						robotRotation = RotationMatrix.Rotation.Left;
 						break;
 					case 2:
-						robotRotation = new RotationMatrix(RotationMatrix.Rotation.Right);
+						robotRotation = RotationMatrix.Rotation.Right;
 						break;
 					default:
-						robotRotation = new RotationMatrix(RotationMatrix.Rotation.Halfway);
+						robotRotation = RotationMatrix.Rotation.Halfway;
 						break;
 				}
 				robotMovementDirection = robotFireDirection;
