@@ -41,13 +41,13 @@ public static class LevelLoader {
 					LevelEditor.robotLimit = conditions[i];
 					LevelEditor.robotsWin = true;
 					WinChecker.robotsWin = true;
-					WinChecker.robotLimit = Int32.Parse(conditions[i++]);
+					WinChecker.robotLimit = Int32.Parse(conditions[i]);
 					break;
 				case 1: // Wall
 					WinChecker.squareWins = true;
 					Vector2 winCoords;
 					winCoords.x = Int32.Parse(conditions[i++]);
-					winCoords.y = Int32.Parse(conditions[i++]);
+					winCoords.y = Int32.Parse(conditions[i]);
 					WinChecker.winCoords = winCoords;
 					LevelEditor.squareWins = true;
 					LevelEditor.winCoords = winCoords.x + ", " + winCoords.y;
@@ -225,7 +225,6 @@ public static class LevelLoader {
 		for(; i < info.Length; i++) {
 			sb.Append(info[i] + " ");
 		}
-		Debug.Log(sb.ToString());
 		return sb.ToString().Trim();
 	}
 	
