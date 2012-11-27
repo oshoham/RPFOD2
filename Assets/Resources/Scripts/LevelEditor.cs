@@ -1,10 +1,7 @@
 using UnityEngine;
-//using UnityEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
-//Script for handling the levelEditor 
 
 public enum ObjectType {
 	Wall,
@@ -15,7 +12,8 @@ public enum ObjectType {
 	Player,
 	Robot,
 	DestructibleWall,
-	ExplosiveCrate
+	ExplosiveCrate,
+	RobotSpawner
 }
 
 public class LevelEditor : MonoBehaviour {
@@ -94,6 +92,24 @@ public class LevelEditor : MonoBehaviour {
 	
 	// Audio
 	public static string audiofile = "Audio File";
+	
+	// RobotSpawner
+	public static string robotSpawnerHealth = "10";
+	public static Color robotSpawnerColorPainted = Color.white;
+	public static Vector2 robotSpawnerSpawnDirection = new Vector2(1, 0);
+	public static string robotSpawnerSpawnRate = "0.5";
+	public static string robotSpawnerRobotSpeed = "0.5";
+	public static string robotSpawnerRobotDamageDealt = "1";
+	public static string robotSpawnerRobotHealth = "10";
+	public static string robotSpawnerRobotForwardRange = "1";
+	public static string robotSpawnerRobotSideRange = "1";
+	public static Vector2 robotSpawnerRobotMovementDirection = new Vector2(1, 0);
+	public static Color robotSpawnerRobotColorVisible = Color.red;
+	public static Vector2 robotSpawnerRobotFireDirection = new Vector2(1, 0);
+	public static RotationMatrix.Rotation robotSpawnerRobotRotation = RotationMatrix.Rotation.Halfway;
+	public static string robotSpawnerRobotFireRate = "2.0";
+	public static Color robotSpawnerRobotColorPainted = Color.white;
+	
 	void Start() {
 		Time.timeScale = 0;
 		Camera.main.orthographic = true;
@@ -136,6 +152,9 @@ public class LevelEditor : MonoBehaviour {
 		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 550.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/explosive") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.ExplosiveCrate, name: "ExplosiveCrate Selector");
+		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 600.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/Tile2") as Texture,
+						  () => LevelEditor.objectToBeCreated = ObjectType.RobotSpawner, name: "RobotSpawner Selector");
 
 		if(GlobalSettings.lastScene == "Game") {
 			floor = LevelLoader.LoadLevel(GlobalSettings.currentFile, out audiofile);
@@ -520,6 +539,196 @@ public class LevelEditor : MonoBehaviour {
 				explosiveCrateHealth = GUI.TextField(FromBottomRight(new Rect(375, 50, 50, 25)), explosiveCrateHealth);
 				explosiveCrateRange = GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 25)), explosiveCrateRange);
 				explosiveCrateDamage = GUI.TextField(FromBottomRight(new Rect(225, 50, 50, 25)), explosiveCrateDamage);
+				break;
+			case ObjectType.RobotSpawner:
+				GUI.Label(FromBottomRight(new Rect(1100, 150, 75, 50)), "Health");
+				GUI.Label(FromBottomRight(new Rect(1050, 150, 75, 50)), "Spawn Rate");
+				GUI.Label(FromBottomRight(new Rect(1000, 150, 75, 50)), "Color Painted");
+				GUI.Label(FromBottomRight(new Rect(950, 150, 75, 50)), "Spawn Direction");
+				
+				robotSpawnerHealth = GUI.TextField(FromBottomRight(new Rect(1100, 50, 50, 25)), robotSpawnerHealth);
+				robotSpawnerSpawnRate = GUI.TextField(FromBottomRight(new Rect(1050, 50, 50, 25)), robotSpawnerSpawnRate);
+				if(robotSpawnerColorPainted == Color.red) {
+					colorInt = 0;
+				}
+				else if(robotSpawnerColorPainted == Color.green) {
+					colorInt = 1;
+				}
+				else {
+					colorInt = 2;
+				}
+				colorInt = GUI.Toolbar(FromBottomRight(new Rect(1000, 50, 175, 30)),
+						       colorInt,
+						       new string[] {"Red", "Green", "Blue"});
+				switch(colorInt) {
+					case 0:
+						robotSpawnerColorPainted = Color.red;
+						break;
+					case 1:
+						robotSpawnerColorPainted = Color.green;
+						break;
+					case 2:
+						robotSpawnerColorPainted = Color.blue;
+						break;
+				}
+				if(robotSpawnerSpawnDirection.y > 0) {
+					dir = 0;
+				}
+				else if(robotSpawnerSpawnDirection.x > 0) {
+					dir = 1;
+				}
+				else if(robotSpawnerSpawnDirection.y < 0) {
+					dir = 2;
+				}
+				else {
+					dir = 3;
+				}
+				dir = GUI.Toolbar(FromBottomRight(new Rect(950, 90, 175, 30)),
+						       dir,
+						       new string[] {"North", "East", "South", "West"});
+				switch(dir) {
+					case 0:
+						robotSpawnerSpawnDirection = new Vector2(0, 1);
+						break;
+					case 1:
+						robotSpawnerSpawnDirection = new Vector2(1, 0);
+						break;
+					case 2:
+						robotSpawnerSpawnDirection = new Vector2(0, -1);
+						break;
+					case 3:
+						robotSpawnerSpawnDirection = new Vector2(-1, 0);
+						break;
+				}
+				// Robot stuff
+				GUI.Label(FromBottomRight(new Rect(375, 150, 75, 50)), "Robot Health");
+				GUI.Label(FromBottomRight(new Rect(300, 150, 75, 50)), "Robot Forward Range");
+				GUI.Label(FromBottomRight(new Rect(225, 150, 75, 50)), "Robot Side Range");
+				GUI.Label(FromBottomRight(new Rect(150, 150, 75, 50)), "Robot Speed");
+				GUI.Label(FromBottomRight(new Rect(75, 150, 75, 50)), "Robot Fire Rate");
+				
+				robotSpawnerRobotHealth = GUI.TextField(FromBottomRight(new Rect(375, 50, 50, 25)), robotSpawnerRobotHealth);
+				robotSpawnerRobotForwardRange = GUI.TextField(FromBottomRight(new Rect(300, 50, 50, 25)), robotSpawnerRobotForwardRange);
+				robotSpawnerRobotSideRange = GUI.TextField(FromBottomRight(new Rect(225, 50, 50, 25)), robotSpawnerRobotSideRange);
+				robotSpawnerRobotSpeed = GUI.TextField(FromBottomRight(new Rect(150, 50, 50, 25)), robotSpawnerRobotSpeed);
+				robotSpawnerRobotFireRate = GUI.TextField(FromBottomRight(new Rect(75, 50, 50, 25)), robotSpawnerRobotFireRate);
+				// color
+				if(robotSpawnerRobotColorVisible == Color.red) {
+					colorInt = 0;
+				}
+				else if(robotSpawnerRobotColorVisible == Color.green) {
+					colorInt = 1;
+				}
+				else {
+					colorInt = 2;
+				}
+				colorInt = GUI.Toolbar(FromBottomRight(new Rect(700, 90, 175, 30)),
+						       colorInt,
+						       new string[] {"Red", "Green", "Blue"});
+				switch(colorInt) {
+					case 0:
+						robotSpawnerRobotColorVisible = Color.red;
+						break;
+					case 1:
+						robotSpawnerRobotColorVisible = Color.green;
+						break;
+					case 2:
+						robotSpawnerRobotColorVisible = Color.blue;
+						break;
+				}
+				// color painted
+				if(robotSpawnerRobotColorPainted == Color.red) {
+					colorInt = 0;
+				}
+				else if(robotSpawnerRobotColorPainted == Color.green) {
+					colorInt = 1;
+				}
+				else if(robotSpawnerRobotColorPainted == Color.blue) {
+					colorInt = 2;
+				}
+				else {
+					colorInt = 3;
+				}
+				colorInt = GUI.Toolbar(FromBottomRight(new Rect(700, 50, 250, 30)),
+						       colorInt,
+						       new string[] {"Red", "Green", "Blue", "Default"});
+				switch(colorInt) {
+					case 0:
+						robotSpawnerRobotColorPainted = Color.red;
+						break;
+					case 1:
+						robotSpawnerRobotColorPainted = Color.green;
+						break;
+					case 2:
+						robotSpawnerRobotColorPainted = Color.blue;
+						break;
+					case 3:
+						robotSpawnerColorPainted = Color.white;
+						break;
+				}
+				// direction
+				if(robotSpawnerRobotFireDirection.y > 0) {
+					dir = 0;
+				}
+				else if(robotSpawnerRobotFireDirection.x > 0) {
+					dir = 1;
+				}
+				else if(robotSpawnerRobotFireDirection.y < 0) {
+					dir = 2;
+				}
+				else {
+					dir = 3;
+				}
+				dir = GUI.Toolbar(FromBottomRight(new Rect(500, 90, 175, 30)),
+						       dir,
+						       new string[] {"North", "East", "South", "West"});
+				switch(dir) {
+					case 0:
+						robotSpawnerRobotFireDirection = new Vector2(0, 1);
+						break;
+					case 1:
+						robotSpawnerRobotFireDirection = new Vector2(1, 0);
+						break;
+					case 2:
+						robotSpawnerRobotFireDirection = new Vector2(0, -1);
+						break;
+					case 3:
+						robotSpawnerRobotFireDirection = new Vector2(-1, 0);
+						break;
+				}
+				switch(robotSpawnerRobotRotation) {
+					case RotationMatrix.Rotation.Identity:
+						rotationInt = 0;
+						break;
+					case RotationMatrix.Rotation.Left:
+						rotationInt = 1;
+						break;
+					case RotationMatrix.Rotation.Right:
+						rotationInt = 2;
+						break;
+					default:
+						rotationInt = 3;
+						break;
+				}
+				rotationInt = GUI.Toolbar(FromBottomRight(new Rect(300, 100, 200, 50)),
+							  rotationInt,
+							  new string[] {"Identity", "Left", "Right", "Halfway"});
+				switch(rotationInt) {
+					case 0:
+						robotSpawnerRobotRotation = RotationMatrix.Rotation.Identity;
+						break;
+					case 1:
+						print("one");
+						robotSpawnerRobotRotation = RotationMatrix.Rotation.Left;
+						break;
+					case 2:
+						robotSpawnerRobotRotation = RotationMatrix.Rotation.Right;
+						break;
+					default:
+						robotSpawnerRobotRotation = RotationMatrix.Rotation.Halfway;
+						break;
+				}
+				robotSpawnerRobotMovementDirection = robotSpawnerRobotFireDirection;
 				break;
 		}
 	}

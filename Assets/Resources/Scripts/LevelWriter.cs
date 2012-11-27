@@ -206,6 +206,72 @@ public static class LevelWriter {
 							sb.Append(8 + " " + exp.health + " " + exp.range + " " + exp.damageDealt);
 						}
 					}
+					obj = sq.objects.Find((GameObject g) => g.GetComponent<RobotSpawner>() != null);
+					if(obj != null) {
+						RobotSpawner spawner = obj.GetComponent<RobotSpawner>();
+						if(spawner != null) {
+							sb.Append(10 + " " + spawner.health + " " + spawner.spawnRate + " ");
+							if(spawner.colorPainted == Color.red)
+								sb.Append(0 + " ");
+							else if(spawner.colorPainted == Color.green)
+								sb.Append(1 + " ");
+							else if(spawner.colorPainted == Color.blue)
+								sb.Append(2 + " ");
+							else
+								sb.Append(3 + " ");
+							
+							sb.Append(spawner.robotSpeed + " " + spawner.robotDamageDealt + " " +
+								  spawner.robotHealth + " " + spawner.robotForwardRange + " " +
+								  spawner.robotSideRange + " ");
+							
+							if(spawner.robotMovementDirection == new Vector2(0, 1))
+								sb.Append(0 + " ");
+							else if(spawner.robotMovementDirection == new Vector2(1, 0))
+								sb.Append(1 + " ");
+							else if(spawner.robotMovementDirection == new Vector2(0, -1))
+								sb.Append(2 + " ");
+							else if(spawner.robotMovementDirection == new Vector2(-1, 0))
+								sb.Append(3 + " ");
+							
+							if(spawner.robotColorVisible == Color.red)
+								sb.Append(0 + " ");
+							else if(spawner.robotColorVisible == Color.green)
+								sb.Append(1 + " ");
+							else if(spawner.robotColorVisible == Color.blue)
+								sb.Append(2 + " ");
+							else
+								sb.Append(3 + " ");
+							
+							if(spawner.robotFireDirection == new Vector2(0, 1))
+								sb.Append(0 + " ");
+							else if(spawner.robotFireDirection == new Vector2(1, 0))
+								sb.Append(1 + " ");
+							else if(spawner.robotFireDirection == new Vector2(0, -1))
+								sb.Append(2 + " ");
+							else if(spawner.robotFireDirection == new Vector2(-1, 0))
+								sb.Append(3 + " ");
+							
+							if(spawner.robotRotation == new RotationMatrix(RotationMatrix.Rotation.Identity))
+								sb.Append(0 + " ");
+							if(spawner.robotRotation == new RotationMatrix(RotationMatrix.Rotation.Left))
+								sb.Append(1 + " ");
+							if(spawner.robotRotation == new RotationMatrix(RotationMatrix.Rotation.Right))
+								sb.Append(2 + " ");
+							else
+								sb.Append(3 + " ");
+							
+							sb.Append(spawner.robotFireRate + " ");
+							
+							if(spawner.robotColorPainted == Color.red)
+								sb.Append(0 + " ");
+							else if(spawner.robotColorPainted == Color.green)
+								sb.Append(1 + " ");
+							else if(spawner.robotColorPainted == Color.blue)
+								sb.Append(2 + " ");
+							else
+								sb.Append(3 + " ");
+						}
+					}
 					string line = sb.ToString().Trim();
 					// Don't just write x and y coords if we don't need them
 					if(line.Split(new char[] {' '}).Length > 2) {

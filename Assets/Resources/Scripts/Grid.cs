@@ -22,7 +22,10 @@ public class Grid {
 		}
 	}
 	
-	// Check to see if the Sqaure at the given loc is occupied by anything other than Paint.
+	/*
+	 * Check to see if the Square at the given loc is occupied by anything other than Paint.
+	 * Returns true if the square shouldn't be moved into.
+	 */
 	public bool Check(Vector2 loc) {
 		if(!CheckCoords(loc)) {
 			return true;

@@ -101,6 +101,24 @@ public class ObjectPlacer : MonoBehaviour {
 									   Int32.Parse(LevelEditor.explosiveCrateDamage)),
 					 x, y);
 				break;
+			case ObjectType.RobotSpawner:
+				grid.Add(RobotSpawner.MakeRobotSpawner(grid, x, y,
+								       Int32.Parse(LevelEditor.robotSpawnerHealth),
+								       Single.Parse(LevelEditor.robotSpawnerSpawnRate),
+								       LevelEditor.robotSpawnerColorPainted,
+								       Single.Parse(LevelEditor.robotSpawnerRobotSpeed),
+								       Int32.Parse(LevelEditor.robotSpawnerRobotDamageDealt),
+								       Int32.Parse(LevelEditor.robotSpawnerRobotHealth),
+								       Int32.Parse(LevelEditor.robotSpawnerRobotForwardRange),
+								       Int32.Parse(LevelEditor.robotSpawnerRobotSideRange),
+								       LevelEditor.robotSpawnerRobotMovementDirection,
+								       LevelEditor.robotSpawnerRobotColorVisible,
+								       LevelEditor.robotSpawnerRobotFireDirection,
+								       new RotationMatrix(LevelEditor.robotSpawnerRobotRotation),
+								       Single.Parse(LevelEditor.robotSpawnerRobotFireRate),
+								       LevelEditor.robotSpawnerRobotColorPainted),
+					 x, y);
+					 break;
 		}
 	}
 
