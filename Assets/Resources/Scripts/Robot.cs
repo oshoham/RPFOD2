@@ -69,11 +69,6 @@ public class Robot : MonoBehaviour, IColor {
 			return;
 
 		if(health <= 0) {
-			foreach(Square sq in oVision) {
-				incColor(sq, false);	
-			}
-			grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
-			WinChecker.numRobots--;
 			Destroy(gameObject);
 		}
 		Fire();
@@ -193,8 +188,14 @@ public class Robot : MonoBehaviour, IColor {
 		}
 	}
 
-	//	void OnDisable() {
-	//	}
+	void OnDisable() {
+		foreach(Square sq in oVision) {
+			incColor(sq, false);	
+		}
+		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+		WinChecker.numRobots--;
+		
+	}
 	
 	public static GameObject MakeRobot(Grid grid, int x, int y, float speed, float fireRate,
 					   int damage, int health, int forwardRange,
