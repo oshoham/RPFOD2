@@ -41,9 +41,10 @@ public class Laser : MonoBehaviour {
 		GameObject laser = new GameObject("Laser");
 		LineRenderer line = laser.AddComponent<LineRenderer>();
 		line.SetVertexCount(2);
-		line.SetColors(Color.red, Color.red);
-		line.SetWidth(0.2f, 0.2f);
+		line.SetColors(Color.blue, Color.blue);
+		line.SetWidth(0.1f, 0.1f);
 		line.SetPosition(0, pos);
+		line.material.color = Color.red;
 		GameObject obj = hit.transform.gameObject;
 		Vector2 hitPos = pos;
 		if(obj.GetComponent<Player>() != null)
