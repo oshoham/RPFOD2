@@ -69,11 +69,6 @@ public class Robot : MonoBehaviour, IColor {
 			return;
 
 		if(health <= 0) {
-			foreach(Square sq in oVision) {
-				incColor(sq, false);	
-			}
-			grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
-			WinChecker.numRobots--;
 			Destroy(gameObject);
 		}
 		Fire();
@@ -193,8 +188,14 @@ public class Robot : MonoBehaviour, IColor {
 		}
 	}
 
-	//	void OnDisable() {
-	//	}
+	void OnDisable() {
+		foreach(Square sq in oVision) {
+			incColor(sq, false);	
+		}
+		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+		WinChecker.numRobots--;
+		
+	}
 	
 	public static GameObject MakeRobot(Grid grid, int x, int y, float speed, float fireRate,
 					   int damage, int health, int forwardRange,
@@ -211,7 +212,7 @@ public class Robot : MonoBehaviour, IColor {
 		indicator.renderer.material.mainTexture = Resources.Load("Textures/Indicator") as Texture;
 		indicator.transform.parent = robot.transform;
 		indicator.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-		indicator.transform.localPosition = new Vector3(0.0f, 0.0f, -1.5f);
+		indicator.transform.localPosition = new Vector3(0.0f, 0.0f, -1.0f);
 		indicator.renderer.material.color = colorVisible;
 		Robot script = robot.AddComponent<Robot>();
 		robot.transform.position = new Vector3(x, y, -0.5f);

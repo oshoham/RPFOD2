@@ -10,8 +10,12 @@ public class FreePlayManager : MonoBehaviour {
 
 	public string[] levels;
 	public string path;
-
-	void Start () {
+	public AudioClip fplaysong;
+	public AudioClip tickOnHover;
+	public AudioSource soundtrack = new AudioSource();
+	public AudioSource effects = new AudioSource();
+	
+	void Start () {	       
 		GameObject backButton = new GameObject("Back Button");
 		GUIText back = (GUIText)backButton.AddComponent(typeof(GUIText));
 		back.text = "Back";
@@ -39,6 +43,14 @@ public class FreePlayManager : MonoBehaviour {
 			if(i>=50) j=6;
 			CreateLevelButton(fileName, i, j);
 		}
+		//audio
+		fplaysong = Resources.Load("Audio/02 Primum Movens") as AudioClip;
+		tickOnHover = Resources.Load("Audio/Effects/tick") as AudioClip;
+		effects = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
+		soundtrack = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
+		soundtrack.loop = true;
+		soundtrack.clip = fplaysong;
+	        soundtrack.Play();
 	}
 	
 	void Update () {

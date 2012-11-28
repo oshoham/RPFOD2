@@ -41,13 +41,13 @@ public static class LevelLoader {
 					LevelEditor.robotLimit = conditions[i];
 					LevelEditor.robotsWin = true;
 					WinChecker.robotsWin = true;
-					WinChecker.robotLimit = Int32.Parse(conditions[i++]);
+					WinChecker.robotLimit = Int32.Parse(conditions[i]);
 					break;
 				case 1: // Wall
 					WinChecker.squareWins = true;
 					Vector2 winCoords;
 					winCoords.x = Int32.Parse(conditions[i++]);
-					winCoords.y = Int32.Parse(conditions[i++]);
+					winCoords.y = Int32.Parse(conditions[i]);
 					WinChecker.winCoords = winCoords;
 					LevelEditor.squareWins = true;
 					LevelEditor.winCoords = winCoords.x + ", " + winCoords.y;
@@ -105,6 +105,10 @@ public static class LevelLoader {
 					case 9: // Audio file
 						audiofile = ParseAudioFile(parts, i);
 						i = parts.Length;
+						break;
+					case 10: // RobotSpawner
+						grid.Add(ParseRobotSpawner(x, y, CopyRange(parts, i, 14)), x, y);
+						i += 14;
 						break;
 				}
 			}
@@ -225,10 +229,31 @@ public static class LevelLoader {
 		for(; i < info.Length; i++) {
 			sb.Append(info[i] + " ");
 		}
-		Debug.Log(sb.ToString());
 		return sb.ToString().Trim();
 	}
 	
+	public static GameObject ParseRobotSpawner(int x, int y, string[] info) {
+		int health = Int32.Parse(info[0]);
+		float spawnRate = Single.Parse(info[1]);
+		Color colorPainted = ParseColor(info[2]);
+		float robotSpeed = Single.Parse(info[3]);
+		int robotDamageDealt = Int32.Parse(info[4]);
+		int robotHealth = Int32.Parse(info[5]);
+		int robotForwardRange = Int32.Parse(info[6]);
+		int robotSideRange = Int32.Parse(info[7]);
+		Vector2 robotMovementDirection = ParseVector2(info[8]);
+		Color robotColorVisible = ParseColor(info[9]);
+		Vector2 robotFireDirection = ParseVector2(info[10]);
+		RotationMatrix robotRotation = ParseRotationMatrix(info[11]);
+		float robotFireRate = Single.Parse(info[12]);
+		Color robotColorPainted = ParseColor(info[13]);
+		return RobotSpawner.MakeRobotSpawner(grid, x, y, health, spawnRate, colorPainted,
+						     robotSpeed, robotDamageDealt, robotHealth,
+						     robotForwardRange, robotSideRange,
+						     robotMovementDirection, robotColorVisible,
+						     robotFireDirection, robotRotation,
+						     robotFireRate, robotColorPainted);
+	}
 	/*
 	 * This just copies a section of an array. It's useful when passing parameters
 	 * to one of the parsing functions.
