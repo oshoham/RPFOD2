@@ -38,7 +38,7 @@ public class Bullet : Projectile {
 		bullet.transform.position = pos;
 		Bullet script = bullet.AddComponent<Bullet>();
 		script.dir = dir;
-		script.moveSpeed = 10.0f;
+		script.moveSpeed = 20.0f;
 		Destroy(bullet, 2.0f); // life time
 		script.cameFrom = cameFrom;
 		script.damageDealt = damage;
