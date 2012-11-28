@@ -179,7 +179,11 @@ public class Robot : MonoBehaviour, IColor {
 			else if(lookdir == new Vector2(0, -1))
 				transform.localEulerAngles = new Vector3(0, 0, 360f);
 			if(Time.time > lastFired + fireRate) {
-				Bullet.MakeBullet(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, gameObject);
+				//Bullet.MakeBullet(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, gameObject);
+				RaycastHit hit;
+				if(Physics.Raycast(transform.position, (visibles[0].transform.position - transform.position).normalized, out hit)) {
+					Laser.MakeLaser(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, hit, colorVisible);
+				}
 				lastFired = Time.time;
 			}
 		}
