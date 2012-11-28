@@ -124,7 +124,7 @@ public class Robot : MonoBehaviour, IColor {
 			return;
 		}
 		float time = (Time.time - startedMoving)/moveSpeed + .1f;
-		transform.position = Vector3.Lerp(oldPosition, newPosition, time);
+		transform.position = Player.CubicInterpolate(oldPosition, newPosition, time);//Vector3.Lerp(oldPosition, newPosition, time);
 	}
 	
 	public void Fire() {
