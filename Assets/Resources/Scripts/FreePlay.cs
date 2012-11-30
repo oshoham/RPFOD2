@@ -6,7 +6,7 @@ public class FreePlay : MonoBehaviour {
 	GameObject game;
 	public static int defaultFontSize;
 	public static int resizeTo = 50;
-	public AudioClip tickOnClick = Resources.Load("Audio/Effects/robotshot") as AudioClip;	
+	public AudioClip tickOnClick = Resources.Load("Audio/Effects/click") as AudioClip;	
 	public AudioClip tickOnHover = Resources.Load("Audio/Effects/tick") as AudioClip;
 	public AudioSource effects = new AudioSource();
 

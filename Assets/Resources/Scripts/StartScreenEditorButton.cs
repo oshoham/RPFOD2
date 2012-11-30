@@ -5,7 +5,7 @@ public class StartScreenEditorButton : MonoBehaviour {
        GameObject editor;
        public static int defaultFontSize;
        public static int resizeTo = 50;
-       public AudioClip tickOnSelect = Resources.Load("Audio/Effects/robotshot") as AudioClip;	
+       public AudioClip tickOnSelect = Resources.Load("Audio/Effects/click") as AudioClip;	
        public AudioSource effects = new AudioSource();
 
        void Start() {

@@ -44,12 +44,13 @@ public class FreePlayManager : MonoBehaviour {
 			CreateLevelButton(fileName, i, j);
 		}
 		//audio
-		fplaysong = Resources.Load("Audio/02 Primum Movens") as AudioClip;
-		tickOnHover = Resources.Load("Audio/Effects/tick") as AudioClip;
+		fplaysong = Resources.Load("Audio/Effects/ambience3") as AudioClip;
+		tickOnHover = Resources.Load("Audio/Effects/click") as AudioClip;
 		effects = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
 		soundtrack = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
 		soundtrack.loop = true;
 		soundtrack.clip = fplaysong;
+		soundtrack.volume = 0.1f;
 	        soundtrack.Play();
 	}
 	
