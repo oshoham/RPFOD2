@@ -152,7 +152,7 @@ public class LevelEditor : MonoBehaviour {
 						  Resources.Load("Textures/BotIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Robot, name: "Robot Selector");
 		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 500.0f, z), 0.5f, 0.5f,
-						  Resources.Load("Textures/DWall") as Texture,
+						  Resources.Load("Textures/DWallTest") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.DestructibleWall, name: "DestructibleWall Selector");
 		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 550.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/explosive") as Texture,
