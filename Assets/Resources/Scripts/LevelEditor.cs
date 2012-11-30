@@ -16,6 +16,7 @@ public enum ObjectType {
 	RobotSpawner
 }
 
+
 public class LevelEditor : MonoBehaviour {
 	
 	public static int WIDTH = 100;
@@ -33,6 +34,10 @@ public class LevelEditor : MonoBehaviour {
 	public static int newHeight;
 
 	public static List<GameObject> objectPlacers = new List<GameObject>();
+	
+	//Audio for background music
+	public AudioSource bgm = new AudioSource();
+	public AudioClip song;
 	
 	/*
 	 * Information for each type of object that we might create. Most of
@@ -164,6 +169,14 @@ public class LevelEditor : MonoBehaviour {
 				newHeight = floor.grid.GetLength(1);
 			}
 		}
+		
+		//audio handling
+		song = Resources.Load("Audio/Effects/ambience2") as AudioClip;
+		bgm = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
+		bgm.clip = song;
+		bgm.loop = true;
+		bgm.Play();
+		
 	}
 
 	void Update() {
