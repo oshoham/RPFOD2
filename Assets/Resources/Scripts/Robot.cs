@@ -39,6 +39,15 @@ public class Robot : MonoBehaviour, IColor {
 	public bool isMoving;
 	public static AudioSource lasersource = new AudioSource();
 	public static AudioClip lasersound;	
+//	public static AudioClip explosionsound;
+//	public bool explohappened = false;
+//	public static AudioSource explosionsource = new AudioSource();
+//	public GameObject explosion = Resources.Load("Standard Assets/Particles/Legacy Particles/Small explosion") as GameObject;
+
+	void Start()
+	{
+		
+	}
 
 	void Update() {
 		
@@ -70,7 +79,15 @@ public class Robot : MonoBehaviour, IColor {
 			return;
 
 		if(health <= 0) {
-			Destroy(gameObject);
+//		        Instantiate(explosion, transform.position. Quaternion.identity);
+//			if(!explohappened) {
+//				explosionsound = Resources.Load("Audio/Effects/explosion") as AudioClip;
+//				explosionsource = (AudioSource)gameObject.AddComponent(typeof(AudioSource));
+//				explosionsource.clip = explosionsound;
+//				explosionsource.Play();
+//				explohappened = true;
+//			}
+			Destroy(gameObject);			
 		}
 		Fire();
 		if(Time.time > endMoving && moveSpeed > 0) {
