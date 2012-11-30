@@ -51,7 +51,9 @@ public static class LevelLoader {
 					WinChecker.winCoords = winCoords;
 					LevelEditor.squareWins = true;
 					LevelEditor.winCoords = winCoords.x + ", " + winCoords.y;
-					grid.grid[(int)winCoords.x, (int)winCoords.y].plane.renderer.material.mainTexture = Resources.Load("Textures/Tile.png") as Texture;
+					grid.grid[(int)winCoords.x, (int)winCoords.y].plane.renderer.material.mainTexture = Resources.Load("Textures/winsquare") as Texture;
+					grid.grid[(int)winCoords.x, (int)winCoords.y].plane.renderer.material.shader = Shader.Find("Transparent/Diffuse");
+					grid.grid[(int)winCoords.x, (int)winCoords.y].plane.renderer.material.color = Color.white;
 					grid.grid[(int)winCoords.x, (int)winCoords.y].plane.name = "Win Square";
 					break;
 			}
