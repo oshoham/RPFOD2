@@ -222,7 +222,14 @@ public class Robot : MonoBehaviour, IColor {
 				//Bullet.MakeBullet(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, gameObject);
 				RaycastHit hit;
 				if(Physics.Raycast(transform.position, (visibles[0].transform.position - transform.position).normalized, out hit)) {
-					if(hit.transform.gameObject.Equals(visibles[0])) {
+					bool shouldShoot = hit.transform.gameObject.Equals(visibles[0]);
+					if(!shouldShoot) {
+						if(hit.transform.gameObject.GetComponent<Robot>() != null &&
+						   visibles[0].GetComponent<Robot>() != null)
+							shouldShoot = true;
+					}
+					if(shouldShoot) {
+						
 						lastFired = Time.time;
 						Laser.MakeLaser(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, hit, colorVisible, this);
 						lasersound = Resources.Load("Audio/Effects/robotshot") as AudioClip;
