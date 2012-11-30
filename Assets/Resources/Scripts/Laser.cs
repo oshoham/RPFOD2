@@ -11,7 +11,6 @@ public class Laser : MonoBehaviour {
 	public Robot roobit;
 
 	void Start() {
-
 	}
 
 	void Update() {
@@ -44,7 +43,7 @@ public class Laser : MonoBehaviour {
 
 	public static GameObject MakeLaser(int damage, Vector3 pos, Vector2 dir, RaycastHit hit, Color robotLaserColor, Robot roobit) {
 		GameObject laser = new GameObject("Laser");
-		LineRenderer line = laser.AddComponent<LineRenderer>();
+		LineRenderer line = laser.AddComponent<LineRenderer>();		
 		line.SetVertexCount(2);
 		line.SetColors(Color.blue, Color.blue);
 		line.SetWidth(0.1f, 0.1f);
