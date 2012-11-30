@@ -141,7 +141,7 @@ public class Player : MonoBehaviour, IColor {
 			startedMoving = Time.time;
 			endMoving = startedMoving + moveSpeed;
 			oldPosition = transform.position;
-			newPosition = new Vector3(gridCoords.x, gridCoords.y, -1.0f);
+			newPosition = new Vector3(gridCoords.x, gridCoords.y, -0.5f);
 		}
 	}
 	
@@ -153,14 +153,25 @@ public class Player : MonoBehaviour, IColor {
 			return;
 		}
 		float time = (Time.time - startedMoving)/moveSpeed + .1f;
-		transform.position = Vector3.Lerp(oldPosition, newPosition, time);
+		transform.position = CubicInterpolate(oldPosition, newPosition, time);//Vector3.Lerp(oldPosition, newPosition, time);
+	}
+	
+	/*
+	 * f(x) = -2x^3 + 3x^2
+	 */
+	public static Vector3 CubicInterpolate(Vector3 oldPosition, Vector3 newPosition, float time) {
+		if(time < 0)
+			time = 0;
+		if(time > 1)
+			time = 1;
+		float f = (float)(-2*Math.Pow(time, 3) + 3*Math.Pow(time, 2));
+		Vector3 position = new Vector3();
+		position.x = (newPosition.x - oldPosition.x)*f + oldPosition.x;
+		position.y = (newPosition.y - oldPosition.y)*f + oldPosition.y;
+		position.z = (newPosition.z - oldPosition.z)*f + oldPosition.z;
+		return position;
 	}
 
-	/*
-	 * Checks if we've already got the given color, and adds it in the order
-	 * red -> green -> blue if we don't. Also changes the colorIndex if
-	 * necessary.
-	 */
 	public void PickupColor(Color color) {
 		if(colors.ContainsKey(color)) {
 			colors[color]++;
