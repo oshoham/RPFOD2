@@ -107,8 +107,8 @@ public static class LevelLoader {
 						i = parts.Length;
 						break;
 					case 10: // RobotSpawner
-						grid.Add(ParseRobotSpawner(x, y, CopyRange(parts, i, 14)), x, y);
-						i += 14;
+						grid.Add(ParseRobotSpawner(x, y, CopyRange(parts, i, 15)), x, y);
+						i += 15;
 						break;
 				}
 			}
@@ -247,12 +247,14 @@ public static class LevelLoader {
 		RotationMatrix robotRotation = ParseRotationMatrix(info[11]);
 		float robotFireRate = Single.Parse(info[12]);
 		Color robotColorPainted = ParseColor(info[13]);
+		Vector2 spawnDirection = ParseVector2(info[14]);
 		return RobotSpawner.MakeRobotSpawner(grid, x, y, health, spawnRate, colorPainted,
 						     robotSpeed, robotDamageDealt, robotHealth,
 						     robotForwardRange, robotSideRange,
 						     robotMovementDirection, robotColorVisible,
 						     robotFireDirection, robotRotation,
-						     robotFireRate, robotColorPainted);
+						     robotFireRate, robotColorPainted,
+						     spawnDirection);
 	}
 	/*
 	 * This just copies a section of an array. It's useful when passing parameters

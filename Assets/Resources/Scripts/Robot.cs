@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -115,7 +116,24 @@ public class Robot : MonoBehaviour, IColor {
 		else if(movementDirection == new Vector2(0, -1))
 			transform.localEulerAngles = new Vector3(0, 0, 360f);
 	}
-
+	
+		
+	/*
+	 * f(x) = -2x^3 + 3x^2
+	 */
+	public static Vector3 CubicInterpolate(Vector3 oldPosition, Vector3 newPosition, float time) {
+		if(time < 0)
+			time = 0;
+		if(time > 1)
+			time = 1;
+		float f = (float)(-2*Math.Pow(time, 3) + 3*Math.Pow(time, 2));
+		Vector3 position = new Vector3();
+		position.x = (newPosition.x - oldPosition.x)*f + oldPosition.x;
+		position.y = (newPosition.y - oldPosition.y)*f + oldPosition.y;
+		position.z = (newPosition.z - oldPosition.z)*f + oldPosition.z;
+		return position;
+	}
+	
 	/*
 	 * For smooth motion animation.
 	 */
@@ -124,7 +142,12 @@ public class Robot : MonoBehaviour, IColor {
 			return;
 		}
 		float time = (Time.time - startedMoving)/moveSpeed + .1f;
-		transform.position = Player.CubicInterpolate(oldPosition, newPosition, time);//Vector3.Lerp(oldPosition, newPosition, time);
+		if(moveSpeed >= 1) { // If this is a slower bot, use smooth motion
+			transform.position = CubicInterpolate(oldPosition, newPosition, time);//Vector3.Lerp(oldPosition, newPosition, time);
+		}
+		else {
+			transform.position = Vector3.Lerp(oldPosition, newPosition, time);
+		}
 	}
 	
 	public void Fire() {

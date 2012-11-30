@@ -33,13 +33,15 @@ public class RobotSpawner : MonoBehaviour, IColor {
 	
 	void Update() {
 		Vector2 robotCoords = spawnDirection + gridCoords;
-		if(Time.timeScale > 0 && !grid.Check(robotCoords) && Time.time > lastSpawned + spawnRate) {
+		print(robotCoords + " " + lastSpawned + " " + spawnRate + " " + spawnDirection);
+		if(Time.timeScale > 0 && Time.time > lastSpawned + spawnRate && !grid.Check(robotCoords)) {
 			lastSpawned = Time.time;
 			Spawn(robotCoords);
 		}
 	}
 	
 	public void Spawn(Vector2 robotCoords) {
+		print("spawning");
 		grid.Add(Robot.MakeRobot(grid, (int)robotCoords.x, (int)robotCoords.y, robotSpeed, robotFireRate,
 					 robotDamageDealt, robotHealth, robotForwardRange, robotSideRange,
 					 robotMovementDirection, robotColorVisible, robotColorPainted,
@@ -56,7 +58,8 @@ public class RobotSpawner : MonoBehaviour, IColor {
 						  int robotHealth, int robotForwardRange, int robotSideRange,
 						  Vector2 robotMovementDirection, Color robotColorVisible,
 						  Vector2 robotFireDirection, RotationMatrix robotRotation,
-						  float robotFireRate, Color robotColorPainted) {
+						  float robotFireRate, Color robotColorPainted,
+						  Vector2 spawnDirection) {
 		GameObject spawner = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		spawner.name = "Robot Spawner";
 		spawner.transform.position = new Vector3(x, y, -0.5f);
@@ -78,6 +81,7 @@ public class RobotSpawner : MonoBehaviour, IColor {
 		script.robotRotation = robotRotation;
 		script.robotFireRate = robotFireRate;
 		script.robotColorPainted = robotColorPainted;
+		script.spawnDirection = spawnDirection;
 		return spawner;
 	}
 	
