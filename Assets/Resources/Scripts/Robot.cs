@@ -36,8 +36,8 @@ public class Robot : MonoBehaviour, IColor {
 	public float lastFired;
 	public float fireRate;
 	public bool isMoving;
-	
-
+	public static AudioSource lasersource = new AudioSource();
+	public static AudioClip lasersound;	
 
 	void Update() {
 		
@@ -185,6 +185,10 @@ public class Robot : MonoBehaviour, IColor {
 					if(hit.transform.gameObject.Equals(visibles[0])) {
 						lastFired = Time.time;
 						Laser.MakeLaser(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, hit, colorVisible, this);
+						lasersound = Resources.Load("Audio/Effects/robotshot") as AudioClip;
+						lasersource = (AudioSource)gameObject.AddComponent(typeof(AudioSource));
+						lasersource.clip = lasersound;
+						lasersource.Play();
 					}
 				}
 			}
