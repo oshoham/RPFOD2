@@ -35,13 +35,32 @@ public class Player : MonoBehaviour, IColor {
 	public Color defaultColor;
 	public Vector2 dir = new Vector2(1, 0);
 	public GameObject explosion = Resources.Load("Standard Assets/Particles/Legacy Particles/explosion") as GameObject;
-	
+
+	public bool dead;
+	public List<string> awfulQuotes;	
+
+	void Start() {
+		awfulQuotes.Add("Death comes swiftest to those who die. -JFK");
+	}
+
 	void Update() {
 		if(health <= 0) {
 			Instantiate(explosion, transform.position, Quaternion.identity);
-			if(GUI.Button(new Rect(200, 450, 150, 40), "Death comes swiftest to those who die. -JFK")) {
-				  Application.LoadLevel("StartScreen");
-			  }		    
+			if(!dead) {
+				GameObject JFK = new GameObject("JFK");
+				GUIText back = (GUIText)JFK.AddComponent(typeof(GUIText));
+				System.Random rand = new System.Random();
+				int quoteIndex = rand.Next(awfulQuotes.Count);
+				back.text = awfulQuotes[quoteIndex];
+				back.anchor = TextAnchor.UpperLeft;
+				back.alignment = TextAlignment.Left;
+				back.lineSpacing = 1.0F;
+				back.font = (Font)Resources.Load("Fonts/ALIEN5");
+				back.fontSize = 40;
+				JFK.transform.position = new Vector3(0.25F, 0.3F, 0.5F);
+				JFK.AddComponent<BackButton>().resizeTo = 45;
+				dead = true;
+			}
 		}
 		GetKeypresses();
 		// Make sure the camera follows the Player if we're not in the editor
@@ -52,14 +71,6 @@ public class Player : MonoBehaviour, IColor {
 //		if(GameManager.plane != null) {
 //			GameManager.plane.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(50, Camera.main.pixelHeight - 40, Camera.main.nearClipPlane+6));
 //		}
-	}
-	
-	void OnGUI() {
-	       if(health <= 0) {
-	       		 if(GUI.Button(new Rect(200, 450, 150, 40), "Death comes swiftest to those who die. -JFK")) {
-			 		   Application.LoadLevel("StartScreen");
-			 }
-		}	 		   
 	}
 	
 	public void GetKeypresses() {
@@ -153,25 +164,9 @@ public class Player : MonoBehaviour, IColor {
 			return;
 		}
 		float time = (Time.time - startedMoving)/moveSpeed + .1f;
-		transform.position = CubicInterpolate(oldPosition, newPosition, time);//Vector3.Lerp(oldPosition, newPosition, time);
+		transform.position = Vector3.Lerp(oldPosition, newPosition, time);
 	}
 	
-	/*
-	 * f(x) = -2x^3 + 3x^2
-	 */
-	public static Vector3 CubicInterpolate(Vector3 oldPosition, Vector3 newPosition, float time) {
-		if(time < 0)
-			time = 0;
-		if(time > 1)
-			time = 1;
-		float f = (float)(-2*Math.Pow(time, 3) + 3*Math.Pow(time, 2));
-		Vector3 position = new Vector3();
-		position.x = (newPosition.x - oldPosition.x)*f + oldPosition.x;
-		position.y = (newPosition.y - oldPosition.y)*f + oldPosition.y;
-		position.z = (newPosition.z - oldPosition.z)*f + oldPosition.z;
-		return position;
-	}
-
 	public void PickupColor(Color color) {
 		if(colors.ContainsKey(color)) {
 			colors[color]++;
@@ -211,6 +206,7 @@ public class Player : MonoBehaviour, IColor {
 		script.colorPainted = script.defaultColor;
 		script.collider.enabled = true;
 		script.grid = grid;
+		script.awfulQuotes = new List<string>();
 		return player;
 	}
 }
