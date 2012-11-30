@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour {
 	public Texture healthTexture;
 
 	void Start() {
-		Time.timeScale = 1;		
+		Time.timeScale = 1;
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 5;
 		Camera.main.backgroundColor = Color.black;
