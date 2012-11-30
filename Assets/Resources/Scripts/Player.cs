@@ -75,6 +75,7 @@ public class Player : MonoBehaviour, IColor {
 				JFK.AddComponent<BackButton>().resizeTo = 45;
 				dead = true;
 			}
+			return;
 		}
 		GetKeypresses();
 		// Make sure the camera follows the Player if we're not in the editor

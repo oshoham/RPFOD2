@@ -56,7 +56,6 @@
      <None Include="Assets\Resources\Levels\L5.txt" />
      <None Include="Assets\Resources\Levels\gametest.txt" />
      <None Include="Assets\Resources\Levels\KillAllHumans.txt" />
-     <None Include="Assets\Resources\Levels\foo.txt" />
      <None Include="Assets\Resources\Levels\L3.txt" />
      <None Include="Assets\Resources\Levels\Decisions.txt" />
      <None Include="Assets\Resources\Levels\Whirlpool.txt" />
