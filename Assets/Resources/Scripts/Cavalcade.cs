@@ -2,11 +2,11 @@ using UnityEngine;
 using System.Collections;
 
 public class Cavalcade : MonoBehaviour {
-       GameObject game;
-       public static int defaultFontSize;
-       public static int resizeTo = 50;
-       public AudioClip tickOnSelect = Resources.Load("Audio/Effects/robotshot") as AudioClip;	
-       public AudioSource effects = new AudioSource();
+	GameObject game;
+	public static int defaultFontSize;
+	public static int resizeTo = 50;
+	public AudioClip tickOnSelect = Resources.Load("Audio/Effects/click") as AudioClip;	
+	public AudioSource effects = new AudioSource();
        
        void Start() {
        	    game = GameObject.Find("Cavalcade");
@@ -25,6 +25,6 @@ public class Cavalcade : MonoBehaviour {
        }
 
        void OnMouseDown() {
-       	    Application.LoadLevel("CavalcadeMap");
+	       Application.LoadLevel("CavalcadeMap");
        }
 }      
