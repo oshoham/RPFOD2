@@ -39,13 +39,27 @@ public class Player : MonoBehaviour, IColor {
 	public bool dead;
 	public List<string> awfulQuotes;	
 
+	//audio
+	public AudioSource peffects = new AudioSource();
+	public AudioClip soundexplosion;
+        public bool explohappened = false;
+
 	void Start() {
 		awfulQuotes.Add("Death comes swiftest to those who die. -JFK");
+		soundexplosion = Resources.Load("Audio/Effects/explosion") as AudioClip;
+		peffects = (AudioSource)gameObject.AddComponent(typeof(AudioSource));
 	}
 
 	void Update() {
 		if(health <= 0) {
 			Instantiate(explosion, transform.position, Quaternion.identity);
+			if(!explohappened)
+			{
+				peffects.clip = soundexplosion;
+				peffects.volume = 1.0f;
+				peffects.Play();
+				explohappened = true;
+			}
 			if(!dead) {
 				GameObject JFK = new GameObject("JFK");
 				GUIText back = (GUIText)JFK.AddComponent(typeof(GUIText));
