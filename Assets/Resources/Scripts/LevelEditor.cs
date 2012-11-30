@@ -158,7 +158,7 @@ public class LevelEditor : MonoBehaviour {
 						  Resources.Load("Textures/explosive") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.ExplosiveCrate, name: "ExplosiveCrate Selector");
 		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 600.0f, z), 0.5f, 0.5f,
-						  Resources.Load("Textures/Tile2") as Texture,
+						  Resources.Load("Textures/robotspawner") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.RobotSpawner, name: "RobotSpawner Selector");
 
 		if(GlobalSettings.lastScene == "Game") {

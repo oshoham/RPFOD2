@@ -63,7 +63,9 @@ public class RobotSpawner : MonoBehaviour, IColor {
 		GameObject spawner = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		spawner.name = "Robot Spawner";
 		spawner.transform.position = new Vector3(x, y, -0.5f);
+		spawner.renderer.material.mainTexture = Resources.Load("Textures/robotspawner") as Texture;
 		spawner.renderer.material.color = Color.white;
+		spawner.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		RobotSpawner script = spawner.AddComponent<RobotSpawner>();
 		script.grid = grid;
 		script.gridCoords = new Vector2(x, y);
