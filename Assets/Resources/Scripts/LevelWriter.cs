@@ -176,9 +176,9 @@ public static class LevelWriter {
 							
 							if(robot.rotation == new RotationMatrix(RotationMatrix.Rotation.Identity))
 								sb.Append(0 + " ");
-							if(robot.rotation == new RotationMatrix(RotationMatrix.Rotation.Left))
+							else if(robot.rotation == new RotationMatrix(RotationMatrix.Rotation.Left))
 								sb.Append(1 + " ");
-							if(robot.rotation == new RotationMatrix(RotationMatrix.Rotation.Right))
+							else if(robot.rotation == new RotationMatrix(RotationMatrix.Rotation.Right))
 								sb.Append(2 + " ");
 							else
 								sb.Append(3 + " ");
