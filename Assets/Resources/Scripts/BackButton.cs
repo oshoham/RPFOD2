@@ -4,6 +4,7 @@ using System.Collections;
 public class BackButton : MonoBehaviour {
        public static int defaultFontSize;
        public int resizeTo = 30;
+	public string destination = "StartScreen";
        
        void Start() {
        	    defaultFontSize = this.gameObject.guiText.fontSize;
@@ -18,6 +19,6 @@ public class BackButton : MonoBehaviour {
        }
 
        void OnMouseDown() {
-       	    Application.LoadLevel("StartScreen");
+       	    Application.LoadLevel(destination);
        }
 }      

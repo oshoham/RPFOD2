@@ -12,7 +12,9 @@ public class WinScreen : MonoBehaviour {
 		win.font = (Font)Resources.Load("Fonts/ALIEN5");
 		win.fontSize = 40;
 		winButton.transform.position = new Vector3(0.2F, 0.75F, 0.0F);
-		winButton.AddComponent<BackButton>().resizeTo = 50;
+		BackButton b = winButton.AddComponent<BackButton>();
+		b.resizeTo = 50;
+		b.destination = "FreePlaySelector";
 	}
 
 	void Update() {
