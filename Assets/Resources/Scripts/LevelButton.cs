@@ -27,6 +27,6 @@ public class LevelButton : MonoBehaviour {
        void OnMouseDown() {
 	    GlobalSettings.currentFile = fileName;
 	    GlobalSettings.lastScene = "FreePlaySelector";
-       	    Application.LoadLevel("Game");
+       	    FreePlayManager.LoadGame();
        }
 }      

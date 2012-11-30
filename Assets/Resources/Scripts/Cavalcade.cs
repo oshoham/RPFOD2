@@ -25,6 +25,6 @@ public class Cavalcade : MonoBehaviour {
        }
 
        void OnMouseDown() {
-	       Application.LoadLevel("CavalcadeMap");
+	       StartScreenManager.Load("CavalcadeMap");
        }
 }      

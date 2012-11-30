@@ -15,7 +15,17 @@ public class FreePlayManager : MonoBehaviour {
 	public AudioSource soundtrack = new AudioSource();
 	public AudioSource effects = new AudioSource();
 	
-	void Start () {	       
+	public static bool fadeIn = true;
+	public static bool fadeOut = false;
+	public float fadeLength;
+	public static float fadeStarted;
+	public Texture fadeTexture;
+	
+	void Start () {
+		Time.timeScale = 1;
+		fadeStarted = Time.time;
+		fadeLength = 1;
+		fadeTexture = Resources.Load("Textures/single") as Texture;
 		GameObject backButton = new GameObject("Back Button");
 		GUIText back = (GUIText)backButton.AddComponent(typeof(GUIText));
 		back.text = "Back";
@@ -93,5 +103,36 @@ public class FreePlayManager : MonoBehaviour {
 		}	     
 		LevelButton script = button.AddComponent<LevelButton>();
 		script.fileName = fileName;
+	}
+	
+	void OnGUI() {
+		if(fadeIn || fadeOut) {
+			if(Time.time <= fadeStarted + fadeLength) { // still fading
+				GUI.color = Color.Lerp(new Color(0, 0, 0, fadeIn ? 1 : 0),
+						       new Color(0, 0, 0, fadeIn ? 0 : 1),
+						       (Time.time - fadeStarted)/fadeLength);
+			}
+			else if(fadeIn) { // done fading in
+				fadeIn = false;
+			}
+			else if(fadeOut) { // done fading out
+				fadeOut = false;
+				fadeIn = true;
+				Application.LoadLevel("Game");
+			}
+			GUI.DrawTexture(new Rect(0, 0, Camera.main.pixelWidth, Camera.main.pixelHeight),
+					fadeTexture);
+		}
+	}
+	
+	void OnLevelWasLoaded(int level) {
+		fadeStarted = Time.time;
+		fadeIn = true;
+	}
+
+	public static void LoadGame() {
+		fadeOut = true;
+		fadeIn = false;
+		fadeStarted = Time.time;
 	}
 }

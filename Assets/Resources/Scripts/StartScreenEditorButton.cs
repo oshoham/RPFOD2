@@ -26,6 +26,6 @@ public class StartScreenEditorButton : MonoBehaviour {
        }
 
        void OnMouseDown() {
-       	    Application.LoadLevel("Editor");
+       	    StartScreenManager.Load("Editor");
        }
 }      

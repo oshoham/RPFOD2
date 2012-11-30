@@ -29,7 +29,7 @@ public class FreePlay : MonoBehaviour {
 	void OnMouseDown() {
 		effects.clip = tickOnClick;
 		effects.Play();
-		Application.LoadLevel("FreePlaySelector");
+		StartScreenManager.Load("FreePlaySelector");
 	}	
 
 }
