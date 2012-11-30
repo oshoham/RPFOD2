@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour {
 	public AudioClip song;
 	public AudioSource effects = new AudioSource();
 
+	public Texture healthTexture;
+
 	void Start() {
 		Time.timeScale = 1;		
 		Camera.main.orthographic = true;
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour {
 		bgm.clip = song;
 		bgm.loop = true;
 		bgm.Play();
+		healthTexture = Resources.Load("Textures/health") as Texture;
 	}
 
 	void Update() {
@@ -114,7 +117,7 @@ public class GameManager : MonoBehaviour {
 //		GUILayout.HorizontalScrollbar(0, GameManager.player.health, 0F, 15F, GUILayout.Height(1000), GUILayout.Width(1000));
 //		GUI.DrawTexture(new Rect(10, 10, 300, 100), Resources.Load("Textures/PlayerReal") as Texture, ScaleMode.ScaleToFit, true, 0);
 	        //healthbar = GUI.HorizontalScrollbar(new Rect(10, 10, 300, 10), 0, GameManager.player.health, 0, 15);
-		GUI.DrawTexture(new Rect(10, 30, player.health < 0 ? 0 : player.health * 25, 10), Resources.Load("Textures/Tile2") as Texture, ScaleMode.ScaleAndCrop);
+		GUI.DrawTexture(new Rect(10, 30, player.health < 0 ? 0 : player.health * 25, 10), healthTexture, ScaleMode.ScaleAndCrop);
 
 		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health, healthgui);
 		GUI.Label(new Rect(10, 70, 100, 50), "Shooting:", guiStyle);
