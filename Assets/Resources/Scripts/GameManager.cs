@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour {
 
 	public static float healthbar;
 	
+	public AudioSource bgm = new AudioSource();
+	public AudioClip song;
+	public AudioSource effects = new AudioSource();
+
 	void Start() {
 		Time.timeScale = 1;		
 		Camera.main.orthographic = true;
@@ -53,11 +57,11 @@ public class GameManager : MonoBehaviour {
 		l2.type = LightType.Point;
 		l2.intensity = 8f;
 		l2.range = 3f;
-		AudioClip sburban = Resources.Load(audiofile) as AudioClip;
-		AudioSource gamesong = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
-		gamesong.clip = sburban;
-		gamesong.loop = true;
-		gamesong.Play();
+		bgm = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
+		song = Resources.Load("Audio/Effects/ambience3") as AudioClip;
+		bgm.clip = song;
+		bgm.loop = true;
+		bgm.Play();
 	}
 
 	void Update() {
