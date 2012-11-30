@@ -17,7 +17,14 @@ public class SpikeFloor : MonoBehaviour {
 		List<string> classList = new List<string> {"Robot", "Player"};
 		List<GameObject> objects = grid.GetObjectsOfTypes(gridCoords, classList);
 		foreach(GameObject obj in objects) {
-			Destroy(obj);
+			Player p = obj.GetComponent<Player>();
+			if(p != null) {
+				p.health = 0;
+			}
+			Robot r =  obj.GetComponent<Robot>();
+			if(r != null) {
+				r.health = 0;
+			}
 		}
 	}
 	
