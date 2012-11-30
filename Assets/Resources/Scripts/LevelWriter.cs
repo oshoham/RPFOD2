@@ -270,6 +270,15 @@ public static class LevelWriter {
 								sb.Append(2 + " ");
 							else
 								sb.Append(3 + " ");
+							
+							if(spawner.robotFireDirection == new Vector2(0, 1))
+								sb.Append(0 + " ");
+							else if(spawner.spawnDirection == new Vector2(1, 0))
+								sb.Append(1 + " ");
+							else if(spawner.spawnDirection == new Vector2(0, -1))
+								sb.Append(2 + " ");
+							else if(spawner.spawnDirection == new Vector2(-1, 0))
+								sb.Append(3 + " ");
 						}
 					}
 					string line = sb.ToString().Trim();

@@ -116,7 +116,8 @@ public class ObjectPlacer : MonoBehaviour {
 								       LevelEditor.robotSpawnerRobotFireDirection,
 								       new RotationMatrix(LevelEditor.robotSpawnerRobotRotation),
 								       Single.Parse(LevelEditor.robotSpawnerRobotFireRate),
-								       LevelEditor.robotSpawnerRobotColorPainted),
+								       LevelEditor.robotSpawnerRobotColorPainted,
+								       LevelEditor.robotSpawnerSpawnDirection),
 					 x, y);
 					 break;
 		}
