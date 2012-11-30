@@ -182,7 +182,8 @@ public class Robot : MonoBehaviour, IColor {
 				//Bullet.MakeBullet(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, gameObject);
 				RaycastHit hit;
 				if(Physics.Raycast(transform.position, (visibles[0].transform.position - transform.position).normalized, out hit)) {
-					Laser.MakeLaser(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, hit, colorVisible);
+					if(hit.transform.gameObject.Equals(visibles[0]))
+						Laser.MakeLaser(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, hit, colorVisible, this);
 				}
 				lastFired = Time.time;
 			}

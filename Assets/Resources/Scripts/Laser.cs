@@ -6,13 +6,18 @@ public class Laser : MonoBehaviour {
 	public int damageDealt;
 	public Vector2 dir;
 	public RaycastHit hit;
+	public GameObject laser;
+	public GameObject target;
+	public Robot roobit;
 
 	void Start() {
 
 	}
 
 	void Update() {
-
+		LineRenderer line = laser.GetComponent<LineRenderer>();
+		line.SetPosition(0, roobit.transform.position);
+		line.SetPosition(1, target.transform.position);
 	}
 
 	public void Hit(GameObject obj) {
@@ -37,7 +42,7 @@ public class Laser : MonoBehaviour {
 		}*/
 	}
 
-	public static GameObject MakeLaser(int damage, Vector3 pos, Vector2 dir, RaycastHit hit, Color robotLaserColor) {
+	public static GameObject MakeLaser(int damage, Vector3 pos, Vector2 dir, RaycastHit hit, Color robotLaserColor, Robot roobit) {
 		GameObject laser = new GameObject("Laser");
 		LineRenderer line = laser.AddComponent<LineRenderer>();
 		line.SetVertexCount(2);
@@ -59,8 +64,11 @@ public class Laser : MonoBehaviour {
 		Laser script = laser.AddComponent<Laser>();
 		script.dir = dir;
 		script.damageDealt = damage;
-		Destroy(laser, 0.5f);
+		Destroy(laser, 0.25f);
 		script.Hit(obj);
+		script.laser = laser;
+		script.roobit = roobit;
+		script.target = obj;
 		return laser;
 	}
 
