@@ -80,7 +80,15 @@ public class Player : MonoBehaviour, IColor {
 				GUIText back = (GUIText)JFK.AddComponent(typeof(GUIText));
 				System.Random rand = new System.Random();
 				int quoteIndex = rand.Next(awfulQuotes.Count);
-				back.text = awfulQuotes[quoteIndex];
+				string quote = awfulQuotes[quoteIndex];
+				string[] split = quote.Split(new Char[] {' '});
+				if(split.Length >= 7) {
+					split[6] = split[6] + "\n";
+					if(split.Length >= 14)
+						split[13] = split[13] + "\n";
+					quote = String.Join(" ", split);
+				}
+				back.text = quote;
 				back.anchor = TextAnchor.UpperLeft;
 				back.alignment = TextAlignment.Left;
 				back.lineSpacing = 1.0F;
