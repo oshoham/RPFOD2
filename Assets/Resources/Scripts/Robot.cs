@@ -231,7 +231,7 @@ public class Robot : MonoBehaviour, IColor {
 					if(shouldShoot) {
 						
 						lastFired = Time.time;
-						Laser.MakeLaser(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, hit, colorVisible, this);
+						Laser.MakeLaser(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, hit, colorVisible, this, Color.red);
 						lasersound = Resources.Load("Audio/Effects/robotshot") as AudioClip;
 						lasersource = (AudioSource)gameObject.AddComponent(typeof(AudioSource));
 						lasersource.clip = lasersound;
