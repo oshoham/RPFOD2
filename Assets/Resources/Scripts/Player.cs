@@ -42,6 +42,7 @@ public class Player : MonoBehaviour, IColor {
 	//audio
 	public AudioSource peffects = new AudioSource();
 	public AudioClip soundexplosion;
+	public AudioClip paintshot;
         public bool explohappened = false;
 
 	void Start() {
@@ -53,6 +54,7 @@ public class Player : MonoBehaviour, IColor {
 		awfulQuotes.Add("To doubt everything or to believe everything are two equally convenient solutions; both dispense with the necessity of reflection. -- Henri Poincaré");
 		awfulQuotes.Add("For a 6-foot-3 guy with no hair and a whiny voice, I've done all right. -- Billy Corgan");
 		soundexplosion = Resources.Load("Audio/Effects/explosion") as AudioClip;
+		paintshot = Resources.Load("Audio/Effects/paintshot") as AudioClip;
 		peffects = (AudioSource)gameObject.AddComponent(typeof(AudioSource));
 	}
 	
@@ -160,6 +162,9 @@ public class Player : MonoBehaviour, IColor {
 		}
 		if(Input.GetKeyDown("space") && colors.ContainsKey(colorShooting) && colors[colorShooting] > 0) {
 			Paintball.MakePaintball(transform.position, dir, colorShooting, gameObject);
+			//make audio
+		        peffects.clip = paintshot;
+			peffects.Play();
 			colors[colorShooting]--;
 			if(colors[colorShooting] == 0) {
 				colorShooting = colors.FirstOrDefault((KeyValuePair<Color, int> kvp) => kvp.Value > 0).Key;
