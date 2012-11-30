@@ -119,7 +119,7 @@ public class LevelEditor : MonoBehaviour {
 		Time.timeScale = 0;
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 5;
-		Camera.main.backgroundColor = Color.white;
+		Camera.main.backgroundColor = Color.black;
 		//string filename = EditorUtility.OpenFilePanel("Level file", "", "txt");
 		//floor = LevelLoader.LoadLevel(filename);
 		GameObject light = new GameObject("Light");
