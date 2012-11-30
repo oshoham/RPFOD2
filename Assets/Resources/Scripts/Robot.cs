@@ -254,6 +254,7 @@ public class Robot : MonoBehaviour, IColor {
 					   Vector2 fireDirection, RotationMatrix rotation) {
 		GameObject robot = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		robot.name = "Robot";
+		robot.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
 		robot.renderer.material.mainTexture = Resources.Load("Textures/BlankBot") as Texture;
 		robot.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		robot.renderer.material.color = Color.white;
