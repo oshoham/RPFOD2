@@ -52,10 +52,12 @@
      <None Include="Assets\Resources\Levels\KeepAlive.txt" />
      <None Include="Assets\Resources\Levels\graphictest.txt" />
      <None Include="Assets\Resources\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
+     <None Include="Assets\Resources\Levels\L5bug.txt" />
      <None Include="Assets\Resources\Levels\Test.txt" />
      <None Include="Assets\Resources\Levels\L5.txt" />
      <None Include="Assets\Resources\Levels\gametest.txt" />
      <None Include="Assets\Resources\Levels\KillAllHumans.txt" />
+     <None Include="Assets\Resources\Levels\foo.txt" />
      <None Include="Assets\Resources\Levels\L3.txt" />
      <None Include="Assets\Resources\Levels\Decisions.txt" />
      <None Include="Assets\Resources\Levels\Whirlpool.txt" />

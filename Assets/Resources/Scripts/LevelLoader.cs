@@ -259,6 +259,11 @@ public static class LevelLoader {
 	 * to one of the parsing functions.
 	 */
 	public static string[] CopyRange(string[] array, int start, int count) {
+		string foo = "";
+		foreach(string s in array) {
+			foo += s + " ";
+		}
+		Debug.Log(foo);
 		string[] copied = new string[count];
 		for(int i = 0; i < count; i++) {
 			copied[i] = array[i + start];
