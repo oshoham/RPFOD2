@@ -40,9 +40,24 @@ public class Player : MonoBehaviour, IColor {
 	public List<string> awfulQuotes;	
 
 	void Start() {
-		awfulQuotes.Add("Death comes swiftest to those who die. -JFK");
+		awfulQuotes.Add("Death comes swiftest to those who die. -- JFK");
+		awfulQuotes.Add("We've got the best forensics tool money can't buy. Snow. -- CSI: NY");
+		awfulQuotes.Add("Mother died today. Or maybe yesterday; I can't be sure. -- Albert Camus");
+		awfulQuotes.Add("If the human brain were so simple that we could understand it, we would be so simple that we couldn't. -- Emerson M. Pugh");
+		awfulQuotes.Add("I've resolved to renounce embarrassment in favor of enjoyment. -- Thomas Jefferson");
+		awfulQuotes.Add("To doubt everything or to believe everything are two equally convenient solutions; both dispense with the necessity of reflection. -- Henri Poincaré");
+		awfulQuotes.Add("For a 6-foot-3 guy with no hair and a whiny voice, I've done all right. -- Billy Corgan");
 	}
-
+	
+	/*
+	 * Haha! Algorithms!
+	 */
+	// public static string BreakLines(string text, int charsPerLine) {
+	// 	string[] parts = text.Split(new char[] {'-'}); // Split into quote and source
+	// 	string[] quote = parts[0].Split(new char[] {' '}); // Split quote into words
+	// 	//		StringBuilder sb = new StringBuilder();
+	// }
+	
 	void Update() {
 		if(health <= 0) {
 			Instantiate(explosion, transform.position, Quaternion.identity);
