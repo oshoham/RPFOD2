@@ -63,7 +63,7 @@ public class Laser : MonoBehaviour {
 		Laser script = laser.AddComponent<Laser>();
 		script.dir = dir;
 		script.damageDealt = damage;
-		Destroy(laser, 0.25f);
+		Destroy(laser, 0.1f);
 		script.Hit(obj);
 		script.laser = laser;
 		script.roobit = roobit;
