@@ -79,26 +79,6 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		if(GUI.Button(new Rect(10, 540, 150, 40), "Main Menu")) {                                   
-                            Application.LoadLevel("StartScreen");                                                     
-                }
-		if(GlobalSettings.lastScene == "Editor") {
-			if(GUI.Button(new Rect(10, 490, 150, 40), "Level Editor")) {
-				GlobalSettings.lastScene = "Game";
-				Application.LoadLevel("Editor");
-			}
-		}
-		else if(GlobalSettings.lastScene == "FreePlaySelector") {
-			if(GUI.Button(new Rect(10, 490, 150, 40), "Level Selector")) {
-				GlobalSettings.lastScene = "Game";
-				Application.LoadLevel("FreePlaySelector");
-			}
-		}
-		if(GUI.Button(new Rect(10, 440, 150, 40), "Restart")) {
-				Application.LoadLevel("Game");
-		}
-		if(player == null)
-			return;
 		//Gui style for ALIEN5 font 
 		GUIStyle guiStyle = new GUIStyle();
 		guiStyle.font = Resources.Load("Fonts/ALIEN5") as Font;
@@ -111,6 +91,27 @@ public class GameManager : MonoBehaviour {
 		healthgui.fontStyle = FontStyle.Bold;
 		healthgui.fontSize = 12;
 
+		if(GUI.Button(new Rect(20, 880, 150, 40), "Main Menu", guiStyle)) {                                   
+                            Application.LoadLevel("StartScreen");                                                     
+                }
+		if(GlobalSettings.lastScene == "Editor") {
+			if(GUI.Button(new Rect(20, 830, 150, 40), "Level Editor", guiStyle)) {
+				GlobalSettings.lastScene = "Game";
+				Application.LoadLevel("Editor");
+			}
+		}
+		else if(GlobalSettings.lastScene == "FreePlaySelector") {
+			if(GUI.Button(new Rect(20, 830, 150, 40), "Level Selector", guiStyle)) {
+				GlobalSettings.lastScene = "Game";
+				Application.LoadLevel("FreePlaySelector");
+			}
+		}
+		if(GUI.Button(new Rect(20, 780, 150, 40), "Restart", guiStyle)) {
+				Application.LoadLevel("Game");
+		}
+		if(player == null)
+			return;
+
 		//health bar
 		//can't figure out how to change the color of the health bar without changing the color of all the rest of the gui
 		//also the health bar width isn't behaving like it should
@@ -119,7 +120,7 @@ public class GameManager : MonoBehaviour {
 	        //healthbar = GUI.HorizontalScrollbar(new Rect(10, 10, 300, 10), 0, GameManager.player.health, 0, 15);
 		GUI.DrawTexture(new Rect(10, 30, player.health < 0 ? 0 : player.health * 25, 10), healthTexture, ScaleMode.ScaleAndCrop);
 
-		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health, healthgui);
+		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health, guiStyle);
 		GUI.Label(new Rect(10, 70, 100, 50), "Shooting:", guiStyle);
 		GUI.Label(new Rect(10, 150, 100, 50), "Painted:", guiStyle);
 		GUI.Label(new Rect(126, 70, 100, 20), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0), guiStyle);

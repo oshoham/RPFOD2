@@ -1,6 +1,9 @@
 using UnityEngine;
 
 public class WinScreen : MonoBehaviour {
+
+	public AudioSource bgm = new AudioSource();
+	public AudioClip song;
 	
 	void Start() {
 		GameObject winButton = new GameObject("Win Button");
@@ -15,6 +18,11 @@ public class WinScreen : MonoBehaviour {
 		BackButton b = winButton.AddComponent<BackButton>();
 		b.resizeTo = 50;
 		b.destination = "FreePlaySelector";
+		bgm = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
+		song = Resources.Load("Audio/Effects/winsong") as AudioClip;
+		bgm.loop = true;
+		bgm.clip = song;
+		bgm.Play();
 	}
 
 	void Update() {
