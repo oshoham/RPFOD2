@@ -55,6 +55,8 @@
      <None Include="Assets\Resources\Levels\Test.txt" />
      <None Include="Assets\Resources\Levels\L5.txt" />
      <None Include="Assets\Resources\Levels\gametest.txt" />
+     <None Include="Assets\Resources\Scripts\TODO.txt" />
+     <None Include="Assets\Resources\Scripts\DONE.txt" />
      <None Include="Assets\Resources\Levels\FECAL.txt" />
      <None Include="Assets\Resources\Levels\KillAllHumans.txt" />
      <None Include="Assets\Resources\Levels\L3.txt" />
