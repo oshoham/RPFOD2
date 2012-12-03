@@ -14,6 +14,10 @@ public class Laser : MonoBehaviour {
 	}
 
 	void Update() {
+		// If the target is destroyed, we're done.
+		if(target == null) {
+			Destroy(gameObject);
+		}
 		LineRenderer line = laser.GetComponent<LineRenderer>();
 		line.SetPosition(0, roobit.transform.position);
 		line.SetPosition(1, target.transform.position);
