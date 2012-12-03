@@ -1,0 +1,59 @@
+This is a TODO list for all of the stuff we want to do before beta. They are numbered in an arbitrary order.
+In the future I will try and categorize them into art, sound, design, and balance.
+I've tried to divide things up into small, specific tasks.
+Obviously there's more than are on the list, and finishing all of these before finals seems bleak. Nonetheless, I've added things I would expect in a real game. Not all of these need to be finished.
+Though, getting them all finished would make us look really good. Some of these require further discussion. If you aren't sure how to proceed on some aspect, maybe work on a different one.
+Things that are DONE should be moved to DONE.txt by copypasta, or by using the cut command if you wanna get fancy
+-----------------------------------
+
+:1	come to a concensus on the music for scenes other than Game
+:2	robot death sound
+:3	indicators for which way a robot moves (or not?)
+:4	change robot vision
+:5	we have no indicator for player range. not sure what we want to do about this.
+:6	animate player model
+:7	animate robots
+:8	test robot spawners more
+:9	animate robot spawners
+:10	better looking lasers
+:11	more readable gui
+:12	dwall sound effect on destruction
+:13	dwall animation?
+:14	fix win square texture (talk to me about this peter)
+:15	clean up editor
+:16	make health bar easier to see, larger
+:17	figure out better hot keys and implement them
+:18	animate explosive crates
+:19	sound effect for explosive crates
+:20	use explosive crates...?
+:21	fix explosive crates' radius up
+:22	decide on movement speed for the game and change it to that
+:23	make more free play levels
+:24	make cavalcade levels
+:25	make real cavalcade map
+:26	implement real cavalcade map
+:27	change wall textures
+:28	change lighting in some areas to be cool
+:29	make lighting something we can put in levels if this hasn't already been done (it just needs to be a spot for a point light)
+:30	consider making grid lines less thick
+:31	make it so robots change to their other texture instead of just changing hue when they're painted
+:32	polish player health per level
+:33	polish robot health per level
+:34	polish spawn rate per level
+:35	consider adding some kind of time aspect to level where players can see their top time completing a level
+:36	consider power ups to the player (speed boost, camo, etc?)
+:37	robots that only see in one direction?
+:38	polish robot speed per level
+:39	add a charge mechanism to robot fire rate (cannot fire unless some visual indicator shows they're fully charged up in order to better show fire rate)
+:40	fix quotes and generally clean up the death screen
+:41	make end credits
+:42	make opening credits (basically just add a scene with the UTO logo that fades in before the start screen
+:43	make an instructions scene and option in the startup
+:44	implement optional tutorial in cavalcade with 3-5 tutorial levels
+:45	boss robots?
+:46	clean up code (nahhhh)
+:47	lol conveyors?
+:48	separate free play levels by difficulty
+:49	make free play thing less wonky and not work relative to screen so screen resolution doesn't fuck us over (remember what it did during our presentation?)
+:50	change our name officially
+:51	playtest the shit out of our game
