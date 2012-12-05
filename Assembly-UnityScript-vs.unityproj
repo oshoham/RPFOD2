@@ -65,6 +65,7 @@
      <None Include="Assets\Resources\Levels\Test1.txt" />
      <None Include="Assets\Resources\Levels\L2.txt" />
      <None Include="Assets\Resources\Levels\CovertOp.txt" />
+     <None Include="Assets\Resources\Levels\foo.txt" />
      <None Include="Assets\Resources\Levels\KeepAlive2.txt" />
      <None Include="Assets\Resources\Levels\new.txt" />
   </ItemGroup>
