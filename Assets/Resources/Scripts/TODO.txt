@@ -57,3 +57,4 @@ Things that are DONE should be moved to DONE.txt by copypasta, or by using the c
 :49	make free play thing less wonky and not work relative to screen so screen resolution doesn't fuck us over (remember what it did during our presentation?)
 :50	change our name officially
 :51	playtest the shit out of our game
+:52	make robots not spaz out when they can't move
