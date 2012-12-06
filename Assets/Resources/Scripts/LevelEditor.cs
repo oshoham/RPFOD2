@@ -13,7 +13,8 @@ public enum ObjectType {
 	Robot,
 	DestructibleWall,
 	ExplosiveCrate,
-	RobotSpawner
+	RobotSpawner,
+	Light
 }
 
 
@@ -115,6 +116,13 @@ public class LevelEditor : MonoBehaviour {
 	public static string robotSpawnerRobotFireRate = "2.0";
 	public static Color robotSpawnerRobotColorPainted = Color.white;
 	
+	// Light
+	public static string lightIntensity = ".01";
+	public static string lightRange = "10";
+	public static string lightColor = "255, 255, 255";
+
+	public static List<GameObject> lights = new List<GameObject>();
+	
 	void Start() {
 		Time.timeScale = 0;
 		Camera.main.orthographic = true;
@@ -160,7 +168,9 @@ public class LevelEditor : MonoBehaviour {
 		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 600.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/robotspawner") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.RobotSpawner, name: "RobotSpawner Selector");
-
+		ObjectSelector.MakeObjectSelector(new Vector3(150.0f, Camera.main.pixelHeight - 250.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/Lightbulb") as Texture,
+						  () => LevelEditor.objectToBeCreated = ObjectType.Light, name: "Light Selector");
 		if(GlobalSettings.lastScene == "Game") {
 			floor = LevelLoader.LoadLevel(GlobalSettings.currentFile, out audiofile);
 			if(floor != null) {
@@ -244,6 +254,7 @@ public class LevelEditor : MonoBehaviour {
 			else {
 				floor.ClearObjects();
 			}
+			lights = new List<GameObject>();
 		}
 		if(GUI.Button(new Rect(120, 120, 100, 20), "Play")) {
 			if(GlobalSettings.currentFile != "") {
@@ -742,6 +753,11 @@ public class LevelEditor : MonoBehaviour {
 						break;
 				}
 				robotSpawnerRobotMovementDirection = robotSpawnerRobotFireDirection;
+				break;
+			case ObjectType.Light:
+				lightIntensity = GUI.TextField(FromBottomRight(new Rect(300, 20, 100, 20)), lightIntensity);
+				lightRange = GUI.TextField(FromBottomRight(new Rect(300, 50, 100, 20)), lightRange);
+				lightColor = GUI.TextField(FromBottomRight(new Rect(300, 80, 100, 20)), lightColor);
 				break;
 		}
 	}

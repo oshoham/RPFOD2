@@ -120,6 +120,16 @@ public class ObjectPlacer : MonoBehaviour {
 								       LevelEditor.robotSpawnerSpawnDirection),
 					 x, y);
 					 break;
+			case ObjectType.Light:
+				GameObject obj = new GameObject("A light!");
+				obj.transform.position = new Vector3(x, y, -1);
+				Light light = obj.AddComponent<Light>();
+				light.range = Single.Parse(LevelEditor.lightRange);
+				light.intensity = Single.Parse(LevelEditor.lightIntensity);
+				string[] color = LevelEditor.lightColor.Split(new char[] {','});
+				light.color = new Color(Int32.Parse(color[0]), Int32.Parse(color[1]), Int32.Parse(color[2]), 1);
+				LevelEditor.lights.Add(obj);
+				break;
 		}
 	}
 

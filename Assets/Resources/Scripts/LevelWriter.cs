@@ -288,6 +288,13 @@ public static class LevelWriter {
 					}
 				}
 			}
+			// Lights
+			foreach(GameObject obj in LevelEditor.lights) {
+				Light l = obj.GetComponent<Light>();
+				int x = (int)obj.transform.position.x;
+				int y = (int)obj.transform.position.y;
+				writer.WriteLine(x + " " + y + " " + 11 + " " + l.intensity + " " + l.range + " " + l.color.r + " " + l.color.g + " " + l.color.b);
+			}
 			writer.Close();
 			Debug.Log("Saved to " + path);
 		}
