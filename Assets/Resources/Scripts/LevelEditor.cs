@@ -171,7 +171,7 @@ public class LevelEditor : MonoBehaviour {
 		}
 		
 		//audio handling
-		song = Resources.Load("Audio/Effects/ambience2") as AudioClip;
+		song = Resources.Load("Audio/"SmashTheFunk.mp3"") as AudioClip;
 		bgm = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
 		bgm.clip = song;
 		bgm.loop = true;
