@@ -33,8 +33,6 @@ public class GameManager : MonoBehaviour {
 			floor = LevelLoader.LoadLevel(filename, out audiofile);
 		else
 			floor = LevelLoader.LoadLevel("fortesting.txt", out audiofile);
-		if(audiofile == null)
-			audiofile = "Audio/08 Sburban Jungle";
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		l.transform.position = player.transform.position;
@@ -58,7 +56,7 @@ public class GameManager : MonoBehaviour {
 		l2.intensity = 8f;
 		l2.range = 3f;
 		bgm = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
-		song = Resources.Load("Audio/Effects/ambience3") as AudioClip;
+		song = Resources.Load("Audio/" + audiofile) as AudioClip;
 		bgm.clip = song;
 		bgm.loop = true;
 		bgm.Play();

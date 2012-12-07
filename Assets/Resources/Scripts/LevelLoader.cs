@@ -119,6 +119,9 @@ public static class LevelLoader {
 				}
 			}
 		}
+		if(audiofile.Length <= 0)
+			audiofile = "GetBetterJohn";
+		Debug.Log("Audio file: "+ audiofile + ". ");
 		reader.Close();
 		return grid;
 	}
