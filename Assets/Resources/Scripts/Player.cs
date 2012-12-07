@@ -108,9 +108,6 @@ public class Player : MonoBehaviour, IColor {
 			Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y,
 								     Camera.main.transform.position.z);
 		}
-//		if(GameManager.plane != null) {
-//			GameManager.plane.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(50, Camera.main.pixelHeight - 40, Camera.main.nearClipPlane+6));
-//		}
 	}
 	
 	public void GetKeypresses() {

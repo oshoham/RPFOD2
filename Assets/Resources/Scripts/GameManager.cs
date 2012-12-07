@@ -1,5 +1,4 @@
 using UnityEngine;
-//using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -14,7 +13,6 @@ public class GameManager : MonoBehaviour {
 	public static string filename;
 
 	public static int level = 1;
-//	public static GameObject plane;
 
 	public static float healthbar;
 	
@@ -111,13 +109,8 @@ public class GameManager : MonoBehaviour {
 		}
 		if(player == null)
 			return;
-
-		//health bar
-		//can't figure out how to change the color of the health bar without changing the color of all the rest of the gui
-		//also the health bar width isn't behaving like it should
-//		GUILayout.HorizontalScrollbar(0, GameManager.player.health, 0F, 15F, GUILayout.Height(1000), GUILayout.Width(1000));
-//		GUI.DrawTexture(new Rect(10, 10, 300, 100), Resources.Load("Textures/PlayerReal") as Texture, ScaleMode.ScaleToFit, true, 0);
-	        //healthbar = GUI.HorizontalScrollbar(new Rect(10, 10, 300, 10), 0, GameManager.player.health, 0, 15);
+		
+		// health bar
 		GUI.DrawTexture(new Rect(10, 30, player.health < 0 ? 0 : player.health * 25, 10), healthTexture, ScaleMode.ScaleAndCrop);
 
 		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health, guiStyle);
@@ -126,7 +119,6 @@ public class GameManager : MonoBehaviour {
 		GUI.Label(new Rect(126, 70, 100, 20), "" + (player.colors.ContainsKey(Color.red) ? player.colors[Color.red] : 0), guiStyle);
 		GUI.Label(new Rect(186, 70, 100, 20), "" + (player.colors.ContainsKey(Color.green) ? player.colors[Color.green] : 0), guiStyle);
 		GUI.Label(new Rect(246, 70, 100, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0), guiStyle);
-//		GUI.Box(new Rect(1, 1, 320, 140), "");
 		if(WinChecker.robotsWin) {
 			GUI.Label(new Rect(10, 200, 200, 50), "Robot goal: " + WinChecker.robotLimit, guiStyle);
 		}

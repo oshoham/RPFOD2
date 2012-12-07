@@ -2,7 +2,6 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-// worst class name ever? maybe?
 public class ObjectPlacer : MonoBehaviour {
 
 	public int x, y;

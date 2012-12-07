@@ -26,23 +26,16 @@ public class Laser : MonoBehaviour {
 	public void Hit(GameObject obj) {
 		if(obj.GetComponent<Player>() != null) {
 			obj.GetComponent<Player>().health -= damageDealt;
-			//Destroy(gameObject);
 		}
 		else if(obj.GetComponent<Robot>() != null) {
 			obj.GetComponent<Robot>().health -= damageDealt;
-			//Destroy(gameObject);
 		}
 		else if(obj.GetComponent<DestructibleWall>() != null) {
 			obj.GetComponent<DestructibleWall>().health -= damageDealt;
-			//Destroy(gameObject);
 		}
 		else if(obj.GetComponent<ExplosiveCrate>() != null) {
 			obj.GetComponent<ExplosiveCrate>().health -= damageDealt;
-			//Destroy(gameObject);
 		}
-		/*else if(obj.GetComponent<Wall>() != null) {
-			Destroy(gameObject);
-		}*/
 	}
 
 	public static GameObject MakeLaser(int damage, Vector3 pos, Vector2 dir, RaycastHit hit, Color robotLaserColor, Robot roobit, Color lcolor) {

@@ -128,8 +128,6 @@ public class LevelEditor : MonoBehaviour {
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 5;
 		Camera.main.backgroundColor = Color.black;
-		//string filename = EditorUtility.OpenFilePanel("Level file", "", "txt");
-		//floor = LevelLoader.LoadLevel(filename);
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
@@ -140,10 +138,6 @@ public class LevelEditor : MonoBehaviour {
 		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 200.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/WallIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Wall, name: "Wall Selector");
-//Commented out SpikeWall because there's no difference between Spike Wall and Spike Floor, effectively. Check the Design Doc for more info
-//		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 140.0f, z), 0.5f, 0.5f,
-//						  Resources.Load("Textures/Spike") as Texture,
-//						  () => LevelEditor.objectToBeCreated = ObjectType.SpikeWall, name: "SpikeWall Selector");
 		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 250.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/ElectrocuteIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.SpikeFloor, name: "SpikeFloor Selector");
@@ -259,7 +253,6 @@ public class LevelEditor : MonoBehaviour {
 		if(GUI.Button(new Rect(120, 120, 100, 20), "Play")) {
 			if(GlobalSettings.currentFile != "") {
 				floor.Clear();
-				//GlobalSettings.currentFile = "";
 				Application.LoadLevel("Game");
 				GlobalSettings.lastScene = "Game";
 			}

@@ -32,20 +32,6 @@ public class CavalcadeManager : MonoBehaviour {
 		win.fontSize = 40;
 		winButton.transform.position = new Vector3(0.2F, 0.75F, 0.0F);
 		winButton.AddComponent<BackButton>().resizeTo = 50;
-		/*GameObject level1 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-		level1.renderer.material.color = Color.red;
-		CavalcadeButton button1 = level1.AddComponent<CavalcadeButton>();
-		button1.filename = "L1.txt";
-		level1.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-		button1.resizeTo = new Vector3(0.65f, 0.65f, 0);
-		level1.transform.position = new Vector3(-8.4f, 0.45f, -1f);
-		GameObject map = GameObject.CreatePrimitive(PrimitiveType.Plane);
-		map.renderer.material.mainTexture = cavalcadeMap;
-		map.renderer.material.color = Color.white;
-		map.renderer.material.shader = Shader.Find("Transparent/Diffuse");
-		map.transform.localScale = new Vector3(2.5f, 1f, 1.25f);
-		map.transform.position = new Vector3(0, 1, 0);
-		map.transform.Rotate(-90.0f, 0.0f, 0.0f);*/
 	}
 	
 	void OnLevelWasLoaded(int level) {
@@ -54,7 +40,6 @@ public class CavalcadeManager : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-		//GUI.DrawTexture(new Rect(0, 0, Camera.main.pixelWidth, Camera.main.pixelHeight), cavalcadeMap);
 		if(fadeIn || fadeOut) {
 			if(Time.time <= fadeStarted + fadeLength) { // still fading
 				GUI.color = Color.Lerp(new Color(0, 0, 0, fadeIn ? 1 : 0),

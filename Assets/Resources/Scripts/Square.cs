@@ -58,29 +58,6 @@ public class Square {
 		if(c == Color.black)
 			c = Color.white;
 		plane.renderer.material.color = c;
-		// if(colors[Color.red] > 0 && colors[Color.blue] > 0 && colors[Color.green] > 0) {
-		// 	plane.renderer.material.color = Color.red + Color.blue + Color.green; // I have no idea what this will look like, someone should probably pick a better color
-		// }
-		// else if(colors[Color.red] > 0 && colors[Color.blue] > 0) {
-		// 	plane.renderer.material.color = new Color(1, 0, 1, 1);
-		// }
-		// else if(colors[Color.green] > 0 && colors[Color.blue] > 0) {
-		// 	plane.renderer.material.color = Color.cyan;
-		// }
-		// else if(colors[Color.green] > 0 && colors[Color.red] > 0) {
-		// 	plane.renderer.material.color = Color.red + Color.green;
-		// }
-		// else if(colors[Color.red] > 0) {
-		// 	plane.renderer.material.color = Color.red;
-		// }
-		// else if(colors[Color.blue] > 0) {
-		// 	plane.renderer.material.color = Color.blue;
-		// }
-		// else if(colors[Color.green] > 0) {
-		// 	plane.renderer.material.color = Color.green;
-		// }
-		// else
-		// 	plane.renderer.material.color = Color.white;
 	}
 	
 	/*

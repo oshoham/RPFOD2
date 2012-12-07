@@ -146,30 +146,10 @@ public class Grid {
 					RaycastHit[] hits = Physics.RaycastAll(osquare.wloc, 
 										(see[i,j].wloc - osquare.wloc).normalized, 
 										Vector3.Distance(osquare.wloc, see[i,j].wloc));
-				bool plus;	
 				if(Array.Find(hits,(RaycastHit hit) => { 
 						return hit.transform.gameObject.GetComponent<Wall>() != null; })
 					.Equals(default(RaycastHit)))
-					plus = true;
-				else
-					plus = false;
-
-
-					/*foreach(RaycastHit block in hits) {
-						GameObject obj = block.transform.gameObject;
-						if(obj.GetComponent<Wall>() == null &&
-							plus = true;
-						}
-						else {
-							plus = false;
-							break;
-						}
-
-					}*/
-					
-
-					if(plus)
-						fsee.Add(see[i, j]);
+					fsee.Add(see[i, j]);
 				}
 			}
 		}

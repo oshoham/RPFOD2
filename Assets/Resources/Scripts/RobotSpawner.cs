@@ -41,7 +41,6 @@ public class RobotSpawner : MonoBehaviour, IColor {
 	}
 	
 	public void Spawn(Vector2 robotCoords) {
-		print("spawning");
 		grid.Add(Robot.MakeRobot(grid, (int)robotCoords.x, (int)robotCoords.y, robotSpeed, robotFireRate,
 					 robotDamageDealt, robotHealth, robotForwardRange, robotSideRange,
 					 robotMovementDirection, robotColorVisible, robotColorPainted,
