@@ -253,9 +253,9 @@ public static class LevelWriter {
 							
 							if(spawner.robotRotation == new RotationMatrix(RotationMatrix.Rotation.Identity))
 								sb.Append(0 + " ");
-							if(spawner.robotRotation == new RotationMatrix(RotationMatrix.Rotation.Left))
+							else if(spawner.robotRotation == new RotationMatrix(RotationMatrix.Rotation.Left))
 								sb.Append(1 + " ");
-							if(spawner.robotRotation == new RotationMatrix(RotationMatrix.Rotation.Right))
+							else if(spawner.robotRotation == new RotationMatrix(RotationMatrix.Rotation.Right))
 								sb.Append(2 + " ");
 							else
 								sb.Append(3 + " ");
@@ -277,7 +277,7 @@ public static class LevelWriter {
 								sb.Append(1 + " ");
 							else if(spawner.spawnDirection == new Vector2(0, -1))
 								sb.Append(2 + " ");
-							else if(spawner.spawnDirection == new Vector2(-1, 0))
+							else
 								sb.Append(3 + " ");
 						}
 					}

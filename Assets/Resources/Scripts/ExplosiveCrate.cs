@@ -20,11 +20,15 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 	public List<Square> see;
 	
 	void Start() {
+		see = grid.SCheckRad(range, gridCoords);
+		foreach(Square sq in see) {
+			sq.colors[Color.yellow]++;
+			sq.SetColor();
+		}
 	}
 		
 	void Update() {
 		if(health <= 0) {
-			see = grid.SCheckRad(range, gridCoords);
 			foreach(Square sq in see) {
 				bool scrate = false;
 				foreach(GameObject obj in grid.GetObjectsOfTypes(sq.loc, new List<string> {"Robot",
@@ -43,14 +47,14 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 					if(obj.GetComponent<Player>())
 						obj.GetComponent<Player>().health = 0;
 				}
-				Destroy(this);
+				Destroy(gameObject);
 			}
 		}
 	}
 	
 	void OnDisable() {
 		foreach(Square sq in see) {
-			sq.colors[Color.green]--;
+			sq.colors[Color.yellow]--;
 			sq.SetColor();
 		}
 		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);

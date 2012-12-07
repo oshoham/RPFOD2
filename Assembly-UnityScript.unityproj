@@ -61,6 +61,7 @@
      <None Include="Assets\Resources\Scripts\DONE.txt" />
      <None Include="Assets\Resources\Levels\FECAL.txt" />
      <None Include="Assets\Resources\Levels\KillAllHumans.txt" />
+     <None Include="Assets\Resources\Levels\crates.txt" />
      <None Include="Assets\Resources\Levels\L3.txt" />
      <None Include="Assets\Resources\Levels\Decisions.txt" />
      <None Include="Assets\Resources\Levels\Whirlpool.txt" />

@@ -1,0 +1,4 @@
+:20	use explosive crates...?
+:21	fix explosive crates' radius up
+:29	make lighting something we can put in levels if this hasn't already been done (it just needs to be a spot for a point light)
+:37	robots that only see in one direction?

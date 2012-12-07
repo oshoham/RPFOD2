@@ -25,8 +25,6 @@ Things that are DONE should be moved to DONE.txt by copypasta, or by using the c
 :17	figure out better hot keys and implement them
 :18	animate explosive crates
 :19	sound effect for explosive crates
-:20	use explosive crates...?
-:21	fix explosive crates' radius up
 :22	decide on movement speed for the game and change it to that
 :23	make more free play levels
 :24	make cavalcade levels
@@ -34,7 +32,6 @@ Things that are DONE should be moved to DONE.txt by copypasta, or by using the c
 :26	implement real cavalcade map
 :27	change wall textures
 :28	change lighting in some areas to be cool
-:29	make lighting something we can put in levels if this hasn't already been done (it just needs to be a spot for a point light)
 :30	consider making grid lines less thick
 :31	make it so robots change to their other texture instead of just changing hue when they're painted
 :32	polish player health per level
@@ -42,7 +39,6 @@ Things that are DONE should be moved to DONE.txt by copypasta, or by using the c
 :34	polish spawn rate per level
 :35	consider adding some kind of time aspect to level where players can see their top time completing a level
 :36	consider power ups to the player (speed boost, camo, etc?)
-:37	robots that only see in one direction?
 :38	polish robot speed per level
 :39	add a charge mechanism to robot fire rate (cannot fire unless some visual indicator shows they're fully charged up in order to better show fire rate)
 :40	fix quotes and generally clean up the death screen
