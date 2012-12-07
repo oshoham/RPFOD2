@@ -89,22 +89,22 @@ public class GameManager : MonoBehaviour {
 		healthgui.fontStyle = FontStyle.Bold;
 		healthgui.fontSize = 12;
 
-		if(GUI.Button(new Rect(20, 880, 150, 40), "Main Menu", guiStyle)) {                                   
+		if(GUI.Button(new Rect(20, Camera.main.pixelHeight - 150, 150, 40), "Main Menu", guiStyle)) {                                   
                             Application.LoadLevel("StartScreen");                                                     
                 }
 		if(GlobalSettings.lastScene == "Editor") {
-			if(GUI.Button(new Rect(20, 830, 150, 40), "Level Editor", guiStyle)) {
+			if(GUI.Button(new Rect(20, Camera.main.pixelHeight - 200, 150, 40), "Level Editor", guiStyle)) {
 				GlobalSettings.lastScene = "Game";
 				Application.LoadLevel("Editor");
 			}
 		}
 		else if(GlobalSettings.lastScene == "FreePlaySelector") {
-			if(GUI.Button(new Rect(20, 830, 150, 40), "Level Selector", guiStyle)) {
+			if(GUI.Button(new Rect(20, Camera.main.pixelHeight - 50, 150, 40), "Level Selector", guiStyle)) {
 				GlobalSettings.lastScene = "Game";
 				Application.LoadLevel("FreePlaySelector");
 			}
 		}
-		if(GUI.Button(new Rect(20, 780, 150, 40), "Restart", guiStyle)) {
+		if(GUI.Button(new Rect(20, Camera.main.pixelHeight - 100, 150, 40), "Restart", guiStyle)) {
 				Application.LoadLevel("Game");
 		}
 		if(player == null)
