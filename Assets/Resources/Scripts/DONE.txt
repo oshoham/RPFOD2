@@ -1,4 +1,8 @@
+:8	test robot spawners more
 :20	use explosive crates...?
 :21	fix explosive crates' radius up
 :29	make lighting something we can put in levels if this hasn't already been done (it just needs to be a spot for a point light)
+:31	make it so robots change to their other texture instead of just changing hue when they're painted
 :37	robots that only see in one direction?
+:49	make free play thing less wonky and not work relative to screen so screen resolution doesn't fuck us over (remember what it did during our presentation?)
+:53	make audio actually work in levels

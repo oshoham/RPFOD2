@@ -13,7 +13,6 @@ Things that are DONE should be moved to DONE.txt by copypasta, or by using the c
 :5	we have no indicator for player range. not sure what we want to do about this.
 :6	animate player model
 :7	animate robots
-:8	test robot spawners more
 :9	animate robot spawners
 :10	better looking lasers
 :11	more readable gui
@@ -33,7 +32,6 @@ Things that are DONE should be moved to DONE.txt by copypasta, or by using the c
 :27	change wall textures
 :28	change lighting in some areas to be cool
 :30	consider making grid lines less thick
-:31	make it so robots change to their other texture instead of just changing hue when they're painted
 :32	polish player health per level
 :33	polish robot health per level
 :34	polish spawn rate per level
@@ -50,7 +48,6 @@ Things that are DONE should be moved to DONE.txt by copypasta, or by using the c
 :46	clean up code (nahhhh)
 :47	lol conveyors?
 :48	separate free play levels by difficulty
-:49	make free play thing less wonky and not work relative to screen so screen resolution doesn't fuck us over (remember what it did during our presentation?)
 :50	change our name officially
 :51	playtest the shit out of our game
 :52	make robots not spaz out when they can't move

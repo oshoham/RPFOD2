@@ -21,7 +21,14 @@ public class Robot : MonoBehaviour, IColor {
 	{
 		get { return _colorPainted; }
 		set {
-			renderer.material.color = value;
+			if(value == Color.red)
+				renderer.material.mainTexture = Resources.Load("Textures/RedBot") as Texture;
+			else if(value == Color.green)
+				renderer.material.mainTexture = Resources.Load("Textures/GreenBot") as Texture;
+			else if(value == Color.blue)
+				renderer.material.mainTexture = Resources.Load("Textures/BlueBot") as Texture;
+			else
+				renderer.material.mainTexture = Resources.Load("Textures/BlankBot") as Texture;
 			_colorPainted = value;
 		}
 	}

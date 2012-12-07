@@ -43,15 +43,19 @@ public class FreePlayManager : MonoBehaviour {
 		else
 			path = Application.dataPath;
 	        levels = Directory.GetFiles(path, "*.txt");
-		int j = 1;
-		for(int i = 0; i < levels.Length; i++) {
+		int x = 50;
+		int y = 50;
+		int textHeight = 50;
+		int textWidth = 200;
+		for(int i = 0; i < levels.Length; i++, y += textHeight) {
 			string fileName = Path.GetFileName(levels[i]);
-			if(i>=10) j=2;
-			if(i>=20) j=3;
-			if(i>=30) j=4;
-			if(i>=40) j=5;
-			if(i>=50) j=6;
-			CreateLevelButton(fileName, i, j);
+			if(y > Camera.main.pixelHeight - textHeight) {
+				y = 50;
+				x += textWidth;
+			}
+			if(x > Camera.main.pixelWidth)
+				print("shit, bro! the x is too damn high!");
+			CreateLevelButton(fileName, x, (int)Camera.main.pixelHeight - y);
 		}
 		//audio
 		fplaysong = Resources.Load("Audio/Effects/ambience3") as AudioClip;
@@ -80,27 +84,7 @@ public class FreePlayManager : MonoBehaviour {
 		levelSelector.fontSize = 30;
 		levelSelector.fontStyle = FontStyle.Normal;
 		levelSelector.pixelOffset = new Vector2(0, 0);
-		switch(j)
-		{
-			case 1:
-				button.transform.position = new Vector3(0.05F, (0.95F - i*0.1F), 0.0F);
-				break;
-			case 2:
-				button.transform.position = new Vector3(0.2F, (0.95F - (i-10)*0.1F), 0.0F);
-				break;
-			case 3:
-				button.transform.position = new Vector3(0.35F, (0.95F - (i-20)*0.1F), 0.0F);
-				break;
-			case 4:
-				button.transform.position = new Vector3(0.5F, (0.95F - (i-30)*0.1F), 0.0F);
-				break;
-			case 5:
-				button.transform.position = new Vector3(0.65F, (0.95F - (i-40)*0.1F), 0.0F);
-				break;
-			case 6:
-				button.transform.position = new Vector3(0.8F, (0.95F - (i-50)*0.1F), 0.0F);
-				break;
-		}	     
+		button.transform.position = Camera.main.ScreenToViewportPoint(new Vector3(i, j, 0));
 		LevelButton script = button.AddComponent<LevelButton>();
 		script.fileName = fileName;
 	}
