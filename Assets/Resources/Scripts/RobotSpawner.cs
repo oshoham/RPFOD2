@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 
 public class RobotSpawner : MonoBehaviour, IColor {
 	
@@ -32,8 +32,10 @@ public class RobotSpawner : MonoBehaviour, IColor {
 	public Color robotColorPainted;
 	
 	void Update() {
+		if(health <= 0) {
+			Destroy(gameObject);
+		}
 		Vector2 robotCoords = spawnDirection + gridCoords;
-		print(robotCoords + " " + lastSpawned + " " + spawnRate + " " + spawnDirection);
 		if(Time.timeScale > 0 && Time.time > lastSpawned + spawnRate && !grid.Check(robotCoords)) {
 			lastSpawned = Time.time;
 			Spawn(robotCoords);
