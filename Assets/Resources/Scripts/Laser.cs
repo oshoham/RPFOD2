@@ -36,6 +36,9 @@ public class Laser : MonoBehaviour {
 		else if(obj.GetComponent<ExplosiveCrate>() != null) {
 			obj.GetComponent<ExplosiveCrate>().health -= damageDealt;
 		}
+		else if(obj.GetComponent<RobotSpawner>() != null) {
+			obj.GetComponent<RobotSpawner>().health -= damageDealt;
+		}
 	}
 
 	public static GameObject MakeLaser(int damage, Vector3 pos, Vector2 dir, RaycastHit hit, Color robotLaserColor, Robot roobit, Color lcolor) {

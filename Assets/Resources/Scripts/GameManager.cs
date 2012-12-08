@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour {
 			floor = LevelLoader.LoadLevel(filename, out audiofile);
 		else
 			floor = LevelLoader.LoadLevel("fortesting.txt", out audiofile);
+		// Light for the player.
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		l.transform.position = player.transform.position;
@@ -41,20 +42,20 @@ public class GameManager : MonoBehaviour {
 		l.transform.parent = player.transform;
 		l.intensity = 0.4f;
 		l.range = 100f;
-		PlayerGui.MakePlayerGui(Color.red, new Vector3(130.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true);
+		// Light for GUI.
+		GameObject light2 = new GameObject("Light");
+		Light l2 = light2.AddComponent<Light>();
+		l2.transform.position = new Vector3(.5f, 0, -1);
+		l2.type = LightType.Point;
+		l2.intensity = 8f;
+		l2.range = 3f;
+		l2.transform.parent = PlayerGui.MakePlayerGui(Color.red, new Vector3(130.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true).transform;
 		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true);
 		PlayerGui.MakePlayerGui(Color.blue, new Vector3(250.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true);
 		PlayerGui.MakePlayerGui(player.defaultColor, new Vector3(310.0f, Camera.main.pixelHeight - 160.0f, Camera.main.nearClipPlane + 5.0f), false);
 		PlayerGui.MakePlayerGui(Color.red, new Vector3(130.0f, Camera.main.pixelHeight - 160.0f, Camera.main.nearClipPlane + 5.0f), false);
 		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 160.0f, Camera.main.nearClipPlane + 5.0f), false);
 		PlayerGui.MakePlayerGui(Color.blue, new Vector3(250.0f, Camera.main.pixelHeight - 160.0f, Camera.main.nearClipPlane + 5.0f), false);
-		GameObject light2 = new GameObject("Light");
-		Light l2 = light2.AddComponent<Light>();
-		l2.transform.position = new Vector3(-6.97F,4.52F,-16.8F);
-		l2.transform.parent = GameObject.Find("Main Camera").transform;
-		l2.type = LightType.Point;
-		l2.intensity = 8f;
-		l2.range = 3f;
 		bgm = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
 		song = Resources.Load("Audio/" + audiofile) as AudioClip;
 		bgm.clip = song;
@@ -64,6 +65,10 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update() {
+		// Mouse wheel to zoom in and out.
+		float zoom = Input.GetAxis("Mouse ScrollWheel");
+		if(zoom > 0 || (zoom < 0 && Camera.main.orthographicSize > 5))
+			Camera.main.orthographicSize += zoom;
 	}
 
 	/*

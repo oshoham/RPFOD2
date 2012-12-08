@@ -58,7 +58,7 @@ public class FreePlayManager : MonoBehaviour {
 			CreateLevelButton(fileName, x, (int)Camera.main.pixelHeight - y);
 		}
 		//audio
-		fplaysong = Resources.Load("Audio/Effects/ambience3") as AudioClip;
+		fplaysong = Resources.Load("Audio/JaiDormiSousLeauChateauFlightRemix") as AudioClip;
 		tickOnHover = Resources.Load("Audio/Effects/click") as AudioClip;
 		effects = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
 		soundtrack = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));

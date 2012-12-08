@@ -241,7 +241,7 @@ public static class LevelWriter {
 							else
 								sb.Append(3 + " ");
 							
-							if(spawner.robotFireDirection == new Vector2(0, 1))
+							if(spawner.spawnDirection == new Vector2(0, 1))
 								sb.Append(0 + " ");
 							else if(spawner.spawnDirection == new Vector2(1, 0))
 								sb.Append(1 + " ");

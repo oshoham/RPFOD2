@@ -22,6 +22,10 @@ public class Bullet : Projectile {
 			obj.GetComponent<ExplosiveCrate>().health -= damageDealt;
 			Destroy(gameObject);
 		}
+		else if(obj.GetComponent<RobotSpawner>() != null) {
+			obj.GetComponent<RobotSpawner>().health -= damageDealt;
+			Destroy(gameObject);
+		}
 		else if(obj.GetComponent<Wall>() != null) {
 			Destroy(gameObject);
 		}
