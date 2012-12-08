@@ -51,6 +51,7 @@
      <None Include="Assets\Resources\Levels\Virus.txt" />
      <None Include="Assets\Resources\Levels\diy.txt" />
      <None Include="Assets\Resources\Levels\KeepAlive.txt" />
+     <None Include="Assets\Resources\Levels\Olympus.txt" />
      <None Include="Assets\Resources\Levels\graphictest.txt" />
      <None Include="Assets\Resources\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\Resources\Levels\Blank.txt" />
