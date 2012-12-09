@@ -21,7 +21,14 @@ public class Robot : MonoBehaviour, IColor {
 	{
 		get { return _colorPainted; }
 		set {
-			renderer.material.color = value;
+			if(value == Color.red)
+				renderer.material.mainTexture = Resources.Load("Textures/RedBot") as Texture;
+			else if(value == Color.green)
+				renderer.material.mainTexture = Resources.Load("Textures/GreenBot") as Texture;
+			else if(value == Color.blue)
+				renderer.material.mainTexture = Resources.Load("Textures/BlueBot") as Texture;
+			else
+				renderer.material.mainTexture = Resources.Load("Textures/BlankBot") as Texture;
 			_colorPainted = value;
 		}
 	}
@@ -39,10 +46,6 @@ public class Robot : MonoBehaviour, IColor {
 	public bool isMoving;
 	public static AudioSource lasersource = new AudioSource();
 	public static AudioClip lasersound;	
-//	public static AudioClip explosionsound;
-//	public bool explohappened = false;
-//	public static AudioSource explosionsource = new AudioSource();
-//	public GameObject explosion = Resources.Load("Standard Assets/Particles/Legacy Particles/Small explosion") as GameObject;
 
 	void Start()
 	{
@@ -79,14 +82,6 @@ public class Robot : MonoBehaviour, IColor {
 			return;
 
 		if(health <= 0) {
-//		        Instantiate(explosion, transform.position. Quaternion.identity);
-//			if(!explohappened) {
-//				explosionsound = Resources.Load("Audio/Effects/explosion") as AudioClip;
-//				explosionsource = (AudioSource)gameObject.AddComponent(typeof(AudioSource));
-//				explosionsource.clip = explosionsound;
-//				explosionsource.Play();
-//				explohappened = true;
-//			}
 			Destroy(gameObject);			
 		}
 		Fire();
@@ -160,7 +155,7 @@ public class Robot : MonoBehaviour, IColor {
 		}
 		float time = (Time.time - startedMoving)/moveSpeed + .1f;
 		if(moveSpeed >= 1) { // If this is a slower bot, use smooth motion
-			transform.position = CubicInterpolate(oldPosition, newPosition, time);//Vector3.Lerp(oldPosition, newPosition, time);
+			transform.position = CubicInterpolate(oldPosition, newPosition, time);
 		}
 		else {
 			transform.position = Vector3.Lerp(oldPosition, newPosition, time);
@@ -195,6 +190,10 @@ public class Robot : MonoBehaviour, IColor {
 				if(e != null && (e.colorPainted == colorVisible)) {
 					return true;
 				}
+				RobotSpawner rs = obj.GetComponent<RobotSpawner>();
+				if(rs != null && (rs.colorPainted == colorVisible)) {
+					return true;
+				}
 				return false;
 			});
 		if(visibles.Count > 0) {
@@ -209,6 +208,8 @@ public class Robot : MonoBehaviour, IColor {
 				lookdir = target.GetComponent<DestructibleWall>().gridCoords - gridCoords;
 			else if(target.GetComponent<ExplosiveCrate>() != null)
 				lookdir = target.GetComponent<ExplosiveCrate>().gridCoords - gridCoords;
+			else if(target.GetComponent<RobotSpawner>() != null)
+				lookdir = target.GetComponent<RobotSpawner>().gridCoords - gridCoords;
 			lookdir.Normalize();
 			if(lookdir == new Vector2(1, 0))
 				transform.localEulerAngles = new Vector3(0, 0, 90f);
@@ -219,7 +220,6 @@ public class Robot : MonoBehaviour, IColor {
 			else if(lookdir == new Vector2(0, -1))
 				transform.localEulerAngles = new Vector3(0, 0, 360f);
 			if(Time.time > lastFired + fireRate) {
-				//Bullet.MakeBullet(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, gameObject);
 				RaycastHit hit;
 				if(Physics.Raycast(transform.position, (visibles[0].transform.position - transform.position).normalized, out hit)) {
 					bool shouldShoot = hit.transform.gameObject.Equals(visibles[0]);

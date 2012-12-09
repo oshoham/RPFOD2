@@ -112,9 +112,16 @@ public static class LevelLoader {
 						grid.Add(ParseRobotSpawner(x, y, CopyRange(parts, i, 15)), x, y);
 						i += 15;
 						break;
+					case 11:
+						ParseLight(x, y, CopyRange(parts, i, 5));
+						i += 5;
+						break;
 				}
 			}
 		}
+		if(audiofile.Length <= 0)
+			audiofile = "GetBetterJohn";
+		Debug.Log("Audio file: "+ audiofile + ". ");
 		reader.Close();
 		return grid;
 	}
@@ -258,6 +265,22 @@ public static class LevelLoader {
 						     robotFireRate, robotColorPainted,
 						     spawnDirection);
 	}
+
+	public static GameObject ParseLight(int x, int y, string[] info) {
+		float intensity = Single.Parse(info[0]);
+		float range = Single.Parse(info[1]);
+		int red = Int32.Parse(info[2]);
+		int green = Int32.Parse(info[3]);
+		int blue = Int32.Parse(info[4]);
+		GameObject obj = new GameObject(String.Format("Light {0} {1}", x, y));
+		obj.transform.position = new Vector3(x, y, -1);
+		Light light = obj.AddComponent<Light>();
+		light.intensity = intensity;
+		light.range = range;
+		light.color = new Color(red, green, blue, 1);
+		return obj;
+	}
+	
 	/*
 	 * This just copies a section of an array. It's useful when passing parameters
 	 * to one of the parsing functions.

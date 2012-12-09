@@ -27,7 +27,6 @@ public class SpikeWall : Wall {
 		SpikeWall script = spikeWall.AddComponent<SpikeWall>();
 		spikeWall.renderer.material.mainTexture = Resources.Load("Textures/Electrocute") as Texture;
 		spikeWall.renderer.material.color = Color.white;
-		//script.colorPainted = color;
 		script.gridCoords = new Vector2(x, y);
 		script.directions = directions;
 		script.grid = grid;

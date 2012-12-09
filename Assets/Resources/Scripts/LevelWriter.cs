@@ -12,7 +12,6 @@ public static class LevelWriter {
 			path = Path.Combine(Application.dataPath + "/Resources/Levels", filename);
 		else
 			path = Path.Combine(Application.dataPath, filename);
-		//path = path.Replace(@"\", "/");
 		using (StreamWriter writer = File.CreateText(path)) {
 			writer.WriteLine(grid.width);
 			writer.WriteLine(grid.height);
@@ -39,35 +38,6 @@ public static class LevelWriter {
 						if(wall != null)
 							sb.Append(0 + " ");
 					}
-					// if the Square contains a SpikeWall, encode the relevant information
-					// obj = sq.objects.Find((GameObject g) => g.GetComponent<SpikeWall>() != null);
-					// if(obj != null) {
-					// 	SpikeWall spike = obj.GetComponent<SpikeWall>();
-					// 	if(spike != null) {
-					// 		sb.Append(1 + " ");
-					// 		sb.Append("[ ");
-					// 		foreach(Vector2 dir in spike.directions) {
-					// 			if(dir == new Vector2(0, 1))
-					// 				sb.Append(0 + " ");
-					// 			else if(dir == new Vector2(1, 0))
-					// 				sb.Append(1 + " ");
-					// 			else if(dir == new Vector2(0, -1))
-					// 				sb.Append(2 + " ");
-					// 			else if(dir == new Vector2(-1, 0))
-					// 				sb.Append(3 + " ");
-					// 		}
-					// 		sb.Append("] ");
-							
-					// 		if(spike.colorPainted == Color.red)
-					// 			sb.Append(0 + " ");
-					// 		else if(spike.colorPainted == Color.green)
-					// 			sb.Append(1 + " ");
-					// 		else if(spike.colorPainted == Color.blue)
-					// 			sb.Append(2 + " ");
-					// 		else
-					// 			sb.Append(3 + " ");
-					// 	}
-					// }
 					// if the Square contains a SpikeFloor, encode the relevant information
 					obj = sq.objects.Find((GameObject g) => g.GetComponent<SpikeFloor>() != null);
 					if(obj != null) {
@@ -253,9 +223,9 @@ public static class LevelWriter {
 							
 							if(spawner.robotRotation == new RotationMatrix(RotationMatrix.Rotation.Identity))
 								sb.Append(0 + " ");
-							if(spawner.robotRotation == new RotationMatrix(RotationMatrix.Rotation.Left))
+							else if(spawner.robotRotation == new RotationMatrix(RotationMatrix.Rotation.Left))
 								sb.Append(1 + " ");
-							if(spawner.robotRotation == new RotationMatrix(RotationMatrix.Rotation.Right))
+							else if(spawner.robotRotation == new RotationMatrix(RotationMatrix.Rotation.Right))
 								sb.Append(2 + " ");
 							else
 								sb.Append(3 + " ");
@@ -271,13 +241,13 @@ public static class LevelWriter {
 							else
 								sb.Append(3 + " ");
 							
-							if(spawner.robotFireDirection == new Vector2(0, 1))
+							if(spawner.spawnDirection == new Vector2(0, 1))
 								sb.Append(0 + " ");
 							else if(spawner.spawnDirection == new Vector2(1, 0))
 								sb.Append(1 + " ");
 							else if(spawner.spawnDirection == new Vector2(0, -1))
 								sb.Append(2 + " ");
-							else if(spawner.spawnDirection == new Vector2(-1, 0))
+							else
 								sb.Append(3 + " ");
 						}
 					}
@@ -288,10 +258,15 @@ public static class LevelWriter {
 					}
 				}
 			}
+			// Lights
+			foreach(GameObject obj in LevelEditor.lights) {
+				Light l = obj.GetComponent<Light>();
+				int x = (int)obj.transform.position.x;
+				int y = (int)obj.transform.position.y;
+				writer.WriteLine(x + " " + y + " " + 11 + " " + l.intensity + " " + l.range + " " + l.color.r + " " + l.color.g + " " + l.color.b);
+			}
 			writer.Close();
-			Debug.Log("Saved to " + path);
+			Debug.Log("Saved to " + path +", bro.");
 		}
-	/*	else
-			Debug.Log("Dude, what are you trying to do here? Filename: " + filename + " already exists. Just stop already.");*/
 	}
 }

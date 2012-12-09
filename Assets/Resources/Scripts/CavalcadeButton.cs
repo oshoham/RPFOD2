@@ -25,7 +25,6 @@ public class CavalcadeButton: MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-	 	//GlobalSettings.currentFile = fileName;
 	    	GlobalSettings.lastScene = "CavalcadeMap";
        	    	Application.LoadLevel("Game");
         }

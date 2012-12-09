@@ -113,81 +113,47 @@ public class Grid {
 		Vector2 ecoord = new Vector2(origin.x+rad, origin.y+rad);
 		FixVector(ref scoord);
 		FixVector(ref ecoord);
-		Square[,] see = new Square[rad*2+1, rad*2+1];
+		int ex = (int)ecoord.x;
+		int ey = (int)ecoord.y;
+		int sx = (int)scoord.x;
+		int sy = (int)scoord.y;
+		Square[,] see = new Square[ex-sx+1, ey-sy+1];
+		Square osquare = grid[(int)origin.x, (int)origin.y];
 
 		for(int i = 0; i < see.GetLength(0); i++) {
 			for(int j = 0; j < see.GetLength(1); j++) {
-				see[i,j] = grid[(int)scoord.x + i,(int)scoord.y + j];
+				if(i == rad && j == rad) {
+					see[i,j] = null;
+					continue;
+				}
+				if(sx+i <= ex) {
+					if(sy+j <= ey)
+						see[i,j] = grid[(int)scoord.x + i,(int)scoord.y + j];
+					else
+						see[i,j] = grid[(int)scoord.x + i,(int)scoord.y];
+				}
+				else if(sy + j <= ey)
+					see[i,j] = grid[(int)scoord.x,(int)scoord.y + j];
+				
 			}
 		}
+	
+		List<Square> fsee = new List<Square>();
 
 		for(int i = 0; i < see.GetLength(0); i++) {
 			for(int j = 0; j < see.GetLength(1); j++) {
-				List<GameObject> obj = see[i,j].objects;
-				foreach( GameObject o in obj)
-				{
-					if(o.GetComponent("Wall") != null) {
-						if(i/2 > rad && j/2 == rad)
-							see = ZOut(see, i, see.GetLength(0)-1, j, true, rad, false, origin);
-						else if(i/2 < rad && j/2 == rad)
-							see = ZOut(see, i, 0, j, true, rad, false, origin);
-						else if(j/2 > rad && i/2 == rad)
-							see = ZOut(see, j, see.GetLength(1)-1, i, false, rad, false, origin);
-						else if(j/2 < rad && i/2 == rad)
-							see = ZOut(see, j, 0, i, false, rad, false, origin);
-						else if(i/2 > rad && j/2 > rad)
-							see = ZOut(see, i, 0, j, false, 0, true, new Vector2(see.GetLength(0)-1, see.GetLength(1)-1));  
-						else if(i/2 > rad && j/2 < rad)
-							see = ZOut(see, i, 0, 0, false, 0, true, new Vector2(see.GetLength(0)-1, j));
-						else if(i/2 < rad && j/2 < rad)  
-							see = ZOut(see, 0, 0, 0, false, 0, true, new Vector2(i, j));
-						else if(i/2 < rad && j/2 > rad)  
-							see = ZOut(see, 0, 0, j, false, 0, true, new Vector2(i, see.GetLength(1)-1));  
-					}
+				if(see[i,j] != null){
+					RaycastHit[] hits = Physics.RaycastAll(osquare.wloc, 
+										(see[i,j].wloc - osquare.wloc).normalized, 
+										Vector3.Distance(osquare.wloc, see[i,j].wloc));
+				if(Array.Find(hits,(RaycastHit hit) => { 
+						return hit.transform.gameObject.GetComponent<Wall>() != null; })
+					.Equals(default(RaycastHit)))
+					fsee.Add(see[i, j]);
 				}
 			}
 		}
-		// filter out null square
-		List<Square> squares = new List<Square>();
-		foreach(Square sq in see) {
-			if(sq != null)
-				squares.Add(sq);
-		}
-		return squares;
-	}
-
-	/*
-	 * Helper for SCheckRad
-	 */
-	public Square[,] ZOut(Square[,] see, int start, int end, int other, bool xy, int rad, bool diag, Vector2 dend) {
-		if(diag) {
-			for(;start <= (int)dend.x; start++)
-				for(;other <= (int)dend.y; other++)
-					see[start,other] = null;
-			return see;
-		}		
-
-		if(xy) {
-			if(start/2 < rad) {
-				for(;start <= end; start++)
-					 see[start,other] = null;
-			} 
-			else
-				for(;start >= end; start--)
-					see[start, other] = null;
-			return see;
-		}
-		else {
-			if(start/2 < rad) {
-				for(;start <= end; start++)
-					 see[other,start] = null;
-			} 
-			else
-				for(;start >= end; start--)
-					see[other, start] = null;
-			return see;
-		}
-			
+		return fsee;
 	}
 	
 

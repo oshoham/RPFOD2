@@ -83,7 +83,6 @@ public class PlayerGui : MonoBehaviour {
 		}
 	}
 	
-	//weirdly not working, maybe because planes don't have colliders/aren't gui objects
 	void OnMouseOver() {
 		transform.localScale = new Vector3(0.05f, 1.0f, 0.05f);
 	}

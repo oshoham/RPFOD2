@@ -25,6 +25,7 @@ public class Square {
 		colors[Color.red] = 0;
 		colors[Color.green] = 0;
 		colors[Color.blue] = 0;
+		colors[Color.yellow] = 0;
 		this.loc = loc;
 		this.wloc = wloc;
 		objects = new List<GameObject>();
@@ -45,29 +46,18 @@ public class Square {
 	
 	// Add green!
 	public void SetColor() {
-		if(colors[Color.red] > 0 && colors[Color.blue] > 0 && colors[Color.green] > 0) {
-			plane.renderer.material.color = Color.red + Color.blue + Color.green; // I have no idea what this will look like, someone should probably pick a better color
-		}
-		else if(colors[Color.red] > 0 && colors[Color.blue] > 0) {
-			plane.renderer.material.color = new Color(1, 0, 1, 1);
-		}
-		else if(colors[Color.green] > 0 && colors[Color.blue] > 0) {
-			plane.renderer.material.color = Color.cyan;
-		}
-		else if(colors[Color.green] > 0 && colors[Color.red] > 0) {
-			plane.renderer.material.color = Color.red + Color.green;
-		}
-		else if(colors[Color.red] > 0) {
-			plane.renderer.material.color = Color.red;
-		}
-		else if(colors[Color.blue] > 0) {
-			plane.renderer.material.color = Color.blue;
-		}
-		else if(colors[Color.green] > 0) {
-			plane.renderer.material.color = Color.green;
-		}
-		else
-			plane.renderer.material.color = Color.white;
+		Color c = Color.black;
+		if(colors[Color.red] > 0)
+			c += Color.red;
+		if(colors[Color.green] > 0)
+			c += Color.green;
+		if(colors[Color.blue] > 0)
+			c += Color.blue;
+		if(colors[Color.yellow] > 0)
+			c += Color.yellow;
+		if(c == Color.black)
+			c = Color.white;
+		plane.renderer.material.color = c;
 	}
 	
 	/*

@@ -20,33 +20,41 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 	public List<Square> see;
 	
 	void Start() {
-		see = grid.SCheckRad(3, gridCoords);
+		see = grid.SCheckRad(range, gridCoords);
 		foreach(Square sq in see) {
-			if(sq != null) {
-				sq.colors[Color.green]++;
-				sq.SetColor();
-			}
+			sq.colors[Color.yellow]++;
+			sq.SetColor();
 		}
 	}
 		
 	void Update() {
 		if(health <= 0) {
 			foreach(Square sq in see) {
+				bool scrate = false;
 				foreach(GameObject obj in grid.GetObjectsOfTypes(sq.loc, new List<string> {"Robot",
-								"Player",
-								"DestructibleWall"})) {
-					Destroy(obj);
+								"DestructibleWall", "Player"})) {
+					if(obj.GetComponent<ExplosiveCrate>())
+						scrate = true;
+					if(scrate) {
+						scrate = false;
+						continue;
+					}
+			
+					if(obj.GetComponent<Robot>())
+						obj.GetComponent<Robot>().health = 0;
+					if(obj.GetComponent<DestructibleWall>())
+						obj.GetComponent<DestructibleWall>().health = 0;
+					if(obj.GetComponent<Player>())
+						obj.GetComponent<Player>().health = 0;
 				}
+				Destroy(gameObject);
 			}
-			Destroy(gameObject);
 		}
 	}
 	
 	void OnDisable() {
-		print(see);
 		foreach(Square sq in see) {
-			print(sq);
-			sq.colors[Color.green]--;
+			sq.colors[Color.yellow]--;
 			sq.SetColor();
 		}
 		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);

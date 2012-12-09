@@ -13,7 +13,8 @@ public enum ObjectType {
 	Robot,
 	DestructibleWall,
 	ExplosiveCrate,
-	RobotSpawner
+	RobotSpawner,
+	Light
 }
 
 
@@ -115,13 +116,18 @@ public class LevelEditor : MonoBehaviour {
 	public static string robotSpawnerRobotFireRate = "2.0";
 	public static Color robotSpawnerRobotColorPainted = Color.white;
 	
+	// Light
+	public static string lightIntensity = ".01";
+	public static string lightRange = "10";
+	public static string lightColor = "255, 255, 255";
+
+	public static List<GameObject> lights = new List<GameObject>();
+	
 	void Start() {
 		Time.timeScale = 0;
 		Camera.main.orthographic = true;
 		Camera.main.orthographicSize = 5;
 		Camera.main.backgroundColor = Color.black;
-		//string filename = EditorUtility.OpenFilePanel("Level file", "", "txt");
-		//floor = LevelLoader.LoadLevel(filename);
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
 		light.transform.position = Camera.main.transform.position;
@@ -132,10 +138,6 @@ public class LevelEditor : MonoBehaviour {
 		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 200.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/WallIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Wall, name: "Wall Selector");
-//Commented out SpikeWall because there's no difference between Spike Wall and Spike Floor, effectively. Check the Design Doc for more info
-//		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 140.0f, z), 0.5f, 0.5f,
-//						  Resources.Load("Textures/Spike") as Texture,
-//						  () => LevelEditor.objectToBeCreated = ObjectType.SpikeWall, name: "SpikeWall Selector");
 		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 250.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/ElectrocuteIcon") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.SpikeFloor, name: "SpikeFloor Selector");
@@ -160,7 +162,9 @@ public class LevelEditor : MonoBehaviour {
 		ObjectSelector.MakeObjectSelector(new Vector3(50.0f, Camera.main.pixelHeight - 600.0f, z), 0.5f, 0.5f,
 						  Resources.Load("Textures/robotspawner") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.RobotSpawner, name: "RobotSpawner Selector");
-
+		ObjectSelector.MakeObjectSelector(new Vector3(150.0f, Camera.main.pixelHeight - 250.0f, z), 0.5f, 0.5f,
+						  Resources.Load("Textures/Lightbulb") as Texture,
+						  () => LevelEditor.objectToBeCreated = ObjectType.Light, name: "Light Selector");
 		if(GlobalSettings.lastScene == "Game") {
 			floor = LevelLoader.LoadLevel(GlobalSettings.currentFile, out audiofile);
 			if(floor != null) {
@@ -171,7 +175,7 @@ public class LevelEditor : MonoBehaviour {
 		}
 		
 		//audio handling
-		song = Resources.Load("Audio/Effects/ambience2") as AudioClip;
+		song = Resources.Load("Audio/Effects/SmashTheFunk.mp3") as AudioClip;
 		bgm = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
 		bgm.clip = song;
 		bgm.loop = true;
@@ -244,11 +248,11 @@ public class LevelEditor : MonoBehaviour {
 			else {
 				floor.ClearObjects();
 			}
+			lights = new List<GameObject>();
 		}
 		if(GUI.Button(new Rect(120, 120, 100, 20), "Play")) {
 			if(GlobalSettings.currentFile != "") {
 				floor.Clear();
-				//GlobalSettings.currentFile = "";
 				Application.LoadLevel("Game");
 				GlobalSettings.lastScene = "Game";
 			}
@@ -742,6 +746,11 @@ public class LevelEditor : MonoBehaviour {
 						break;
 				}
 				robotSpawnerRobotMovementDirection = robotSpawnerRobotFireDirection;
+				break;
+			case ObjectType.Light:
+				lightIntensity = GUI.TextField(FromBottomRight(new Rect(300, 20, 100, 20)), lightIntensity);
+				lightRange = GUI.TextField(FromBottomRight(new Rect(300, 50, 100, 20)), lightRange);
+				lightColor = GUI.TextField(FromBottomRight(new Rect(300, 80, 100, 20)), lightColor);
 				break;
 		}
 	}

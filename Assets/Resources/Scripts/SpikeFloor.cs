@@ -7,12 +7,6 @@ public class SpikeFloor : MonoBehaviour {
 
 	public Vector2 gridCoords;
 	
-	/*void OnMouseOver() {
-		if(Input.GetMouseButtonDown(1)) {
-			Destroy(gameObject);
-		}
-		}*/
-	
 	void Update () {
 		List<string> classList = new List<string> {"Robot", "Player"};
 		List<GameObject> objects = grid.GetObjectsOfTypes(gridCoords, classList);
@@ -34,10 +28,6 @@ public class SpikeFloor : MonoBehaviour {
 	}
 	
 	public static GameObject MakeSpikeFloor(Grid grid, int x, int y) {
-// 		GameObject spikeFloor = GameObject.CreatePrimitive(PrimitiveType.Plane);
-//		spikeFloor.transform.position = new Vector3(x, y, 0.0f);
-//		spikeFloor.transform.localScale = new Vector3(.1f, 0, .1f);
-//		spikeFloor.renderer.material.mainTexture = Resources.Load("Textures/Spike") as Texture;
 		GameObject spikeFloor = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		spikeFloor.renderer.material.mainTexture = Resources.Load("Textures/Electrocute") as Texture;
 		spikeFloor.renderer.material.color = Color.white;
