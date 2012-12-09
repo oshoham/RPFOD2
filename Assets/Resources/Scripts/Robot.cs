@@ -67,10 +67,10 @@ public class Robot : MonoBehaviour, IColor {
 		}
 		foreach(Square sq in oVision)
 		{
-			incColor(sq, false);	
+			//incColor(sq, false);	
 		}
 		foreach(Square sq in nVision) {
-			incColor(sq, true);	
+			//incColor(sq, true);	
 		}
 		oVision = new List<Square>();
 		oVision.AddRange(nVision);
@@ -272,8 +272,17 @@ public class Robot : MonoBehaviour, IColor {
 		indicator.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 		indicator.transform.localPosition = new Vector3(0.0f, 0.0f, -1.0f);
 		indicator.renderer.material.color = colorVisible;
-		Robot script = robot.AddComponent<Robot>();
+		/*GameObject visionField = new GameObject("Vision Field");
+		Light light = visionField.AddComponent<Light>();
+		light.type = LightType.Spot;
+		light.color = colorVisible;
+		light.transform.parent = robot.transform;
+		light.transform.position = robot.transform.position;
+		light.transform.rotation = Quaternion.identity;
+		light.transform.Rotate(90, 0, 0);
+		light.intensity = 8;*/
 		robot.transform.position = new Vector3(x, y, -0.5f);
+		Robot script = robot.AddComponent<Robot>();
 		script.oldPosition = robot.transform.position;
 		script.newPosition = robot.transform.position;
 		script.forwardRange = forwardRange;
