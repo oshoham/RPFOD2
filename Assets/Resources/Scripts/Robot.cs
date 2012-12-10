@@ -70,10 +70,10 @@ public class Robot : MonoBehaviour, IColor {
 		}
 		foreach(Square sq in oVision)
 		{
-			//incColor(sq, false);	
+			incColor(sq, false);	
 		}
 		foreach(Square sq in nVision) {
-			//incColor(sq, true);	
+			incColor(sq, true);	
 		}
 		oVision = new List<Square>();
 		oVision.AddRange(nVision);
