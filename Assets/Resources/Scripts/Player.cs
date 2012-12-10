@@ -112,7 +112,7 @@ public class Player : MonoBehaviour, IColor {
 	
 	public void GetKeypresses() {
 		if(Time.time > endMoving) {
-			if(Input.GetKey("w")) {
+			if(Input.GetKey("w") || Input.GetKey("up")) {
 				if(Time.time - lastMovedVertical > moveRate) {
 					dir = new Vector2(0, 1);
 					Move(dir);
@@ -120,7 +120,7 @@ public class Player : MonoBehaviour, IColor {
 					transform.localEulerAngles = new Vector3(0, 0, 270f);
 				}
 			}
-			if(Input.GetKey("a")) {
+			if(Input.GetKey("a") || Input.GetKey("left")) {
 				if(Time.time - lastMovedHorizontal > moveRate) {
 					dir = new Vector2(-1, 0);
 					Move(dir);
@@ -128,7 +128,7 @@ public class Player : MonoBehaviour, IColor {
 					transform.localEulerAngles = new Vector3(0, 0, 360f);
 				}
 			}
-			if(Input.GetKey("s")) {
+			if(Input.GetKey("s") || Input.GetKey("down")) {
 				if(Time.time - lastMovedVertical > moveRate) {
 					dir = new Vector2(0, -1);
 					Move(dir);
@@ -136,7 +136,7 @@ public class Player : MonoBehaviour, IColor {
 					transform.localEulerAngles = new Vector3(0, 0, 90f);
 				}
 			}
-			if(Input.GetKey("d")) {
+			if(Input.GetKey("d") || Input.GetKey("right")) {
 				if(Time.time - lastMovedHorizontal > moveRate) {
 					dir = new Vector2(1, 0);
 					Move(dir);
