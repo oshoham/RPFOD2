@@ -82,6 +82,14 @@ public class Robot : MonoBehaviour, IColor {
 			return;
 
 		if(health <= 0) {
+			AudioSource destruct = new AudioSource();
+			AudioClip s = Resources.Load("Audio/Effects/RobExpS") as AudioClip;
+			AudioClip e = Resources.Load("Audio/Effects/RobExpE") as AudioClip;
+			destruct = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
+			destruct.clip = s;
+			destruct.Play();
+			destruct.clip = e;
+			destruct.Play();
 			Destroy(gameObject);			
 		}
 		Fire();
