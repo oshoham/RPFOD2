@@ -64,7 +64,7 @@ public class FreePlayManager : MonoBehaviour {
 		soundtrack = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
 		soundtrack.loop = true;
 		soundtrack.clip = fplaysong;
-		soundtrack.volume = 0.1f;
+//		soundtrack.volume = 0.1f;
 	        soundtrack.Play();
 	}
 	
