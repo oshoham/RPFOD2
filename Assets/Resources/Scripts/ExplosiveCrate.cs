@@ -52,17 +52,16 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 					if(obj.GetComponent<Player>())
 						obj.GetComponent<Player>().health = 0;
 				}
-				Destroy(gameObject);
+				sq.plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
+				grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+				Destroy(this);
 			}
 		}
 	}
 	
 	void OnDisable() {
-		foreach(Square sq in see) {
-			sq.colors[Color.yellow]--;
-			sq.SetColor();
-		}
 		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+		
 	}
 
 	public static GameObject MakeExplosiveCrate(Grid grid, int x, int y, int health, int range, int damageDealt) {
