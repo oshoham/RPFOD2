@@ -45,11 +45,18 @@ public class GameManager : MonoBehaviour {
 		// Light for GUI.
 		GameObject light2 = new GameObject("Light");
 		Light l2 = light2.AddComponent<Light>();
-		l2.transform.position = new Vector3(.5f, 0, -1);
+		l2.transform.position = new Vector3(-6.97F,4.52F,-16.8F);
+		l2.transform.parent = GameObject.Find("Main Camera").transform;
 		l2.type = LightType.Point;
 		l2.intensity = 8f;
 		l2.range = 3f;
-		l2.transform.parent = PlayerGui.MakePlayerGui(Color.red, new Vector3(130.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true).transform;
+		// GameObject light2 = new GameObject("Light");
+		// Light l2 = light2.AddComponent<Light>();
+		// l2.transform.position = new Vector3(.5f, 0, -1);
+		// l2.type = LightType.Point;
+		// l2.intensity = 8f;
+		// l2.range = 3f;
+		PlayerGui.MakePlayerGui(Color.red, new Vector3(130.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true);
 		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true);
 		PlayerGui.MakePlayerGui(Color.blue, new Vector3(250.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true);
 		PlayerGui.MakePlayerGui(player.defaultColor, new Vector3(310.0f, Camera.main.pixelHeight - 160.0f, Camera.main.nearClipPlane + 5.0f), false);
