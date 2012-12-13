@@ -376,6 +376,14 @@ public class Robot : MonoBehaviour, IColor {
 		script.downPlane.renderer.material.shader = Shader.Find("Particles/Additive (Soft)") as Shader;
 		script.leftPlane.renderer.material.shader = Shader.Find("Particles/Additive (Soft)") as Shader;
 		script.rightPlane.renderer.material.shader = Shader.Find("Particles/Additive (Soft)") as Shader;
+		// script.upPlane.renderer.material.shader = Shader.Find("Particles/Alpha Blended") as Shader;
+		// script.downPlane.renderer.material.shader = Shader.Find("Particles/Alpha Blended") as Shader;
+		// script.leftPlane.renderer.material.shader = Shader.Find("Particles/Alpha Blended") as Shader;
+		// script.rightPlane.renderer.material.shader = Shader.Find("Particles/Alpha Blended") as Shader;
+		script.oldUpVisionRange = -1;
+		script.oldDownVisionRange = -1;
+		script.oldLeftVisionRange = -1;
+		script.oldRightVisionRange = -1;
 		if(script.movementDirection == new Vector2(1, 0))
 			script.transform.localEulerAngles = new Vector3(0, 0, 90f);
 		else if(script.movementDirection == new Vector2(0, 1))
