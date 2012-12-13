@@ -128,6 +128,7 @@ public class Robot : MonoBehaviour, IColor {
 	public void ScalePlane(GameObject plane, int range, Vector2 direction) {
 		plane.transform.localScale = new Vector3(range/10.0f, .1f, .1f);
 		plane.transform.localPosition = (-.5f - range/2.0f)*direction;
+		plane.transform.Translate(0, .4f, 0);
 	}
 	
 	void Move(Vector2 coords) {
@@ -274,9 +275,6 @@ public class Robot : MonoBehaviour, IColor {
 	}
 
 	void OnDisable() {
-		foreach(Square sq in oVision) {
-			incColor(sq, false);	
-		}
 		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 		WinChecker.numRobots--;
 		
@@ -323,22 +321,22 @@ public class Robot : MonoBehaviour, IColor {
 		script.upPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		script.upPlane.name = "Up";
 		script.upPlane.transform.parent = robot.transform;
-		script.upPlane.transform.localPosition = new Vector3(0, -1, 0);
+		script.upPlane.transform.localPosition = new Vector3(0, -1, .4f);
 		script.upPlane.transform.localEulerAngles = new Vector3(0, 90, 90);
 		script.downPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		script.downPlane.name = "Down";
 		script.downPlane.transform.parent = robot.transform;
-		script.downPlane.transform.localPosition = new Vector3(0, 1, 0);
+		script.downPlane.transform.localPosition = new Vector3(0, 1, .4f);
 		script.downPlane.transform.localEulerAngles = new Vector3(0, 90, 270);
 		script.leftPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		script.leftPlane.name = "Left";
 		script.leftPlane.transform.parent = robot.transform;
-		script.leftPlane.transform.localPosition = new Vector3(1, 0, 0);
+		script.leftPlane.transform.localPosition = new Vector3(1, 0, .4f);
 		script.leftPlane.transform.localEulerAngles = new Vector3(90, 180, 0);
 		script.rightPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		script.rightPlane.name = "Right";
 		script.rightPlane.transform.parent = robot.transform;
-		script.rightPlane.transform.localPosition = new Vector3(-1, 0, 0);
+		script.rightPlane.transform.localPosition = new Vector3(-1, 0, .4f);
 		script.rightPlane.transform.localEulerAngles = new Vector3(270, 0, 0);
 		if(colorVisible == Color.red) {
 			script.upPlane.renderer.material.mainTexture = Resources.Load("Textures/redlight") as Texture;
