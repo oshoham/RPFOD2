@@ -56,7 +56,7 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 				}
 				sq.plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
 				grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
-				Destroy(this);
+				Destroy(gameObject);
 			}
 		}
 	}

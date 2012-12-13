@@ -21,14 +21,19 @@ public class Robot : MonoBehaviour, IColor {
 	{
 		get { return _colorPainted; }
 		set {
+			light.color = value;
+			light.intensity = 1;
+			light.range = 2;
 			if(value == Color.red)
 				renderer.material.mainTexture = Resources.Load("Textures/RedBot") as Texture;
 			else if(value == Color.green)
 				renderer.material.mainTexture = Resources.Load("Textures/GreenBot") as Texture;
 			else if(value == Color.blue)
 				renderer.material.mainTexture = Resources.Load("Textures/BlueBot") as Texture;
-			else
+			else {
 				renderer.material.mainTexture = Resources.Load("Textures/BlankBot") as Texture;
+				light.intensity = 0;
+			}
 			_colorPainted = value;
 		}
 	}
@@ -62,6 +67,11 @@ public class Robot : MonoBehaviour, IColor {
 	public int oldDownVisionRange;
 	public int oldLeftVisionRange;
 	public int oldRightVisionRange;
+	
+	/*
+	 * Shows the Roobitt's color when painted.
+	 */
+	public Light light;
 	
 	void Update() {
 		
@@ -300,6 +310,12 @@ public class Robot : MonoBehaviour, IColor {
 		indicator.renderer.material.color = colorVisible;
 		Robot script = robot.AddComponent<Robot>();
 		robot.transform.position = new Vector3(x, y, -0.5f);
+		script.light = new GameObject("Light").AddComponent<Light>();
+		script.light.transform.parent = robot.transform;
+		script.light.transform.localPosition = new Vector3(0, 0, 0);
+		script.light.type = LightType.Point;
+		script.light.intensity = 1;
+		script.light.range = 2;
 		script.oldPosition = robot.transform.position;
 		script.newPosition = robot.transform.position;
 		script.forwardRange = forwardRange;
