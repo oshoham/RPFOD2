@@ -40,16 +40,23 @@ public class GameManager : MonoBehaviour {
 		l.transform.Translate(0,0,-2);
 		l.type = LightType.Point;
 		l.transform.parent = player.transform;
-		l.intensity = 0.4f;
+		l.intensity = 0.2f;
 		l.range = 100f;
 		// Light for GUI.
 		GameObject light2 = new GameObject("Light");
 		Light l2 = light2.AddComponent<Light>();
-		l2.transform.position = new Vector3(.5f, 0, -1);
+		l2.transform.position = new Vector3(-6.97F,4.52F,-16.8F);
+		l2.transform.parent = GameObject.Find("Main Camera").transform;
 		l2.type = LightType.Point;
 		l2.intensity = 8f;
 		l2.range = 3f;
-		l2.transform.parent = PlayerGui.MakePlayerGui(Color.red, new Vector3(130.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true).transform;
+		// GameObject light2 = new GameObject("Light");
+		// Light l2 = light2.AddComponent<Light>();
+		// l2.transform.position = new Vector3(.5f, 0, -1);
+		// l2.type = LightType.Point;
+		// l2.intensity = 8f;
+		// l2.range = 3f;
+		PlayerGui.MakePlayerGui(Color.red, new Vector3(130.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true);
 		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true);
 		PlayerGui.MakePlayerGui(Color.blue, new Vector3(250.0f, Camera.main.pixelHeight - 80.0f, Camera.main.nearClipPlane + 5.0f), true);
 		PlayerGui.MakePlayerGui(player.defaultColor, new Vector3(310.0f, Camera.main.pixelHeight - 160.0f, Camera.main.nearClipPlane + 5.0f), false);
@@ -63,14 +70,7 @@ public class GameManager : MonoBehaviour {
 		bgm.Play();
 		healthTexture = Resources.Load("Textures/health") as Texture;
 	}
-
-	void Update() {
-		// Mouse wheel to zoom in and out.
-		float zoom = Input.GetAxis("Mouse ScrollWheel");
-		if(zoom > 0 || (zoom < 0 && Camera.main.orthographicSize > 5))
-			Camera.main.orthographicSize += zoom;
-	}
-
+	
 	/*
 	 * Should be called when win conditions are met.
 	 */
@@ -124,6 +124,7 @@ public class GameManager : MonoBehaviour {
 		GUI.Label(new Rect(246, 70, 100, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0), guiStyle);
 		if(WinChecker.robotsWin) {
 			GUI.Label(new Rect(10, 200, 200, 50), "Robot goal: " + WinChecker.robotLimit, guiStyle);
+			GUI.Label(new Rect(10, 250, 200, 50), "Robots left: " + WinChecker.numRobots, guiStyle);
 		}
 	}
 	

@@ -21,13 +21,18 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 	
 	void Start() {
 		see = grid.SCheckRad(range, gridCoords);
-		foreach(Square sq in see) {
-			sq.colors[Color.yellow]++;
-			sq.SetColor();
-		}
+		foreach(Square sq in see)
+			sq.plane.renderer.material.mainTexture = Resources.Load("Textures/ETile2") as Texture;
+
+
+		
 	}
 		
 	void Update() {
+		see = grid.SCheckRad(range, gridCoords);
+		foreach(Square sq in see)
+			sq.plane.renderer.material.mainTexture = Resources.Load("Textures/ETile2") as Texture;
+
 		if(health <= 0) {
 			foreach(Square sq in see) {
 				bool scrate = false;
@@ -46,7 +51,11 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 						obj.GetComponent<DestructibleWall>().health = 0;
 					if(obj.GetComponent<Player>())
 						obj.GetComponent<Player>().health = 0;
+					if(obj.GetComponent<RobotSpawner>())
+						obj.GetComponent<RobotSpawner>().health = 0;
 				}
+				sq.plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
+				grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
 				Destroy(gameObject);
 			}
 		}
@@ -54,10 +63,10 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 	
 	void OnDisable() {
 		foreach(Square sq in see) {
-			sq.colors[Color.yellow]--;
-			sq.SetColor();
+			sq.plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
 		}
 		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+		
 	}
 
 	public static GameObject MakeExplosiveCrate(Grid grid, int x, int y, int health, int range, int damageDealt) {

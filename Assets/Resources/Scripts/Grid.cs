@@ -78,12 +78,14 @@ public class Grid {
 	}
 	
 	/*
-	 * Similar to CheckLine, but returns Squares instead of GameObjects.
+	 * Similar to CheckLine, but returns Squares instead of GameObjects. Range is
+	 * an int indicating how much we can see.
 	 */
-	public List<Square> SCheckLine(Vector2 origin, Vector2 coord) {
+	public List<Square> SCheckLine(Vector2 origin, Vector2 coord, out int range) {
 		Vector2 diff = coord - origin;
 		List<Square> objects = new List<Square>();
 		FixVector(ref coord);
+		range = 0;
 		if(diff.x == 0) { // we're checking in the y direction
 			int sign = diff.y < 0 ? -1 : 1; // which way are we going?
 			origin.y += sign;
@@ -91,6 +93,7 @@ public class Grid {
 			      GetObjectsOfTypes(origin, new List<String>() {"Wall", "DestructibleWall", "ExplosiveCrate"}).Count == 0) {
 				objects.Add(grid[(int)origin.x, (int)origin.y]);
 				origin.y += sign;
+				range++;
 			}
 		}
 		else { // checking y, otherwise the same
@@ -100,6 +103,7 @@ public class Grid {
 			      GetObjectsOfTypes(origin, new List<String>() {"Wall", "DestructibleWall", "ExplosiveCrate"}).Count == 0) {
 				objects.Add(grid[(int)origin.x, (int)origin.y]);
 				origin.x += sign;
+				range++;
 			}
 		}
 		return objects;

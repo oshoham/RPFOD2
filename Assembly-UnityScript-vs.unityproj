@@ -47,9 +47,11 @@
      <Compile Include="Assets\Resources\Standard Assets\Particles\Legacy Particles\TimedObjectDestructor.js" />
      <None Include="Assets\Resources\Levels\Conveyor.txt" />
      <None Include="Assets\Resources\Levels\L1.txt" />
+     <None Include="Assets\Resources\Levels\fuzz.txt" />
      <None Include="Assets\Resources\Levels\Virus.txt" />
      <None Include="Assets\Resources\Levels\diy.txt" />
      <None Include="Assets\Resources\Levels\KeepAlive.txt" />
+     <None Include="Assets\Resources\Levels\StaffordTest.txt" />
      <None Include="Assets\Resources\Levels\graphictest.txt" />
      <None Include="Assets\Resources\Levels\L4.txt" />
      <None Include="Assets\Resources\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
@@ -58,6 +60,7 @@
      <None Include="Assets\Resources\Levels\Test.txt" />
      <None Include="Assets\Resources\Levels\L5.txt" />
      <None Include="Assets\Resources\Levels\gametest.txt" />
+     <None Include="Assets\Resources\Levels\Olympus.txt" />
      <None Include="Assets\Resources\Scripts\TODO.txt" />
      <None Include="Assets\Resources\Scripts\DONE.txt" />
      <None Include="Assets\Resources\Levels\FECAL.txt" />
@@ -69,7 +72,9 @@
      <None Include="Assets\Resources\Levels\L6.txt" />
      <None Include="Assets\Resources\Levels\L2.txt" />
      <None Include="Assets\Resources\Levels\CovertOp.txt" />
+     <None Include="Assets\Resources\Levels\Hub.txt" />
      <None Include="Assets\Resources\Levels\foo.txt" />
+     <None Include="Assets\Resources\Levels\Longrunner.txt" />
      <None Include="Assets\Resources\Levels\CTest.txt" />
      <None Include="Assets\Resources\Levels\KeepAlive2.txt" />
      <None Include="Assets\Resources\Levels\new.txt" />
