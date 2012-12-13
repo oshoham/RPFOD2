@@ -145,16 +145,16 @@ public class Player : MonoBehaviour, IColor {
 				}
 			}
 		}
-		if(Input.GetKeyDown("1")) {
+		if(Input.GetKeyDown("4") || Input.GetKeyDown("i")) {
 			colorPainted = defaultColor;
 		}
-		if(Input.GetKeyDown("2") && colors.ContainsKey(Color.red) && colors[Color.red] > 0) {
+		if((Input.GetKeyDown("1") || Input.GetKeyDown("j")) && colors.ContainsKey(Color.red) && colors[Color.red] > 0) {
 			ReassignColor(Color.red);
 		}
-		if(Input.GetKeyDown("3") && colors.ContainsKey(Color.green) && colors[Color.green] > 0) {
+		if((Input.GetKeyDown("2") || Input.GetKeyDown("k")) && colors.ContainsKey(Color.green) && colors[Color.green] > 0) {
 			ReassignColor(Color.green);
 		}
-		if(Input.GetKeyDown("4") && colors.ContainsKey(Color.blue) && colors[Color.blue] > 0) {
+		if((Input.GetKeyDown("3") || Input.GetKeyDown("l")) && colors.ContainsKey(Color.blue) && colors[Color.blue] > 0) {
 			ReassignColor(Color.blue);
 		}
 		if(Input.GetKeyDown("space") && colors.ContainsKey(colorShooting) && colors[colorShooting] > 0) {
@@ -166,6 +166,47 @@ public class Player : MonoBehaviour, IColor {
 			if(colors[colorShooting] == 0) {
 				colorShooting = colors.FirstOrDefault((KeyValuePair<Color, int> kvp) => kvp.Value > 0).Key;
 			}
+		}
+		/*
+		 * To anyone who reads the next two if statements: I'm sorry. I really am. I feel
+		 * like a bad enough person already; don't rub salt in the wound by mentioning this
+		 * ever again. We'll pretend it didn't happen, right?
+		 *
+		 * Right?
+		 */
+		if(Input.GetKeyDown("q") || Input.GetKeyDown("u")) {
+			if(colorShooting == Color.red)
+				if(colors[Color.green] > 0)
+					colorShooting = Color.green;
+				else if(colors[Color.blue] > 0)
+					colorShooting = Color.blue;
+			if(colorShooting == Color.green)
+				if(colors[Color.blue] > 0)
+					colorShooting = Color.blue;
+				else if(colors[Color.red] > 0)
+					colorShooting = Color.red;
+			if(colorShooting == Color.blue)
+				if(colors[Color.red] > 0)
+					colorShooting = Color.red;
+				else if(colors[Color.green] > 0)
+					colorShooting = Color.green;
+		}
+		if(Input.GetKeyDown("e") || Input.GetKeyDown("o")) {
+			if(colorShooting == Color.red)
+				if(colors[Color.blue] > 0)
+					colorShooting = Color.blue;
+				else if(colors[Color.green] > 0)
+					colorShooting = Color.green;
+			if(colorShooting == Color.green)
+				if(colors[Color.red] > 0)
+					colorShooting = Color.red;
+				else if(colors[Color.blue] > 0)
+					colorShooting = Color.blue;
+			if(colorShooting == Color.blue)
+				if(colors[Color.green] > 0)
+					colorShooting = Color.green;
+				else if(colors[Color.blue] > 0)
+					colorShooting = Color.blue;
 		}
 		AnimateMotion();
 	}
