@@ -70,14 +70,7 @@ public class GameManager : MonoBehaviour {
 		bgm.Play();
 		healthTexture = Resources.Load("Textures/health") as Texture;
 	}
-
-	void Update() {
-		// Mouse wheel to zoom in and out.
-		float zoom = Input.GetAxis("Mouse ScrollWheel");
-		if(zoom > 0 || (zoom < 0 && Camera.main.orthographicSize > 5))
-			Camera.main.orthographicSize += zoom;
-	}
-
+	
 	/*
 	 * Should be called when win conditions are met.
 	 */
@@ -131,6 +124,7 @@ public class GameManager : MonoBehaviour {
 		GUI.Label(new Rect(246, 70, 100, 20), "" + (player.colors.ContainsKey(Color.blue) ? player.colors[Color.blue] : 0), guiStyle);
 		if(WinChecker.robotsWin) {
 			GUI.Label(new Rect(10, 200, 200, 50), "Robot goal: " + WinChecker.robotLimit, guiStyle);
+			GUI.Label(new Rect(10, 250, 200, 50), "Robots left: " + WinChecker.numRobots, guiStyle);
 		}
 	}
 	

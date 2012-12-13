@@ -70,14 +70,15 @@ public class Robot : MonoBehaviour, IColor {
 		 */
 		int upVisionRange, downVisionRange, leftVisionRange, rightVisionRange;
 		nVision = new List<Square>();
-		Vector2 direction = new Vector2(0, 1);
-		nVision.AddRange(grid.SCheckLine(gridCoords, gridCoords + (direction == fireDirection ? forwardRange : sideRange)*direction, out upVisionRange));
-		direction = new Vector2(0, -1);
-		nVision.AddRange(grid.SCheckLine(gridCoords, gridCoords + (direction == fireDirection ? forwardRange : sideRange)*direction, out downVisionRange));
-		direction = new Vector2(1, 0);
-		nVision.AddRange(grid.SCheckLine(gridCoords, gridCoords + (direction == fireDirection ? forwardRange : sideRange)*direction, out leftVisionRange));
-		direction = new Vector2(-1, 0);
-		nVision.AddRange(grid.SCheckLine(gridCoords, gridCoords + (direction == fireDirection ? forwardRange : sideRange)*direction, out rightVisionRange));
+		RotationMatrix rot = new RotationMatrix(RotationMatrix.Rotation.Left);
+		Vector2 direction = fireDirection;
+		nVision.AddRange(grid.SCheckLine(gridCoords, gridCoords + forwardRange*direction, out upVisionRange));
+		direction = rot.Rotate(direction);
+		nVision.AddRange(grid.SCheckLine(gridCoords, gridCoords + sideRange*direction, out leftVisionRange));
+		direction = rot.Rotate(direction);
+		nVision.AddRange(grid.SCheckLine(gridCoords, gridCoords + sideRange*direction, out downVisionRange));
+		direction = rot.Rotate(direction);
+		nVision.AddRange(grid.SCheckLine(gridCoords, gridCoords + sideRange*direction, out rightVisionRange));
 		foreach(Square sq in oVision)
 		{
 			incColor(sq, false);	
@@ -128,8 +129,8 @@ public class Robot : MonoBehaviour, IColor {
 	 * we can actually see (if vision is blocked by a wall).
 	 */
 	public void ScalePlane(GameObject plane, int range) {
-		plane.transform.localScale = new Vector3(.1f, .1f, range/10.0f);
-		plane.transform.localPosition = new Vector3(1, .1f, 1 + range/2);
+		plane.transform.localScale = new Vector3(range/10.0f, .1f, .1f);
+		//		plane.transform.localPosition = new Vector3(1, .1f, 1 + range/2);
 	}
 	
 	/*
@@ -336,20 +337,24 @@ public class Robot : MonoBehaviour, IColor {
 		script.upPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		script.upPlane.name = "Up";
 		script.upPlane.transform.parent = robot.transform;
-		script.upPlane.transform.position = new Vector3(0, 0, 0);
-		script.upPlane.transform.Rotate(new Vector3(-90, 90, 0));
+		script.upPlane.transform.localPosition = new Vector3(0, -1, 0);
+		script.upPlane.transform.Rotate(new Vector3(-90, 0, 0));
+		script.upPlane.transform.Rotate(new Vector3(-90, 0, 0));
 		script.downPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		script.downPlane.name = "Down";
 		script.downPlane.transform.parent = robot.transform;
-		script.downPlane.transform.position = new Vector3(0, 0, 0);
+		script.downPlane.transform.localPosition = new Vector3(0, 1, 0);
 		script.downPlane.transform.Rotate(new Vector3(-90, 0, 0));
 		script.leftPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		script.leftPlane.name = "Left";
 		script.leftPlane.transform.parent = robot.transform;
-		script.leftPlane.transform.position = new Vector3(0, 0, 0);
+		script.leftPlane.transform.localPosition = new Vector3(1, 0, 0);
 		script.leftPlane.transform.Rotate(new Vector3(-90, 0, 0));
 		script.rightPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		script.rightPlane.name = "Right";
 		script.rightPlane.transform.Rotate(new Vector3(-90, 0, 0));
 		script.rightPlane.transform.parent = robot.transform;
-		script.rightPlane.transform.position = new Vector3(0, 0, 0);
+		script.rightPlane.transform.localPosition = new Vector3(-1, 0, 0);
 		if(colorVisible == Color.red) {
 			script.upPlane.renderer.material.mainTexture = Resources.Load("Textures/redlight") as Texture;
 			script.downPlane.renderer.material.mainTexture = Resources.Load("Textures/redlight") as Texture;
@@ -368,6 +373,10 @@ public class Robot : MonoBehaviour, IColor {
 			script.leftPlane.renderer.material.mainTexture = Resources.Load("Textures/bluelight") as Texture;
 			script.rightPlane.renderer.material.mainTexture = Resources.Load("Textures/bluelight") as Texture;
 		}
+		script.upPlane.renderer.material.shader = Shader.Find("Particles/Additive (Soft)") as Shader;
+		script.downPlane.renderer.material.shader = Shader.Find("Particles/Additive (Soft)") as Shader;
+		script.leftPlane.renderer.material.shader = Shader.Find("Particles/Additive (Soft)") as Shader;
+		script.rightPlane.renderer.material.shader = Shader.Find("Particles/Additive (Soft)") as Shader;
 		if(script.movementDirection == new Vector2(1, 0))
 			script.transform.localEulerAngles = new Vector3(0, 0, 90f);
 		else if(script.movementDirection == new Vector2(0, 1))
@@ -377,7 +386,6 @@ public class Robot : MonoBehaviour, IColor {
 		else if(script.movementDirection == new Vector2(0, -1))
 			script.transform.localEulerAngles = new Vector3(0, 0, 360f);
 		WinChecker.numRobots++;
-		print("Win checker robot count is " + WinChecker.numRobots);
 		return robot;
 	}
 }
