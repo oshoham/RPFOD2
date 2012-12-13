@@ -29,7 +29,7 @@ public class SpikeFloor : MonoBehaviour {
 	
 	public static GameObject MakeSpikeFloor(Grid grid, int x, int y) {
 		GameObject spikeFloor = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		spikeFloor.renderer.material.mainTexture = Resources.Load("Textures/Electrocute") as Texture;
+		spikeFloor.renderer.material.mainTexture = Resources.Load("Textures/ElectrocuteIcon") as Texture;
 		spikeFloor.renderer.material.color = Color.white;
 		spikeFloor.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 		spikeFloor.transform.position = new Vector3(x, y, 0.0f);

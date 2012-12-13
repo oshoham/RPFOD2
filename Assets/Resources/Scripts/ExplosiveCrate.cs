@@ -54,7 +54,9 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 					if(obj.GetComponent<RobotSpawner>())
 						obj.GetComponent<RobotSpawner>().health = 0;
 				}
-				Destroy(gameObject);
+				sq.plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
+				grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+				Destroy(this);
 			}
 		}
 	}
@@ -64,6 +66,7 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 			sq.plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
 		}
 		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+		
 	}
 
 	public static GameObject MakeExplosiveCrate(Grid grid, int x, int y, int health, int range, int damageDealt) {
