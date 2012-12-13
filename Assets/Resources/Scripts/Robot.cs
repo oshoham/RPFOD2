@@ -339,7 +339,6 @@ public class Robot : MonoBehaviour, IColor {
 		script.upPlane.transform.parent = robot.transform;
 		script.upPlane.transform.localPosition = new Vector3(0, -1, 0);
 		script.upPlane.transform.Rotate(new Vector3(-90, 0, 0));
-		script.upPlane.transform.Rotate(new Vector3(-90, 0, 0));
 		script.downPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		script.downPlane.name = "Down";
 		script.downPlane.transform.parent = robot.transform;
