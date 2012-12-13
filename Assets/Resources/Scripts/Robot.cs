@@ -72,38 +72,34 @@ public class Robot : MonoBehaviour, IColor {
 		nVision = new List<Square>();
 		RotationMatrix rot = new RotationMatrix(RotationMatrix.Rotation.Left);
 		Vector2 direction = fireDirection;
+		Vector2 lightDirection = new Vector2(0, 1);
 		nVision.AddRange(grid.SCheckLine(gridCoords, gridCoords + forwardRange*direction, out upVisionRange));
-		direction = rot.Rotate(direction);
-		nVision.AddRange(grid.SCheckLine(gridCoords, gridCoords + sideRange*direction, out leftVisionRange));
-		direction = rot.Rotate(direction);
-		nVision.AddRange(grid.SCheckLine(gridCoords, gridCoords + sideRange*direction, out downVisionRange));
-		direction = rot.Rotate(direction);
-		nVision.AddRange(grid.SCheckLine(gridCoords, gridCoords + sideRange*direction, out rightVisionRange));
-		foreach(Square sq in oVision)
-		{
-			incColor(sq, false);	
-		}
-		foreach(Square sq in nVision) {
-			incColor(sq, true);	
-		}
-		oVision = new List<Square>();
-		oVision.AddRange(nVision);
 		if(oldUpVisionRange != upVisionRange) {
-			ScalePlane(upPlane, upVisionRange);
+			ScalePlane(upPlane, upVisionRange, lightDirection);
 			oldUpVisionRange = upVisionRange;
 		}
-		if(oldDownVisionRange != downVisionRange) {
-			ScalePlane(downPlane, downVisionRange);
-			oldDownVisionRange = downVisionRange;
-		}
+		direction = rot.Rotate(direction);
+		lightDirection = rot.Rotate(lightDirection);
+		nVision.AddRange(grid.SCheckLine(gridCoords, gridCoords + sideRange*direction, out leftVisionRange));
 		if(oldLeftVisionRange != leftVisionRange) {
-			ScalePlane(leftPlane, leftVisionRange);
+			ScalePlane(leftPlane, leftVisionRange, lightDirection);
 			oldLeftVisionRange = leftVisionRange;
 		}
-		if(oldRightVisionRange != rightVisionRange) {
-			ScalePlane(rightPlane, rightVisionRange);
-			oldRightVisionRange = rightVisionRange;
+		direction = rot.Rotate(direction);
+		lightDirection = rot.Rotate(lightDirection);
+		nVision.AddRange(grid.SCheckLine(gridCoords, gridCoords + sideRange*direction, out downVisionRange));
+		if(oldDownVisionRange != downVisionRange) {
+			ScalePlane(downPlane, downVisionRange, lightDirection);
+			oldDownVisionRange = downVisionRange;
 		}
+		direction = rot.Rotate(direction);
+		lightDirection = rot.Rotate(lightDirection);
+		nVision.AddRange(grid.SCheckLine(gridCoords, gridCoords + sideRange*direction, out rightVisionRange));
+		if(oldRightVisionRange != rightVisionRange) {
+			ScalePlane(rightPlane, rightVisionRange, lightDirection);
+			oldRightVisionRange = rightVisionRange;
+		}		oVision = new List<Square>();
+		oVision.AddRange(nVision);
 		if(Time.timeScale == 0)
 			return;
 		if(health <= 0) {
@@ -126,24 +122,14 @@ public class Robot : MonoBehaviour, IColor {
 
 	/*
 	 * Scales our vision planes to the appropriate amount, based on how much
-	 * we can actually see (if vision is blocked by a wall).
+	 * we can actually see (if vision is blocked by a wall), and then translates
+	 * it by the right amount in the given direction.
 	 */
-	public void ScalePlane(GameObject plane, int range) {
+	public void ScalePlane(GameObject plane, int range, Vector2 direction) {
 		plane.transform.localScale = new Vector3(range/10.0f, .1f, .1f);
-		//		plane.transform.localPosition = new Vector3(1, .1f, 1 + range/2);
+		plane.transform.localPosition = (-.5f - range/2.0f)*direction;
 	}
 	
-	/*
-	 * Increment or decrement color
-	 */
-	void incColor(Square sq, bool inc) {
-		// if(inc)
-		// 	sq.colors[colorVisible]++;
-		// else
-		// 	sq.colors[colorVisible]--;
-		// sq.SetColor();
-	}
-
 	void Move(Vector2 coords) {
 		if(!isMoving) {
 			return;
@@ -338,22 +324,22 @@ public class Robot : MonoBehaviour, IColor {
 		script.upPlane.name = "Up";
 		script.upPlane.transform.parent = robot.transform;
 		script.upPlane.transform.localPosition = new Vector3(0, -1, 0);
-		script.upPlane.transform.Rotate(new Vector3(-90, 0, 0));
+		script.upPlane.transform.localEulerAngles = new Vector3(0, 90, 90);
 		script.downPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		script.downPlane.name = "Down";
 		script.downPlane.transform.parent = robot.transform;
 		script.downPlane.transform.localPosition = new Vector3(0, 1, 0);
-		script.downPlane.transform.Rotate(new Vector3(-90, 0, 0));
+		script.downPlane.transform.localEulerAngles = new Vector3(0, 90, 270);
 		script.leftPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		script.leftPlane.name = "Left";
 		script.leftPlane.transform.parent = robot.transform;
 		script.leftPlane.transform.localPosition = new Vector3(1, 0, 0);
-		script.leftPlane.transform.Rotate(new Vector3(-90, 0, 0));
+		script.leftPlane.transform.localEulerAngles = new Vector3(90, 180, 0);
 		script.rightPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		script.rightPlane.name = "Right";
-		script.rightPlane.transform.Rotate(new Vector3(-90, 0, 0));
 		script.rightPlane.transform.parent = robot.transform;
 		script.rightPlane.transform.localPosition = new Vector3(-1, 0, 0);
+		script.rightPlane.transform.localEulerAngles = new Vector3(270, 0, 0);
 		if(colorVisible == Color.red) {
 			script.upPlane.renderer.material.mainTexture = Resources.Load("Textures/redlight") as Texture;
 			script.downPlane.renderer.material.mainTexture = Resources.Load("Textures/redlight") as Texture;
