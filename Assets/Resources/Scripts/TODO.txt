@@ -47,4 +47,3 @@ Things that are DONE should be moved to DONE.txt by copypasta, or by using the c
 :47	lol conveyors?
 :48	separate free play levels by difficulty
 :51	playtest the shit out of our game
-:52	make robots not spaz out when they can't move
