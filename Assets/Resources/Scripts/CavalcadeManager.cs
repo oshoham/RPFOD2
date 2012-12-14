@@ -19,6 +19,7 @@ public class CavalcadeManager : MonoBehaviour {
 	
 	void Start() {
 		cavalcadeMap = Resources.Load("Textures/map/TitleScreen") as Texture;
+		GlobalSettings.lastScene = "CavalcadeManager";
 		string path = Path.Combine(Application.persistentDataPath, "SaveFile.txt");
 		if(File.Exists(path)) {
 			StreamReader reader = new StreamReader(path);
@@ -74,6 +75,6 @@ public class CavalcadeManager : MonoBehaviour {
 			GUI.DrawTexture(new Rect(0, 0, Camera.main.pixelWidth, Camera.main.pixelHeight),
 					fadeTexture);
 		}
-		GUI.DrawTexture(new Rect(0, 0, 1024, 512), cavalcadeMap);
+		GUI.DrawTexture(new Rect(0, 0, Camera.main.pixelWidth, Camera.main.pixelHeight), cavalcadeMap, ScaleMode.ScaleToFit);
 	}
 }
