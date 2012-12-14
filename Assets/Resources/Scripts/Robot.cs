@@ -21,9 +21,9 @@ public class Robot : MonoBehaviour, IColor {
 	{
 		get { return _colorPainted; }
 		set {
-			light.color = value;
-			light.intensity = 2.5f;
-			light.range = 1.5f;
+			colorLight.color = value;
+			colorLight.intensity = 2.5f;
+			colorLight.range = 1.5f;
 			if(value == Color.red)
 				renderer.material.mainTexture = Resources.Load("Textures/RedBot") as Texture;
 			else if(value == Color.green)
@@ -32,7 +32,7 @@ public class Robot : MonoBehaviour, IColor {
 				renderer.material.mainTexture = Resources.Load("Textures/BlueBot") as Texture;
 			else {
 				renderer.material.mainTexture = Resources.Load("Textures/BlankBot") as Texture;
-				light.intensity = 0;
+				colorLight.intensity = 0;
 			}
 			_colorPainted = value;
 		}
@@ -71,7 +71,7 @@ public class Robot : MonoBehaviour, IColor {
 	/*
 	 * Shows the Roobitt's color when painted.
 	 */
-	public Light light;
+	public Light colorLight;
 	
 	void Update() {
 		
@@ -301,21 +301,14 @@ public class Robot : MonoBehaviour, IColor {
 		robot.renderer.material.mainTexture = Resources.Load("Textures/BlankBot") as Texture;
 		robot.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		robot.renderer.material.color = Color.white;
-		GameObject indicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		indicator.name = "indicator";
-		indicator.renderer.material.mainTexture = Resources.Load("Textures/Indicator") as Texture;
-		indicator.transform.parent = robot.transform;
-		indicator.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-		indicator.transform.localPosition = new Vector3(0.0f, 0.0f, -1.0f);
-		indicator.renderer.material.color = colorVisible;
-		robot.transform.position = new Vector3(x, y, -0.5f);
 		Robot script = robot.AddComponent<Robot>();
-		script.light = new GameObject("Light").AddComponent<Light>();
-		script.light.transform.parent = robot.transform;
-		script.light.transform.localPosition = new Vector3(0, 0, 0);
-		script.light.type = LightType.Point;
-		script.light.intensity = 1;
-		script.light.range = 2;
+		robot.transform.position = new Vector3(x, y, -0.5f);
+		script.colorLight = new GameObject("Light").AddComponent<Light>();
+		script.colorLight.transform.parent = robot.transform;
+		script.colorLight.transform.localPosition = new Vector3(0, 0, 0);
+		script.colorLight.type = LightType.Point;
+		script.colorLight.intensity = 1;
+		script.colorLight.range = 2;
 		script.oldPosition = robot.transform.position;
 		script.newPosition = robot.transform.position;
 		script.forwardRange = forwardRange;
@@ -380,6 +373,10 @@ public class Robot : MonoBehaviour, IColor {
 		// script.downPlane.renderer.material.shader = Shader.Find("Particles/Alpha Blended") as Shader;
 		// script.leftPlane.renderer.material.shader = Shader.Find("Particles/Alpha Blended") as Shader;
 		// script.rightPlane.renderer.material.shader = Shader.Find("Particles/Alpha Blended") as Shader;
+		script.upPlane.transform.localScale = new Vector3(0, 0, 0);
+		script.downPlane.transform.localScale = new Vector3(0, 0, 0);
+		script.leftPlane.transform.localScale = new Vector3(0, 0, 0);
+		script.rightPlane.transform.localScale = new Vector3(0, 0, 0);
 		script.oldUpVisionRange = -1;
 		script.oldDownVisionRange = -1;
 		script.oldLeftVisionRange = -1;

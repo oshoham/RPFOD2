@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
 		l.transform.Translate(0,0,-2);
 		l.type = LightType.Point;
 		l.transform.parent = player.transform;
-		l.intensity = 0.2f;
+		l.intensity = .5f;
 		l.range = 100f;
 		// Light for GUI.
 		GameObject light2 = new GameObject("Light");
