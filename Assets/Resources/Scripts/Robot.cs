@@ -22,8 +22,8 @@ public class Robot : MonoBehaviour, IColor {
 		get { return _colorPainted; }
 		set {
 			light.color = value;
-			light.intensity = 1;
-			light.range = 2;
+			light.intensity = 2.5f;
+			light.range = 1.5f;
 			if(value == Color.red)
 				renderer.material.mainTexture = Resources.Load("Textures/RedBot") as Texture;
 			else if(value == Color.green)
