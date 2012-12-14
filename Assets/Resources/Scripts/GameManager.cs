@@ -1,6 +1,8 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 public class GameManager : MonoBehaviour {
 
@@ -75,6 +77,22 @@ public class GameManager : MonoBehaviour {
 	 * Should be called when win conditions are met.
 	 */
 	public static void Win() {
+		if(GlobalSettings.lastScene == "CavalcadeMap") {
+			string path = Path.Combine(Application.persistentDataPath, "SaveFile.txt");
+			if(File.Exists(path)) {
+				StreamReader reader = new StreamReader(path);
+				int levelsCompleted = Int32.Parse(reader.ReadLine());
+				reader.Close();
+				int levelNumber = GetLevelNumber(filename);
+				if(levelNumber > levelsCompleted) {
+					using(StreamWriter writer = File.CreateText(path)) {
+						writer.WriteLine(levelNumber);
+						writer.Close();
+						Debug.Log("Current Progress: " + levelNumber + " levels.");
+					}
+				}
+			}
+		}
 		print("A winner is you!");
 		Application.LoadLevel("WinScreen");
 	}
@@ -105,6 +123,12 @@ public class GameManager : MonoBehaviour {
 			if(GUI.Button(new Rect(20, Camera.main.pixelHeight - 50, 150, 40), "Level Selector", guiStyle)) {
 				GlobalSettings.lastScene = "Game";
 				Application.LoadLevel("FreePlaySelector");
+			}
+		}
+		else if(GlobalSettings.lastScene == "CavalcadeMap") {
+			if(GUI.Button(new Rect(20, Camera.main.pixelHeight - 50, 150, 40), "Cavalcade Map", guiStyle)) {
+				GlobalSettings.lastScene = "Game";
+				Application.LoadLevel("CavalcadeMap");
 			}
 		}
 		if(GUI.Button(new Rect(20, Camera.main.pixelHeight - 100, 150, 40), "Restart", guiStyle)) {
@@ -138,5 +162,17 @@ public class GameManager : MonoBehaviour {
 			return true;
 		}
 		return false;
+	}
+
+	public static int GetLevelNumber(string filename) {
+		if(filename != "") {
+			 filename = Path.GetFileNameWithoutExtension(filename);
+			 if(filename == "L1")
+				 return 1;
+			 else
+				 return -1;
+		}
+		else
+			return -1;
 	}
 }
