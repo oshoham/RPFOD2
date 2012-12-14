@@ -47,7 +47,6 @@
      <Compile Include="Assets\Resources\Standard Assets\Particles\Legacy Particles\TimedObjectDestructor.js" />
      <None Include="Assets\Resources\Levels\Conveyor.txt" />
      <None Include="Assets\Resources\Levels\L1.txt" />
-     <None Include="Assets\Resources\Levels\fuzz.txt" />
      <None Include="Assets\Resources\Levels\Virus.txt" />
      <None Include="Assets\Resources\Levels\diy.txt" />
      <None Include="Assets\Resources\Levels\KeepAlive.txt" />

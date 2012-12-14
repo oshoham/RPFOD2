@@ -17,7 +17,8 @@ public class CavalcadeManager : MonoBehaviour {
 	public Texture cavalcadeMap;
 	
 	void Start() {
-		Time.timeScale = 1;
+		cavalcadeMap = Resources.Load("Textures/map/TitleScreen") as Texture;
+		/*Time.timeScale = 1;
 		fadeStarted = Time.time;
 		fadeLength = 1;
 		fadeTexture = Resources.Load("Textures/single") as Texture;
@@ -31,7 +32,7 @@ public class CavalcadeManager : MonoBehaviour {
 		win.font = (Font)Resources.Load("Fonts/ALIEN5");
 		win.fontSize = 40;
 		winButton.transform.position = new Vector3(0.2F, 0.75F, 0.0F);
-		winButton.AddComponent<BackButton>().resizeTo = 50;
+		winButton.AddComponent<BackButton>().resizeTo = 50;*/
 	}
 	
 	void OnLevelWasLoaded(int level) {
@@ -57,5 +58,6 @@ public class CavalcadeManager : MonoBehaviour {
 			GUI.DrawTexture(new Rect(0, 0, Camera.main.pixelWidth, Camera.main.pixelHeight),
 					fadeTexture);
 		}
+		GUI.DrawTexture(new Rect(0, 0, 1024, 512), cavalcadeMap);
 	}
 }
