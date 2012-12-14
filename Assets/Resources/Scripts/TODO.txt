@@ -9,7 +9,6 @@ Things that are DONE should be moved to DONE.txt by copypasta, or by using the c
 :1	come to a concensus on the music for scenes other than Game
 :2	robot death sound
 :3	indicators for which way a robot moves (or not?)
-:4	change robot vision
 :5	we have no indicator for player range. not sure what we want to do about this.
 :6	animate player model
 :7	animate robots
@@ -21,7 +20,6 @@ Things that are DONE should be moved to DONE.txt by copypasta, or by using the c
 :14	fix win square texture (talk to me about this peter)
 :15	clean up editor
 :16	make health bar easier to see, larger
-:17	figure out better hot keys and implement them
 :18	animate explosive crates
 :19	sound effect for explosive crates
 :22	decide on movement speed for the game and change it to that
@@ -48,6 +46,5 @@ Things that are DONE should be moved to DONE.txt by copypasta, or by using the c
 :46	clean up code (nahhhh)
 :47	lol conveyors?
 :48	separate free play levels by difficulty
-:50	change our name officially
 :51	playtest the shit out of our game
 :52	make robots not spaz out when they can't move
