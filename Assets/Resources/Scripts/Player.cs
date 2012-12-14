@@ -174,39 +174,57 @@ public class Player : MonoBehaviour, IColor {
 		 *
 		 * Right?
 		 */
-		if(Input.GetKeyDown("q") || Input.GetKeyDown("u")) {
-			if(colorShooting == Color.red)
-				if(colors[Color.green] > 0)
-					colorShooting = Color.green;
-				else if(colors[Color.blue] > 0)
-					colorShooting = Color.blue;
-			if(colorShooting == Color.green)
-				if(colors[Color.blue] > 0)
-					colorShooting = Color.blue;
-				else if(colors[Color.red] > 0)
-					colorShooting = Color.red;
-			if(colorShooting == Color.blue)
-				if(colors[Color.red] > 0)
-					colorShooting = Color.red;
-				else if(colors[Color.green] > 0)
-					colorShooting = Color.green;
-		}
 		if(Input.GetKeyDown("e") || Input.GetKeyDown("o")) {
-			if(colorShooting == Color.red)
-				if(colors[Color.blue] > 0)
-					colorShooting = Color.blue;
-				else if(colors[Color.green] > 0)
+			if(colorShooting == Color.red) {
+				if(colors[Color.green] > 0) {
 					colorShooting = Color.green;
-			if(colorShooting == Color.green)
-				if(colors[Color.red] > 0)
+				}
+				else if(colors[Color.blue] > 0) {
+					colorShooting = Color.blue;
+				}
+			}
+			else if(colorShooting == Color.green) {
+				if(colors[Color.blue] > 0) {
+					colorShooting = Color.blue;
+				}
+				else if(colors[Color.red] > 0) {
 					colorShooting = Color.red;
-				else if(colors[Color.blue] > 0)
-					colorShooting = Color.blue;
-			if(colorShooting == Color.blue)
-				if(colors[Color.green] > 0)
+				}
+			}
+			else {
+				if(colors[Color.red] > 0) {
+					colorShooting = Color.red;
+				}
+				else if(colors[Color.green] > 0) {
 					colorShooting = Color.green;
-				else if(colors[Color.blue] > 0)
+				}
+			}
+		}
+		if(Input.GetKeyDown("q") || Input.GetKeyDown("u")) {
+			if(colorShooting == Color.red) {
+				if(colors[Color.blue] > 0) {
 					colorShooting = Color.blue;
+				}
+				else if(colors[Color.green] > 0) {
+					colorShooting = Color.green;
+				}
+			}
+			else if(colorShooting == Color.green) {
+				if(colors[Color.red] > 0) {
+					colorShooting = Color.red;
+				}
+				else if(colors[Color.blue] > 0) {
+					colorShooting = Color.blue;
+				}
+			}
+			else {
+				if(colors[Color.green] > 0) {
+					colorShooting = Color.green;
+				}
+				else if(colors[Color.red] > 0) {
+					colorShooting = Color.red;
+				}
+			}
 		}
 		AnimateMotion();
 	}
@@ -284,6 +302,9 @@ public class Player : MonoBehaviour, IColor {
 		script.moveRate = 0.1f;
 		script.moveSpeed = 0.2f;
 		script.colors = new Dictionary<Color, int>();
+		script.colors[Color.red] = 0;
+		script.colors[Color.green] = 0;
+		script.colors[Color.blue] = 0;
 		script.colorPainted = script.defaultColor;
 		script.collider.enabled = true;
 		script.grid = grid;

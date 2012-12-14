@@ -22,8 +22,8 @@ public class Robot : MonoBehaviour, IColor {
 		get { return _colorPainted; }
 		set {
 			light.color = value;
-			light.intensity = 1;
-			light.range = 2;
+			light.intensity = 2.5f;
+			light.range = 1.5f;
 			if(value == Color.red)
 				renderer.material.mainTexture = Resources.Load("Textures/RedBot") as Texture;
 			else if(value == Color.green)
@@ -137,8 +137,9 @@ public class Robot : MonoBehaviour, IColor {
 	 */
 	public void ScalePlane(GameObject plane, int range, Vector2 direction) {
 		plane.transform.localScale = new Vector3(range/10.0f, .1f, .1f);
-		plane.transform.localPosition = (-.5f - range/2.0f)*direction;
-		plane.transform.Translate(0, .4f, 0);
+		plane.transform.localPosition = new Vector3((-.5f - range/2.0f)*direction.x,
+							    (-.5f - range/2.0f)*direction.y,
+							    .4f);
 	}
 	
 	void Move(Vector2 coords) {
@@ -150,22 +151,21 @@ public class Robot : MonoBehaviour, IColor {
 			startedMoving = Time.time;
 			endMoving = startedMoving + moveSpeed;
 			oldPosition = transform.position;
-			newPosition = new Vector3(gridCoords.x, gridCoords.y, -1.0f);
+			newPosition = new Vector3(gridCoords.x, gridCoords.y, -0.5f);
+			if(movementDirection == new Vector2(1, 0))
+				transform.localEulerAngles = new Vector3(0, 0, 90f);
+			else if(movementDirection == new Vector2(0, 1))
+				transform.localEulerAngles = new Vector3(0, 0, 180f);
+			else if(movementDirection == new Vector2(-1, 0))
+				transform.localEulerAngles = new Vector3(0, 0, 270f);
+			else if(movementDirection == new Vector2(0, -1))
+				transform.localEulerAngles = new Vector3(0, 0, 360f);
 		}
 		else { // Turn if we hit something
 			if(fireDirection == movementDirection)
 				fireDirection = rotation.Rotate(fireDirection);
 			movementDirection = rotation.Rotate(movementDirection);
 		}
-
-		if(movementDirection == new Vector2(1, 0))
-			transform.localEulerAngles = new Vector3(0, 0, 90f);
-		else if(movementDirection == new Vector2(0, 1))
-			transform.localEulerAngles = new Vector3(0, 0, 180f);
-		else if(movementDirection == new Vector2(-1, 0))
-			transform.localEulerAngles = new Vector3(0, 0, 270f);
-		else if(movementDirection == new Vector2(0, -1))
-			transform.localEulerAngles = new Vector3(0, 0, 360f);
 	}
 	
 		
