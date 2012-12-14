@@ -15,9 +15,25 @@ public class CavalcadeManager : MonoBehaviour {
 	public static string nextScene; // Where we'll fade to.
 	public Texture fadeTexture;
 	public Texture cavalcadeMap;
+	public int levelsCompleted;
 	
 	void Start() {
 		cavalcadeMap = Resources.Load("Textures/map/TitleScreen") as Texture;
+		string path = Path.Combine(Application.persistentDataPath, "SaveFile.txt");
+		if(File.Exists(path)) {
+			StreamReader reader = new StreamReader(path);
+			levelsCompleted = Int32.Parse(reader.ReadLine());
+			reader.Close();
+			Debug.Log("Levels Completed: " + levelsCompleted);
+		}
+		else {
+			using(StreamWriter writer = File.CreateText(path)) {
+				writer.WriteLine(0);
+				writer.Close();
+				Debug.Log("New save file created at " + path + ", homie.");
+			}
+			levelsCompleted = 0;
+		}
 		/*Time.timeScale = 1;
 		fadeStarted = Time.time;
 		fadeLength = 1;
