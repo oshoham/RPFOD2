@@ -65,7 +65,6 @@
      <None Include="Assets\Resources\Levels\FECAL.txt" />
      <None Include="Assets\Resources\Levels\KillAllHumans.txt" />
      <None Include="Assets\Resources\Levels\RGB.txt" />
-     <None Include="Assets\Resources\Levels\walltest.txt" />
      <None Include="Assets\Resources\Levels\L3.txt" />
      <None Include="Assets\Resources\Levels\Decisions.txt" />
      <None Include="Assets\Resources\Levels\Test1.txt" />
