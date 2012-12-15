@@ -19,13 +19,12 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 	public int damageDealt;
 	public List<Square> see;
 	
+	public AudioClip explosion;
+	
 	void Start() {
 		see = grid.SCheckRad(range, gridCoords);
 		foreach(Square sq in see)
 			sq.plane.renderer.material.mainTexture = Resources.Load("Textures/ETile2") as Texture;
-
-
-		
 	}
 		
 	void Update() {
@@ -44,7 +43,6 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 						scrate = false;
 						continue;
 					}
-			
 					if(obj.GetComponent<Robot>())
 						obj.GetComponent<Robot>().health = 0;
 					if(obj.GetComponent<DestructibleWall>())
@@ -54,8 +52,7 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 					if(obj.GetComponent<RobotSpawner>())
 						obj.GetComponent<RobotSpawner>().health = 0;
 				}
-				sq.plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
-				grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
+				AudioPlayer.PlayAudio("Audio/Effects/crateexplosion", 10);
 				Destroy(gameObject);
 			}
 		}
@@ -66,7 +63,6 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 			sq.plane.renderer.material.mainTexture = Resources.Load("Textures/Tile2") as Texture;
 		}
 		grid.Remove(gameObject, (int)gridCoords.x, (int)gridCoords.y);
-		
 	}
 
 	public static GameObject MakeExplosiveCrate(Grid grid, int x, int y, int health, int range, int damageDealt) {
@@ -82,6 +78,7 @@ public class ExplosiveCrate : MonoBehaviour, IColor {
 		script.health = health;
 		script.range = range;
 		script.damageDealt = damageDealt;
+		script.explosion = Resources.Load("Audio/Effects/crateexplosion") as AudioClip;
 		return crate;
 	}
 }

@@ -169,6 +169,16 @@ public class GameManager : MonoBehaviour {
 			 filename = Path.GetFileNameWithoutExtension(filename);
 			 if(filename == "L1")
 				 return 1;
+			 else if(filename == "L2")
+				 return 2;
+			 else if(filename == "L3")
+				 return 3;
+			 else if(filename == "L4")
+				 return 4;
+			 else if(filename == "L5")
+				 return 5;
+			 else if(filename == "L6")
+				 return 6;
 			 else
 				 return -1;
 		}

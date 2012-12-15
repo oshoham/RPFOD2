@@ -16,6 +16,7 @@ public class DestructibleWall : MonoBehaviour, IColor {
 	
 	void Update() {
 		if(health <= 0) {
+			AudioPlayer.PlayAudio("Audio/Effects/walldestroy", 100000);
 			Destroy(gameObject);
 		}
 	}

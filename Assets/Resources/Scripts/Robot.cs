@@ -113,14 +113,8 @@ public class Robot : MonoBehaviour, IColor {
 		if(Time.timeScale == 0)
 			return;
 		if(health <= 0) {
-			AudioSource destruct = new AudioSource();
-			AudioClip s = Resources.Load("Audio/Effects/RobExpS") as AudioClip;
-			AudioClip e = Resources.Load("Audio/Effects/RobExpE") as AudioClip;
-			destruct = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
-			destruct.clip = s;
-			destruct.Play();
-			destruct.clip = e;
-			destruct.Play();
+			AudioPlayer.PlayAudio("Audio/Effects/RobExpS", 1);
+			AudioPlayer.PlayAudio("Audio/Effects/RobExpE", 1);
 			Destroy(gameObject);			
 		}
 		Fire();
@@ -271,10 +265,7 @@ public class Robot : MonoBehaviour, IColor {
 						
 						lastFired = Time.time;
 						Laser.MakeLaser(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, hit, colorVisible, this, Color.red);
-						lasersound = Resources.Load("Audio/Effects/robotshot") as AudioClip;
-						lasersource = (AudioSource)gameObject.AddComponent(typeof(AudioSource));
-						lasersource.clip = lasersound;
-						lasersource.Play();
+						AudioPlayer.PlayAudio("Audio/Effects/robotshot", .5f);
 					}
 				}
 			}
