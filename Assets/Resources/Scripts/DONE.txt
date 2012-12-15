@@ -8,4 +8,5 @@
 :37	robots that only see in one direction?
 :49	make free play thing less wonky and not work relative to screen so screen resolution doesn't fuck us over (remember what it did during our presentation?)
 :50	change our name officially
+:52	make robots not spaz out when they can't move
 :53	make audio actually work in levels
