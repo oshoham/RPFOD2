@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-//This class manages the "Cavalcade" play level select screen.
+// This class manages the "Cavalcade" play level select screen.
 
 public class CavalcadeManager : MonoBehaviour {
 	
@@ -18,6 +18,19 @@ public class CavalcadeManager : MonoBehaviour {
 	public int levelsCompleted;
 	
 	void Start() {
+		// Button that takes you back to the Start Screen
+		GameObject backButton = new GameObject("Back Button");
+		GUIText back = (GUIText)backButton.AddComponent(typeof(GUIText));
+		back.text = "Back";
+		back.anchor = TextAnchor.UpperLeft;
+		back.alignment = TextAlignment.Left;
+		back.lineSpacing = 1.0F;
+		back.font = (Font)Resources.Load("Fonts/ALIEN5");
+		back.fontSize = 25;
+		backButton.transform.position = new Vector3(0.005F, 0.985F, 0.0F);
+		backButton.AddComponent<BackButton>();
+
+		// Determine how many levels the player has completed
 		cavalcadeMap = Resources.Load("Textures/map/TitleScreen") as Texture;
 		GlobalSettings.lastScene = "CavalcadeManager";
 		string path = Path.Combine(Application.persistentDataPath, "SaveFile.txt");
@@ -35,21 +48,6 @@ public class CavalcadeManager : MonoBehaviour {
 			}
 			levelsCompleted = 0;
 		}
-		/*Time.timeScale = 1;
-		fadeStarted = Time.time;
-		fadeLength = 1;
-		fadeTexture = Resources.Load("Textures/single") as Texture;
-		cavalcadeMap = Resources.Load("Textures/cavalcademap") as Texture;
-		GameObject winButton = new GameObject("Placeholder");
-		GUIText win = (GUIText)winButton.AddComponent(typeof(GUIText));
-		win.text = "Nothing to see here...yet.";
-		win.anchor = TextAnchor.UpperLeft;
-		win.alignment = TextAlignment.Left;
-		win.lineSpacing = 1.0F;
-		win.font = (Font)Resources.Load("Fonts/ALIEN5");
-		win.fontSize = 40;
-		winButton.transform.position = new Vector3(0.2F, 0.75F, 0.0F);
-		winButton.AddComponent<BackButton>().resizeTo = 50;*/
 	}
 	
 	void OnLevelWasLoaded(int level) {
