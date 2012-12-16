@@ -285,37 +285,37 @@ public class Player : MonoBehaviour, IColor {
 		if (frame == 1)
 		{
 			renderer.material.mainTexture = textures[0];
-			renderer.material.color = Color.white;
+			renderer.material.color = _colorPainted;
 			renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		}
 		if (frame == 5)
 		{
 			renderer.material.mainTexture = textures[1];
-			renderer.material.color = Color.white;
+			renderer.material.color = _colorPainted;
 			renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		}
 		if (frame == 9)
 		{
 			renderer.material.mainTexture = textures[2];
-			renderer.material.color = Color.white;
+			renderer.material.color = _colorPainted;
 			renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		}
 		if (frame == 14)
 		{
 			renderer.material.mainTexture = textures[3];
-			renderer.material.color = Color.white;
+			renderer.material.color = _colorPainted;
 			renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		}
 		if (frame == 18)
 		{
 			renderer.material.mainTexture = textures[4];
-			renderer.material.color = Color.white;
+			renderer.material.color = _colorPainted;
 			renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		}
 		if (frame == 22)
 		{
 			renderer.material.mainTexture = textures[5];
-			renderer.material.color = Color.white;
+			renderer.material.color = _colorPainted;
 			renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		}			
 		frame++;		
