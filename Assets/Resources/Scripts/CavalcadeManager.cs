@@ -54,7 +54,7 @@ public class CavalcadeManager : MonoBehaviour {
 		map = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		map.name = "Map";
 		map.transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
-		map.renderer.material.mainTexture = Resources.Load("Textures/map/TitleScreen") as Texture;
+		map.renderer.material.mainTexture = Resources.Load("Textures/map/TitleScreen2") as Texture;
 		map.renderer.material.shader = Shader.Find("Decal");
 		map.transform.Rotate(90, 180, 0);
 		map.transform.position = new Vector3(3.5F, 1.25F, 0F);
