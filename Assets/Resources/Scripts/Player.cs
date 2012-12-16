@@ -44,8 +44,17 @@ public class Player : MonoBehaviour, IColor {
 	public AudioClip soundexplosion;
 	public AudioClip paintshot;
         public bool explohappened = false;
+	public Texture[] textures = new Texture[6];
+	public int frame = 0;
 
 	void Start() {
+		textures[0] = Resources.Load("Textures/PlayerReal") as Texture;
+		textures[1] = Resources.Load("Textures/PlayerReal2") as Texture;
+		textures[2] = Resources.Load("Textures/PlayerReal3") as Texture;
+		textures[3] = Resources.Load("Textures/PlayerReal4") as Texture;
+		textures[4] = Resources.Load("Textures/PlayerReal3") as Texture;
+		textures[5] = Resources.Load("Textures/PlayerReal2") as Texture;
+
 		awfulQuotes.Add("Death comes swiftest to those who die. -- JFK");
 		awfulQuotes.Add("We've got the best forensics tool money can't buy. Snow. -- CSI: NY");
 		awfulQuotes.Add("Mother died today. Or maybe yesterday; I can't be sure. -- Albert Camus");
@@ -143,7 +152,11 @@ public class Player : MonoBehaviour, IColor {
 					lastMovedHorizontal = Time.time;
 					transform.localEulerAngles = new Vector3(0, 0, 180f);
 				}
-			}
+			}					
+		}
+		if(Time.time < endMoving){
+			AnimateFrames();
+
 		}
 		if(Input.GetKeyDown("4") || Input.GetKeyDown("i")) {
 			colorPainted = defaultColor;
@@ -264,6 +277,48 @@ public class Player : MonoBehaviour, IColor {
 		}
 		float time = (Time.time - startedMoving)/moveSpeed + .1f;
 		transform.position = Vector3.Lerp(oldPosition, newPosition, time);
+	}
+
+	public void AnimateFrames(){
+		if(frame > 24)
+			frame = 0;
+		if (frame == 1)
+		{
+			renderer.material.mainTexture = textures[0];
+			renderer.material.color = Color.white;
+			renderer.material.shader = Shader.Find("Transparent/Diffuse");
+		}
+		if (frame == 5)
+		{
+			renderer.material.mainTexture = textures[1];
+			renderer.material.color = Color.white;
+			renderer.material.shader = Shader.Find("Transparent/Diffuse");
+		}
+		if (frame == 9)
+		{
+			renderer.material.mainTexture = textures[2];
+			renderer.material.color = Color.white;
+			renderer.material.shader = Shader.Find("Transparent/Diffuse");
+		}
+		if (frame == 14)
+		{
+			renderer.material.mainTexture = textures[3];
+			renderer.material.color = Color.white;
+			renderer.material.shader = Shader.Find("Transparent/Diffuse");
+		}
+		if (frame == 18)
+		{
+			renderer.material.mainTexture = textures[4];
+			renderer.material.color = Color.white;
+			renderer.material.shader = Shader.Find("Transparent/Diffuse");
+		}
+		if (frame == 22)
+		{
+			renderer.material.mainTexture = textures[5];
+			renderer.material.color = Color.white;
+			renderer.material.shader = Shader.Find("Transparent/Diffuse");
+		}			
+		frame++;		
 	}
 	
 	public void PickupColor(Color color) {

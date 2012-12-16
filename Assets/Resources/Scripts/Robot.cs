@@ -72,8 +72,11 @@ public class Robot : MonoBehaviour, IColor {
 	 * Shows the Roobitt's color when painted.
 	 */
 	public Light colorLight;
+
+	//Frames to be animated	
 	
 	void Update() {
+		
 		
 		/*
 		 * Colors panels to represent vision.
@@ -288,7 +291,7 @@ public class Robot : MonoBehaviour, IColor {
 					   Vector2 fireDirection, RotationMatrix rotation) {
 		GameObject robot = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		robot.name = "Robot";
-		//robot.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+		robot.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
 		robot.renderer.material.mainTexture = Resources.Load("Textures/BlankBot") as Texture;
 		robot.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		robot.renderer.material.color = Color.white;
