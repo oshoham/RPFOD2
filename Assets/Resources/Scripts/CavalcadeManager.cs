@@ -63,7 +63,7 @@ public class CavalcadeManager : MonoBehaviour {
 		l.transform.position = new Vector3(3.5F, 1.25F, -5F);
 		l.type = LightType.Directional;
 		l.intensity = 0.3F;
-		Camera.main.transform.position = new Vector3(3.0F, 6F, -18F);
+		Camera.main.transform.position = new Vector3(3.0F, 7F, -18F);
 		Camera.main.fieldOfView = 45;
 		fadeLength = 5F;
 	}
@@ -72,7 +72,9 @@ public class CavalcadeManager : MonoBehaviour {
 		map.renderer.material.color = Color.Lerp(new Color(0, 0, 0, fadeIn ? 1 : 0),
 							 new Color(1, 1, 1, fadeIn ? 0 : 1),
 							 (Time.time - fadeStarted)/fadeLength);
-		if (Camera.main.transform.position.y > 1.5F) 
+		if (Camera.main.transform.position.y > 1.8F) 
+			Camera.main.transform.position = new Vector3(3.0F, Camera.main.transform.position.y - 1.5F*Time.deltaTime, -18F);
+		if (Camera.main.transform.position.y > 1.5F)
 			Camera.main.transform.position = new Vector3(3.0F, Camera.main.transform.position.y - Time.deltaTime, -18F);
 		
 	}
