@@ -16,6 +16,7 @@ public class CavalcadeManager : MonoBehaviour {
 	public Texture fadeTexture;
 	public Texture cavalcadeMap;
 	public int levelsCompleted;
+	public GameObject map;
 	
 	void Start() {
 		// Button that takes you back to the Start Screen
@@ -48,6 +49,32 @@ public class CavalcadeManager : MonoBehaviour {
 			}
 			levelsCompleted = 0;
 		}
+		
+		//Draw the actual map on a plane and lighting
+		map = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		map.name = "Map";
+		map.transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
+		map.renderer.material.mainTexture = Resources.Load("Textures/map/TitleScreen") as Texture;
+		map.renderer.material.shader = Shader.Find("Decal");
+		map.transform.Rotate(90, 180, 0);
+		map.transform.position = new Vector3(3.5F, 1.25F, 0F);
+		GameObject light = new GameObject("Light");
+		Light l = light.AddComponent<Light>();
+		l.transform.position = new Vector3(3.5F, 1.25F, -5F);
+		l.type = LightType.Directional;
+		l.intensity = 0.3F;
+		Camera.main.transform.position = new Vector3(3.0F, 6F, -18F);
+		Camera.main.fieldOfView = 45;
+		fadeLength = 5F;
+	}
+	
+	void Update(){
+		map.renderer.material.color = Color.Lerp(new Color(0, 0, 0, fadeIn ? 1 : 0),
+							 new Color(1, 1, 1, fadeIn ? 0 : 1),
+							 (Time.time - fadeStarted)/fadeLength);
+		if (Camera.main.transform.position.y > 1.5F) 
+			Camera.main.transform.position = new Vector3(3.0F, Camera.main.transform.position.y - Time.deltaTime, -18F);
+		
 	}
 	
 	void OnLevelWasLoaded(int level) {
@@ -70,9 +97,9 @@ public class CavalcadeManager : MonoBehaviour {
 				fadeIn = true;
 				Application.LoadLevel("StartScreen");
 			}
-			GUI.DrawTexture(new Rect(0, 0, Camera.main.pixelWidth, Camera.main.pixelHeight),
-					fadeTexture);
+//			GUI.DrawTexture(new Rect(0, 0, Camera.main.pixelWidth, Camera.main.pixelHeight),
+//					fadeTexture);
 		}
-		GUI.DrawTexture(new Rect(0, 0, Camera.main.pixelWidth, Camera.main.pixelHeight), cavalcadeMap, ScaleMode.ScaleToFit);
+//		GUI.DrawTexture(new Rect(0, 0, Camera.main.pixelWidth, Camera.main.pixelHeight), cavalcadeMap, ScaleMode.ScaleToFit);
 	}
 }
