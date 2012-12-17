@@ -21,6 +21,8 @@ public class CavalcadeManager : MonoBehaviour {
 	public int levelIndex;
 	public GameObject indicator;
 	public bool scrolled = false;
+	public int frame = 0;
+	public bool scaleDown = false;
 	
 	void Start() {
 		levelIndex = 0;
@@ -136,6 +138,18 @@ public class CavalcadeManager : MonoBehaviour {
 
 		if(Input.GetKeyDown("space") || Input.GetKeyDown("enter"))
 			levels[levelIndex].Load();
+
+		if(indicator.transform.localScale == new Vector3(0.25F, 0.25F, 0.25F))
+			scaleDown = true;
+		
+		if(indicator.transform.localScale == new Vector3(0.2F, 0.2F, 0.2F))
+			scaleDown = false;
+
+		if(scaleDown == false)
+			indicator.transform.localScale += new Vector3(0.001F, 0.001F, 0.001F);
+		if(scaleDown == true)
+			indicator.transform.localScale -= new Vector3(0.001F, 0.001F, 0.001F);
+		   
 
 	}
 
