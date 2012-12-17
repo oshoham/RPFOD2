@@ -1,8 +1,8 @@
 11
 11
-0 0
+0 0 1 1 14
 0 0 9 GreatlyExaggerated
-10 10 12 Text File
+10 10 12 Paint the Tips 'N Tricks box red and stand on the yellow square for sweet Tips 'N Tricks!
 0 0 0
 0 1 0
 0 2 0

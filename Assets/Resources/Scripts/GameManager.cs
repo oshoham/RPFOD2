@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour {
 		// health bar
 		GUI.DrawTexture(new Rect(10, 30, player.health < 0 ? 0 : player.health * 25, 10), healthTexture, ScaleMode.ScaleAndCrop);
 
-		GUI.Label(new Rect(100, 500, 100, 50), textfile, guiStyle);
+		GUI.Label(new Rect(100, 500, 1000, 500), textfile, guiStyle);
 
 		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health, guiStyle);
 		GUI.Label(new Rect(10, 70, 100, 50), "Shooting:", guiStyle);
