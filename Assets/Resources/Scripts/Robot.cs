@@ -135,9 +135,9 @@ public class Robot : MonoBehaviour, IColor {
 	 * it by the right amount in the given direction.
 	 */
 	public void ScalePlane(GameObject plane, int range, Vector2 direction) {
-		plane.transform.localScale = new Vector3(range/10.0f, .1f, .1f);
-		plane.transform.localPosition = new Vector3((-.5f - range/2.0f)*direction.x,
-							    (-.5f - range/2.0f)*direction.y,
+		plane.transform.localScale = new Vector3(1.5f*range/10.0f, .1f, .1f);
+		plane.transform.localPosition = new Vector3((-1.5f*range/2.0f)*direction.x,
+							    (-1.5f*range/2.0f)*direction.y,
 							    .4f);
 	}
 	
@@ -262,12 +262,14 @@ public class Robot : MonoBehaviour, IColor {
 				if(Physics.Raycast(transform.position, (visibles[0].transform.position - transform.position).normalized, out hit)) {
 					bool shouldShoot = hit.transform.gameObject.Equals(visibles[0]);
 					if(!shouldShoot) {
-						if(hit.transform.gameObject.GetComponent<Robot>() != null &&
-						   visibles[0].GetComponent<Robot>() != null)
+						if((hit.transform.gameObject.GetComponent<Robot>() != null &&
+						    visibles[0].GetComponent<Robot>() != null) ||
+						   (hit.transform.gameObject.GetComponent<DestructibleWall>() != null &&
+						    visibles[0].GetComponent<DestructibleWall>() != null)) {
 							shouldShoot = true;
+						}
 					}
 					if(shouldShoot) {
-						
 						lastFired = Time.time;
 						Laser.MakeLaser(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, hit, colorVisible, this, Color.red);
 						AudioPlayer.PlayAudio("Audio/Effects/robotshot", .5f);
