@@ -21,10 +21,10 @@ public class CavalcadeManager : MonoBehaviour {
 	public int levelIndex;
 	public GameObject indicator;
 	public bool scrolled = false;
+	public int frame = 0;
+	public bool scaleDown = false;
 	
 	void Start() {
-		levelIndex = 0;
-
 		levels = new CavalcadeLevel[10];
 		levels[0] = new CavalcadeLevel(new Vector3(-1.8F,-1.45F,-18F), "L5.txt");
 		levels[1] = new CavalcadeLevel(new Vector3(0,1F,-18F), "L6.txt");
@@ -61,7 +61,7 @@ public class CavalcadeManager : MonoBehaviour {
 		// Determine how many levels the player has completed
 		cavalcadeMap = Resources.Load("Textures/map/TitleScreen") as Texture;
 		GlobalSettings.lastScene = "CavalcadeManager";
-		string path = Path.Combine(Application.persistentDataPath, "SaveFile.txt");
+		string path = Path.Combine(Application.dataPath, "SaveFile.txt");
 		if(File.Exists(path)) {
 			StreamReader reader = new StreamReader(path);
 			levelsCompleted = Int32.Parse(reader.ReadLine());
@@ -76,6 +76,10 @@ public class CavalcadeManager : MonoBehaviour {
 			}
 			levelsCompleted = 0;
 		}
+
+		levelIndex = levelsCompleted;
+		if(levelIndex == 10)
+			levelIndex = 9;
 		
 		//Draw the actual map on a plane and lighting
 		map = GameObject.CreatePrimitive(PrimitiveType.Plane);
@@ -136,6 +140,18 @@ public class CavalcadeManager : MonoBehaviour {
 
 		if(Input.GetKeyDown("space") || Input.GetKeyDown("enter"))
 			levels[levelIndex].Load();
+
+		if(indicator.transform.localScale == new Vector3(0.25F, 0.25F, 0.25F))
+			scaleDown = true;
+		
+		if(indicator.transform.localScale == new Vector3(0.2F, 0.2F, 0.2F))
+			scaleDown = false;
+
+		if(scaleDown == false)
+			indicator.transform.localScale += new Vector3(0.001F, 0.001F, 0.001F);
+		if(scaleDown == true)
+			indicator.transform.localScale -= new Vector3(0.001F, 0.001F, 0.001F);
+		   
 
 	}
 

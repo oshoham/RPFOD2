@@ -9,3 +9,4 @@ Assembly-UnityScript.pidb
 *.cs~
 *.csproj
 *.userprefs
+SaveFile.txt
