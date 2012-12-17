@@ -17,8 +17,24 @@ public class CavalcadeManager : MonoBehaviour {
 	public Texture cavalcadeMap;
 	public int levelsCompleted;
 	public GameObject map;
+	public CavalcadeLevel[] levels;
+	public int levelIndex;
 	
 	void Start() {
+		levelIndex = 0;
+
+		levels = new CavalcadeLevel[10];
+		levels[0] = new CavalcadeLevel(Camera.main.transform.position, "L5.txt");
+		levels[1] = new CavalcadeLevel(Camera.main.transform.position, "L6.txt");
+		levels[2] = new CavalcadeLevel(Camera.main.transform.position, "KeepAlive.txt");
+		levels[3] = new CavalcadeLevel(Camera.main.transform.position, "KeepAlive2.txt");
+		levels[4] = new CavalcadeLevel(Camera.main.transform.position, "Covertop.txt");
+		levels[5] = new CavalcadeLevel(Camera.main.transform.position, "Whirlpool.txt");
+		levels[6] = new CavalcadeLevel(Camera.main.transform.position, "KillAllHumans.txt");
+		levels[7] = new CavalcadeLevel(Camera.main.transform.position, "Virus.txt");
+		levels[8] = new CavalcadeLevel(Camera.main.transform.position, "RGB.txt");
+		levels[9] = new CavalcadeLevel(Camera.main.transform.position, "Olympus.txt");
+
 		// Button that takes you back to the Start Screen
 		GameObject backButton = new GameObject("Back Button");
 		GUIText back = (GUIText)backButton.AddComponent(typeof(GUIText));
@@ -77,6 +93,24 @@ public class CavalcadeManager : MonoBehaviour {
 		if (Camera.main.transform.position.y > 1.5F)
 			Camera.main.transform.position = new Vector3(3.0F, Camera.main.transform.position.y - Time.deltaTime, -18F);
 		
+
+		if(Input.GetKeyDown("left")) {
+			if(levelIndex > 0) {
+				levelIndex--;
+				Camera.main.transform.position = levels[levelIndex].cameraPos;
+			}
+		}
+
+		if(Input.GetKeyDown("right")) {
+			if(levelIndex < levelsCompleted) {
+				levelIndex++;
+				Camera.main.transform.position = levels[levelIndex].cameraPos;
+			}
+		}
+
+		if(Input.GetKeyDown("space") || Input.GetKeyDown("enter"))
+			levels[levelIndex].Load();
+
 	}
 	
 	void OnLevelWasLoaded(int level) {

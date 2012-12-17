@@ -18,6 +18,8 @@ public class WinScreen : MonoBehaviour {
 		BackButton b = winButton.AddComponent<BackButton>();
 		b.resizeTo = 50;
 		b.destination = "FreePlaySelector";
+		if(GlobalSettings.lastScene == "CavalcadeMap")
+			b.destination = "CavalcadeMap";
 		bgm = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
 		song = Resources.Load("Audio/Effects/winsong") as AudioClip;
 		bgm.loop = true;
@@ -26,6 +28,7 @@ public class WinScreen : MonoBehaviour {
 	}
 
 	void Update() {
-
+		if (Input.GetKeyDown("space"))
+			Application.LoadLevel(GlobalSettings.lastScene);
 	}
 }
