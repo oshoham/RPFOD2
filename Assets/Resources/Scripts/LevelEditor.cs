@@ -39,7 +39,7 @@ public class LevelEditor : MonoBehaviour {
 	//Audio for background music
 	public AudioSource bgm = new AudioSource();
 	public AudioClip song;
-	
+
 	/*
 	 * Information for each type of object that we might create. Most of
 	 * these aren't explicitly initialized because the default values for
@@ -98,6 +98,9 @@ public class LevelEditor : MonoBehaviour {
 	
 	// Audio
 	public static string audiofile = "Audio File";
+
+	// Text
+	public static string textfile = "Text File";
 	
 	// RobotSpawner
 	public static string robotSpawnerHealth = "10";
@@ -166,7 +169,7 @@ public class LevelEditor : MonoBehaviour {
 						  Resources.Load("Textures/Lightbulb") as Texture,
 						  () => LevelEditor.objectToBeCreated = ObjectType.Light, name: "Light Selector");
 		if(GlobalSettings.lastScene == "Game") {
-			floor = LevelLoader.LoadLevel(GlobalSettings.currentFile, out audiofile);
+			floor = LevelLoader.LoadLevel(GlobalSettings.currentFile, out audiofile, out textfile);
 			if(floor != null) {
 				SetupObjectPlacers();
 				newWidth = floor.grid.GetLength(0);
@@ -175,7 +178,7 @@ public class LevelEditor : MonoBehaviour {
 		}
 		
 		//audio handling
-		song = Resources.Load("Audio/Effects/SmashTheFunk.mp3") as AudioClip;
+		song = Resources.Load("Audio/Effects/SmashTheFunk") as AudioClip;
 		bgm = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
 		bgm.clip = song;
 		bgm.loop = true;
@@ -214,7 +217,7 @@ public class LevelEditor : MonoBehaviour {
 			if(floor != null) {
 				floor.Clear();
 			}
-			Grid newGrid = LevelLoader.LoadLevel(loadFileName, out audiofile);
+			Grid newGrid = LevelLoader.LoadLevel(loadFileName, out audiofile, out textfile);
 			if(newGrid != null) {
 				floor = newGrid;
 				SetupObjectPlacers();
@@ -272,6 +275,8 @@ public class LevelEditor : MonoBehaviour {
 		winCoords = GUI.TextField(new Rect(350, 150, 100, 20), winCoords);
 		// Audio
 		audiofile = GUI.TextField(new Rect(350, 80, 100, 20), audiofile);
+		// Text
+		textfile = GUI.TextField(new Rect(250, 80, 100, 20), textfile);
 		// Object-specific stuffs
 		switch(objectToBeCreated) {
 			case ObjectType.SpikeWall:
