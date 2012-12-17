@@ -141,7 +141,7 @@ public class CavalcadeManager : MonoBehaviour {
 		}
 
 		if(Input.GetKeyDown("right")) {
-			if(levelsCompleted < 10 && levelIndex < levelsCompleted) {
+			if(levelIndex < 9) {
 				levelIndex++;
 				Camera.main.transform.position = levels[levelIndex].cameraPos;
 				indicateLevel();
