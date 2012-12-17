@@ -26,6 +26,7 @@ public class WinScreen : MonoBehaviour {
 	}
 
 	void Update() {
-
+		if (Input.GetKeyDown("space"))
+			Application.LoadLevel("FreePlaySelector");
 	}
 }
