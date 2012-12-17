@@ -21,8 +21,6 @@ public class CavalcadeManager : MonoBehaviour {
 	public int levelIndex;
 	
 	void Start() {
-		levelIndex = 0;
-
 		levels = new CavalcadeLevel[10];
 		levels[0] = new CavalcadeLevel(Camera.main.transform.position, "L5.txt");
 		levels[1] = new CavalcadeLevel(Camera.main.transform.position, "L6.txt");
@@ -72,6 +70,10 @@ public class CavalcadeManager : MonoBehaviour {
 			}
 			levelsCompleted = 0;
 		}
+
+		levelIndex = levelsCompleted;
+		if(levelIndex == 10)
+			levelIndex = 9;
 		
 		//Draw the actual map on a plane and lighting
 		map = GameObject.CreatePrimitive(PrimitiveType.Plane);
