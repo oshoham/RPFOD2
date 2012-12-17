@@ -11,6 +11,8 @@ public class InstructionsManager : MonoBehaviour {
 	public static float fadeStarted;
 	public static string nextScene; // Where we'll fade to.
 	public Texture fadeTexture;
+	public AudioSource bgm = new AudioSource();
+	public AudioClip song;
 
 	
 	void Start () {
@@ -18,6 +20,14 @@ public class InstructionsManager : MonoBehaviour {
 		fadeStarted = Time.time;
 		fadeLength = 1F;
 		fadeTexture = Resources.Load("Textures/single") as Texture;
+
+		bgm = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
+		song = Resources.Load("Audio/Effects/bassbeat") as AudioClip;
+		bgm.clip = song;
+		bgm.Play();
+		transform.position = Camera.main.transform.position;
+		transform.parent = Camera.main.transform;
+
 
 		// Button that takes you back to the Start Screen
 		GameObject backButton = new GameObject("Back Button");
