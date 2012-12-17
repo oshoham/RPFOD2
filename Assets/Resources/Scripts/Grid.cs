@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 public class Grid {
@@ -57,7 +58,11 @@ public class Grid {
 			while((sign == 1 ? origin.y <= coord.y : origin.y >= coord.y) &&
 			      GetObjectsOfTypes(origin, new List<String>() {"Wall"}).Count == 0) { // we want the last position as well so it's a do-while loop
 				Square sq = grid[(int)origin.x, (int)origin.y];
-				objects.AddRange(sq.objects);
+				objects.AddRange(sq.objects.Where((GameObject obj) => {
+							return obj.GetComponent<Paint>() == null &&
+							obj.GetComponent<SpikeFloor>() == null &&
+							obj.GetComponent<Conveyor>() == null;
+						}));
 				if(GetObjectsOfTypes(origin, new List<String>() {"DestructibleWall", "ExplosiveCrate"}).Count > 0)
 					break;
 				origin.y += sign;
@@ -68,7 +73,11 @@ public class Grid {
 			origin.x += sign;
 			while((sign == 1 ? origin.x <= coord.x : origin.x >= coord.x) &&
 			      GetObjectsOfTypes(origin, new List<String>() {"Wall"}).Count == 0) {
-				objects.AddRange(grid[(int)origin.x, (int)origin.y].objects);
+				objects.AddRange(grid[(int)origin.x, (int)origin.y].objects.Where((GameObject obj) => {
+							return obj.GetComponent<Paint>() == null &&
+							obj.GetComponent<SpikeFloor>() == null &&
+							obj.GetComponent<Conveyor>() == null;
+						}));
 				if(GetObjectsOfTypes(origin, new List<String>() {"DestructibleWall", "ExplosiveCrate"}).Count > 0)
 					break;
 				origin.x += sign;
