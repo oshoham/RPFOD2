@@ -8,6 +8,7 @@ public class StartScreenManager : MonoBehaviour {
        public static GameObject cavalcade;
        public static GameObject freeplay;
        public static GameObject editor;
+	public static GameObject instructions;
 	
 	public static bool fadeIn = true;
 	public static bool fadeOut = false;
@@ -24,9 +25,11 @@ public class StartScreenManager : MonoBehaviour {
 	        cavalcade = GameObject.Find("Cavalcade");
 		freeplay = GameObject.Find("Free Play");
 		editor = GameObject.Find("Editor");
+		instructions = GameObject.Find("Instructions");
 		cavalcade.AddComponent("Cavalcade");
 		freeplay.AddComponent("FreePlay");
-		editor.AddComponent("StartScreenEditorButton");	    
+		editor.AddComponent("StartScreenEditorButton");
+		instructions.AddComponent("InstructionsButton");
 	}
 	
 	public static void Load(String scene) {
