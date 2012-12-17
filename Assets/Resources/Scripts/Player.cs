@@ -152,7 +152,10 @@ public class Player : MonoBehaviour, IColor {
 					lastMovedHorizontal = Time.time;
 					transform.localEulerAngles = new Vector3(0, 0, 180f);
 				}
-			}					
+			}
+			if(Input.GetKey("r")) {
+				Application.LoadLevel("Game");
+			}
 		}
 		if(Time.time < endMoving){
 			AnimateFrames();
