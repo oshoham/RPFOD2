@@ -78,8 +78,14 @@ public class GameManager : MonoBehaviour {
 		bgm.Play();
 		healthTexture = Resources.Load("Textures/health") as Texture;
 
+	}	
+
+	void Update(){
+		if(Input.GetKey("r")) {
+			Application.LoadLevel("Game");
+		}
 	}
-	
+
 	/*
 	 * Should be called when win conditions are met.
 	 */
