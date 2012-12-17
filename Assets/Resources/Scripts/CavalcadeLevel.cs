@@ -2,10 +2,15 @@ using UnityEngine;
 using System.Collections;
 
 public class CavalcadeLevel {
-	public Vector2 cameraPos;
+	public Vector3 cameraPos;
 	public string filename;
 
-	void Load() {
+	public CavalcadeLevel(Vector3 cameraPos, string filename) {
+		this.cameraPos = cameraPos;
+		this.filename = filename;
+	}
+
+	public void Load() {
 		GlobalSettings.currentFile = filename;
 	    	GlobalSettings.lastScene = "CavalcadeMap";
        	    	Application.LoadLevel("Game");
