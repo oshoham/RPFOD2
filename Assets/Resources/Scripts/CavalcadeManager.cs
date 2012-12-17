@@ -78,10 +78,10 @@ public class CavalcadeManager : MonoBehaviour {
 			Camera.main.transform.position = new Vector3(3.0F, Camera.main.transform.position.y - Time.deltaTime, -18F);
 		
 
-		if(Input.GetKeyDown("left") {
+		if(Input.GetKeyDown("left")) {
 		}
 
-		if(Input.GetKeyDown("right") {
+		if(Input.GetKeyDown("right")) {
 		}
 	}
 	
