@@ -22,8 +22,8 @@ public class Robot : MonoBehaviour, IColor {
 		get { return _colorPainted; }
 		set {
 			colorLight.color = value;
-			colorLight.intensity = 2.5f;
-			colorLight.range = 1.5f;
+			colorLight.intensity = 30;
+			colorLight.range = 1;
 			if(value == Color.red)
 				renderer.material.mainTexture = Resources.Load("Textures/RedBot") as Texture;
 			else if(value == Color.green)
@@ -72,8 +72,12 @@ public class Robot : MonoBehaviour, IColor {
 	 * Shows the Roobitt's color when painted.
 	 */
 	public Light colorLight;
+
+	//explosion on death
+	public GameObject explosion = Resources.Load("Standard Assets/Particles/Legacy Particles/Small explosion") as GameObject;
 	
 	void Update() {
+		
 		
 		/*
 		 * Colors panels to represent vision.
@@ -113,14 +117,9 @@ public class Robot : MonoBehaviour, IColor {
 		if(Time.timeScale == 0)
 			return;
 		if(health <= 0) {
-			AudioSource destruct = new AudioSource();
-			AudioClip s = Resources.Load("Audio/Effects/RobExpS") as AudioClip;
-			AudioClip e = Resources.Load("Audio/Effects/RobExpE") as AudioClip;
-			destruct = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
-			destruct.clip = s;
-			destruct.Play();
-			destruct.clip = e;
-			destruct.Play();
+			Instantiate(explosion, transform.position, Quaternion.identity);
+			AudioPlayer.PlayAudio("Audio/Effects/RobExpS", 1);
+			AudioPlayer.PlayAudio("Audio/Effects/RobExpE", 1);	    
 			Destroy(gameObject);			
 		}
 		Fire();
@@ -271,10 +270,7 @@ public class Robot : MonoBehaviour, IColor {
 						
 						lastFired = Time.time;
 						Laser.MakeLaser(damageDealt, transform.position, (visibles[0].transform.position - transform.position).normalized, hit, colorVisible, this, Color.red);
-						lasersound = Resources.Load("Audio/Effects/robotshot") as AudioClip;
-						lasersource = (AudioSource)gameObject.AddComponent(typeof(AudioSource));
-						lasersource.clip = lasersound;
-						lasersource.Play();
+						AudioPlayer.PlayAudio("Audio/Effects/robotshot", .5f);
 					}
 				}
 			}
@@ -297,7 +293,7 @@ public class Robot : MonoBehaviour, IColor {
 					   Vector2 fireDirection, RotationMatrix rotation) {
 		GameObject robot = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		robot.name = "Robot";
-		//robot.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+		robot.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
 		robot.renderer.material.mainTexture = Resources.Load("Textures/BlankBot") as Texture;
 		robot.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		robot.renderer.material.color = Color.white;

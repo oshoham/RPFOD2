@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-//This class manages the "Cavalcade" play level select screen.
+// This class manages the "Cavalcade" play level select screen.
 
 public class CavalcadeManager : MonoBehaviour {
 	
@@ -15,24 +15,68 @@ public class CavalcadeManager : MonoBehaviour {
 	public static string nextScene; // Where we'll fade to.
 	public Texture fadeTexture;
 	public Texture cavalcadeMap;
+	public int levelsCompleted;
+	public GameObject map;
 	
 	void Start() {
+		// Button that takes you back to the Start Screen
+		GameObject backButton = new GameObject("Back Button");
+		GUIText back = (GUIText)backButton.AddComponent(typeof(GUIText));
+		back.text = "Back";
+		back.anchor = TextAnchor.UpperLeft;
+		back.alignment = TextAlignment.Left;
+		back.lineSpacing = 1.0F;
+		back.font = (Font)Resources.Load("Fonts/ALIEN5");
+		back.fontSize = 25;
+		backButton.transform.position = new Vector3(0.005F, 0.985F, 0.0F);
+		backButton.AddComponent<BackButton>();
+
+		// Determine how many levels the player has completed
 		cavalcadeMap = Resources.Load("Textures/map/TitleScreen") as Texture;
-		/*Time.timeScale = 1;
-		fadeStarted = Time.time;
-		fadeLength = 1;
-		fadeTexture = Resources.Load("Textures/single") as Texture;
-		cavalcadeMap = Resources.Load("Textures/cavalcademap") as Texture;
-		GameObject winButton = new GameObject("Placeholder");
-		GUIText win = (GUIText)winButton.AddComponent(typeof(GUIText));
-		win.text = "Nothing to see here...yet.";
-		win.anchor = TextAnchor.UpperLeft;
-		win.alignment = TextAlignment.Left;
-		win.lineSpacing = 1.0F;
-		win.font = (Font)Resources.Load("Fonts/ALIEN5");
-		win.fontSize = 40;
-		winButton.transform.position = new Vector3(0.2F, 0.75F, 0.0F);
-		winButton.AddComponent<BackButton>().resizeTo = 50;*/
+		GlobalSettings.lastScene = "CavalcadeManager";
+		string path = Path.Combine(Application.persistentDataPath, "SaveFile.txt");
+		if(File.Exists(path)) {
+			StreamReader reader = new StreamReader(path);
+			levelsCompleted = Int32.Parse(reader.ReadLine());
+			reader.Close();
+			Debug.Log("Levels Completed: " + levelsCompleted);
+		}
+		else {
+			using(StreamWriter writer = File.CreateText(path)) {
+				writer.WriteLine(0);
+				writer.Close();
+				Debug.Log("New save file created at " + path + ", homie.");
+			}
+			levelsCompleted = 0;
+		}
+		
+		//Draw the actual map on a plane and lighting
+		map = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		map.name = "Map";
+		map.transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
+		map.renderer.material.mainTexture = Resources.Load("Textures/map/TitleScreen2") as Texture;
+		map.renderer.material.shader = Shader.Find("Decal");
+		map.transform.Rotate(90, 180, 0);
+		map.transform.position = new Vector3(3.5F, 1.25F, 0F);
+		GameObject light = new GameObject("Light");
+		Light l = light.AddComponent<Light>();
+		l.transform.position = new Vector3(3.5F, 1.25F, -5F);
+		l.type = LightType.Directional;
+		l.intensity = 0.3F;
+		Camera.main.transform.position = new Vector3(3.0F, 7F, -18F);
+		Camera.main.fieldOfView = 45;
+		fadeLength = 5F;
+	}
+	
+	void Update(){
+		map.renderer.material.color = Color.Lerp(new Color(0, 0, 0, fadeIn ? 1 : 0),
+							 new Color(1, 1, 1, fadeIn ? 0 : 1),
+							 (Time.time - fadeStarted)/fadeLength);
+		if (Camera.main.transform.position.y > 1.8F) 
+			Camera.main.transform.position = new Vector3(3.0F, Camera.main.transform.position.y - 1.5F*Time.deltaTime, -18F);
+		if (Camera.main.transform.position.y > 1.5F)
+			Camera.main.transform.position = new Vector3(3.0F, Camera.main.transform.position.y - Time.deltaTime, -18F);
+		
 	}
 	
 	void OnLevelWasLoaded(int level) {
@@ -55,9 +99,9 @@ public class CavalcadeManager : MonoBehaviour {
 				fadeIn = true;
 				Application.LoadLevel("StartScreen");
 			}
-			GUI.DrawTexture(new Rect(0, 0, Camera.main.pixelWidth, Camera.main.pixelHeight),
-					fadeTexture);
+//			GUI.DrawTexture(new Rect(0, 0, Camera.main.pixelWidth, Camera.main.pixelHeight),
+//					fadeTexture);
 		}
-		GUI.DrawTexture(new Rect(0, 0, 1024, 512), cavalcadeMap);
+//		GUI.DrawTexture(new Rect(0, 0, Camera.main.pixelWidth, Camera.main.pixelHeight), cavalcadeMap, ScaleMode.ScaleToFit);
 	}
 }
