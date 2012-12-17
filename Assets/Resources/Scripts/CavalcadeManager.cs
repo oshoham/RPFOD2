@@ -19,6 +19,7 @@ public class CavalcadeManager : MonoBehaviour {
 	public GameObject map;
 	public CavalcadeLevel[] levels;
 	public int levelIndex;
+	public GameObject indicator;
 	
 	void Start() {
 		levelIndex = 0;
@@ -82,6 +83,15 @@ public class CavalcadeManager : MonoBehaviour {
 		Camera.main.transform.position = new Vector3(3.0F, 7F, -18F);
 		Camera.main.fieldOfView = 45;
 		fadeLength = 5F;
+
+		//Draw the first indicator
+		indicator = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		indicator.name = "Indicator";
+		indicator.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+		indicator.transform.Rotate(90,180,0);
+		indicator.renderer.material.mainTexture = Resources.Load("Textures/PlayerReal") as Texture;
+		indicator.renderer.material.shader = Shader.Find("Transparent/Diffuse");
+		indicateLevel();
 	}
 	
 	void Update(){
@@ -98,6 +108,7 @@ public class CavalcadeManager : MonoBehaviour {
 			if(levelIndex > 0) {
 				levelIndex--;
 				Camera.main.transform.position = levels[levelIndex].cameraPos;
+				indicateLevel();
 			}
 		}
 
@@ -105,12 +116,21 @@ public class CavalcadeManager : MonoBehaviour {
 			if(levelIndex < levelsCompleted) {
 				levelIndex++;
 				Camera.main.transform.position = levels[levelIndex].cameraPos;
+				indicateLevel();
 			}
 		}
 
 		if(Input.GetKeyDown("space") || Input.GetKeyDown("enter"))
 			levels[levelIndex].Load();
 
+	}
+
+	void indicateLevel()
+	{
+		if(levelIndex==0)
+			indicator.transform.position = new Vector3(-5.0F, -2.2F, -1F);
+		if(levelIndex==1)
+			indicator.transform.position = new Vector3(-3.75F, 1.57F, -1F);
 	}
 	
 	void OnLevelWasLoaded(int level) {
