@@ -23,6 +23,8 @@ public class CavalcadeManager : MonoBehaviour {
 	public bool scrolled = false;
 	public int frame = 0;
 	public bool scaleDown = false;
+	public AudioSource bgm = new AudioSource();
+	public AudioClip song;
 	
 	void Start() {
 		levels = new CavalcadeLevel[10];
@@ -37,6 +39,14 @@ public class CavalcadeManager : MonoBehaviour {
 		levels[8] = new CavalcadeLevel(new Vector3(7.33F,4.7F,-18F), "RGB.txt");
 		levels[9] = new CavalcadeLevel(new Vector3(7.33F,9.3F,-18F), "Olympus.txt");
 
+		bgm = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
+		song = Resources.Load("Audio/Enter The Machine") as AudioClip;
+		bgm.loop = true;
+		bgm.clip = song;
+		bgm.Play();
+		transform.position = Camera.main.transform.position;
+		transform.parent = Camera.main.transform;
+
 		// Button that takes you back to the Start Screen
 		GameObject backButton = new GameObject("Back Button");
 		GUIText back = (GUIText)backButton.AddComponent(typeof(GUIText));
@@ -45,7 +55,7 @@ public class CavalcadeManager : MonoBehaviour {
 		back.alignment = TextAlignment.Left;
 		back.lineSpacing = 1.0F;
 		back.font = (Font)Resources.Load("Fonts/ALIEN5");
-		back.fontSize = 25;
+		back.fontSize = 35;
 		back.material.color = Color.black;
 		backButton.transform.position = new Vector3(0.005F, 0.985F, 0.0F);
 		backButton.AddComponent<BackButton>();
@@ -55,7 +65,7 @@ public class CavalcadeManager : MonoBehaviour {
 		text.text = "Left and\nRight to\nSwitch\nLevels\n\nEnter or\nSpace to\nChoose a\nLevel";
 		text.font = (Font)Resources.Load("Fonts/ALIEN5");
 		text.material.color = Color.black;
-		text.fontSize = 20;
+		text.fontSize = 25;
 		controlInfo.transform.position = new Vector3(0.005F, 0.925F, 0.0F);
 
 		// Determine how many levels the player has completed
