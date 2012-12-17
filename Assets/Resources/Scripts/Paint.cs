@@ -45,9 +45,10 @@ public class Paint : MonoBehaviour, IColor {
 	}
 	
 	public static GameObject MakePaint(Grid grid, int x, int y, Color color, float respawnTime) {
-		GameObject paint = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		GameObject paint = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		paint.transform.Rotate(-90, 0, 0);
 		paint.name = "Paint";
-		paint.transform.localScale = new Vector3(0.65f, 0.65f, 0.65f);
+		paint.transform.localScale = new Vector3(0.065f, 0.065f, 0.065f);
 		paint.transform.position = new Vector3(x, y, -0.25f);
 		paint.renderer.material.mainTexture = Resources.Load("Textures/Paint") as Texture;
 		paint.renderer.material.shader = Shader.Find("Transparent/Diffuse");					 

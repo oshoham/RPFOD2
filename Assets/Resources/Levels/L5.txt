@@ -2,7 +2,7 @@
 15
 1 1 14
 0 0 9 NoveauNova
-10 10 12 
+10 10 12 It's still under construction, but welcome to the Freedom Cage! Feel free to explore in finite freedom!
 0 0 0
 0 1 0
 0 2 0
