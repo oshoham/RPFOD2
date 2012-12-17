@@ -265,6 +265,8 @@ public class Robot : MonoBehaviour, IColor {
 						if((hit.transform.gameObject.GetComponent<Robot>() != null &&
 						    visibles[0].GetComponent<Robot>() != null) ||
 						   (hit.transform.gameObject.GetComponent<DestructibleWall>() != null &&
+						    visibles[0].GetComponent<DestructibleWall>() != null) ||
+						   (hit.transform.gameObject.GetComponent<Paint>() != null &&
 						    visibles[0].GetComponent<DestructibleWall>() != null)) {
 							shouldShoot = true;
 						}

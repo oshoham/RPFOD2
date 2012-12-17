@@ -4,11 +4,12 @@ using System;
 using System.Collections.Generic;
 
 public class StartScreenManager : MonoBehaviour {
-
-       public static GameObject cavalcade;
-       public static GameObject freeplay;
-       public static GameObject editor;
+	
+	public static GameObject cavalcade;
+	public static GameObject freeplay;
+	public static GameObject editor;
 	public static GameObject instructions;
+	public static GameObject tutorial;
 	
 	public static bool fadeIn = true;
 	public static bool fadeOut = false;
@@ -26,10 +27,12 @@ public class StartScreenManager : MonoBehaviour {
 		freeplay = GameObject.Find("Free Play");
 		editor = GameObject.Find("Editor");
 		instructions = GameObject.Find("Instructions");
+		tutorial = GameObject.Find("Tutorial");
 		cavalcade.AddComponent("Cavalcade");
 		freeplay.AddComponent("FreePlay");
 		editor.AddComponent("StartScreenEditorButton");
 		instructions.AddComponent("InstructionsButton");
+		tutorial.AddComponent("TutorialButton");
 	}
 	
 	public static void Load(String scene) {
