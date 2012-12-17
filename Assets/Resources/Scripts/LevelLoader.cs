@@ -8,8 +8,9 @@ public static class LevelLoader {
 	
 	public static Grid grid;
 	
-	public static Grid LoadLevel(string filename, out string audiofile) {
+	public static Grid LoadLevel(string filename, out string audiofile, out string textfile) {
 		audiofile = "";
+		textfile = "";
 		StreamReader reader;
 		string path = "";
 		if(Application.isEditor)
@@ -116,11 +117,17 @@ public static class LevelLoader {
 						ParseLight(x, y, CopyRange(parts, i, 5));
 						i += 5;
 						break;
+					case 12:
+						textfile = ParseText(parts, i);
+						i = parts.Length;
+						break;
 				}
 			}
 		}
 		if(audiofile.Length <= 0)
 			audiofile = "GetBetterJohn";
+		if(textfile.Length <= 0)
+			textfile = "";
 		Debug.Log("Audio file: "+ audiofile + ". ");
 		reader.Close();
 		return grid;
@@ -234,6 +241,14 @@ public static class LevelLoader {
 	}
 	
 	public static string ParseAudioFile(string[] info, int i) {
+		StringBuilder sb = new StringBuilder();
+		for(; i < info.Length; i++) {
+			sb.Append(info[i] + " ");
+		}
+		return sb.ToString().Trim();
+	}
+
+	public static string ParseText(string[] info, int i) {
 		StringBuilder sb = new StringBuilder();
 		for(; i < info.Length; i++) {
 			sb.Append(info[i] + " ");

@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour {
 	public AudioSource bgm = new AudioSource();
 	public AudioClip song;
 	public AudioSource effects = new AudioSource();
+	
+	public string textfile;
 
 	public Texture healthTexture;
 
@@ -32,9 +34,9 @@ public class GameManager : MonoBehaviour {
 		string audiofile;
 		filename = GlobalSettings.currentFile; // this is so janky I feel embarassed writing this
 		if(filename != "")
-			floor = LevelLoader.LoadLevel(filename, out audiofile);
+			floor = LevelLoader.LoadLevel(filename, out audiofile, out textfile);
 		else
-			floor = LevelLoader.LoadLevel("fortesting.txt", out audiofile);
+			floor = LevelLoader.LoadLevel("fortesting.txt", out audiofile, out textfile);
 		// Light for the player.
 		GameObject light = new GameObject("Light");
 		Light l = light.AddComponent<Light>();
@@ -65,12 +67,15 @@ public class GameManager : MonoBehaviour {
 		PlayerGui.MakePlayerGui(Color.red, new Vector3(130.0f, Camera.main.pixelHeight - 160.0f, Camera.main.nearClipPlane + 5.0f), false);
 		PlayerGui.MakePlayerGui(Color.green, new Vector3(190.0f, Camera.main.pixelHeight - 160.0f, Camera.main.nearClipPlane + 5.0f), false);
 		PlayerGui.MakePlayerGui(Color.blue, new Vector3(250.0f, Camera.main.pixelHeight - 160.0f, Camera.main.nearClipPlane + 5.0f), false);
+	
+
 		bgm = (AudioSource)this.gameObject.AddComponent(typeof(AudioSource));
 		song = Resources.Load("Audio/" + audiofile) as AudioClip;
 		bgm.clip = song;
 		bgm.loop = true;
 		bgm.Play();
 		healthTexture = Resources.Load("Textures/health") as Texture;
+
 	}
 	
 	/*
@@ -140,6 +145,8 @@ public class GameManager : MonoBehaviour {
 		// health bar
 		GUI.DrawTexture(new Rect(10, 30, player.health < 0 ? 0 : player.health * 25, 10), healthTexture, ScaleMode.ScaleAndCrop);
 
+		GUI.Label(new Rect(0, 0, 100, 50), textfile, guiStyle);
+
 		GUI.Label(new Rect(10, 10, 100, 50), "Health: " + player.health, guiStyle);
 		GUI.Label(new Rect(10, 70, 100, 50), "Shooting:", guiStyle);
 		GUI.Label(new Rect(10, 150, 100, 50), "Painted:", guiStyle);
@@ -167,18 +174,26 @@ public class GameManager : MonoBehaviour {
 	public static int GetLevelNumber(string filename) {
 		if(filename != "") {
 			 filename = Path.GetFileNameWithoutExtension(filename);
-			 if(filename == "L1")
+			 if(filename == "L5")
 				 return 1;
-			 else if(filename == "L2")
-				 return 2;
-			 else if(filename == "L3")
-				 return 3;
-			 else if(filename == "L4")
-				 return 4;
-			 else if(filename == "L5")
-				 return 5;
 			 else if(filename == "L6")
+				 return 2;
+			 else if(filename == "KeepAlive")
+				 return 3;
+			 else if(filename == "KeepAlive2")
+				 return 4;
+			 else if(filename == "Covertop")
+				 return 5;
+			 else if(filename == "Whirpool")
 				 return 6;
+			 else if(filename == "KillAllHumans")
+				 return 7;
+			 else if(filename == "Virus")
+				 return 8;
+			 else if(filename == "RGB")
+				 return 9;
+			 else if(filename == "Olympus")
+				 return 10;
 			 else
 				 return -1;
 		}

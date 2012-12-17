@@ -25,6 +25,7 @@ public static class LevelWriter {
 			}
 			writer.WriteLine(conditions.ToString().Trim());
 			writer.WriteLine("0 0 9 " + LevelEditor.audiofile);
+			writer.WriteLine("10 10 12 " + LevelEditor.textfile);
 			for(int i = 0; i < grid.width; i++) {
 				for(int j = 0; j < grid.height; j++) {
 					StringBuilder sb = new StringBuilder();
