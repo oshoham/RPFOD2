@@ -48,6 +48,13 @@ public class CavalcadeManager : MonoBehaviour {
 		backButton.transform.position = new Vector3(0.005F, 0.985F, 0.0F);
 		backButton.AddComponent<BackButton>();
 
+		GameObject controlInfo = new GameObject("Control Information");
+		GUIText text = (GUIText)controlInfo.AddComponent(typeof(GUIText));
+		text.text = "Left and\nRight to\nSwitch\nLevels\n\nEnter or\nSpace to\nChoose a\nLevel";
+		text.font = (Font)Resources.Load("Fonts/ALIEN5");
+		text.fontSize = 20;
+		controlInfo.transform.position = new Vector3(0.005F, 0.925F, 0.0F);
+
 		// Determine how many levels the player has completed
 		cavalcadeMap = Resources.Load("Textures/map/TitleScreen") as Texture;
 		GlobalSettings.lastScene = "CavalcadeManager";
@@ -113,7 +120,7 @@ public class CavalcadeManager : MonoBehaviour {
 		}
 
 		if(Input.GetKeyDown("right")) {
-			if(levelIndex < levelsCompleted) {
+			if(levelsCompleted < 10 && levelIndex < levelsCompleted) {
 				levelIndex++;
 				Camera.main.transform.position = levels[levelIndex].cameraPos;
 				indicateLevel();

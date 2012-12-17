@@ -12,7 +12,6 @@ public class AudioPlayer : MonoBehaviour {
 	void Update() {
 		// If the sound is over, destroy this.
 		if(Time.time > timeStarted + clip.length) {
-			Destroy(clip);
 			Destroy(source);
 			Destroy(gameObject);
 		}

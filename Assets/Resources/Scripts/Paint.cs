@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections;
 
 public class Paint : MonoBehaviour, IColor {
@@ -31,7 +32,10 @@ public class Paint : MonoBehaviour, IColor {
 												    obj.GetComponent<Player>() != null);
 			if(player) {
 				player.GetComponent<Player>().PickupColor(colorPainted);
-				isEnabled = false;
+				if(respawnTime == Single.PositiveInfinity)
+					Destroy(gameObject);
+				else
+					isEnabled = false;
 			}
 		}
 	}
