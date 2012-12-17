@@ -15,11 +15,10 @@ public class RotateStart : MonoBehaviour {
 			print(transform.renderer.material.GetColor("_TintColor").a);
 			transform.renderer.material.SetColor("_TintColor", alphaColor);
 		}			      
+				
 		
-		
-		if(rotSpeed%30 == 0) 
-			transform.rotation = Random.rotation;
-		
+//		if(rotSpeed%60 == 0) 
+//			transform.rotation = Random.rotation;
 		alphaColor.a += fadeSpeed;	
 		rotSpeed++;
 		

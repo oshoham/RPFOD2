@@ -73,7 +73,8 @@ public class Robot : MonoBehaviour, IColor {
 	 */
 	public Light colorLight;
 
-	//Frames to be animated	
+	//explosion on death
+	public GameObject explosion = Resources.Load("Standard Assets/Particles/Legacy Particles/Small explosion") as GameObject;
 	
 	void Update() {
 		
@@ -116,8 +117,9 @@ public class Robot : MonoBehaviour, IColor {
 		if(Time.timeScale == 0)
 			return;
 		if(health <= 0) {
+			Instantiate(explosion, transform.position, Quaternion.identity);
 			AudioPlayer.PlayAudio("Audio/Effects/RobExpS", 1);
-			AudioPlayer.PlayAudio("Audio/Effects/RobExpE", 1);
+			AudioPlayer.PlayAudio("Audio/Effects/RobExpE", 1);	    
 			Destroy(gameObject);			
 		}
 		Fire();
