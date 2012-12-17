@@ -133,9 +133,9 @@ public class Robot : MonoBehaviour, IColor {
 	 * it by the right amount in the given direction.
 	 */
 	public void ScalePlane(GameObject plane, int range, Vector2 direction) {
-		plane.transform.localScale = new Vector3(range/10.0f, .1f, .1f);
-		plane.transform.localPosition = new Vector3((-.5f - range/2.0f)*direction.x,
-							    (-.5f - range/2.0f)*direction.y,
+		plane.transform.localScale = new Vector3(1.5f*range/10.0f, .1f, .1f);
+		plane.transform.localPosition = new Vector3((-1.2f - range/2.0f)*direction.x,
+							    (-1.2f - range/2.0f)*direction.y,
 							    .4f);
 	}
 	
