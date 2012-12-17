@@ -47,7 +47,9 @@
      <Compile Include="Assets\Resources\Standard Assets\Particles\Legacy Particles\TimedObjectDestructor.js" />
      <None Include="Assets\Resources\Levels\Conveyor.txt" />
      <None Include="Assets\Resources\Levels\L1.txt" />
+     <None Include="Assets\Resources\Levels\Companion3.txt" />
      <None Include="Assets\Resources\Levels\Virus.txt" />
+     <None Include="Assets\Resources\Levels\MultiDodge.txt" />
      <None Include="Assets\Resources\Levels\diy.txt" />
      <None Include="Assets\Resources\Levels\KeepAlive.txt" />
      <None Include="Assets\Resources\Levels\StaffordTest.txt" />
@@ -65,10 +67,15 @@
      <None Include="Assets\Resources\Scripts\DONE.txt" />
      <None Include="Assets\Resources\Levels\FECAL.txt" />
      <None Include="Assets\Resources\Levels\KillAllHumans.txt" />
+     <None Include="Assets\SaveFile.txt" />
      <None Include="Assets\Resources\Levels\RGB.txt" />
      <None Include="Assets\Resources\Levels\L3.txt" />
      <None Include="Assets\Resources\Levels\Decisions.txt" />
+<<<<<<< HEAD
      <None Include="Assets\Resources\Levels\Companion3.txt" />
+=======
+     <None Include="Assets\Resources\Levels\Companion2.txt" />
+>>>>>>> e4b9ec52d5adb2fda8cad94f05fe5cd3fac5e635
      <None Include="Assets\Resources\Levels\Test1.txt" />
      <None Include="Assets\Resources\Levels\L6.txt" />
      <None Include="Assets\Resources\Levels\L2.txt" />
@@ -78,7 +85,6 @@
      <None Include="Assets\Resources\Levels\MultiDodge.txt" />
      <None Include="Assets\Resources\Levels\Longrunner.txt" />
      <None Include="Assets\Resources\Levels\CTest.txt" />
-     <None Include="Assets\SaveFile.txt" />
      <None Include="Assets\Resources\Levels\KeepAlive2.txt" />
      <None Include="Assets\Resources\Levels\new.txt" />
      <None Include="Assets\Resources\Levels\Companion2.txt" />

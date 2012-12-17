@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour {
 	
 	public string textfile;
 
+	public static int tutorialLevel;
+
 	public Texture healthTexture;
 
 	void Start() {
@@ -82,7 +84,19 @@ public class GameManager : MonoBehaviour {
 	 * Should be called when win conditions are met.
 	 */
 	public static void Win() {
-		if(GlobalSettings.lastScene == "CavalcadeMap") {
+		if(Application.loadedLevelName == "Tutorial") {
+			tutorialLevel++;
+			if(tutorialLevel > 4) {
+				tutorialLevel = 1;
+				Application.LoadLevel("WinScreen");
+			}
+			else {
+				GlobalSettings.currentFile = "L" + tutorialLevel + ".txt";
+				Application.LoadLevel("Tutorial");
+			}
+			return;
+		}
+		else if(GlobalSettings.lastScene == "CavalcadeMap") {
 			string path = Path.Combine(Application.dataPath, "SaveFile.txt");
 			if(File.Exists(path)) {
 				StreamReader reader = new StreamReader(path);

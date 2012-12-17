@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class LevelButton : MonoBehaviour {
-       public string fileName;
-       public static int defaultFontSize;
-       public static int resizeTo = 40;
+	public string fileName;
+	public static int defaultFontSize;
+	public static int resizeTo = 40;
 	public AudioSource effects = new AudioSource();
 	public AudioClip click;
        

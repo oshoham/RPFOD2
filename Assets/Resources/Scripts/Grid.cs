@@ -56,7 +56,7 @@ public class Grid {
 			int sign = diff.y < 0 ? -1 : 1; // which way are we going?
 			origin.y += sign;
 			while((sign == 1 ? origin.y <= coord.y : origin.y >= coord.y) &&
-			      GetObjectsOfTypes(origin, new List<String>() {"Wall"}).Count == 0) { // we want the last position as well so it's a do-while loop
+			      GetObjectsOfTypes(origin, new List<String>() {"Wall"}).Count == 0) {
 				Square sq = grid[(int)origin.x, (int)origin.y];
 				objects.AddRange(sq.objects.Where((GameObject obj) => {
 							return obj.GetComponent<Paint>() == null &&
