@@ -174,18 +174,26 @@ public class GameManager : MonoBehaviour {
 	public static int GetLevelNumber(string filename) {
 		if(filename != "") {
 			 filename = Path.GetFileNameWithoutExtension(filename);
-			 if(filename == "L1")
+			 if(filename == "L5")
 				 return 1;
-			 else if(filename == "L2")
-				 return 2;
-			 else if(filename == "L3")
-				 return 3;
-			 else if(filename == "L4")
-				 return 4;
-			 else if(filename == "L5")
-				 return 5;
 			 else if(filename == "L6")
+				 return 2;
+			 else if(filename == "KeepAlive")
+				 return 3;
+			 else if(filename == "KeepAlive2")
+				 return 4;
+			 else if(filename == "Covertop")
+				 return 5;
+			 else if(filename == "Whirpool")
 				 return 6;
+			 else if(filename == "KillAllHumans")
+				 return 7;
+			 else if(filename == "Virus")
+				 return 8;
+			 else if(filename == "RGB")
+				 return 9;
+			 else if(filename == "Olympus")
+				 return 10;
 			 else
 				 return -1;
 		}
