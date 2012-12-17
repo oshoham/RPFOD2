@@ -77,6 +77,12 @@ public class CavalcadeManager : MonoBehaviour {
 		if (Camera.main.transform.position.y > 1.5F)
 			Camera.main.transform.position = new Vector3(3.0F, Camera.main.transform.position.y - Time.deltaTime, -18F);
 		
+
+		if(Input.GetKeyDown("left")) {
+		}
+
+		if(Input.GetKeyDown("right")) {
+		}
 	}
 	
 	void OnLevelWasLoaded(int level) {
