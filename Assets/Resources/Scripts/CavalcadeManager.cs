@@ -72,6 +72,7 @@ public class CavalcadeManager : MonoBehaviour {
 		cavalcadeMap = Resources.Load("Textures/map/TitleScreen") as Texture;
 		GlobalSettings.lastScene = "CavalcadeManager";
 		string path = Path.Combine(Application.dataPath, "SaveFile.txt");
+		print("Path is: " + path);
 		if(File.Exists(path)) {
 			StreamReader reader = new StreamReader(path);
 			levelsCompleted = Int32.Parse(reader.ReadLine());
@@ -141,7 +142,7 @@ public class CavalcadeManager : MonoBehaviour {
 		}
 
 		if(Input.GetKeyDown("right")) {
-			if(levelIndex < 9) {
+			if(levelIndex < 9 && levelIndex < levelsCompleted) {
 				levelIndex++;
 				Camera.main.transform.position = levels[levelIndex].cameraPos;
 				indicateLevel();
