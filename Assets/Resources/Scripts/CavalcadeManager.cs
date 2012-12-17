@@ -59,7 +59,7 @@ public class CavalcadeManager : MonoBehaviour {
 		// Determine how many levels the player has completed
 		cavalcadeMap = Resources.Load("Textures/map/TitleScreen") as Texture;
 		GlobalSettings.lastScene = "CavalcadeManager";
-		string path = Path.Combine(Application.persistentDataPath, "SaveFile.txt");
+		string path = Path.Combine(Application.dataPath, "SaveFile.txt");
 		if(File.Exists(path)) {
 			StreamReader reader = new StreamReader(path);
 			levelsCompleted = Int32.Parse(reader.ReadLine());

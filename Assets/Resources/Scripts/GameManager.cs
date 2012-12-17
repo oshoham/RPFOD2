@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour {
 	 */
 	public static void Win() {
 		if(GlobalSettings.lastScene == "CavalcadeMap") {
-			string path = Path.Combine(Application.persistentDataPath, "SaveFile.txt");
+			string path = Path.Combine(Application.dataPath, "SaveFile.txt");
 			if(File.Exists(path)) {
 				StreamReader reader = new StreamReader(path);
 				int levelsCompleted = Int32.Parse(reader.ReadLine());
