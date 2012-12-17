@@ -184,7 +184,7 @@ public class GameManager : MonoBehaviour {
 				 return 4;
 			 else if(filename == "Covertop")
 				 return 5;
-			 else if(filename == "Whirpool")
+			 else if(filename == "Whirlpool")
 				 return 6;
 			 else if(filename == "KillAllHumans")
 				 return 7;
